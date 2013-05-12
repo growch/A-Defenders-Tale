@@ -1,0 +1,1 @@
+package model {	/**	 * @author iasseo	 */	public class FlashVars 	{		public var tracking_file : String;		public var main_file : String;		public var config_file : String;		public var xml_dir : String;		public var root_dir : String;		public var assets : String;	}}

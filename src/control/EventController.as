@@ -1,0 +1,3 @@
+package control {	import flash.events.EventDispatcher;		
+	/**	 * @author Francois Balmelle	 */	public class EventController extends EventDispatcher 
+	{				//Singleton instance		private static var inst : EventController;		/**		 * contructor.		 * 		 * @return nothing		 */			public function EventController():void		{		}				/**		 * singleton.		 * 		 * @return instance of DataLoader		 */			public static function getInstance():EventController{			if( inst == null ) inst = new EventController();			return inst;		}								}}

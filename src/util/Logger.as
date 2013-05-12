@@ -1,0 +1,1 @@
+package util {	/**	 * @author Francois Balmelle	 */	public class Logger 	{				public static function log( str : String ) : void		{			trace( str );		}			}}
