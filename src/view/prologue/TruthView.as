@@ -23,6 +23,7 @@ package view.prologue
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class TruthView extends MovieClip implements IPageView
 	{
@@ -34,6 +35,7 @@ package view.prologue
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 //		private var _textHolder:Sprite;
+		private var _pageInfo:PageInfo;
 		
 		BoatView
 		public function TruthView()
@@ -76,7 +78,8 @@ package view.prologue
 //			_textHolder.cacheAsBitmap = true;
 //			_mc.addChild(_textHolder);
 			
-			_bodyParts = DataModel.appData.truth.body;
+			_pageInfo = DataModel.appData.getPageInfo("truth");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -84,10 +87,10 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.truth.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.truth.companion2[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[wardrobe1]", DataModel.appData.truth.wardrobe1[DataModel.defenderInfo.wardrobe]);
-					copy = StringUtil.replace(copy, "[gender1]", DataModel.appData.truth.gender1[DataModel.defenderInfo.gender]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[wardrobe1]", _pageInfo.wardrobe1[DataModel.defenderInfo.wardrobe]);
+					copy = StringUtil.replace(copy, "[gender1]", _pageInfo.gender1[DataModel.defenderInfo.gender]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -124,8 +127,8 @@ package view.prologue
 			}
 			
 			// decision
-			_nextY += DataModel.appData.truth.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.truth.decisions);
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

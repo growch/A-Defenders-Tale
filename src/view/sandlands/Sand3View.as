@@ -27,7 +27,7 @@ package view.sandlands
 	
 	public class Sand3View extends MovieClip implements IPageView
 	{
-		private var _mc:Sand3MC;
+		private var _mc:Sand3MC; 
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;

@@ -30,6 +30,7 @@ package view.prologue
 	import view.FrameView;
 	import view.IPageView;
 	import view.MapView;
+	import model.PageInfo;
 	
 	public class FightView extends MovieClip implements IPageView
 	{
@@ -48,6 +49,7 @@ package view.prologue
 		private var _doubleStart:Array;
 		private var _noteTimer:Timer;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		IntroAllIslandsView, MapView, ApplicationView
 		public function FightView()
@@ -62,6 +64,8 @@ package view.prologue
 		
 		public function destroy():void
 		{
+			_pageInfo = null;
+			
 			if (_noteTimer) {
 				_noteTimer.stop();
 				_noteTimer = null;
@@ -131,22 +135,23 @@ package view.prologue
 				_doubleStart = [_mc.instruments_mc.instrument_mc.noteDouble_mc.x, _mc.instruments_mc.instrument_mc.noteDouble_mc.y];
 			}
 			
-			_bodyParts = DataModel.appData.fight.body;
+			_pageInfo = DataModel.appData.getPageInfo("fight");
+			_bodyParts = _pageInfo.body;
 			
 			for each (var part:StoryPart in _bodyParts) 
 			{
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[weapon1]", DataModel.appData.fight.weapon1[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
 					//this is tricky
 					if (_weaponInt != 2) {
-						copy = StringUtil.replace(copy, "[supplies]", DataModel.appData.fight.supplies[_supplyInt][_weaponInt]);
+						copy = StringUtil.replace(copy, "[supplies]", _pageInfo.supplies[_supplyInt][_weaponInt]);
 					} else {
-						copy = StringUtil.replace(copy, "[supplies]", DataModel.appData.fight.supplies[_supplyInt]);
+						copy = StringUtil.replace(copy, "[supplies]", _pageInfo.supplies[_supplyInt]);
 					}
 					
-					copy = StringUtil.replace(copy, "[instrument1]", DataModel.appData.fight.instrument1[DataModel.defenderInfo.instrument]);
+					copy = StringUtil.replace(copy, "[instrument1]", _pageInfo.instrument1[DataModel.defenderInfo.instrument]);
 					copy = StringUtil.replace(copy, "[island1]", DataModel.ISLAND_SELECTED[0]);
 					
 					// set this last cuz some of these may be in the options above
@@ -195,8 +200,8 @@ package view.prologue
 				}
 			}
 			
-			_nextY += DataModel.appData.fight.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.fight.decisions);
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

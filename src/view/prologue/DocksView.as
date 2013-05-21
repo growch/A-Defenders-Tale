@@ -23,6 +23,7 @@ package view.prologue
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class DocksView extends MovieClip implements IPageView
 	{
@@ -40,6 +41,7 @@ package view.prologue
 		private var _cloud3:MovieClip;
 		private var _cloud4:MovieClip;
 		private var _cloud5:MovieClip;
+		private var _pageInfo:PageInfo;
 		
 		StealView, NegotiateView
 		public function DocksView()
@@ -51,8 +53,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -96,7 +99,8 @@ package view.prologue
 			
 			_mc.boat_mc.stop();
 			
-			_bodyParts = DataModel.appData.docks.body;
+			_pageInfo = DataModel.appData.getPageInfo("docks");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -104,8 +108,8 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[alms]", DataModel.appData.docks.alms[_almsGiven]);
-					copy = StringUtil.replace(copy, "[gender1]", DataModel.appData.docks.gender1[DataModel.defenderInfo.gender]);
+					copy = StringUtil.replace(copy, "[alms]", _pageInfo.alms[_almsGiven]);
+					copy = StringUtil.replace(copy, "[gender1]", _pageInfo.gender1[DataModel.defenderInfo.gender]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -127,8 +131,8 @@ package view.prologue
 			}
 			
 			// decision
-			_decisions = new DecisionsView(DataModel.appData.docks.decisions);
-			_decisions.y = _nextY + DataModel.appData.docks.decisionsMarginTop;
+			_decisions = new DecisionsView(_pageInfo.decisions);
+			_decisions.y = _nextY + _pageInfo.decisionsMarginTop;
 			_mc.addChild(_decisions);
 			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);

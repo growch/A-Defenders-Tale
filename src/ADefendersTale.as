@@ -41,7 +41,6 @@ package
 		private function init(e:Event): void {
 			this.stage.align = StageAlign.TOP_LEFT;
 			this.stage.quality = StageQuality.LOW; //HUGE PERFOMANCE BOOST!!!!!!!!
-			trace("this.stage.quality: "+this.stage.quality);
 			
 			// This will keep the device from "sleeping"
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE; 

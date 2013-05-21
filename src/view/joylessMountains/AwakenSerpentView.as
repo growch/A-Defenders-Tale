@@ -67,7 +67,6 @@ package view.joylessMountains
 			
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
 			
-<<<<<<< HEAD
 			if (!DataModel.ipad1) {
 				_smokeTimer.stop();
 				_smokeTimer = null;
@@ -87,8 +86,6 @@ package view.joylessMountains
 			_dragVCont.removeChild(_mc);
 			_mc = null;
 			
-=======
->>>>>>> parent of 2e4f025... joyless static classes and decisionMade reworked
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 

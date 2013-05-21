@@ -54,14 +54,11 @@ package view.theCattery
 			
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
 			
-<<<<<<< HEAD
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
 			_mc = null;
 			
-=======
->>>>>>> parent of 2e4f025... joyless static classes and decisionMade reworked
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 

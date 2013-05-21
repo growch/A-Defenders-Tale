@@ -26,6 +26,7 @@ package view.prologue
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class Cellar2View extends MovieClip implements IPageView
 	{
@@ -38,6 +39,7 @@ package view.prologue
 		private var _goViral:GoViralService;
 		private var _frame:FrameView;
 		private var _magicSpacer:int = 210;
+		private var _pageInfo:PageInfo;
 		
 		PrologueView, ApplicationView, BoatIntroView
 		public function Cellar2View()
@@ -47,10 +49,11 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+			_pageInfo = null;
+			
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			
 			_frame.destroy();
-			
 			_frame = null;
 			
 			_decisions.destroy();
@@ -80,8 +83,8 @@ package view.prologue
 			
 			_nextY = 110;
 			
-			
-			_bodyParts = DataModel.appData.cellar2.body;
+			_pageInfo = DataModel.appData.getPageInfo("cellar2");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -89,8 +92,8 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.cellar2.companion1[compInt]);
-					copy = StringUtil.replace(copy, "[weapon1]", DataModel.appData.cellar2.weapon1[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[compInt]);
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
 					
 					// only add copy for no FB contact
 					if (part.id == "noFacebook") {
@@ -138,18 +141,18 @@ package view.prologue
 			}
 			
 			// decision
-			_nextY += DataModel.appData.cellar2.decisionsMarginTop
+			_nextY += _pageInfo.decisionsMarginTop
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			
 			if (DataModel.defenderInfo.contactFBID != null) {
-				dv.push(DataModel.appData.cellar2.decisions[0]);
-				dv.push(DataModel.appData.cellar2.decisions[1]);
-				dv.push(DataModel.appData.cellar2.decisions[2]);
+				dv.push(_pageInfo.decisions[0]);
+				dv.push(_pageInfo.decisions[1]);
+				dv.push(_pageInfo.decisions[2]);
 				
 			} else {
-				dv.push(DataModel.appData.cellar2.decisions[1]);
-				dv.push(DataModel.appData.cellar2.decisions[2]);
+				dv.push(_pageInfo.decisions[1]);
+				dv.push(_pageInfo.decisions[2]);
 			}	
 			_decisions = new DecisionsView(dv);
 			
@@ -192,7 +195,7 @@ package view.prologue
 			_mc.removeChild(_decisions);
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			dv.push(DataModel.appData.cellar2.decisions[3]);
+			dv.push(_pageInfo.decisions[3]);
 			_decisions = new DecisionsView(dv);
 			_decisions.y = decY;
 			_mc.addChild(_decisions);

@@ -25,6 +25,7 @@ package view.prologue
 	import view.FrameView;
 	import view.IPageView;
 	import view.StarryNight;
+	import model.PageInfo;
 	
 	public class BoatView extends MovieClip implements IPageView
 	{
@@ -37,6 +38,7 @@ package view.prologue
 		private var _frame:FrameView;
 		private var _stars:StarryNight;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		BelowDeckView
 		public function BoatView()
@@ -48,8 +50,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -91,7 +94,8 @@ package view.prologue
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.boat.body;
+			_pageInfo = DataModel.appData.getPageInfo("boat");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -99,8 +103,8 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[wardrobe1]", DataModel.appData.boat.wardrobe1[DataModel.defenderInfo.wardrobe]);
-					copy = StringUtil.replace(copy, "[wardrobe2]", DataModel.appData.boat.wardrobe2[DataModel.defenderInfo.wardrobe]);
+					copy = StringUtil.replace(copy, "[wardrobe1]", _pageInfo.wardrobe1[DataModel.defenderInfo.wardrobe]);
+					copy = StringUtil.replace(copy, "[wardrobe2]", _pageInfo.wardrobe2[DataModel.defenderInfo.wardrobe]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -122,8 +126,8 @@ package view.prologue
 			}
 			
 			// decision
-			_nextY += DataModel.appData.boat.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.boat.decisions);
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

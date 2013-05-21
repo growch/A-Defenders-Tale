@@ -28,6 +28,7 @@ package view.prologue
 	import view.FrameView;
 	import view.IPageView;
 	import view.theCattery.Island1View;
+	import model.PageInfo;
 	
 	public class IntroAllIslandsView extends MovieClip implements IPageView
 	{
@@ -40,6 +41,7 @@ package view.prologue
 		private var _frame:FrameView;
 		private var _boat:MovieClip;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		Island1View
 		public function IntroAllIslandsView()
@@ -51,8 +53,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -85,7 +88,8 @@ package view.prologue
 			_boat = _mc.boat_mc;
 			_boat.waves_mc.visible = false;
 			
-			_bodyParts = DataModel.appData.introAllIslands.body;
+			_pageInfo = DataModel.appData.getPageInfo("introAllIslands");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -94,11 +98,11 @@ package view.prologue
 					var copy:String = part.copyText;
 					
 					copy = StringUtil.replace(copy, "[Island1]", DataModel.ISLAND_SELECTED[0]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.introAllIslands.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.introAllIslands.companion2[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion3]", DataModel.appData.introAllIslands.companion3[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[islands1]", DataModel.appData.introAllIslands.islands1[DataModel.CURRENT_ISLAND_INT]);
-					copy = StringUtil.replace(copy, "[islands2]", DataModel.appData.introAllIslands.islands2[DataModel.CURRENT_ISLAND_INT]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[islands1]", _pageInfo.islands1[DataModel.CURRENT_ISLAND_INT]);
+					copy = StringUtil.replace(copy, "[islands2]", _pageInfo.islands2[DataModel.CURRENT_ISLAND_INT]);
 					copy = StringUtil.replace(copy, "[island1]", DataModel.ISLAND_SELECTED[0]);
 					
 					// set this last cuz some of these may be in the options above
@@ -121,10 +125,10 @@ package view.prologue
 			}
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			dv.push(DataModel.appData.introAllIslands.decisions[DataModel.CURRENT_ISLAND_INT]);
+			dv.push(_pageInfo.decisions[DataModel.CURRENT_ISLAND_INT]);
 			
 			// decision
-			_nextY += DataModel.appData.introAllIslands.decisionsMarginTop
+			_nextY += _pageInfo.decisionsMarginTop
 			_decisions = new DecisionsView(dv);
 //			_decisions.y = _nextY;
 			_decisions.y = _mc.bg_mc.height-210;

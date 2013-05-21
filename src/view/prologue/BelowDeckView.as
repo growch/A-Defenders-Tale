@@ -26,6 +26,7 @@ package view.prologue
 	import view.FrameView;
 	import view.IPageView;
 	import view.MapView;
+	import model.PageInfo;
 	
 	public class BelowDeckView extends MovieClip implements IPageView
 	{
@@ -37,6 +38,7 @@ package view.prologue
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _mugs:DisplayObject;
+		private var _pageInfo:PageInfo;
 		
 		MapView
 		public function BelowDeckView()
@@ -48,8 +50,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -78,7 +81,9 @@ package view.prologue
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.belowDeck.body;
+//			_bodyParts = _pageInfo.body;
+			_pageInfo = DataModel.appData.getPageInfo("belowDeck");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -132,8 +137,8 @@ package view.prologue
 			}
 			
 			// decision
-			_nextY += DataModel.appData.belowDeck.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.belowDeck.decisions);
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

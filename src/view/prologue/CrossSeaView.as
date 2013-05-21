@@ -25,6 +25,7 @@ package view.prologue
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class CrossSeaView extends MovieClip implements IPageView
 	{
@@ -37,6 +38,7 @@ package view.prologue
 		private var _frame:FrameView;
 		private var _boat:MovieClip;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		SeaMonsterView
 		public function CrossSeaView()
@@ -48,8 +50,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -79,7 +82,8 @@ package view.prologue
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.crossSea.body;
+			_pageInfo = DataModel.appData.getPageInfo("crossSea");
+			_bodyParts = _pageInfo.body;
 			
 			var supplyIndex:int;
 			if (DataModel.supplies) {
@@ -97,7 +101,7 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[supplies]", DataModel.appData.crossSea.supplies[supplyIndex]);
+					copy = StringUtil.replace(copy, "[supplies]", _pageInfo.supplies[supplyIndex]);
 					copy = StringUtil.replace(copy, "[island1]", DataModel.ISLAND_SELECTED[0]);
 					
 					// set this last cuz some of these may be in the options above
@@ -120,8 +124,8 @@ package view.prologue
 			}
 			
 			// decision
-			_decisions = new DecisionsView(DataModel.appData.crossSea.decisions,0xFFFFFF); //tint white show bg
-//			_decisions.y = _nextY + DataModel.appData.crossSea.decisionsMarginTop;
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF); //tint white show bg
+//			_decisions.y = _nextY + _pageInfo.decisionsMarginTop;
 			_decisions.y = _mc.bg_mc.height - 50;
 			_mc.addChild(_decisions);
 			

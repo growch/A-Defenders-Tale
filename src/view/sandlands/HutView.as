@@ -6,7 +6,7 @@ package view.sandlands
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	import assets.HutMC;
+	import assets.HutMC; 
 	
 	import control.EventController;
 	
@@ -92,9 +92,10 @@ package view.sandlands
 				introInt = 1;
 			}
 			//!TESTING!!!
-			introInt = 2;
+//			introInt = 2;
 			
-			_mc.end_mc.visible = false;
+			
+			_mc.end_mc.visible = false; 
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

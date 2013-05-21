@@ -26,6 +26,7 @@ package view.prologue.coins
 	import view.FrameView;
 	import view.IPageView;
 	import view.prologue.DocksView;
+	import model.PageInfo;
 	
 	
 	public class Coin4View extends MovieClip implements IPageView
@@ -39,6 +40,7 @@ package view.prologue.coins
 		private var _cup:MovieClip;
 		private var _coin:MovieClip;
 		private var _frame:FrameView; 
+		private var _pageInfo:PageInfo;
 		
 		DocksView, Coin5View
 		public function Coin4View()
@@ -51,8 +53,9 @@ package view.prologue.coins
 		
 		public function destroy():void
 		{
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -83,14 +86,16 @@ package view.prologue.coins
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.coin4.body;
+			_pageInfo = DataModel.appData.getPageInfo("coin4");
+			_bodyParts = _pageInfo.body;
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[gender1]", DataModel.appData.coin4.gender1[DataModel.defenderInfo.gender]);
+					copy = StringUtil.replace(copy, "[gender1]", _pageInfo.gender1[DataModel.defenderInfo.gender]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -119,8 +124,8 @@ package view.prologue.coins
 			}
 			
 			// decision
-			_nextY += DataModel.appData.coin4.decisionsMarginTop;
-			_decisions = new DecisionsView(DataModel.appData.coin4.decisions);
+			_nextY += _pageInfo.decisionsMarginTop;
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

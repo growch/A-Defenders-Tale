@@ -3621,10 +3621,53 @@ Cleapeezious inspected [defender]’s suit with a satisfied nod.
 
 		</body>
 		<decisions top="100">
-			<decision id="shipwreck.ReefView"><![CDATA[SWIM TO REEF]]></decision>
+			<decision id="shipwreck.Reef1View"><![CDATA[SWIM TO REEF]]></decision>
 		</decisions>	
 	</captain>
 <!-- ***			CAPTAIN 			-->
+
+
+
+<!-- 			REEF1			-->
+	<reef1 id="Reef1View">
+		<body>
+			<item type="text" id="" width="400" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[It took [defender] a moment to get [pronoun3] bearings once under water, but then [pronoun1] spotted [companionName] waving from down below, and [pronoun1] quickly followed.
+
+A colorful reef raced down beside them, filled with fiery coral and blooming sea flowers. Small fish zipped in and out of the reef, and [defender] waved [pronoun3] hand, trying to get their attention. “Hello,” [pronoun1] called. “Excuse me.”
+
+A clown fish paused to gape at them. “Hello,” it said. “What kind of fish are you?”
+
+“I’m not a fish,” [defender] corrected. “I’m the Defender of the Realm.”
+
+“Never heard of you,” the fish replied, and zipped away.
+
+“Well that was rude,” [companionName] said.
+
+[defender] and [companionName] both attempted to flag down a number of the reef’s occupants, but none paid them any mind. As they drifted further down the reef, the activity lessened, until finally, all of the fish seemed to flit away at once. [defender] looked around warily, wondering what could have caused them to scatter so quickly. From deep within the watery gloom, [pronoun1] could just make out a tiny orb of light bobbing in their direction.
+
+“What is that?” [pronoun1] asked. [Pronoun3] companion remained silent on the subject, and [pronoun1] turned to see why [companionName] had gone quiet. The [companion] was gone. [Pronoun1] flipped back around and realized [pronoun3] companion had drifted toward the light, out of hearing range.
+
+[defender] swam after the [companion] as the light grew brighter, and larger. Too late, [pronoun1] realized the kind of creature that was swimming toward them. “[companionName],” [pronoun1] screamed to [pronoun3] companion. “Stop!”]]> 				
+			</item>
+			<item type="text" id="dungeonFish" width="400" height="" top="580" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[The brightness blossomed, pushing through the water in a flood of white light. [defender] could just make out the silhouette of a fish, bigger than a whale. It opened its mouth to reveal long, spear-like teeth. A moment later, mighty jaws clamped down around [companionName]. The light flicked out, leaving only the swish of the fish’s tail visible as it retreated through the waves. 
+
+[defender] stared, immobilized by horror. The retreating shape could be nothing other than a dungeonfish, and everyone agreed that there was no fate worse than being captured by the giant fish. Dungeonfish kept their captives alive for the first hour of imprisonment, behind the bars of their teeth, in order to suck their adrenalin. Once every drop of adrenalin had been consumed, the fish proceeded to suck the meat from their prisoner’s bones. [defender] shuddered. [Pronoun1] had to rescue [companionName], but if [pronoun1] chased after [companionName], would [pronoun1] still have time to find the sea god?]]> 				
+			</item>
+		</body>
+		<decisions top="100">
+			<decision id="shipwreck.Shark1View"><![CDATA[CHASE PRISONFISH]]></decision>
+			<decision id="shipwreck.Shark2View"><![CDATA[FIND MORRISSEY]]></decision>
+		</decisions>	
+	</reef1>
+<!-- ***			REEF1 			-->
+
+
+
+
+
+
 
 <!-- 			SANDLANDS			-->
 	<sandlands id="SandlandsView">

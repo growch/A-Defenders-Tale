@@ -126,7 +126,6 @@ package view.theCattery
 			addChild(_dragVCont);
 			
 			_frame = new FrameView(_mc.frame_mc); 
-			
 			var frameSize:int = _decisions.y + 210;
 			// size bg
 			_mc.bg_mc.height = frameSize;

@@ -6,7 +6,6 @@ package view.theCattery
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.system.System;
 	
 	import assets.CatRanchShoreMC;
 	
@@ -142,7 +141,15 @@ package view.theCattery
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
+			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
+			_dragVCont.width = DataModel.APP_WIDTH;
+			_dragVCont.height = DataModel.APP_HEIGHT;
+			_dragVCont.addChild(_mc);
+			_dragVCont.refreshView(true);
+			addChild(_dragVCont);
+			
 			_frame = new FrameView(_mc.frame_mc); 
+			
 			var frameSize:int = _decisions.y + 210;
 			// size bg
 			_mc.bg_mc.height = frameSize;
@@ -151,15 +158,8 @@ package view.theCattery
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
 			}
 			
-			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
-			_dragVCont.width = DataModel.APP_WIDTH;
-			_dragVCont.height = DataModel.APP_HEIGHT;
-			_dragVCont.addChild(_mc);
-			_dragVCont.refreshView(true);
-			addChild(_dragVCont);
-			
 //			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn});
-			
+			trace("WTF");
 		}
 		
 		private function pageOn(e:ViewEvent):void {

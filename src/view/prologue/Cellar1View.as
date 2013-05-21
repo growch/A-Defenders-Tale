@@ -26,6 +26,7 @@ package view.prologue
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class Cellar1View extends MovieClip implements IPageView
 	{
@@ -38,6 +39,7 @@ package view.prologue
 		private var _goViral:GoViralService;
 		private var _frame:FrameView;
 		private var _magicSpacer:int = 210;
+		private var _pageInfo:PageInfo;
 		
 		PrologueView, ApplicationView, BoatIntroView
 		public function Cellar1View()
@@ -48,9 +50,10 @@ package view.prologue
 		
 		public function destroy() : void {
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
+
+			_pageInfo = null;
 			
 			_frame.destroy();
-			
 			_frame = null;
 			
 			_decisions.destroy();
@@ -79,8 +82,8 @@ package view.prologue
 			
 			_nextY = 110;
 			
-			
-			_bodyParts = DataModel.appData.cellar1.body;
+			_pageInfo = DataModel.appData.getPageInfo("cellar1");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -88,10 +91,10 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.cellar1.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.cellar1.companion2[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion3]", DataModel.appData.cellar1.companion3[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[weapon1]", DataModel.appData.cellar1.weapon1[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
 					
 					// only add copy for no FB contact
 					if (part.id == "noFacebook") {
@@ -131,18 +134,18 @@ package view.prologue
 			}
 			
 			// decision
-			_nextY += DataModel.appData.cellar1.decisionsMarginTop
+			_nextY += _pageInfo.decisionsMarginTop
 				
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			
 			if (DataModel.defenderInfo.contactFBID != null) {
-				dv.push(DataModel.appData.cellar1.decisions[0]);
-				dv.push(DataModel.appData.cellar1.decisions[1]);
-				dv.push(DataModel.appData.cellar1.decisions[2]);
+				dv.push(_pageInfo.decisions[0]);
+				dv.push(_pageInfo.decisions[1]);
+				dv.push(_pageInfo.decisions[2]);
 				
 			} else {
-				dv.push(DataModel.appData.cellar1.decisions[1]);
-				dv.push(DataModel.appData.cellar1.decisions[2]);
+				dv.push(_pageInfo.decisions[1]);
+				dv.push(_pageInfo.decisions[2]);
 			}	
 			_decisions = new DecisionsView(dv);
 				
@@ -185,7 +188,7 @@ package view.prologue
 			_mc.removeChild(_decisions);
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			dv.push(DataModel.appData.cellar1.decisions[3]);
+			dv.push(_pageInfo.decisions[3]);
 			_decisions = new DecisionsView(dv);
 			_decisions.y = decY;
 			_mc.addChild(_decisions);

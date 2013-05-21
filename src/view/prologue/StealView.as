@@ -26,6 +26,7 @@ package view.prologue
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	Cellar1View, NegotiateView
 	public class StealView extends MovieClip implements IPageView
@@ -37,6 +38,7 @@ package view.prologue
 		private var _tf:Text; 
 		private var _decisions:DecisionsView;		
 		private var _frame:FrameView;
+		private var _pageInfo:PageInfo;
 		
 		public function StealView()
 		{
@@ -50,8 +52,9 @@ package view.prologue
 		
 		public function destroy():void
 		{
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -86,7 +89,8 @@ package view.prologue
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.steal.body;
+			_pageInfo = DataModel.appData.getPageInfo("steal");
+			_bodyParts = _pageInfo.body;
 			
 			var weaponInt:int = int(DataModel.defenderInfo.weapon);
 			
@@ -95,12 +99,12 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[weapon1]", DataModel.appData.steal.weapon1[DataModel.defenderInfo.weapon]);
-					copy = StringUtil.replace(copy, "[weapon2]", DataModel.appData.steal.weapon2[DataModel.defenderInfo.weapon]);
-					copy = StringUtil.replace(copy, "[weapon3]", DataModel.appData.steal.weapon3[DataModel.defenderInfo.weapon]);
-					copy = StringUtil.replace(copy, "[weapon4]", DataModel.appData.steal.weapon4[DataModel.defenderInfo.weapon]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.steal.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.steal.companion2[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[weapon2]", _pageInfo.weapon2[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[weapon3]", _pageInfo.weapon3[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[weapon4]", _pageInfo.weapon4[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
 					
 					
 					// set this last cuz some of these may be in the options above
@@ -136,12 +140,12 @@ package view.prologue
 			// decision
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			if (weaponInt == 0 || weaponInt == 2) {
-				dv.push(DataModel.appData.steal.decisions[0]);
+				dv.push(_pageInfo.decisions[0]);
 			} else {
-				dv.push(DataModel.appData.steal.decisions[1]);
+				dv.push(_pageInfo.decisions[1]);
 			}
 			
-			_nextY += DataModel.appData.steal.decisionsMarginTop
+			_nextY += _pageInfo.decisionsMarginTop
 			_decisions = new DecisionsView(dv);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);

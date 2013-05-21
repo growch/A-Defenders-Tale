@@ -26,6 +26,7 @@ package view.prologue
 	import view.FrameView;
 	import view.IPageView;
 	import view.StarryNight;
+	import model.PageInfo;
 	
 	public class BoatIntroView extends MovieClip implements IPageView
 	{
@@ -43,6 +44,7 @@ package view.prologue
 		private var _frameCount:int;
 		private var _posNegWave:int;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		BoatView
 		public function BoatIntroView()
@@ -54,8 +56,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+			_pageInfo = null;
+				
 			_frame.destroy();
-			
 			_frame = null;
 			
 			_decisions.destroy();
@@ -103,7 +106,8 @@ package view.prologue
 			// put boat on top of stars
 			_mc.addChild(_boat);
 			
-			_bodyParts = DataModel.appData.boatIntro.body;
+			_pageInfo = DataModel.appData.getPageInfo("boatIntro");
+			_bodyParts = _pageInfo.body;
 			
 			var introNumber:int;
 			if (DataModel.captainBattled && DataModel.defenderInfo.weapon == 0 || DataModel.captainBattled && DataModel.defenderInfo.weapon == 2) {
@@ -122,12 +126,12 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[captainBattled]", DataModel.appData.boatIntro.captainBattled[introNumber]);
+					copy = StringUtil.replace(copy, "[captainBattled]", _pageInfo.captainBattled[introNumber]);
 					
 					if (introNumber == 0) {
-						copy = StringUtil.replace(copy, "[weapon1]", DataModel.appData.boatIntro.weapon1[DataModel.defenderInfo.weapon]);
+						copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
 					} else {
-						copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.boatIntro.companion1[DataModel.defenderInfo.companion]);
+						copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					}
 					
 					// set this last cuz some of these may be in the options above
@@ -150,8 +154,8 @@ package view.prologue
 			}
 			
 			// decision
-			_nextY += DataModel.appData.boatIntro.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.boatIntro.decisions);
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

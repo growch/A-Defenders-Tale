@@ -14,6 +14,7 @@ package view.prologue
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -35,6 +36,7 @@ package view.prologue
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
+		private var _pageInfo:PageInfo;
 		
 		MapView, ApplicationView
 		public function ReasonView()
@@ -46,8 +48,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -78,7 +81,8 @@ package view.prologue
 			_mc.armLeft_mc.visible = false;
 			_mc.armRight_mc.visible = false;
 			
-			_bodyParts = DataModel.appData.reason.body;
+			_pageInfo = DataModel.appData.getPageInfo("reason");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -110,8 +114,8 @@ package view.prologue
 			}
 			
 			// decision
-			_nextY += DataModel.appData.reason.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.reason.decisions);
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

@@ -1,15 +1,10 @@
 package view.shipwreck
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.MovieClip;
-	import flash.display.StageQuality;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import assets.CaptainMC;
 	
@@ -40,6 +35,7 @@ package view.shipwreck
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
 		
+		Reef1View
 		public function CaptainView()
 		{
 			super();

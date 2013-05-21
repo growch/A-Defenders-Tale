@@ -25,6 +25,7 @@ package view.prologue.coins
 	import view.FrameView;
 	import view.IPageView;
 	import view.prologue.DocksView;
+	import model.PageInfo;
 	
 	
 	public class Coin5View extends MovieClip implements IPageView
@@ -38,6 +39,7 @@ package view.prologue.coins
 		private var _cup:MovieClip;
 		private var _coin:MovieClip;
 		private var _frame:FrameView; 
+		private var _pageInfo:PageInfo;
 		
 		DocksView, Coin6View
 		public function Coin5View()
@@ -50,8 +52,9 @@ package view.prologue.coins
 		
 		public function destroy():void
 		{
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -81,8 +84,10 @@ package view.prologue.coins
 			_coin.visible = false;
 			
 			_nextY = 110;
+
+			_pageInfo = DataModel.appData.getPageInfo("coin5");
+			_bodyParts = _pageInfo.body;
 			
-			_bodyParts = DataModel.appData.coin5.body;
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
@@ -116,8 +121,8 @@ package view.prologue.coins
 			}
 			
 			// decision
-			_nextY += DataModel.appData.coin5.decisionsMarginTop;
-			_decisions = new DecisionsView(DataModel.appData.coin5.decisions);
+			_nextY += _pageInfo.decisionsMarginTop;
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

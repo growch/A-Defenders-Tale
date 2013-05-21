@@ -15,6 +15,7 @@ package view.prologue.coins
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -38,6 +39,7 @@ package view.prologue.coins
 		private var _cup:MovieClip;
 		private var _coin:MovieClip;
 		private var _frame:FrameView;
+		private var _pageInfo:PageInfo;
 		
 		DocksView, Coin4View
 		public function Coin3View()
@@ -50,12 +52,13 @@ package view.prologue.coins
 		
 		public function destroy():void
 		{
+			_pageInfo = null;
+			
 			_mc.removeChild(_cup);
 			_cup = null;
 			_coin = null;
 			
 			_frame.destroy();
-			
 			_frame = null;
 			
 			_decisions.destroy();
@@ -87,7 +90,9 @@ package view.prologue.coins
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.coin3.body;
+			_pageInfo = DataModel.appData.getPageInfo("coin3");
+			_bodyParts = _pageInfo.body;
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
@@ -120,8 +125,8 @@ package view.prologue.coins
 			}
 			
 			// decision
-			_nextY += DataModel.appData.coin3.decisionsMarginTop;
-			_decisions = new DecisionsView(DataModel.appData.coin3.decisions);
+			_nextY += _pageInfo.decisionsMarginTop;
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

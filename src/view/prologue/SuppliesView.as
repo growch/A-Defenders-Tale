@@ -24,6 +24,7 @@ package view.prologue
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class SuppliesView extends MovieClip implements IPageView
 	{
@@ -34,6 +35,7 @@ package view.prologue
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView; 
+		private var _pageInfo:PageInfo;
 		
 		TravelerView, TruthView
 		public function SuppliesView()
@@ -47,8 +49,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -76,7 +79,8 @@ package view.prologue
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.supplies.body;
+			_pageInfo = DataModel.appData.getPageInfo("supplies");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -84,7 +88,7 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.supplies.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -110,8 +114,8 @@ package view.prologue
 			}
 			
 			// decision
-			_nextY += DataModel.appData.supplies.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.supplies.decisions);
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

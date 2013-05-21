@@ -19,7 +19,9 @@ package view.prologue
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
+	import model.PageInfo;
 	
 	import util.Formats;
 	import util.StringUtil;
@@ -50,11 +52,14 @@ package view.prologue
 		private var _bmpD:BitmapData;
 		private var _bmp:Bitmap;
 		private var _bgSound:Track;
+		private var _pageInfo:PageInfo;
 		
 		DocksView, Coin1View
 		public function PrologueView()
 		{
 			super();
+//			var c:Class = DocksView;
+//			c = Coin1View;
 			addEventListener(Event.ADDED_TO_STAGE, init); 
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
@@ -62,8 +67,9 @@ package view.prologue
 		
 		public function destroy():void
 		{
+			_pageInfo = null;
+
 			_frame.destroy();
-			
 			_frame = null;
 			
 			_decisions.destroy();
@@ -115,14 +121,13 @@ package view.prologue
 			// starting Y MAYBE PUT IN DM????
 			_nextY = 65;
 			
-			_bodyParts = DataModel.appData.prologue.body;
+			_pageInfo = DataModel.appData.getPageInfo("prologue");
+			_bodyParts = _pageInfo.body;
 			
 			var appDate:Date = DataModel.defenderInfo.applicationDate;
 			var threeMonthsAgo:Date = new Date();
 			threeMonthsAgo.setTime(appDate.time - ( 90 * 24 * 60 * 60 * 1000 ));
 //			trace("threeMonthsAgo: "+threeMonthsAgo); 
-			
-			var multiplier:int = DataModel.resMultiplier;
 			
 			
 			for each (var part:StoryPart in _bodyParts) 
@@ -131,17 +136,17 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[wardrobe1]", DataModel.appData.prologue.wardrobe1[DataModel.defenderInfo.gender][DataModel.defenderInfo.wardrobe]);
-					copy = StringUtil.replace(copy, "[wardrobe2]", DataModel.appData.prologue.wardrobe2[DataModel.defenderInfo.wardrobe]);
-					copy = StringUtil.replace(copy, "[instrument1]", DataModel.appData.prologue.instrument1[DataModel.defenderInfo.instrument]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.prologue.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[wardrobe1]", _pageInfo.wardrobe1[DataModel.defenderInfo.gender][DataModel.defenderInfo.wardrobe]);
+					copy = StringUtil.replace(copy, "[wardrobe2]", _pageInfo.wardrobe2[DataModel.defenderInfo.wardrobe]);
+					copy = StringUtil.replace(copy, "[instrument1]", _pageInfo.instrument1[DataModel.defenderInfo.instrument]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[date]", _monthArray[threeMonthsAgo.month] + " " + threeMonthsAgo.date + _dateSuffixArray[threeMonthsAgo.date]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
 					
 					// set the respective text
-					_tf = new Text(copy, Formats.storyTextFormat(part.size*multiplier, part.alignment, part.leading*multiplier), part.width*multiplier, true, true, true); 
+					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading), part.width, true, true, true); 
 					_tf.x = part.left; 
 					_tf.y = _nextY + part.top;
 					
@@ -180,8 +185,8 @@ package view.prologue
 			}
 			
 			// decision
-			_nextY += DataModel.appData.prologue.decisionsMarginTop;
-			_decisions = new DecisionsView(DataModel.appData.prologue.decisions);
+			_nextY += _pageInfo.decisionsMarginTop;
+			_decisions = new DecisionsView(_pageInfo.decisions);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

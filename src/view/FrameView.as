@@ -90,13 +90,14 @@ package view
 ////				trace("frame not tall enough SCROLLRECT");
 //				if (h < this.parent.getChildByName("bg_mc").scrollRect.height) h = this.parent.getChildByName("bg_mc").scrollRect.height;
 //			}
-//			trace("sizeFrame h:"+h);
+			trace("sizeFrame h:"+h);
 			
 			_middleTargetH = h - (_top.height + _bottom.height) - _mid.height;
 			_nextY = _mid.y + _mid.height;
 			
 			if(_middleTargetH<2) {
 				makeBitmap(_mc.height);
+				trace("not big enough middle frame");
 				return;
 			}
 			
@@ -138,10 +139,12 @@ package view
 				duplicate = duplicateDisplayObject(_spacerArray[i], true);
 				duplicate.y = _nextY;
 				_nextY += duplicate.height;
+//				trace(_spacerArray[i]);
 			}
 			
 			_bottom.y = _nextY;
 			
+//			trace("_mc.height: "+_mc.height);
 			makeBitmap(_mc.height);
 			
 		}
@@ -149,7 +152,7 @@ package view
 		private function makeBitmap(h:int):void {
 //			return;
 			_mc.stage.quality = StageQuality.HIGH;
-//			trace("makeBitmap: h"+h);
+			trace("makeBitmap: h"+h);
 			
 			var bmd:BitmapData = new BitmapData(DataModel.APP_WIDTH, h, true, 0x00FF0000);
 			var bm:Bitmap = new Bitmap(bmd);
