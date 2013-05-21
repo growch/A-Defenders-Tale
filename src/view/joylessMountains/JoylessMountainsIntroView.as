@@ -44,6 +44,7 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class JoylessMountainsIntroView extends MovieClip implements IPageView
 	{
@@ -67,6 +68,7 @@ package view.joylessMountains
 		private var _wave6:MovieClip;
 		private var _emitter:Emitter2D;
 		private var _renderer:DisplayObjectRenderer;
+		private var _pageInfo:PageInfo;
 		
 		public function JoylessMountainsIntroView()
 		{
@@ -77,8 +79,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+			_pageInfo = null;
+			
 			_frame.destroy();
-//			
 			_frame = null;
 			
 			_decisions.destroy();
@@ -137,7 +140,8 @@ package view.joylessMountains
 				introInt = 2;
 			}
 			
-			_bodyParts = DataModel.appData.joylessIntro.body; 
+			_pageInfo = DataModel.appData.getPageInfo("joylessIntro");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -145,8 +149,8 @@ package view.joylessMountains
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[intro1]", DataModel.appData.joylessIntro.intro1[introInt]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.joylessIntro.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[introInt]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -168,8 +172,8 @@ package view.joylessMountains
 			}
 			
 			// decision
-			_nextY += DataModel.appData.joylessIntro.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.joylessIntro.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 //			_decisions.y = _nextY;
 			//HACK CUZ DIFFERENT LENGTH INTROS
 			_decisions.y = _mc.bg_mc.height - 210;

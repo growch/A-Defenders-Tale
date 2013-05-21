@@ -25,6 +25,7 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class Platform3View extends MovieClip implements IPageView
 	{
@@ -36,6 +37,7 @@ package view.joylessMountains
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		public function Platform3View()
 		{
@@ -46,8 +48,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -80,7 +83,8 @@ package view.joylessMountains
 			var introInt:int = DataModel.rally == true ? 1 : 0;
 //			trace("introInt: "+introInt);
 			
-			_bodyParts = DataModel.appData.platform3.body; 
+			_pageInfo = DataModel.appData.getPageInfo("platform3");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -88,8 +92,8 @@ package view.joylessMountains
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[intro1]", DataModel.appData.platform3.intro1[introInt]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.platform3.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[introInt]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -119,8 +123,8 @@ package view.joylessMountains
 			}
 			
 			// decision
-			_nextY += DataModel.appData.platform3.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.platform3.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

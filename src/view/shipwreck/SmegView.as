@@ -18,6 +18,7 @@ package view.shipwreck
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -39,6 +40,7 @@ package view.shipwreck
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		public function SmegView()
 		{
@@ -49,8 +51,9 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -79,7 +82,8 @@ package view.shipwreck
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.smeg.body;
+			_pageInfo = DataModel.appData.getPageInfo("smeg");
+			_bodyParts = _pageInfo.body;
 			
 			//!IMPORTANT USED IN CAPTAIN SECTION
 			DataModel.smegTalk = true;
@@ -109,8 +113,8 @@ package view.shipwreck
 			}
 			
 			// decision
-			_nextY += DataModel.appData.smeg.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.smeg.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

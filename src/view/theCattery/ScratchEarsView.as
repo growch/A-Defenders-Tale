@@ -25,6 +25,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class ScratchEarsView extends MovieClip implements IPageView
 	{
@@ -35,6 +36,7 @@ package view.theCattery
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
+		private var _pageInfo:PageInfo;
 		
 		
 		public function ScratchEarsView()
@@ -44,8 +46,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -77,7 +80,8 @@ package view.theCattery
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.scratchEars.body;
+			_pageInfo = DataModel.appData.getPageInfo("scratchEars");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -85,7 +89,7 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[hair1]", DataModel.appData.scratchEars.hair1[hairIndex]);
+					copy = StringUtil.replace(copy, "[hair1]", _pageInfo.hair1[hairIndex]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -120,8 +124,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.scratchEars.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.scratchEars.decisions,0x000000,true); //tint it black, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

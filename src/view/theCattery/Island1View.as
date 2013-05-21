@@ -25,6 +25,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class Island1View extends MovieClip implements IPageView
 	{
@@ -43,6 +44,7 @@ package view.theCattery
 		private var _wave2:MovieClip;
 		private var _wave3:MovieClip;
 		private var _wave4:MovieClip;
+		private var _pageInfo:PageInfo;
 		
 		CatRanchShoreView
 		public function Island1View()
@@ -54,8 +56,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -100,7 +103,8 @@ package view.theCattery
 			_wave3.visible = false;
 			_wave4.visible = false;
 			
-			_bodyParts = DataModel.appData.island1.body;
+			_pageInfo = DataModel.appData.getPageInfo("island1");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -108,7 +112,7 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.island1.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -129,8 +133,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.island1.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.island1.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 //			_decisions.y = _nextY;
 			//EXCEPTION CUZ FIXED BG SIZE
 			_decisions.y = _mc.bg_mc.height - 210;

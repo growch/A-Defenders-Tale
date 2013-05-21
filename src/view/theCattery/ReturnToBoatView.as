@@ -26,6 +26,7 @@ package view.theCattery
 	import view.FrameView;
 	import view.IPageView;
 	import view.StarryNight;
+	import model.PageInfo;
 	
 	public class ReturnToBoatView extends MovieClip implements IPageView
 	{
@@ -44,6 +45,7 @@ package view.theCattery
 		private var _cloud3:MovieClip;
 		private var _cloud4:MovieClip;
 		private var _cloud5:MovieClip;		
+		private var _pageInfo:PageInfo;
 		
 		public function ReturnToBoatView()
 		{
@@ -54,8 +56,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -101,7 +104,8 @@ package view.theCattery
 			c.alphaMultiplier = .9;
 			_stars.transform.colorTransform = c;
 			
-			_bodyParts = DataModel.appData.returnToBoat.body;
+			_pageInfo = DataModel.appData.getPageInfo("returnToBoat");
+			_bodyParts = _pageInfo.body;
 			
 			_boat = _mc.boat_mc;
 			
@@ -115,10 +119,10 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.returnToBoat.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.returnToBoat.companion2[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[pearlObtained]", DataModel.appData.returnToBoat.pearlObtained[pearlObtInt]);
-					copy = StringUtil.replace(copy, "[stones1]", DataModel.appData.returnToBoat.stones1[stoneIndex]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[pearlObtained]", _pageInfo.pearlObtained[pearlObtInt]);
+					copy = StringUtil.replace(copy, "[stones1]", _pageInfo.stones1[stoneIndex]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -143,8 +147,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.returnToBoat.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.returnToBoat.decisions,666,true); 
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,666,true); 
 //			_decisions.y = _nextY;
 			//EXCEPTION CUZ FIXED BG SIZE
 			_decisions.y = _mc.bg_mc.height - 210;

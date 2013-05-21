@@ -26,6 +26,7 @@ package view.theCattery
 	import view.FrameView;
 	import view.IPageView;
 	import view.StarryNight;
+	import model.PageInfo;
 	
 	public class LingerView extends MovieClip implements IPageView
 	{
@@ -37,6 +38,7 @@ package view.theCattery
 		private var _decisions:DecisionsView;
 		private var _stars:StarryNight;
 		private var _frame:FrameView;
+		private var _pageInfo:PageInfo;
 		
 		
 		public function LingerView()
@@ -48,8 +50,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -87,9 +90,8 @@ package view.theCattery
 			c.alphaMultiplier = .9;
 			_stars.transform.colorTransform = c;
 			
-			_bodyParts = DataModel.appData.returnToBoat.body;
-			
-			_bodyParts = DataModel.appData.linger.body;
+			_pageInfo = DataModel.appData.getPageInfo("linger");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -97,7 +99,7 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.linger.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -123,8 +125,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.linger.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.linger.decisions,0xFFFFFF,true); 
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); 
 //			_decisions.y = _nextY;
 			//EXCEPTION CUZ FIXED BG SIZE
 			_decisions.y = _mc.bg_mc.height - 210;

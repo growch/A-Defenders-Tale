@@ -24,6 +24,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class GameWonView extends MovieClip implements IPageView
 	{
@@ -35,6 +36,7 @@ package view.theCattery
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		
 		public function GameWonView()
@@ -46,8 +48,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -72,7 +75,8 @@ package view.theCattery
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.gameWon.body;
+			_pageInfo = DataModel.appData.getPageInfo("gameWon");
+			_bodyParts = _pageInfo.body;
 			
 			var weaponIndex:int = DataModel.defenderInfo.weapon;
 			
@@ -105,8 +109,8 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[weapon1]", DataModel.appData.gameWon.weapon1[weaponIndex]);
-					copy = StringUtil.replace(copy, "[stones1]", DataModel.appData.gameWon.stones1[weaponIndex][stoneIndex]);
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[weaponIndex]);
+					copy = StringUtil.replace(copy, "[stones1]", _pageInfo.stones1[weaponIndex][stoneIndex]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -131,8 +135,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.gameWon.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.gameWon.decisions,0x000000,true); //tint it black, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

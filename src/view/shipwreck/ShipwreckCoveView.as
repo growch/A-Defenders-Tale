@@ -25,6 +25,7 @@ package view.shipwreck
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class ShipwreckCoveView extends MovieClip implements IPageView
 	{
@@ -48,6 +49,7 @@ package view.shipwreck
 		private var _range:Number = 5;
 		private var _speed:Number = .1;
 		private var _counter:int;
+		private var _pageInfo:PageInfo;
 		
 		public function ShipwreckCoveView()
 		{
@@ -58,8 +60,9 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -104,7 +107,8 @@ package view.shipwreck
 			_wreckShip = _mc.wreckage_mc.ship_mc;
 			_wreckMast = _mc.wreckage_mc.mast_mc;
 			
-			_bodyParts = DataModel.appData.shipwreckCove.body;
+			_pageInfo = DataModel.appData.getPageInfo("shipwreckCove");
+			_bodyParts = _pageInfo.body;
 			
 			var introInt:int = 0;
 			var lastIsland:String = DataModel.ISLAND_SELECTED[DataModel.ISLAND_SELECTED.length-1];
@@ -121,7 +125,7 @@ package view.shipwreck
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[intro1]", DataModel.appData.shipwreckCove.intro1[introInt]);
+					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[introInt]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -142,8 +146,8 @@ package view.shipwreck
 			}
 			
 			// decision
-			_nextY += DataModel.appData.shipwreckCove.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.shipwreckCove.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			//EXCEPTION CUZ FIXED BG SIZE
 //			_decisions.y = _mc.bg_mc.height - 210;

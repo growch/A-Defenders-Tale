@@ -29,6 +29,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class FourthDoorView extends MovieClip implements IPageView
 	{
@@ -48,6 +49,7 @@ package view.theCattery
 		private var _comb:MovieClip;
 		private var _shineTimer:Timer;
 		private var _compAlongIndex:int;
+		private var _pageInfo:PageInfo;
 		
 		public function FourthDoorView()
 		{
@@ -58,8 +60,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -117,7 +120,8 @@ package view.theCattery
 				supplyIndex = 1;
 			}
 			
-			_bodyParts = DataModel.appData.fourthDoor.body;
+			_pageInfo = DataModel.appData.getPageInfo("prologue");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -125,14 +129,14 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companionComing1]", DataModel.appData.fourthDoor.companionComing1[_compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companionComing2]", DataModel.appData.fourthDoor.companionComing2[_compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companionComing3]", DataModel.appData.fourthDoor.companionComing3[_compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companionComing4]", DataModel.appData.fourthDoor.companionComing4[_compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companionComing5]", DataModel.appData.fourthDoor.companionComing5[_compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.fourthDoor.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.fourthDoor.companion3[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion3]", DataModel.appData.fourthDoor.companion3[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[_compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companionComing2]", _pageInfo.companionComing2[_compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companionComing3]", _pageInfo.companionComing3[_compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companionComing4]", _pageInfo.companionComing4[_compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companionComing5]", _pageInfo.companionComing5[_compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -173,8 +177,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.fourthDoor.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.fourthDoor.decisions,0x000000,true); //tint it black, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

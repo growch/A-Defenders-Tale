@@ -1910,22 +1910,6 @@ The vizier narrowed his eyes, no doubt attempting to deduce if [defender] was pl
 	</mouseConsultation>
 <!-- ***			MOUSE CONSULTATION 			-->
 
-<!-- 			GAME LOST			-->
-<!-- 	<gameLost id="GameLostView">
-		<body>
-			<item type="text" id="" width="620" height="" top="0" left="75" size="20" align="left" leading="10" file="">
-			<![CDATA[“Well, good try all the same,” the vizier said. The gray cat nipped at [defender]’s arm again. “Now where were we?” He licked his lips. “Oh yes. I believe I’d just decided to make you my dinner.”
-
-THE END]]> 			
-			</item>
-		</body>
-		<decisions top="100">
-			<decision id="MapView"><![CDATA[Try again »]]></decision>
-			<decision id="ApplicationView"><![CDATA[Restart book »]]></decision>
-		</decisions>	
-	</gameLost> -->
-<!-- ***			GAME LOST 			-->
-
 <!-- 			GAME WON			-->
 	<gameWon id="GameWonView">
 		<weapon1>

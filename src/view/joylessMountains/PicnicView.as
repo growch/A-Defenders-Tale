@@ -23,6 +23,7 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class PicnicView extends MovieClip implements IPageView
 	{
@@ -38,6 +39,7 @@ package view.joylessMountains
 		private var _bellR2:MovieClip;
 		private var _bellR3:MovieClip;
 		private var _bellR4:MovieClip;
+		private var _pageInfo:PageInfo;
 		
 		public function PicnicView()
 		{
@@ -48,8 +50,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -92,7 +95,8 @@ package view.joylessMountains
 			//TESTING
 //			supplyInt = 1;
 			
-			_bodyParts = DataModel.appData.picnic.body; 
+			_pageInfo = DataModel.appData.getPageInfo("picnic");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -100,11 +104,11 @@ package view.joylessMountains
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.picnic.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.picnic.companion2[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion3]", DataModel.appData.picnic.companion3[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion4]", DataModel.appData.picnic.companion4[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[supplies]", DataModel.appData.picnic.supplies[supplyInt]);
+					copy = StringUtil.replace(copy, "[companion1]",_pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion2]",_pageInfo.companion2[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion3]",_pageInfo.companion3[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion4]",_pageInfo.companion4[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[supplies]",_pageInfo.supplies[supplyInt]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -132,7 +136,7 @@ package view.joylessMountains
 			}
 			
 			// decision
-			_nextY += DataModel.appData.picnic.decisionsMarginTop
+			_nextY +=_pageInfo.decisionsMarginTop
 			_decisions = new DecisionsView(DataModel.appData.picnic.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);

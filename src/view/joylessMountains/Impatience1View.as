@@ -25,6 +25,7 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class Impatience1View extends MovieClip implements IPageView
 	{
@@ -36,6 +37,7 @@ package view.joylessMountains
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		public function Impatience1View()
 		{
@@ -46,8 +48,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -77,7 +80,8 @@ package view.joylessMountains
 			_mc.tears1_mc.visible = false;
 			_mc.tears2_mc.visible = false;
 			
-			_bodyParts = DataModel.appData.impatience1.body; 
+			_pageInfo = DataModel.appData.getPageInfo("impatience1");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -118,8 +122,8 @@ package view.joylessMountains
 			}
 			
 			// decision
-			_nextY += DataModel.appData.impatience1.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.impatience1.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

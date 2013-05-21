@@ -34,6 +34,7 @@ package view.sandlands
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
+		private var _pageInfo:Object;
 		
 		Well2View, Sand2View
 		public function SandView()
@@ -45,8 +46,9 @@ package view.sandlands
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -76,7 +78,8 @@ package view.sandlands
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.sand.body;
+			_pageInfo = DataModel.appData.getPageInfo("sand");
+			_bodyParts = _pageInfo.body;
 			
 			//!IMPORTANT
 			DataModel.sandpit = true;
@@ -89,7 +92,7 @@ package view.sandlands
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.sand.companion1[compInt]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[compInt]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -115,8 +118,8 @@ package view.sandlands
 			}
 			
 			// decision
-			_nextY += DataModel.appData.sand.decisionsMarginTop;
-			_decisions = new DecisionsView(DataModel.appData.sand.decisions,0x040404,true); //tint it, showBG
+			_nextY += _pageInfo.decisionsMarginTop;
+			_decisions = new DecisionsView(_pageInfo.decisions,0x040404,true); //tint it, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

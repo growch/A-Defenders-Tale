@@ -23,6 +23,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class CatlingAffairsView extends MovieClip implements IPageView
 	{
@@ -34,6 +35,7 @@ package view.theCattery
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _smokes:MovieClip;
+		private var _pageInfo:PageInfo;
 		
 		
 		public function CatlingAffairsView()
@@ -45,8 +47,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -90,7 +93,8 @@ package view.theCattery
 				supplyIndex = 1;
 			}
 			
-			_bodyParts = DataModel.appData.catlingAffairs.body;
+			_pageInfo = DataModel.appData.getPageInfo("catlingAffairs");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -98,9 +102,9 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companionComing1]", DataModel.appData.catlingAffairs.companionComing1[compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companionComing2]", DataModel.appData.catlingAffairs.companionComing2[compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.catlingAffairs.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companionComing2]", _pageInfo.companionComing2[compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -121,8 +125,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.catlingAffairs.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.catlingAffairs.decisions,0x000000,true); //tint it black, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
 //			_decisions.y = _nextY;
 			//FIXED SIZE BG
 			_decisions.y = _mc.bg_mc.height - 330;

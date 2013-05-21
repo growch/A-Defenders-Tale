@@ -27,6 +27,7 @@ package view.joylessMountains
 	import view.FrameView;
 	import view.IPageView;
 	import view.StarryNight;
+	import model.PageInfo;
 	
 	public class StoneView extends MovieClip implements IPageView
 	{
@@ -45,6 +46,7 @@ package view.joylessMountains
 		private var _cloud3:MovieClip;
 		private var _cloud4:MovieClip;
 		private var _cloud5:MovieClip;		
+		private var _pageInfo:PageInfo;
 		
 		public function StoneView()
 		{
@@ -55,8 +57,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -118,7 +121,8 @@ package view.joylessMountains
 			c.alphaMultiplier = .9;
 			_stars.transform.colorTransform = c;
 			
-			_bodyParts = DataModel.appData.stone.body;
+			_pageInfo = DataModel.appData.getPageInfo("stone");
+			_bodyParts = _pageInfo.body;
 			
 			_boat = _mc.boat_mc;
 			
@@ -139,8 +143,8 @@ package view.joylessMountains
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[islands1]", DataModel.appData.stone.islands1[island1Int]);
-					copy = StringUtil.replace(copy, "[islands2]", DataModel.appData.stone.islands2[island2Int]);
+					copy = StringUtil.replace(copy, "[islands1]", _pageInfo.islands1[island1Int]);
+					copy = StringUtil.replace(copy, "[islands2]", _pageInfo.islands2[island2Int]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -165,13 +169,13 @@ package view.joylessMountains
 			}
 			
 			// decision
-			_nextY += DataModel.appData.stone.decisionsMarginTop;
+			_nextY += _pageInfo.decisionsMarginTop;
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			if (DataModel.STONE_COUNT == 4) {
-				dv.push(DataModel.appData.stone.decisions[0]);
+				dv.push(_pageInfo.decisions[0]);
 			} else {
-				dv.push(DataModel.appData.stone.decisions[1]);
+				dv.push(_pageInfo.decisions[1]);
 			}		
 			_decisions = new DecisionsView(dv,0xFFFFFF,true); 
 //			_decisions.y = _nextY;

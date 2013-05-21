@@ -23,6 +23,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class BallView extends MovieClip implements IPageView
 	{
@@ -33,6 +34,7 @@ package view.theCattery
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
+		private var _pageInfo:PageInfo;
 		
 		
 		public function BallView()
@@ -44,8 +46,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -85,7 +88,8 @@ package view.theCattery
 				supplyIndex = 1;
 			}
 			
-			_bodyParts = DataModel.appData.ball.body;
+			_pageInfo = DataModel.appData.getPageInfo("ball");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -93,11 +97,11 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companionComing1]", DataModel.appData.ball.companionComing1[compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companionComing2]", DataModel.appData.ball.companionComing2[compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companionComing3]", DataModel.appData.ball.companionComing3[compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companionComing4]", DataModel.appData.ball.companionComing4[compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.ball.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companionComing2]", _pageInfo.companionComing2[compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companionComing3]", _pageInfo.companionComing3[compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companionComing4]", _pageInfo.companionComing4[compAlongIndex]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -118,8 +122,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.ball.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.ball.decisions,0x000000,true); //tint it black, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
 //			_decisions.y = _nextY;
 			//HACK CUZ FIXED SIZED GRAPHIC
 			_decisions.y = _mc.bg_mc.height - 210;

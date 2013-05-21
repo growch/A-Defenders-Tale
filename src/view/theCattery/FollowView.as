@@ -26,6 +26,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class FollowView extends MovieClip implements IPageView
 	{
@@ -42,6 +43,7 @@ package view.theCattery
 		private var _scrolling:Boolean;
 		private var _force:Number;
 		private var _n:Number;
+		private var _pageInfo:PageInfo;
 		
 		public function FollowView()
 		{
@@ -52,8 +54,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -92,7 +95,8 @@ package view.theCattery
 			_mc.entree_mc.visible = false;
 			_mc.companions_mc.visible = false;
 			
-			_bodyParts = DataModel.appData.follow.body;
+			_pageInfo = DataModel.appData.getPageInfo("follow");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -100,8 +104,8 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companionComing1]", DataModel.appData.follow.companionComing1[compTakenIndex]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.follow.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[compTakenIndex]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -143,16 +147,16 @@ package view.theCattery
 			_mc.addChild(_vizier);
 			
 			// decision
-			_nextY += DataModel.appData.follow.decisionsMarginTop
+			_nextY += _pageInfo.decisionsMarginTop
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			
 			if (compTakenIndex == 0) {
-				dv.push(DataModel.appData.follow.decisions[0]);
-				dv.push(DataModel.appData.follow.decisions[1]);
+				dv.push(_pageInfo.decisions[0]);
+				dv.push(_pageInfo.decisions[1]);
 			} else {
-				dv.push(DataModel.appData.follow.decisions[2]);
-				dv.push(DataModel.appData.follow.decisions[3]);
+				dv.push(_pageInfo.decisions[2]);
+				dv.push(_pageInfo.decisions[3]);
 			}	
 			_decisions = new DecisionsView(dv,0x000000,true);
 			

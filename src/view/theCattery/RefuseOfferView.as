@@ -22,6 +22,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class RefuseOfferView extends MovieClip implements IPageView
 	{
@@ -32,6 +33,7 @@ package view.theCattery
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
+		private var _pageInfo:PageInfo;
 		
 		
 		public function RefuseOfferView()
@@ -41,8 +43,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -63,7 +66,8 @@ package view.theCattery
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.refuseOffer.body;
+			_pageInfo = DataModel.appData.getPageInfo("refuseOffer");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -94,8 +98,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.refuseOffer.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.refuseOffer.decisions,0x000000,true); //tint it black, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

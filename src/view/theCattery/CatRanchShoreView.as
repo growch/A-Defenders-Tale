@@ -24,6 +24,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class CatRanchShoreView extends MovieClip implements IPageView
 	{
@@ -38,6 +39,7 @@ package view.theCattery
 		private var _scrolling:Boolean;
 		private var _force:Number;
 		private var _n:Number;
+		private var _pageInfo:PageInfo;
 		
 		CatlingAffairsView
 		public function CatRanchShoreView()
@@ -49,6 +51,8 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
+			_pageInfo = null;
+			
 			_frame.destroy();
 			_frame = null;
 			
@@ -95,7 +99,8 @@ package view.theCattery
 				supplyIndex = 1;
 			}
 			
-			_bodyParts = DataModel.appData.catRanchShore.body;
+			_pageInfo = DataModel.appData.getPageInfo("catRanchShore");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -104,14 +109,14 @@ package view.theCattery
 					var copy:String = part.copyText;
 					
 					if (compAlongIndex == 0) {
-						copy = StringUtil.replace(copy, "[companionComing1]", DataModel.appData.catRanchShore.companionComing1[compAlongIndex]);
+						copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[compAlongIndex]);
 					} else {
 					// this is an array within an array
-						copy = StringUtil.replace(copy, "[companionComing1]", DataModel.appData.catRanchShore.companionComing1[compAlongIndex][DataModel.defenderInfo.companion]);
+						copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[compAlongIndex][DataModel.defenderInfo.companion]);
 					}
 					
-					copy = StringUtil.replace(copy, "[companionComing2]", DataModel.appData.catRanchShore.companionComing2[compAlongIndex]);
-					copy = StringUtil.replace(copy, "[supplies]", DataModel.appData.catRanchShore.supplies[supplyIndex]);
+					copy = StringUtil.replace(copy, "[companionComing2]", _pageInfo.companionComing2[compAlongIndex]);
+					copy = StringUtil.replace(copy, "[supplies]", _pageInfo.supplies[supplyIndex]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -136,8 +141,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.catRanchShore.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.catRanchShore.decisions,0x000000,true); //tint it black, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

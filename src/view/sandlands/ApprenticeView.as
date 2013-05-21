@@ -23,6 +23,7 @@ package view.sandlands
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class ApprenticeView extends MovieClip implements IPageView
 	{
@@ -34,6 +35,7 @@ package view.sandlands
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		WellView
 		public function ApprenticeView()
@@ -45,8 +47,9 @@ package view.sandlands
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -76,8 +79,8 @@ package view.sandlands
 			
 			_nextY = 110;
 			
-			
-			_bodyParts = DataModel.appData.apprentice.body;
+			_pageInfo = DataModel.appData.getPageInfo("apprentice");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -108,8 +111,8 @@ package view.sandlands
 			}
 			
 			// decision
-			_nextY += DataModel.appData.apprentice.decisionsMarginTop;
-			_decisions = new DecisionsView(DataModel.appData.apprentice.decisions,0x040404,true); //tint it, showBG
+			_nextY += _pageInfo.decisionsMarginTop;
+			_decisions = new DecisionsView(_pageInfo.decisions,0x040404,true); //tint it, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

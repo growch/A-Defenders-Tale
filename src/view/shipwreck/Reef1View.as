@@ -94,7 +94,6 @@ package view.shipwreck
 			_nextY = 110;
 			
 			_pageInfo = DataModel.appData.getPageInfo("reef1");
-//			_bodyParts = _pageInfo.body;
 			_bodyParts = _pageInfo.body;
 			
 			//put these first so text can go on top

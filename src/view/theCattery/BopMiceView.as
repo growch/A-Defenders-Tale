@@ -21,7 +21,6 @@ package view.theCattery
 		{
 			_game = new Game();
 			addChild(_game);
-//			TweenMax.from(_game, 2, {alpha:0, delay:0}); 
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 		}

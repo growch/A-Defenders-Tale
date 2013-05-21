@@ -24,6 +24,7 @@ package view.sandlands
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class Well3View extends MovieClip implements IPageView
 	{
@@ -35,6 +36,7 @@ package view.sandlands
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		Well2View, SandView
 		public function Well3View()
@@ -46,8 +48,9 @@ package view.sandlands
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -77,7 +80,8 @@ package view.sandlands
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.well3.body;
+			_pageInfo = DataModel.appData.getPageInfo("well3");
+			_bodyParts = _pageInfo.body;
 			
 			var compInt:int = DataModel.defenderInfo.companion;
 			
@@ -111,13 +115,13 @@ package view.sandlands
 			}
 			
 			// decision
-			_nextY += DataModel.appData.well3.decisionsMarginTop;
-//			_decisions = new DecisionsView(DataModel.appData.well3.decisions,0x040404,true); //tint it, showBG
+			_nextY += _pageInfo.decisionsMarginTop;
+//			_decisions = new DecisionsView(_pageInfo.decisions,0x040404,true); //tint it, showBG
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			if (DataModel.sandpit) {
-				dv.push(DataModel.appData.well3.decisions[1]);
+				dv.push(_pageInfo.decisions[1]);
 			} else {
-				dv.push(DataModel.appData.well3.decisions[0]);
+				dv.push(_pageInfo.decisions[0]);
 			}	
 			_decisions = new DecisionsView(dv,0x040404,true);
 			_decisions.y = _nextY;

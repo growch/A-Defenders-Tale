@@ -26,6 +26,7 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class MouseConsultationView extends MovieClip implements IPageView
 	{
@@ -40,6 +41,7 @@ package view.theCattery
 		private var _singleStart:Array;
 		private var _doubleStart:Array;
 		private var _scrolling:Boolean;		
+		private var _pageInfo:PageInfo;
 		
 		public function MouseConsultationView()
 		{
@@ -50,8 +52,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -84,7 +87,8 @@ package view.theCattery
 			_mc.instrument_mc.glows_mc.visible = false;
 			_mc.instrument_mc.shine_mc.visible = false;
 			
-			_bodyParts = DataModel.appData.mouseConsultation.body;
+			_pageInfo = DataModel.appData.getPageInfo("mouseConsultation");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -92,7 +96,7 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[instrument1]", DataModel.appData.mouseConsultation.instrument1[DataModel.defenderInfo.instrument]);
+					copy = StringUtil.replace(copy, "[instrument1]", _pageInfo.instrument1[DataModel.defenderInfo.instrument]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -117,8 +121,8 @@ package view.theCattery
 			}
 			
 			// decision
-			_nextY += DataModel.appData.mouseConsultation.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.mouseConsultation.decisions,0x000000,true); //tint it black, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

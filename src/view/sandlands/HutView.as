@@ -26,6 +26,7 @@ package view.sandlands
 	import view.FrameView;
 	import view.IPageView;
 	import view.MapView;
+	import model.PageInfo;
 	
 	public class HutView extends MovieClip implements IPageView
 	{
@@ -37,6 +38,7 @@ package view.sandlands
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		MapView, ApplicationView
 		public function HutView()
@@ -48,8 +50,9 @@ package view.sandlands
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -79,7 +82,8 @@ package view.sandlands
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.hut.body;
+			_pageInfo = DataModel.appData.getPageInfo("prologue");
+			_bodyParts = _pageInfo.body;
 			
 			var introInt:int;
 			
@@ -103,8 +107,8 @@ package view.sandlands
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[intro1]", DataModel.appData.hut.intro1[introInt]);
-					copy = StringUtil.replace(copy, "[intro2]", DataModel.appData.hut.intro2[introInt]);
+					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[introInt]);
+					copy = StringUtil.replace(copy, "[intro2]", _pageInfo.intro2[introInt]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -142,15 +146,15 @@ package view.sandlands
 			}
 			
 			// decision
-			_nextY += DataModel.appData.hut.decisionsMarginTop;
-//			_decisions = new DecisionsView(DataModel.appData.hut.decisions,0x040404,true); //tint it, showBG
+			_nextY += _pageInfo.decisionsMarginTop;
+//			_decisions = new DecisionsView(_pageInfo.decisions,0x040404,true); //tint it, showBG
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			if (introInt == 2) {
-				dv.push(DataModel.appData.hut.decisions[2]);
+				dv.push(_pageInfo.decisions[2]);
 			} else {
-				dv.push(DataModel.appData.hut.decisions[0]);
-				dv.push(DataModel.appData.hut.decisions[1]);
+				dv.push(_pageInfo.decisions[0]);
+				dv.push(_pageInfo.decisions[1]);
 			}
 			_decisions = new DecisionsView(dv,0x040404,true);
 			

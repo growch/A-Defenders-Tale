@@ -25,6 +25,7 @@ package view.sandlands
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class SandlandsView extends MovieClip implements IPageView
 	{
@@ -43,6 +44,7 @@ package view.sandlands
 		private var _wave2:MovieClip;
 		private var _wave3:MovieClip;
 		private var _wave4:MovieClip;
+		private var _pageInfo:PageInfo;
 		
 		ShoreView
 		public function SandlandsView()
@@ -54,6 +56,8 @@ package view.sandlands
 		}
 		
 		public function destroy() : void {
+			_pageInfo = null;
+			
 			_frame.destroy();
 			_frame = null;
 			
@@ -97,7 +101,8 @@ package view.sandlands
 			_wave3.visible = false;
 			_wave4.visible = false;
 			
-			_bodyParts = DataModel.appData.sandlands.body;
+			_pageInfo = DataModel.appData.getPageInfo("sandlands");
+			_bodyParts = _pageInfo.body;
 			
 			var introInt:int = 0;
 			var lastIsland:String = DataModel.ISLAND_SELECTED[DataModel.ISLAND_SELECTED.length-1];
@@ -117,8 +122,8 @@ package view.sandlands
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[intro1]", DataModel.appData.sandlands.intro1[introInt]);
-					copy = StringUtil.replace(copy, "[stone1]", DataModel.appData.sandlands.stones1[stoneInt]);
+					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[introInt]);
+					copy = StringUtil.replace(copy, "[stone1]", _pageInfo.stones1[stoneInt]);
 					copy = StringUtil.replace(copy, "[stoneCount]", stoneNumberArray[DataModel.STONE_COUNT-1]);
 
 					
@@ -141,8 +146,8 @@ package view.sandlands
 			}
 			
 			// decision
-			_nextY += DataModel.appData.sandlands.decisionsMarginTop;
-			_decisions = new DecisionsView(DataModel.appData.sandlands.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop;
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 //			_decisions.y = _nextY;
 			//EXCEPTION CUZ FIXED BG SIZE
 			_decisions.y = _mc.bg_mc.height - 210;

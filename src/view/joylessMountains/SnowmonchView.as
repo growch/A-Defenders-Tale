@@ -29,6 +29,7 @@ package view.joylessMountains
 	import view.FrameView;
 	import view.IPageView;
 	import view.Smoke;
+	import model.PageInfo;
 	
 	
 	public class SnowmonchView extends MovieClip implements IPageView
@@ -45,6 +46,7 @@ package view.joylessMountains
 		private var _smoke1:Smoke;
 		private var _smoke2:Smoke;
 		private var _smokeTimer:Timer;
+		private var _pageInfo:PageInfo;
 		
 		public function SnowmonchView()
 		{
@@ -55,8 +57,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -95,7 +98,8 @@ package view.joylessMountains
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.snowmonch.body; 
+			_pageInfo = DataModel.appData.getPageInfo("snowmonch");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -103,9 +107,9 @@ package view.joylessMountains
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.snowmonch.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.snowmonch.companion2[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[wardrobe1]", DataModel.appData.snowmonch.wardrobe1[DataModel.defenderInfo.wardrobe]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[wardrobe1]", _pageInfo.wardrobe1[DataModel.defenderInfo.wardrobe]);
 
 					
 					// set this last cuz some of these may be in the options above
@@ -133,8 +137,8 @@ package view.joylessMountains
 			}
 			
 			// decision
-			_nextY += DataModel.appData.snowmonch.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.snowmonch.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

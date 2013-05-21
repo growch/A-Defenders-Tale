@@ -23,6 +23,7 @@ package view.shipwreck
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class CaptainView extends MovieClip implements IPageView
 	{
@@ -34,6 +35,7 @@ package view.shipwreck
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
 		
 		Reef1View
 		public function CaptainView()
@@ -45,8 +47,9 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -75,7 +78,8 @@ package view.shipwreck
 			
 			_nextY = 110;
 			
-			_bodyParts = DataModel.appData.captain.body;
+			_pageInfo = DataModel.appData.getPageInfo("captain");
+			_bodyParts = _pageInfo.body;
 			
 			var compInt:int = DataModel.defenderInfo.companion;
 			_mc.companions_mc.gotoAndStop(compInt+1);
@@ -88,9 +92,9 @@ package view.shipwreck
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[intro1]", DataModel.appData.captain.intro1[introInt]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.captain.companion1[compInt]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.captain.companion2[compInt]);
+					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[introInt]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[compInt]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[compInt]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -115,8 +119,8 @@ package view.shipwreck
 			}
 			
 			// decision
-			_nextY += DataModel.appData.captain.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.captain.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

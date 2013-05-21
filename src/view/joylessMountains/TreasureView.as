@@ -28,6 +28,7 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class TreasureView extends MovieClip implements IPageView
 	{
@@ -41,6 +42,7 @@ package view.joylessMountains
 		private var _scrolling:Boolean;
 		private var _sparkleTimer:Timer;
 		private var _weaponInt:int;
+		private var _pageInfo:PageInfo;
 		
 		public function TreasureView()
 		{
@@ -51,8 +53,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -90,7 +93,8 @@ package view.joylessMountains
 			_mc.weapon_mc.glows_mc.gotoAndStop(_weaponInt+1);
 			var weapon1Text :int = _weaponInt == 0 ? 0 : 1;
 			
-			_bodyParts = DataModel.appData.treasure.body; 
+			_pageInfo = DataModel.appData.getPageInfo("treasure");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -98,13 +102,13 @@ package view.joylessMountains
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[weapon1]", DataModel.appData.treasure.weapon1[weapon1Text]);
-					copy = StringUtil.replace(copy, "[companion1]", DataModel.appData.treasure.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[wardrobe1]", DataModel.appData.treasure.wardrobe1[DataModel.defenderInfo.wardrobe]);
-					copy = StringUtil.replace(copy, "[companion2]", DataModel.appData.treasure.companion2[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[weapon2]", DataModel.appData.treasure.weapon2[DataModel.defenderInfo.weapon]);
-					copy = StringUtil.replace(copy, "[companion3]", DataModel.appData.treasure.companion3[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion4]", DataModel.appData.treasure.companion4[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[weapon1Text]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[wardrobe1]", _pageInfo.wardrobe1[DataModel.defenderInfo.wardrobe]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[weapon2]", _pageInfo.weapon2[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion4]", _pageInfo.companion4[DataModel.defenderInfo.companion]);
 					
 					
 					// set this last cuz some of these may be in the options above
@@ -167,17 +171,17 @@ package view.joylessMountains
 			// decision
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			if (_weaponInt == 0) {
-				dv.push(DataModel.appData.treasure.decisions[0]);
-				dv.push(DataModel.appData.treasure.decisions[1]);
+				dv.push(_pageInfo.decisions[0]);
+				dv.push(_pageInfo.decisions[1]);
 			} else {
-				dv.push(DataModel.appData.treasure.decisions[2]);
-				dv.push(DataModel.appData.treasure.decisions[3]);
+				dv.push(_pageInfo.decisions[2]);
+				dv.push(_pageInfo.decisions[3]);
 			} 
 			
 			_decisions = new DecisionsView(dv,0xFFFFFF,true);
 			
-			_nextY += DataModel.appData.treasure.decisionsMarginTop
-//			_decisions = new DecisionsView(DataModel.appData.treasure.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+//			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

@@ -29,6 +29,7 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class PlayRiddlesView extends MovieClip implements IPageView
 	{
@@ -44,6 +45,7 @@ package view.joylessMountains
 		private var _couldntText:TextField;
 		private var _submitBtn:MovieClip;
 		private var _dv:Vector.<DecisionInfo>;
+		private var _pageInfo:PageInfo;
 		
 		public function PlayRiddlesView()
 		{
@@ -54,8 +56,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
-			_frame.destroy();
+			_pageInfo = null;
 			
+			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
@@ -89,7 +92,8 @@ package view.joylessMountains
 			
 			_submitBtn = _mc.submit_btn;
 			
-			_bodyParts = DataModel.appData.playRiddles.body; 
+			_pageInfo = DataModel.appData.getPageInfo("playRiddles");
+			_bodyParts = _pageInfo.body;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -119,8 +123,8 @@ package view.joylessMountains
 			}
 			
 			// decision
-			_nextY += DataModel.appData.playRiddles.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.playRiddles.decisions,0xFFFFFF,true); //tint it white, showBG
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			//EXCEPTION
@@ -185,12 +189,12 @@ package view.joylessMountains
 			
 			if (couldGood && couldntGood) {
 				trace("you win");
-				_dv.push(DataModel.appData.playRiddles.decisions[0]);
+				_dv.push(_pageInfo.decisions[0]);
 				addDecision();
 			} else if (DataModel.impatience3) {
 				trace("impatience 3 NO GOOD");
-				_dv.push(DataModel.appData.playRiddles.decisions[1]);
-				_dv.push(DataModel.appData.playRiddles.decisions[2]);
+				_dv.push(_pageInfo.decisions[1]);
+				_dv.push(_pageInfo.decisions[2]);
 				addDecision();
 			} else {
 				trace("nope");
@@ -202,7 +206,7 @@ package view.joylessMountains
 		private function addDecision():void {
 			_decisions = new DecisionsView(_dv,0xFFFFFF,true);
 			
-			_nextY += DataModel.appData.playRiddles.decisionsMarginTop
+			_nextY += _pageInfo.decisionsMarginTop
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 		}
