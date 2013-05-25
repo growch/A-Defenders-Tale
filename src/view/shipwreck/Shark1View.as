@@ -8,7 +8,7 @@ package view.shipwreck
 	import flash.events.Event;
 	import flash.utils.setTimeout;
 	
-	import assets.Reef1MC;
+	import assets.Shark1MC;
 	
 	import control.EventController;
 	
@@ -22,6 +22,7 @@ package view.shipwreck
 	import org.flintparticles.twoD.renderers.DisplayObjectRenderer;
 	
 	import util.Formats;
+	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -31,9 +32,9 @@ package view.shipwreck
 	import view.FrameView;
 	import view.IPageView;
 	
-	public class Reef1View extends MovieClip implements IPageView
+	public class Shark1View extends MovieClip implements IPageView
 	{
-		private var _mc:Reef1MC;
+		private var _mc:Shark1MC; 
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -47,19 +48,13 @@ package view.shipwreck
 		private var _renderer2:DisplayObjectRenderer;
 		private var _bubbles3:Bubbles;
 		private var _renderer3:DisplayObjectRenderer;
-		private var _bubbles4:Bubbles;
-		private var _renderer4:DisplayObjectRenderer;
-		private var _dungeonFish:MovieClip;
-		private var _bubblesDung:Bubbles2; 
-		private var _rendererDung:DisplayObjectRenderer;
-		private var _pageInfo:PageInfo;
-		private var _clownFish:MovieClip;
-		private var _fish2:MovieClip;
-		private var _fish3:MovieClip;
+		private var _shark:MovieClip;
+		private var _fish1:MovieClip;
 		private var _fish4:MovieClip;
+		private var _pageInfo:PageInfo;
 		
-		Shark1View
-		public function Reef1View()
+		Shark2View
+		public function Shark1View()
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, init); 
@@ -68,7 +63,7 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			_pageInfo = null; 
+			_pageInfo = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -91,22 +86,14 @@ package view.shipwreck
 			_bubbles1.stop();
 			_bubbles2.stop();
 			_bubbles3.stop();
-			_bubbles4.stop();
-			_bubblesDung.stop();
 			
 			_renderer1.removeEmitter(_bubbles1);
 			_renderer2.removeEmitter(_bubbles2);
 			_renderer3.removeEmitter(_bubbles3);
-			_renderer4.removeEmitter(_bubbles4);
-			_rendererDung.removeEmitter(_bubblesDung);
-
-			_dungeonFish.removeChild(_rendererDung);
 			
 			_renderer1 = null;
 			_renderer2 = null;
 			_renderer3 = null;
-			_renderer4 = null;
-			_rendererDung = null;
 			
 			DataModel.getInstance().removeAllChildren(_mc);
 		}
@@ -115,11 +102,11 @@ package view.shipwreck
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new Reef1MC(); 
+			_mc = new Shark1MC(); 
 			
-			_nextY = 140;
+			_nextY = 110;
 			
-			_pageInfo = DataModel.appData.getPageInfo("reef1");
+			_pageInfo = DataModel.appData.getPageInfo("shark1");
 			_bodyParts = _pageInfo.body;
 			
 			//put these first so text can go on top
@@ -129,32 +116,24 @@ package view.shipwreck
 			_mc.addChild(_renderer2);
 			_renderer3 = new DisplayObjectRenderer();
 			_mc.addChild(_renderer3);
-			_renderer4 = new DisplayObjectRenderer();
-			_mc.addChild(_renderer4);
 			
-			
-			_clownFish = _mc.clown_mc;
-			_fish2 = _mc.fish2_mc;
-			_fish3 = _mc.fish3_mc;
+			_fish1 = _mc.fish1_mc;
 			_fish4 = _mc.fish4_mc;
+			_shark = _mc.shark_mc;
 			
 			//put fish back on top of bubbles
-			_mc.addChild(_clownFish);
-			_mc.addChild(_fish2);
-			_mc.addChild(_fish3);
-			_mc.addChild(_fish3);
-			
-			_dungeonFish = _mc.dungeonFish_mc;
-			_dungeonFish.visible = false; 
-			_rendererDung = new DisplayObjectRenderer();
-			_dungeonFish.addChild(_rendererDung);
-			
+			_mc.addChild(_fish4);
+			_mc.addChild(_fish1);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
 				if (part.type == "text") {
 					var copy:String = part.copyText;
+					
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[weapon2]", _pageInfo.weapon2[DataModel.defenderInfo.weapon]);
+
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -165,8 +144,8 @@ package view.shipwreck
 					_tf.y = _nextY + part.top;
 					_mc.addChild(_tf);
 					
-					if (part.id == "dungeonFish") {
-						_dungeonFish.y = Math.round(_tf.y - part.top/2);
+					if (part.id == "shark") {
+						_shark.y = Math.round(_tf.y - part.top/2 - (_shark.height/2));
 					}
 					
 					_nextY += _tf.height + part.top;
@@ -182,15 +161,24 @@ package view.shipwreck
 			// decision
 			_nextY += _pageInfo.decisionsMarginTop
 			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
-//			_decisions.y = _nextY; FIXED BG HEIGHT
-			_decisions.y = _mc.bg_mc.height - 520;
+			_decisions.y = _nextY; 
+//			_decisions.y = _mc.bg_mc.height - 520;
 			
 			_mc.addChild(_decisions);
 			
 			_frame = new FrameView(_mc.frame_mc); 
-			var frameSize:int = _mc.bg_mc.height;
-			//size bg FIXED BG HEIGHT
-//			_mc.bg_mc.height = frameSize;
+			//CUSTOM!!!
+			var frameSize:int = _decisions.y + 500;
+			//CUSTOM
+			var diff:int = frameSize - _mc.bg_mc.height;
+			_mc.reef_mc.y += diff; 
+			_fish1.y += diff; 
+			_fish4.y += diff; 
+			_mc.bubbles1_mc.y += diff; 
+			_mc.bubbles2_mc.y += diff; 
+			_mc.bubbles3_mc.y += diff; 
+			
+			_mc.bg_mc.height = frameSize;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
@@ -206,12 +194,10 @@ package view.shipwreck
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			_fish2.goLeft = true;
-			_fish3.goLeft = true;
-			_fish4.goLeft = false;  
-			_clownFish.goLeft = false;
-			_fish4.orientRight = true; 
-			_clownFish.orientRight = true;
+			_fish1.goLeft = false;  
+			_fish4.goLeft = false;
+			_fish1.orientRight = true; 
+			_fish4.orientRight = true;
 			
 			_bubbles1 = new Bubbles();
 			_renderer1.addEmitter( _bubbles1 );
@@ -231,30 +217,14 @@ package view.shipwreck
 			_renderer3.y = _mc.bubbles3_mc.y;
 			_bubbles3.start();
 			
-			_bubbles4 = new Bubbles(true, -150);
-			_renderer4.addEmitter( _bubbles4 );
-			_renderer4.x = _mc.bubbles4_mc.x; 
-			_renderer4.y = _mc.bubbles4_mc.y;
-			_bubbles4.start();
 
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function showDungBubbles():void {
-			_bubblesDung = new Bubbles2();
-			_rendererDung.addEmitter(_bubblesDung);
-			_bubblesDung.start();
-			setTimeout(_bubblesDung.stopBubbles, 3000);
-		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
 			
-			if (!_dungeonFish.visible && _dragVCont.scrollY > 1200) {
-				_dungeonFish.visible = true;
-				TweenMax.from(_dungeonFish, 1.5, {x:-_dungeonFish.width, ease:Quad, onComplete:showDungBubbles});
-				TweenMax.from(_dungeonFish, .5, {rotation:-5, ease:Quad, repeat:2, yoyo:true});
-			}
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 //				TweenMax.pauseAll();
@@ -262,14 +232,11 @@ package view.shipwreck
 				_bubbles1.pause()
 				_bubbles2.pause();
 				_bubbles3.pause();
-				_bubbles4.pause();
 				_scrolling = true;
 			} else {
 				
-				moveFish(_fish2, .8);
-				moveFish(_fish3, .6);
-				moveFish(_fish4, .4);
-				moveFish(_clownFish, .4);
+				moveFish(_fish1, .6);
+				moveFish(_fish4, .8);
 				
 //				trace(_dragVCont.scrollY); 1400
 				
@@ -278,7 +245,6 @@ package view.shipwreck
 				_bubbles1.resume();
 				_bubbles2.resume();
 				_bubbles3.resume();
-				_bubbles4.resume();
 				_scrolling = false;
 			}
 		}
@@ -315,7 +281,6 @@ package view.shipwreck
 			_bubbles1.pause()
 			_bubbles2.pause();
 			_bubbles3.pause();
-			_bubbles4.pause();
 			
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));

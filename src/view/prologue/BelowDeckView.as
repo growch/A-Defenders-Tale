@@ -65,7 +65,7 @@ package view.prologue
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
-			_mc = null;
+			_mc = null; 
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);

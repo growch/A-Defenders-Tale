@@ -97,17 +97,21 @@ package view.joylessMountains
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
 			
-			DataModel.getInstance().removeAllChildren(_mc);
 			
-//			if(DataModel.ipad1) return;
+			//			if(DataModel.ipad1) return;
 			_emitter.stop();
 			_renderer.removeEmitter( _emitter );
 			_mc.cloudSnow_mc.removeChild( _renderer );
 			_renderer = null;
 			_emitter = null;
+			
+			//for delayed calls
+			TweenMax.killAll();
+			
+			DataModel.getInstance().removeAllChildren(_mc);
+			
+
 		}
 		
 		private function init(e:Event) : void {

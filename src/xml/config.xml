@@ -3615,7 +3615,7 @@ Cleapeezious inspected [defender]’s suit with a satisfied nod.
 <!-- 			REEF1			-->
 	<reef1 id="Reef1View">
 		<body>
-			<item type="text" id="" width="400" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<item type="text" id="" width="360" height="" top="0" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[It took [defender] a moment to get [pronoun3] bearings once under water, but then [pronoun1] spotted [companionName] waving from down below, and [pronoun1] quickly followed.
 
 A colorful reef raced down beside them, filled with fiery coral and blooming sea flowers. Small fish zipped in and out of the reef, and [defender] waved [pronoun3] hand, trying to get their attention. “Hello,” [pronoun1] called. “Excuse me.”
@@ -3632,9 +3632,10 @@ A clown fish paused to gape at them. “Hello,” it said. “What kind of fish 
 
 “What is that?” [pronoun1] asked. [Pronoun3] companion remained silent on the subject, and [pronoun1] turned to see why [companionName] had gone quiet. The [companion] was gone. [Pronoun1] flipped back around and realized [pronoun3] companion had drifted toward the light, out of hearing range.
 
-[defender] swam after the [companion] as the light grew brighter, and larger. Too late, [pronoun1] realized the kind of creature that was swimming toward them. “[companionName],” [pronoun1] screamed to [pronoun3] companion. “Stop!”]]> 				
+[defender] swam after the [companion] as the light grew brighter, and larger. Too late, [pronoun1] realized the kind of creature that was swimming toward them. “[companionName],” [pronoun1] screamed to [pronoun3] companion. 
+“Stop!”]]> 				
 			</item>
-			<item type="text" id="dungeonFish" width="400" height="" top="580" left="100" size="20" align="left" leading="8" file="">
+			<item type="text" id="dungeonFish" width="360" height="" top="600" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[The brightness blossomed, pushing through the water in a flood of white light. [defender] could just make out the silhouette of a fish, bigger than a whale. It opened its mouth to reveal long, spear-like teeth. A moment later, mighty jaws clamped down around [companionName]. The light flicked out, leaving only the swish of the fish’s tail visible as it retreated through the waves. 
 
 [defender] stared, immobilized by horror. The retreating shape could be nothing other than a dungeonfish, and everyone agreed that there was no fate worse than being captured by the giant fish. Dungeonfish kept their captives alive for the first hour of imprisonment, behind the bars of their teeth, in order to suck their adrenalin. Once every drop of adrenalin had been consumed, the fish proceeded to suck the meat from their prisoner’s bones. [defender] shuddered. [Pronoun1] had to rescue [companionName], but if [pronoun1] chased after [companionName], would [pronoun1] still have time to find the sea god?]]> 				
@@ -3647,11 +3648,99 @@ A clown fish paused to gape at them. “Hello,” it said. “What kind of fish 
 	</reef1>
 <!-- ***			REEF1 			-->
 
+<!-- 			SHARK1			-->
+	<shark1 id="Shark1View">
+		<weapon1>
+			<weapon><![CDATA[[defender] pulled [pronoun3] Marrotti Blade from [pronoun3] weight belt and let [pronoun3] body relax, waiting. [Pronoun1] didn’t have long before [pronoun1] felt a shadow block out the sunlight overhead. [Pronoun1] twisted [pronoun3] body just as the beast attacked, slicing its snout.
 
+It veered off to one side, leaving a trail of blood as it twisted through the murky waves. A moment later it came for [pronoun2] again.
 
+This time [pronoun1] slashed [pronoun3] dagger deeper into the shark’s snout. Blood poured forth from the wound, blooming red in the water.
 
+[defender] waited for another attack. [Pronoun3] heartbeat pounded through [pronoun3] body, pulsing through the tips of [pronoun3] fingers as [pronoun1] clutched the hilt of [prounoun3] blade. [Pronoun1] used [pronoun3] flippers to turn in slow circles, waiting. Minutes passed until [pronoun1] was sure that the shark had gone in search for easier prey.
+]]></weapon>
+			<weapon><![CDATA[[Pronoun3] quill would do [pronoun2] no good underwater—there would be no drawing [pronoun3] way out of this situation. Instead, [pronoun1] balled [pronoun3] fingers into a tight fist and waited. [Pronoun1] felt a shadow block out the sun from overhead before [pronoun1] saw the shark. [Pronoun1] twisted [pronoun3] body just as the beast attacked. As the shark lunged toward [pronoun2], [pronoun1] rammed [pronoun3] fist into its snout. 
 
+It veered off to one side, and twisted back through the murky waves, once again coming for [pronoun2].
 
+This time [pronoun1] gave the shark’s snout a double punch. First a right hook, then a left.
+
+[defender]’s heart beat in [pronoun3] throat as [pronoun1] waited for another attack. [Pronoun1] looked around, using [pronoun3] flippers to turn in a circle, then another, spinning like a top for another minute before [pronoun1] stopped. The shark was gone. No doubt it had gone in search of easier prey.
+]]></weapon>
+			<weapon><![CDATA[Luckily [pronoun1] had been saving a very special spell for just this sort of situation. It was a single use incantation of ancient power that created an opposite emotion. As the shark lunged toward [pronoun2], [pronoun1] yelled as loudly as [pronoun1] could, Lindania Olsenius Flim Flamingo!
+
+The shark stopped itself with a flip of its fin. Its eyes, which had been menacing and cold and hungry a moment before somehow shifted, now shining with excitement. 
+
+“You,” the shark said in a low, oily voice that would have been menacing if it hadn’t sounded so happy. “You look like…” The shark darted away, moments later returning with a tin can clenched between its powerful jaws.  “Like fun!” The shark spit the can into the water, did a back flip, and smacked the can with the tip of its tail toward [defender]. “Catch!”
+
+[defender] obliged, catching the spiraling can with ease.
+
+“Now throw it! And then I’ll bring it back!” the shark encouraged.
+
+“I’m sorry, I don’t have time to play,” [defender] said. “I have to find that dungeonfish.” 
+
+The shark stopped darting around in the water and sighed. “There’s no catching a dungeonfish once they have a captive. Even for me.” As if to prove the point, the shark darted through the water with breathtaking speed—up, down, around, and in a loop around [defender]. “I’m fast, but a dungeonfish is faster. So let’s play. Okay?” The shark gave [pronoun2] a hopeful look.]]></weapon>
+		</weapon1>
+		<weapon2>
+			<weapon><![CDATA[]]></weapon>
+			<weapon><![CDATA[]]></weapon>
+			<weapon><![CDATA[
+
+“What is that?” [defender] asked the shark. 
+
+“Oh, that’s just the jellies singing. They do that from time to time.” 
+
+“The jellies?” [pronoun1] asked.
+
+The shark nosed the tin can toward [defender] once again, ignoring [pronoun3] question. “Now can we play?”
+
+“I must be on my way,” [defender] replied. “Though if you could tell me where I might find the sea god, I’d be most appreciative.”
+
+The shark looked put out in the way that only an 8-foot tiger shark can. “Morrissey travels with the tides. Who can keep up?” He nodded politely before darting off into the blue.]]></weapon>
+		</weapon2>
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[There was no way [defender] was going to let anything happen to [pronoun3] companion. [Pronoun1] quickly recovered from [pronoun3] shock and swam after the dungeonfish. [Pronoun1] could still make out its bulk from the distance. Before [pronoun1] could make any real progress, a shadow darted in front of [pronoun2]. 
+
+[Pronoun1] paused. The shape shot past [pronoun2] again. A fin protruded from its back.
+
+[Pronoun1] swiveled, trying to find out where the creature had gone. This time it came closer, zipping toward [pronoun2] and deflecting at the last moment. The moment lasted long enough to see the pattern on its body. Tiger stripes. First the dungeonfish.]]> 				
+			</item>
+			<item type="text" id="shark" width="575" height="" top="420" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[defender] narrowed [pronoun3] eyes. Shark or no shark, [pronoun1] was going to save [pronoun3] companion. 
+
+[weapon1]			
+
+[defender] looked in the direction of the dungeonfish, but the water was empty. There was no trace of the giant fish. [Pronoun3] only hope of rescuing [companionName] would be to find Morrissey. If anyone would know where [pronoun3] companion had been taken, it was the god of the sea. 
+
+This thought was suddenly interrupted by a beautiful, haunting aria. The sound drifted through the water, surrounding [pronoun2] like a cocoon. [Pronoun1] paused wondering what the underwater music could be.[weapon2]]]> 				
+			</item>
+		</body>
+		<decisions top="100">
+			<decision id="shipwreck.Shark2View"><![CDATA[CHASE PRISONFISH]]></decision>
+			<decision id="shipwreck.Reef2View"><![CDATA[FIND MORRISSEY]]></decision>
+		</decisions>	
+	</shark1>
+<!-- ***			SHARK1 			-->
+
+<!-- 			SHARK2			-->
+	<shark2 id="Shark2View">
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[defender] felt [pronoun3] stomach clench at the loss of [pronoun3] companion, but [pronoun1] knew it was unlikely that [pronoun1]’d be able to rescue the [companion] in time. [companionName] had given [companionPronoun3] life for the realm, and the most [defender] could do was find Morrissey and make the sacrifice mean something. [Pronoun1] tried to put [companionName] out of mind, instead kicking [pronoun3] way through the water, down the side of the reef. 
+
+When [pronoun1] had almost reached the bottom, a large shadow passed overhead. [Pronoun1] turned as quickly as [pronoun1] could, just in time to see a giant tiger shark headed [pronoun3] way.]]> 				
+			</item>
+			<item type="text" id="shark" width="575" height="" top="420" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[defender] was paralyzed with fear, and for a split second [pronoun1] expected [companionName]’s voice to call out to [pronoun2] with some words of advice. But then [pronoun1] remembered [pronoun3] companion was gone. As [pronoun3] own life flashed before [pronoun3] eyes, [pronoun1] had a sudden realization. Friends were the ones who came to the rescue in situations like this. [companionName] had been at [pronoun3] side through thick and thin, but when the [companion] needed [pronoun3] help, [pronoun1]’d abandoned [companionPronoun2]. As the shark clamped its jaws around [defender], [pronoun1] vowed that if [pronoun1] had to do it all over again, [pronoun1] would have acted like a true Defender of the Realm and saved [pronoun3] companion.]]> 			
+			</item>
+		</body>
+		<decisions top="100">
+			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
+			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+		</decisions>	
+	</shark2>
+<!-- ***			SHARK2 			-->
 
 <!-- 			SANDLANDS			-->
 	<sandlands id="SandlandsView">
