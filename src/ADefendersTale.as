@@ -73,8 +73,8 @@ package
 		{
 			_vc = new ViewController( MovieClip(this) );
 			
-//			var stats:Stats = new Stats();
-//			addChild(stats);
+			var stats:Stats = new Stats();
+			addChild(stats);
 			
 			_dm.removeEventListener( ApplicationEvent.APP_DATA_LOADED, onApplicationDataLoaded );
 		}

@@ -6,7 +6,7 @@ package view.shipwreck
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	import assets.Shark2MC;
+	import assets.Jellyfish1MC;
 	
 	import control.EventController;
 	
@@ -20,15 +20,13 @@ package view.shipwreck
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
-	import view.ApplicationView;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.MapView;
 	
-	public class Shark2View extends MovieClip implements IPageView
+	public class Jellyfish1View extends MovieClip implements IPageView
 	{
-		private var _mc:Shark2MC; 
+		private var _mc:Jellyfish1MC; 
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -36,14 +34,12 @@ package view.shipwreck
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
-		private var _shark:MovieClip;
-		private var _fish2:MovieClip;
-		private var _fish4:MovieClip;
+//		private var _fish2:MovieClip;
+//		private var _fish4:MovieClip;
 
 		private var _pageInfo:PageInfo;
 		
-		ApplicationView, MapView
-		public function Shark2View()
+		public function Jellyfish1View()
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, init); 
@@ -79,21 +75,12 @@ package view.shipwreck
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new Shark2MC(); 
+			_mc = new Jellyfish1MC(); 
 			
 			_nextY = 110;
 			
-			_pageInfo = DataModel.appData.getPageInfo("shark2");
+			_pageInfo = DataModel.appData.getPageInfo("jellyfish1");
 			_bodyParts = _pageInfo.body;
-			
-			_fish2 = _mc.fish2_mc;
-			_fish4 = _mc.fish4_mc;
-			_shark = _mc.shark_mc;
-			
-			//put fish back on top of bubbles
-			_mc.addChild(_fish4);
-			_mc.addChild(_fish2);
-			
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -110,17 +97,13 @@ package view.shipwreck
 					_tf.y = _nextY + part.top;
 					_mc.addChild(_tf);
 					
-					if (part.id == "shark") {
-						_shark.y = Math.round(_tf.y - part.top/2 - (_shark.height/2));
-					}
+
 					
 					_nextY += _tf.height + part.top;
 					
-					if (part.id == "shark") {
-						_mc.end_mc.y = _nextY + 60;
+					if (part.id == "end") {
+						_mc.end_mc.y = _nextY + 60; 
 						_nextY += 100;
-						_fish2.y = _mc.end_mc.y - 10; 
-						_fish4.y = _mc.end_mc.y - 10; 
 					}
 					
 				} else if (part.type == "image") {
@@ -146,7 +129,6 @@ package view.shipwreck
 			var diff:int = frameSize - _mc.bg_mc.height; 
 			_mc.sand_mc.y += diff;  
 			
-			
 			_mc.bg_mc.height = frameSize;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
@@ -163,10 +145,6 @@ package view.shipwreck
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			_fish2.goLeft = true;  
-			_fish4.goLeft = false;
-			_fish2.orientRight = false; 
-			_fish4.orientRight = true;
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
@@ -182,8 +160,6 @@ package view.shipwreck
 				_scrolling = true;
 			} else {
 				
-				moveFish(_fish2, .8);
-				moveFish(_fish4, .8);
 				
 //				trace(_dragVCont.scrollY); 1400
 				
@@ -193,32 +169,6 @@ package view.shipwreck
 			}
 		}
 		
-		private function moveFish(thisMC:MovieClip, thisAmt:Number):void {
-			if (thisMC.goLeft) {
-				thisMC.x -= thisAmt;
-				if (thisMC.x < - (thisMC.width*2)) {
-					thisMC.goLeft = false;
-					if (thisMC.orientRight) {
-						thisMC.scaleX = 1;
-					} else {
-						thisMC.scaleX = -1;
-					}
-					
-				}
-			} else {
-				thisMC.x += thisAmt;
-				if (thisMC.x > DataModel.APP_WIDTH + thisMC.width) {
-					thisMC.goLeft = true;
-					if (thisMC.orientRight) {
-						thisMC.scaleX = -1;
-					} else {
-						thisMC.scaleX = 1;
-					}
-					
-				}
-			}
-			
-		}
 		
 		protected function decisionMade(event:ViewEvent):void
 		{

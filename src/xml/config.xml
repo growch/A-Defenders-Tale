@@ -3717,7 +3717,7 @@ This thought was suddenly interrupted by a beautiful, haunting aria. The sound d
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="shipwreck.Shark2View"><![CDATA[CHASE PRISONFISH]]></decision>
+			<decision id="shipwreck.Jellyfish1View"><![CDATA[INVESTIGATE MUSIC]]></decision>
 			<decision id="shipwreck.Reef2View"><![CDATA[FIND MORRISSEY]]></decision>
 		</decisions>	
 	</shark1>
@@ -3740,6 +3740,28 @@ When [pronoun1] had almost reached the bottom, a large shadow passed overhead. [
 			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
 		</decisions>	
 	</shark2>
+<!-- ***			SHARK2 			-->
+
+<!-- 			JELLYFISH1			-->
+	<jellyfish1 id="Jellyfish1View">
+		<body>
+			<item type="text" id="" width="375" height="" top="0" left="200" size="20" align="left" leading="10" file="">
+			<![CDATA[[defender] was mesmerized by the underwater symphony playing around [pronoun2]. [Pronoun1] followed the soaring melody down the reef. The sea flowers and plants growing on the reef pulsed with the beat as [pronoun1] grew closer to the source of the music. As [pronoun1] rounded a bend, [pronoun1] narrowly avoided swimming right into dozens of sea horses. Each swam with a partner. Their tails intertwined as they circled in a dance to the music. As [pronoun1] swam even closer to the music, it seemed to somehow embrace [pronoun2].
+
+Which is when [defender] realized that the embrace wasn’t metaphorical. [Pronoun1] was surrounded by a]]> 				
+			</item>
+			<item type="image" id="" width="" height="340" top="40" left="" size="" align="" leading="" file="assets/images/shipwreck/jellyfish1_imageText1.png"/>
+			<item type="text" id="end" width="375" height="" top="40" left="200" size="20" align="left" leading="10" file="">
+			<![CDATA[A tentacle whipped around [pronoun3] leg. Then another around [pronoun3] arm. [Pronoun1] gasped at the initial shock of pain, and then felt [pronoun3] muscles begin to slacken. Another tentacle wound around [pronoun3] middle, squeezing the air from [pronoun3] lungs. [Pronoun1] screamed out in agony until [pronoun3] chest began to go numb. [Pronoun1] tried to kick [pronoun3] legs and escape the tentacles streaming around [pronoun2], but they no longer seemed to work. As [pronoun1] sank through the chorus of jellyfish, one thought filled [pronoun3] mind: regret at being unable to save [pronoun3] companion, and the realm. Had [pronoun1] only stayed focused on the task at hand…
+
+Still, [pronoun1] thought, trying to remain positive in [pronoun3] final moments, at least [pronoun1] was going down with a nice soundtrack.]]> 			
+			</item>
+		</body>
+		<decisions top="100">
+			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
+			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+		</decisions>	
+	</jellyfish1>
 <!-- ***			SHARK2 			-->
 
 <!-- 			SANDLANDS			-->

@@ -53,7 +53,7 @@ package view.shipwreck
 		private var _fish4:MovieClip;
 		private var _pageInfo:PageInfo;
 		
-		Shark2View
+		Jellyfish1View
 		public function Shark1View()
 		{
 			super();
