@@ -82,7 +82,7 @@ package view.sandlands
 			
 			_nextY = 110;
 			
-			_pageInfo = DataModel.appData.getPageInfo("prologue");
+			_pageInfo = DataModel.appData.getPageInfo("hut");
 			_bodyParts = _pageInfo.body;
 			
 			var introInt:int;

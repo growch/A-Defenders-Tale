@@ -138,8 +138,9 @@ package view
 			{
 				duplicate = duplicateDisplayObject(_spacerArray[i], true);
 				duplicate.y = _nextY;
-				_nextY += duplicate.height;
+				_nextY += _spacerArray[i].height;
 //				trace(_spacerArray[i]);
+//				trace(_spacerArray[i].height);
 			}
 			
 			_bottom.y = _nextY;

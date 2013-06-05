@@ -117,7 +117,7 @@ package view.shipwreck
 			
 			_mc = new Reef1MC(); 
 			
-			_nextY = 140;
+			_nextY = 110;
 			
 			_pageInfo = DataModel.appData.getPageInfo("reef1");
 			_bodyParts = _pageInfo.body;
