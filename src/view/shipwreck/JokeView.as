@@ -1,36 +1,43 @@
 package view.shipwreck
 {
 	import com.greensock.TweenMax;
+	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	import flash.utils.setTimeout;
 	
-	import assets.Shark1MC;
+	import assets.JokeMC;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.DecisionInfo;
 	import model.PageInfo;
 	import model.StoryPart;
 	
 	import org.flintparticles.twoD.renderers.DisplayObjectRenderer;
 	
 	import util.Formats;
-	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
+	import view.ApplicationView;
 	import view.Bubbles;
+	import view.Bubbles2;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import view.MapView;
 	
-	public class Shark1View extends MovieClip implements IPageView
+	public class JokeView extends MovieClip implements IPageView
 	{
-		private var _mc:Shark1MC; 
+		private var _mc:JokeMC;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -38,19 +45,20 @@ package view.shipwreck
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
-		private var _bubbles1:Bubbles;
-		private var _renderer1:DisplayObjectRenderer;
-		private var _bubbles2:Bubbles;
-		private var _renderer2:DisplayObjectRenderer;
-		private var _bubbles3:Bubbles;
-		private var _renderer3:DisplayObjectRenderer;
-		private var _shark:MovieClip;
-		private var _fish1:MovieClip;
-		private var _fish4:MovieClip;
 		private var _pageInfo:PageInfo;
+		private var _fish1:MovieClip;
+		private var _fish2:MovieClip;
+		private var _fish3:MovieClip;
+		private var _fish4:MovieClip;
+		private var _dv:Vector.<DecisionInfo>;
+		private var _submit1:MovieClip;
+		private var _submit2:MovieClip;
+		private var _whoText:TextField;
+		private var _finalText:TextField;
 		
-		Jellyfish1View, Reef2View
-		public function Shark1View()
+//		ApplicationView, MapView
+		
+		public function JokeView()
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, init); 
@@ -59,7 +67,7 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			_pageInfo = null;
+			_pageInfo = null; 
 			
 			_frame.destroy();
 			_frame = null;
@@ -79,17 +87,6 @@ package view.shipwreck
 			//for delayed calls
 			TweenMax.killAll();
 			
-			_bubbles1.stop();
-			_bubbles2.stop();
-			_bubbles3.stop();
-			
-			_renderer1.removeEmitter(_bubbles1);
-			_renderer2.removeEmitter(_bubbles2);
-			_renderer3.removeEmitter(_bubbles3);
-			
-			_renderer1 = null;
-			_renderer2 = null;
-			_renderer3 = null;
 			
 			DataModel.getInstance().removeAllChildren(_mc);
 		}
@@ -98,38 +95,29 @@ package view.shipwreck
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new Shark1MC(); 
+			_mc = new JokeMC(); 
 			
 			_nextY = 110;
 			
-			_pageInfo = DataModel.appData.getPageInfo("shark1");
+			_pageInfo = DataModel.appData.getPageInfo("joke");
 			_bodyParts = _pageInfo.body;
 			
-			//put these first so text can go on top
-			_renderer1 = new DisplayObjectRenderer();
-			_mc.addChild(_renderer1);
-			_renderer2 = new DisplayObjectRenderer();
-			_mc.addChild(_renderer2);
-			_renderer3 = new DisplayObjectRenderer();
-			_mc.addChild(_renderer3);
 			
 			_fish1 = _mc.fish1_mc;
+			_fish2 = _mc.fish2_mc;
+			_fish3 = _mc.fish3_mc;
 			_fish4 = _mc.fish4_mc;
-			_shark = _mc.shark_mc;
 			
-			//put fish back on top of bubbles
-			_mc.addChild(_fish4);
-			_mc.addChild(_fish1);
+			_submit1 = _mc.submit1_mc;
+			_submit2 = _mc.submit2_mc;
+			
+			_submit2.visible = false;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
 				if (part.type == "text") {
 					var copy:String = part.copyText;
-					
-					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
-					copy = StringUtil.replace(copy, "[weapon2]", _pageInfo.weapon2[DataModel.defenderInfo.weapon]);
-
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -140,11 +128,19 @@ package view.shipwreck
 					_tf.y = _nextY + part.top;
 					_mc.addChild(_tf);
 					
-					if (part.id == "shark") {
-						_shark.y = Math.round(_tf.y - part.top/2 - (_shark.height/2));
+					if (part.id == "who") {
+						_whoText = _tf;
+						_whoText.visible = false;
+						_submit1.y = _nextY + 40;
 					}
 					
 					_nextY += _tf.height + part.top;
+					
+					if (part.id == "final") {
+						_finalText = _tf;
+						_finalText.visible = false;
+					}
+					
 					
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
@@ -155,26 +151,24 @@ package view.shipwreck
 			}
 			
 			// decision
-			_nextY += _pageInfo.decisionsMarginTop
+			_nextY += _pageInfo.decisionsMarginTop;
 			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY; 
-//			_decisions.y = _mc.bg_mc.height - 520;
-			
 			_mc.addChild(_decisions);
+//			EXCEPTION
+			_decisions.visible = false;
 			
+			//EXCEPTION
+			var ogBGH:int = _mc.bg_mc.height;
+			_mc.bg_mc.height = _decisions.y + 210;
+			
+			var diff:int =  ogBGH - _mc.bg_mc.height; 
+			_fish2.y -= diff;
+			_fish3.y -= diff;
+			_fish4.y -= diff;
+//			
 			_frame = new FrameView(_mc.frame_mc); 
-			//CUSTOM!!!
-			var frameSize:int = _decisions.y + 500;
-			//CUSTOM
-			var diff:int = frameSize - _mc.bg_mc.height;
-			_mc.reef_mc.y += diff; 
-			_fish1.y += diff; 
-			_fish4.y += diff; 
-			_mc.bubbles1_mc.y += diff; 
-			_mc.bubbles2_mc.y += diff; 
-			_mc.bubbles3_mc.y += diff; 
-			
-			_mc.bg_mc.height = frameSize;
+			var frameSize:int = _mc.bg_mc.height;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
@@ -190,57 +184,65 @@ package view.shipwreck
 		}
 		
 		private function pageOn(e:ViewEvent):void {
+			
 			_fish1.goLeft = false;  
-			_fish4.goLeft = false;
 			_fish1.orientRight = true; 
-			_fish4.orientRight = true;
+			_fish2.goLeft = true;
+			_fish3.goLeft = true;
+			_fish4.goLeft = false;  
+			_fish4.orientRight = true; 
 			
-			_bubbles1 = new Bubbles();
-			_renderer1.addEmitter( _bubbles1 );
-			_renderer1.x = _mc.bubbles1_mc.x;
-			_renderer1.y = _mc.bubbles1_mc.y;
-			_bubbles1.start();
-			
-			_bubbles2 = new Bubbles();
-			_renderer2.addEmitter( _bubbles2 );
-			_renderer2.x = _mc.bubbles2_mc.x; 
-			_renderer2.y = _mc.bubbles2_mc.y;
-			_bubbles2.start();
-			
-			_bubbles3 = new Bubbles(true, -150);
-			_renderer3.addEmitter( _bubbles3 );
-			_renderer3.x = _mc.bubbles3_mc.x; 
-			_renderer3.y = _mc.bubbles3_mc.y;
-			_bubbles3.start();
-			
-
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_submit1.submit_btn.addEventListener(MouseEvent.CLICK, knockQuestion);
+			_submit2.submit_btn.addEventListener(MouseEvent.CLICK, knockAnswer);
 		}
 		
+		private function knockQuestion(e:MouseEvent):void {
+			if (_submit1.submit_txt.text == "") return;
+			_submit1.submit_btn.removeEventListener(MouseEvent.CLICK, knockQuestion);
+			
+			_whoText.text = "“" + _submit1.submit_txt.text + _whoText.text;
+			//otherwise text wasn't showing up
+			_whoText.height += 100;
+			_submit2.y = _whoText.y + _whoText.textHeight + 40;
+			
+			TweenMax.to(_submit1, .5, {autoAlpha:0});
+			TweenMax.from(_whoText, .5, {autoAlpha:0});
+			TweenMax.from(_submit2, .5, {autoAlpha:0});
+		}
+		
+		private function knockAnswer(e:MouseEvent):void {
+			if (_submit2.submit_txt.text == "") return;
+			_submit2.submit_btn.removeEventListener(MouseEvent.CLICK, knockAnswer);
+			
+			_whoText.text = _whoText.text +  "“" + _submit2.submit_txt.text + "”";
+			//otherwise text wasn't showing up
+			_whoText.height += 100;
+			_finalText.y = _whoText.y + _whoText.textHeight + 40;
+			
+			TweenMax.to(_submit2, .5, {autoAlpha:0});
+			TweenMax.from(_finalText, .5, {autoAlpha:0});
+			TweenMax.from(_decisions, .5, {autoAlpha:0});
+		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
 			
-			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
-//				TweenMax.pauseAll();
+				TweenMax.pauseAll();
 				
-				_bubbles1.pause()
-				_bubbles2.pause();
-				_bubbles3.pause();
 				_scrolling = true;
 			} else {
 				
-				moveFish(_fish1, .6);
-				moveFish(_fish4, .8);
+				moveFish(_fish1, .5);
+				moveFish(_fish2, .8);
+				moveFish(_fish3, .6);
+				moveFish(_fish4, .4);
 				
-//				trace(_dragVCont.scrollY); 1400
 				
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
-				_bubbles1.resume();
-				_bubbles2.resume();
-				_bubbles3.resume();
 				_scrolling = false;
 			}
 		}
@@ -274,9 +276,6 @@ package view.shipwreck
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			_bubbles1.pause()
-			_bubbles2.pause();
-			_bubbles3.pause();
 			
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));

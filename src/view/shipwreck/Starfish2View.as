@@ -1,17 +1,12 @@
-package view.joylessMountains
+package view.shipwreck
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Bounce;
-	import com.greensock.easing.Elastic;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.text.TextField;
 	
-	import assets.PlayRiddlesMC;
+	import assets.Starfish2MC;
 	
 	import control.EventController;
 	
@@ -19,21 +14,20 @@ package view.joylessMountains
 	
 	import model.DataModel;
 	import model.DecisionInfo;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
-	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
-	public class PlayRiddlesView extends MovieClip implements IPageView
+	public class Starfish2View extends MovieClip implements IPageView
 	{
-		private var _mc:PlayRiddlesMC;
+		private var _mc:Starfish2MC;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -41,13 +35,15 @@ package view.joylessMountains
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
-		private var _couldText:TextField;
-		private var _couldntText:TextField;
-		private var _submitBtn:MovieClip;
-		private var _dv:Vector.<DecisionInfo>;
 		private var _pageInfo:PageInfo;
-		
-		public function PlayRiddlesView()
+		private var _fish1:MovieClip;
+		private var _fish2:MovieClip;
+		private var _fish3:MovieClip;
+		private var _fish4:MovieClip;
+		private var _dv:Vector.<DecisionInfo>;
+
+		//		ApplicationView, MapView
+		public function Starfish2View()
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, init); 
@@ -56,7 +52,7 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
-			_pageInfo = null;
+			_pageInfo = null; 
 			
 			_frame.destroy();
 			_frame = null;
@@ -76,31 +72,34 @@ package view.joylessMountains
 			//for delayed calls
 			TweenMax.killAll();
 			
-			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
+			
+			DataModel.getInstance().removeAllChildren(_mc);
 		}
 		
 		private function init(e:Event) : void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new PlayRiddlesMC();
+			_mc = new Starfish2MC(); 
 			
 			_nextY = 110;
 			
-			_couldText = _mc.could_txt;
-			_couldntText = _mc.couldnt_txt;
-			
-			_submitBtn = _mc.submit_btn;
-			
-			_pageInfo = DataModel.appData.getPageInfo("playRiddles");
+			_pageInfo = DataModel.appData.getPageInfo("starfish2");
 			_bodyParts = _pageInfo.body;
+			
+			
+			_fish1 = _mc.fish1_mc;
+			_fish2 = _mc.fish2_mc;
+			_fish3 = _mc.fish3_mc;
+			_fish4 = _mc.fish4_mc;
+			
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
 				if (part.type == "text") {
 					var copy:String = part.copyText;
-
+					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
 					
@@ -108,7 +107,6 @@ package view.joylessMountains
 					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading), part.width, true, true, true); 
 					_tf.x = part.left; 
 					_tf.y = _nextY + part.top;
-					
 					_mc.addChild(_tf);
 					
 					_nextY += _tf.height + part.top;
@@ -117,18 +115,28 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
-					
 					_nextY += part.height + part.top;
+					
+					//EXCEPTION
+					_fish1.y = _nextY;
 				}
 			}
 			
 			// decision
-			_nextY += _pageInfo.decisionsMarginTop
+			_nextY += _pageInfo.decisionsMarginTop;
 			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
-			_decisions.y = _nextY;
+			_decisions.y = _nextY; 
 			_mc.addChild(_decisions);
+
 			//EXCEPTION
-			_decisions.visible = false;
+			_mc.bg_mc.height = _decisions.y + 275;
+			
+			_frame = new FrameView(_mc.frame_mc); 
+			var frameSize:int = _mc.bg_mc.height;
+			_frame.sizeFrame(frameSize);
+			if (frameSize < DataModel.APP_HEIGHT) {
+				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+			}
 			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
@@ -137,87 +145,34 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_frame = new FrameView(_mc.frame_mc); 
-			
-//			var frameSize:int = _decisions.y + 210;
-			var frameSize:int = _mc.bg_mc.height;
-			// size bg
-//			_mc.bg_mc.height = frameSize;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
-			
-			_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
-			_dv = new Vector.<DecisionInfo>();
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			
+			_fish1.goLeft = false;  
+			_fish1.orientRight = true; 
+			_fish2.goLeft = true;
+			_fish3.goLeft = true;
+			_fish4.goLeft = false;  
+			_fish4.orientRight = true; 
+			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		protected function submitClick(event:MouseEvent):void
-		{
-			checkText();			
-		}
-		
-		private function checkText():void {
-			var i:int;
-			var couldGood:Boolean = false;
-			var couldntGood:Boolean = false;
-			
-			for (i = 1;  i< _couldText.length; i++) 
-			{
-				if (_couldText.text.charAt(i) == _couldText.text.charAt(i-1)) {
-					couldGood = true;
-					break;
-				}
-			}
-			
-			if (_couldntText.text.length == 1) couldntGood = true;
-			for (i = 1;  i< _couldntText.length; i++) 
-			{
-				if (_couldntText.text.charAt(i) == _couldntText.text.charAt(i-1)) {
-					couldntGood = false;
-					break;
-				} else {
-					couldntGood = true;
-				}
-			}
-			
-			if (couldGood && couldntGood) {
-				trace("you win");
-				_dv.push(_pageInfo.decisions[0]);
-				addDecision();
-			} else if (DataModel.impatience3) {
-				trace("impatience 3 NO GOOD");
-				_dv.push(_pageInfo.decisions[1]);
-				_dv.push(_pageInfo.decisions[2]);
-				addDecision();
-			} else {
-				trace("nope");
-			}
-//			trace("couldGood : "+couldGood);
-//			trace("couldntGood : "+couldntGood);
-		}
-		
-		private function addDecision():void {
-			_decisions = new DecisionsView(_dv,0xFFFFFF,true);
-			
-			_nextY += _pageInfo.decisionsMarginTop;
-			_decisions.y = _nextY;
-			_mc.addChild(_decisions);
-		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
-				_scrolling = true;
 				
+				_scrolling = true;
 			} else {
+				
+				moveFish(_fish1, .5);
+				moveFish(_fish2, .8);
+				moveFish(_fish3, .6);
+				moveFish(_fish4, .4);
 				
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
@@ -225,12 +180,40 @@ package view.joylessMountains
 			}
 		}
 		
+		private function moveFish(thisMC:MovieClip, thisAmt:Number):void {
+			if (thisMC.goLeft) {
+				thisMC.x -= thisAmt;
+				if (thisMC.x < - (thisMC.width*2)) {
+					thisMC.goLeft = false;
+					if (thisMC.orientRight) {
+						thisMC.scaleX = 1;
+					} else {
+						thisMC.scaleX = -1;
+					}
+					
+				}
+			} else {
+				thisMC.x += thisAmt;
+				if (thisMC.x > DataModel.APP_WIDTH + thisMC.width) {
+					thisMC.goLeft = true;
+					if (thisMC.orientRight) {
+						thisMC.scaleX = -1;
+					} else {
+						thisMC.scaleX = 1;
+					}
+					
+				}
+			}
+			
+		}
+		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-			TweenMax.to(_mc, 1, {alpha:0});
+			
+			TweenMax.killAll();
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
-
+		
 		private function nextPage(thisPage:Object):void {
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}

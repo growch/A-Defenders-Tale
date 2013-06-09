@@ -105,6 +105,7 @@ package view.shipwreck
 			_jelly7 = _mc.jelly7_mc; 
 			_jelly8 = _mc.jelly8_mc; 
 			
+			
 			_jelly1.stop();
 			_jelly2.stop();
 			_jelly3.stop();
@@ -138,8 +139,6 @@ package view.shipwreck
 					_tf.x = part.left; 
 					_tf.y = _nextY + part.top;
 					_mc.addChild(_tf);
-					
-
 					
 					_nextY += _tf.height + part.top;
 					

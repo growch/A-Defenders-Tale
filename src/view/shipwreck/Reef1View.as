@@ -18,7 +18,6 @@ package view.shipwreck
 	import model.PageInfo;
 	import model.StoryPart;
 	
-	import org.flintparticles.twoD.renderers.BitmapRenderer;
 	import org.flintparticles.twoD.renderers.DisplayObjectRenderer;
 	
 	import util.Formats;
@@ -58,7 +57,7 @@ package view.shipwreck
 		private var _fish3:MovieClip;
 		private var _fish4:MovieClip;
 		
-		Shark1View
+		Shark1View, Shark2View
 		public function Reef1View()
 		{
 			super();
@@ -142,7 +141,7 @@ package view.shipwreck
 			_mc.addChild(_clownFish);
 			_mc.addChild(_fish2);
 			_mc.addChild(_fish3);
-			_mc.addChild(_fish3);
+			_mc.addChild(_fish4);
 			
 			_dungeonFish = _mc.dungeonFish_mc;
 			_dungeonFish.visible = false; 

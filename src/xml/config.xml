@@ -3770,37 +3770,188 @@ Still, [pronoun1] thought, trying to remain positive in [pronoun3] final moments
 	<reef2 id="Reef2View">
 		<body>
 			<item type="text" id="" width="380" height="" top="0" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[It took [defender] a moment to get [pronoun3] bearings once under water, but then [pronoun1] spotted [companionName] waving from down below, and [pronoun1] quickly followed.
+			<![CDATA[[defender] continued [pronoun3] descent down the reef, going as quickly as [pronoun1] was able. [Pronoun1] had to find Morrissey. This was about much more than the realm now. [Pronoun1] refused to give up on [companionName].
 
-A colorful reef raced down beside them, filled with fiery coral and blooming sea flowers. Small fish zipped in and out of the reef, and [defender] waved [pronoun3] hand, trying to get their attention. “Hello,” [pronoun1] called. “Excuse me.”
+Soon enough, [defender] reached the bottom of the reef. [Pronoun3] flippers hit the sand, sending it swirling in all directions.
 
-A clown fish paused to gape at them. “Hello,” it said. “What kind of fish are you?”
+“Achoo,” [pronoun1] heard someone say.
 
-“I’m not a fish,” [defender] corrected. “I’m the Defender of the Realm.”
+“Bless you,” [pronoun1] said.
 
-“Never heard of you,” the fish replied, and zipped away.
+As the sand settled, [pronoun1] realized the sneeze had come from a small rock lobster near one of [pronoun3] flippers.
 
-“Well that was rude,” [companionName] said.
+“Why hello there,” [pronoun1] said politely.
 
-[defender] and [companionName] both attempted to flag down a number of the reef’s occupants, but none paid them any mind. As they drifted further down the reef, the activity lessened, until finally, all of the fish seemed to flit away at once. [defender] looked around warily, wondering what could have caused them to scatter so quickly. From deep within the watery gloom, [pronoun1] could just make out a tiny orb of light bobbing in their direction.
+The lobster raised one claw in a salute. “Commodore Zachary Thacher, representing the subsurface fleet, first division, at your service.”  
 
-“What is that?” [pronoun1] asked. [Pronoun3] companion remained silent on the subject, and [pronoun1] turned to see why [companionName] had gone quiet. The [companion] was gone. [Pronoun1] flipped back around and realized [pronoun3] companion had drifted toward the light, out of hearing range.
-
-[defender] swam after the [companion] as the light grew brighter, and larger. Too late, [pronoun1] realized the kind of creature that was swimming toward them. “[companionName],” [pronoun1] screamed to [pronoun3] companion. 
-“Stop!”]]> 				
+“Nice to meet you,” [defender] said. “My name is [defender], Defender of the Realm. I have urgent business with Morrissey, the sea god. Could you point me in his direction, please?”]]> 				
 			</item>
-			<item type="text" id="dungeonFish" width="380" height="" top="520" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[The brightness blossomed, pushing through the water in a flood of white light. [defender] could just make out the silhouette of a fish, bigger than a whale. It opened its mouth to reveal long, spear-like teeth. A moment later, mighty jaws clamped down around [companionName]. The light flicked out, leaving only the swish of the fish’s tail visible as it retreated through the waves. 
+			<item type="text" id="password" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[Commodore Thacher scratched one claw against his head. “You sure about that?” he asked. “Morrissey’s been in a mood since he lost his lucky starfish to some jellyfish in a poker game last week. The entire reef’s been walking on seashells ever since it happened.” The lobster lowered his voice conspiratorially. “It’s even worse than last year when his lucky dice went missing. I’m here to tell you it was a regular tempest in a teapot.”
 
-[defender] stared, immobilized by horror. The retreating shape could be nothing other than a dungeonfish, and everyone agreed that there was no fate worse than being captured by the giant fish. Dungeonfish kept their captives alive for the first hour of imprisonment, behind the bars of their teeth, in order to suck their adrenalin. Once every drop of adrenalin had been consumed, the fish proceeded to suck the meat from their prisoner’s bones. [defender] shuddered. [Pronoun1] had to rescue [companionName], but if [pronoun1] chased after [companionName], would [pronoun1] still have time to find the sea god?]]> 				
+“I’m afraid it can’t be helped,” [defender] replied. “I have urgent business with him. It concerns the realm. And a missing friend of mine.”
+
+“Very well,” the commodore replied. “But first, I’ll need the password.”]]> 
+			</item>
+			<item type="text" id="correct" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[If Commodore Thacher was surprised at [defender]’s knowledge, he didn’t show it. Instead he simply reached behind a rock with one claw and pulled out an engraved sign that read “Gone Fishing.” “Come along,” he said, and scuttled off across the sea floor. Small poofs of sand billowed in his wake. “Though don’t say I didn’t warn you,” he called back. 
+			]]> 				
+			</item>
+			<item type="text" id="incorrect" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[Commodore Thacher crossed one claw over the other. “I’m afraid not. No password, no Morrissey. Them’s the rules.”]]> 				
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="shipwreck.Shark1View"><![CDATA[CHASE PRISONFISH]]></decision>
-			<decision id="shipwreck.Shark2View"><![CDATA[FIND MORRISSEY]]></decision>
+			<decision id="shipwreck.FollowCommodoreView"><![CDATA[CONTINUE]]></decision>
+			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
+			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
 		</decisions>	
 	</reef2>
 <!-- ***			REEF2 			-->
+
+<!-- 			FOLLOW COMMODORE			-->
+	<followCommodore id="FollowCommodoreView">
+		<body>
+			<item type="text" id="morrisey" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[defender] followed the rock lobster around the reef, through a thick patch of seaweed, below a school of flounder, and finally, toward a vast expanse of open water. Sunken ships in various stages of decay stretched out over the ocean floor as far as [pronoun1] could see. Some were barely more than soggy mounds. 
+
+Directly in front of them was the remains of a sailboat. A green, lightly scaled man slumped on one side of the boat. He was small in stature, with a bronze tail where a land dweller’s legs might have been. He thumped the side of the boat with his tail, while at the same time twirling a golden trident in his left hand. A milky pearl gleamed from the trident’s center. He looked up as they approached, fixing [defender] with a dour expression.
+
+“May I present,” the rock lobster announced,]]> 				
+			</item>
+			<item type="text" id="" width="575" height="" top="830" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[“Commodore,” the green man said. The word came out as a long sigh, and he turned his gaze toward [defender], fixing [pronoun2] with mossy green eyes. He certainly didn’t seem great and powerful. If anything, he seemed in desperate need of cheering up, thought [defender]. “You must be the realm’s latest Defender,” Morrissey continued. “There’s been a slew of you hero types of late. Not sure why any of you bother, really. Nero is unstoppable.”
+
+[defender] stiffened at Morrissey’s words. “It’s a pleasure to meet you,” [defender] said. “Sir,” [pronoun1] tacked on, unsure of what kind of honorific one used when dealing with a sea god. “But frankly,” [pronoun1] added, “with an attitude like that, of course Nero will do what he likes. Perhaps you’ve heard the phrase mind over matter? You might consider trying it some time.”
+
+“Mind over matter is all well and good when luck is going your way,” the sea god replied, annoyance plain in his tone. He slipped off of his perch and swam toward them, never breaking the rhythm of his spinning trident. He stopped when he was five feet from [defender]. He was even smaller than he had seemed from a distance, the top of his head only reaching [defender]’s shoulder. His skin gleamed. “But I’ve misplaced my luck,” Morrissey continued.“Until it’s returned, I want to be alone. Is that too much to ask?”
+
+“I’m afraid it is,” [defender] replied. “I believe we can save the realm. If you’ll simply hear me out?”
+
+Morrissey glared, but didn’t interrupt as defender] began to speak.  
+
+[defender] wasted no time in explaining [pronoun3] mission. [Pronoun1] told the sea god of [companionName]’s capture, and of [pronoun3] quest thus far, highlighting a few minor successes. [Pronoun1] concluded by explaining [pronoun3] need for the pearl and how [pronoun1] would use it to defeat Prince Nero. And [pronoun1] did it all in 90 seconds flat. After all, [pronoun1] had a schedule to keep.
+
+The sea god’s mossy eyes never blinked as [defender] spoke. When the tale was concluded, he simply shrugged his narrow shoulders. “I don’t see how this is my problem,” he said.
+
+“I think you’ve somehow misunderstood,” [defender] said, urgency creeping into [pronoun3] tone. “You’re in grave danger. As is the entire realm.” [Pronoun1] paused, fixing Morrissey with a serious look. “As is my companion. Surely you can understand that, if nothing else?”
+
+Morrissey stopped spinning his trident and plunged it into the sandy floor beneath them. “Enough,” he said. “I am in ill humor, and this conversation does nothing to inspire me to action.” The sea god turned to the rock lobster. “Commodore, please escort the Defender back to the reef. Until my luck changes, I’m not in the mood for interruptions.”
+
+“Yes, sir,” the rock lobster replied with a crisp salute. He turned to [defender] and lowered his voice. “Told you so,” he said matter-of-factly.  
+
+[defender] watched as Morrissey bowed his head and turned from them, drifting back toward the sunken boat. “Wait,” [pronoun1] called.
+
+The sea god paused, his back still turned, as [defender] considered [pronoun3] next move. [Pronoun1] wasn’t about to let [pronoun3] companion become a dungeonfish’s meal, and the realm certainly didn’t have time for a sullen sea god. There were really just two possible courses of action.]]> 				
+			</item>
+		</body>
+		<decisions top="100">
+			<decision id="shipwreck.Starfish1View"><![CDATA[FIND STARFISH]]></decision>
+			<decision id="shipwreck.JokeView"><![CDATA[TELL A JOKE]]></decision>
+		</decisions>	
+	</followCommodore>
+<!-- ***			FOLLOW COMMODORE 			-->
+
+<!-- 			STARFISH1			-->
+	<starfish1 id="Starfish1View">
+		<body>
+			<item type="text" id="morrisey" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[“What about a friendly wager?” [defender] asked. [Pronoun1] held [pronoun3] breath, hoping that anyone willing to lose a lucky starfish in a game of poker—sea god, or otherwise—would be interested in gambling. 
+
+Morrissey straightened, turning around with sudden interest. A smile stretched over his green lips, revealing fangs. For a moment he looked more shark than man. His fist tightened around his trident.]]> 				
+			</item>
+			<item type="text" id="" width="520" height="" top="330" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[“I’ll retrieve your starfish,” [defender] said, “in return for your help. I want my companion back, and your pearl to defeat Nero.” The sea god narrowed his eyes, and [defender] quickly added, “the pearl on loan. I’ll return it when my quest is complete.”]]> 				
+			</item>
+			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[Morrissey’s tail swished back and forth as he considered the request. “I do enjoy a good wager,” he admitted. 
+
+“Then let us shake on it,” [defender] said, pressing [pronoun3] advantage.
+
+Morrissey gave [pronoun2] a speculative look, but finally nodded his head slowly. “Very well,” he said, stretching out his hand. He clasped [defender]’s hand in his. Despite the sea god’s small stature, [defender] could feel [pronoun3] bones being crushed. 
+
+“Listen carefully, for I’ll not say it again,” Morrissey instructed. “Commodore Thacher will escort you beyond the reef to the edge of my lands. There you will find a ravine of jellyfish. Below this, the jellied devils hold my starfish in plain sight, taunting me. Retrieve it for me, and I’ll owe you a favor of your choice.”
+
+“And by favor,” [defender] began, “do you mean…”
+
+“Commodore,” the sea god’s voice boomed. “See that the Defender reaches the reef.”
+
+“Yes, sir,” the rock lobster replied smartly. “Right this way,” he said.
+
+[defender] gave the sea god one last searching look. [Pronoun1] couldn’t help feeling like [pronoun1]’d been tricked. Still, time was running out for [companionName]. The [companion] needed [pronoun3] help. [Pronoun1] hurried after the lobster, intent on [pronoun3] mission.]]> 				
+			</item>
+		</body>
+		<decisions top="100">
+			<decision id="shipwreck.Starfish2View"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</starfish1>
+<!-- ***			STARFISH1 			-->
+
+<!-- 			JOKE			-->
+	<joke id="JokeView">
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[“How about a joke before you go?” [defender] called after the sea god. “I’ve got a real fin slapper that’s guaranteed to make you laugh.”
+
+Morrissey straightened, turning around with sudden interest. “I’m listening,” he said.
+
+[defender] thought quickly before blurting out two of [pronoun3] favorite words.]]> 				
+			</item>
+			<item type="image" id="" width="" height="53" top="50" left="" size="" align="" leading="" file="assets/images/shipwreck/joke_imageText1.png"/>
+			<item type="text" id="" width="575" height="" top="60" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[“Who’s there?” Morrissey demanded.
+
+[defender] considered before replying,]]> 				
+			</item>
+			<item type="text" id="who" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[ who?” the sea god replied, his green eyes slanting suspiciously.
+
+[defender] rattled off the answer with a grin. ]]> 				
+			</item>
+			<item type="text" id="final" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[Morrissey considered the punch line with a furrowed brow. Then the dawn of realization crystallized over his face and he began to chuckle. Heavy belts of laughter rippled through the surrounding water. “Very good,” he replied. “I do love a joke.”
+
+“My pleasure,” [defender] said.
+
+“You’ve got gumption,” Morrissey conceded. “I can appreciate that. I’ll make you a deal. I’ve of late lost my lucky starfish to a group of roving jellyfish. They occupy a ravine beyond the reef, and hold my starfish in plain sight, taunting me. Retrieve it for me, and I’ll owe you a favor of your choice.”
+
+“And by favor,” [defender] began, “do you mean…”
+
+“Commodore,” the sea god’s voice boomed, interrupting [pronoun2]. “See that the Defender reaches the reef.” He plunged his trident down into the sea floor, sending up a cloud of sand. When it settled, he was gone.
+
+“Yes, sir,” the rock lobster replied, saluting the empty space the sea god had occupied. “Right this way,” he said.]]> 				
+			</item>
+		</body>
+		<decisions top="100">
+			<decision id="shipwreck.Starfish2View"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</joke>
+<!-- ***			JOKE 			-->
+
+<!-- 			STARFISH2			-->
+	<starfish2 id="Starfish2View">
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[defender] followed Commodore Thacher through the ocean, kicking [pronoun3] fins swiftly to keep up. Rock lobsters—at least this one—moved faster than [pronoun1] would have thought.
+
+Five minutes passed before the commodore stopped. They stood together, looking over an underwater cliff. It was dark below, but [defender] could hear the faint sound of singing. It was the same [pronoun1] had heard on [pronoun3] way down the reef. 
+
+“What is it?” [pronoun1] asked in hushed tones. There was a haunting quality to the song that made [pronoun2] want to whisper.]]> 				
+			</item>
+			<item type="image" id="" width="" height="224" top="40" left="" size="" align="" leading="" file="assets/images/shipwreck/starfish2_imageText1.png"/>
+			<item type="text" id="" width="575" height="" top="60" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[“No,” [defender] replied. “It’s beautiful.”
+
+The commodore nodded in agreement. “Beautiful from a distance,” he said. “Like a lot of things. Just don’t let the little devils touch you. A few stings and you’ll be a goner.” The lobster pulled a glowing pendant from his shell. “Wear this,” he said. “It will light your way.” He peered down over the edge into the darkness with a shudder. “If you do make it to the bottom, the starfish should be in plain view. At least there’s that.”
+
+[defender] hung the pendent around [pronoun3] neck. It glowed softly. “Thank you, commodore,” [pronoun1] said before stepping off the reef.]]> 				
+			</item>
+		</body>
+		<decisions top="100">
+			<decision id="shipwreck.Starfish2View"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</starfish2>
+<!-- ***			STARFISH2 			-->
 
 <!-- 			SANDLANDS			-->
 	<sandlands id="SandlandsView">

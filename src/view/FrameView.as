@@ -13,6 +13,8 @@ package view
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
 	import flash.utils.setTimeout;
 	
 	import model.DataModel;
@@ -137,6 +139,11 @@ package view
 			for (i = 0; i < _spacerArray.length; i++) 
 			{
 				duplicate = duplicateDisplayObject(_spacerArray[i], true);
+				
+//				var ClassDefinition:Class = Class(getDefinitionByName(getQualifiedClassName(_spacerArray[i]))); 
+//				duplicate = new ClassDefinition();
+//				_mc.addChild(duplicate);
+				
 				duplicate.y = _nextY;
 				_nextY += _spacerArray[i].height;
 //				trace(_spacerArray[i]);
