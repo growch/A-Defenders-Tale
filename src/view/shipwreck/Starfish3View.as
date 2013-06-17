@@ -5,16 +5,15 @@ package view.shipwreck
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
 	
-	import assets.Jellyfish1MC;
+	import assets.Starfish3MC;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.DecisionInfo;
 	import model.PageInfo;
 	import model.StoryPart;
 	
@@ -26,9 +25,9 @@ package view.shipwreck
 	import view.FrameView;
 	import view.IPageView;
 	
-	public class Jellyfish1View extends MovieClip implements IPageView
+	public class Starfish3View extends MovieClip implements IPageView
 	{
-		private var _mc:Jellyfish1MC; 
+		private var _mc:Starfish3MC;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -36,21 +35,15 @@ package view.shipwreck
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
-		private var _jelly1:MovieClip;
-		private var _jelly2:MovieClip;
-		private var _jelly3:MovieClip;
-		private var _jelly4:MovieClip;
-		private var _jelly5:MovieClip;
-		private var _jelly6:MovieClip;
-		private var _jelly7:MovieClip;
-		private var _jelly8:MovieClip;
-		private var _jellyArray:Array;
-		private var _counter:int = 0;
 		private var _pageInfo:PageInfo;
-		private var _jellyTimer:Timer;
-		private var _timerSpeed:int = 800;
-		
-		public function Jellyfish1View()
+		private var _fish1:MovieClip;
+		private var _fish2:MovieClip;
+		private var _fish3:MovieClip;
+		private var _fish4:MovieClip;
+		private var _dv:Vector.<DecisionInfo>;
+
+		//		ApplicationView, MapView
+		public function Starfish3View()
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, init); 
@@ -59,7 +52,7 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			_pageInfo = null;
+			_pageInfo = null; 
 			
 			_frame.destroy();
 			_frame = null;
@@ -79,60 +72,27 @@ package view.shipwreck
 			//for delayed calls
 			TweenMax.killAll();
 			
-			DataModel.getInstance().removeAllChildren(_mc);
 			
-			_jellyTimer.stop();
-			_jellyTimer = null;
+			DataModel.getInstance().removeAllChildren(_mc);
 		}
 		
 		private function init(e:Event) : void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new Jellyfish1MC(); 
+			_mc = new Starfish3MC(); 
 			
 			_nextY = 110;
 			
-			_pageInfo = DataModel.appData.getPageInfo("jellyfish1");
+			_pageInfo = DataModel.appData.getPageInfo("starfish3");
 			_bodyParts = _pageInfo.body;
 			
-			_jelly1 = _mc.jelly1_mc; 
-			_jelly2 = _mc.jelly2_mc; 
-			_jelly3 = _mc.jelly3_mc; 
-			_jelly4 = _mc.jelly4_mc; 
-			_jelly5 = _mc.jelly5_mc; 
-			_jelly6 = _mc.jelly6_mc; 
-			_jelly7 = _mc.jelly7_mc; 
-			_jelly8 = _mc.jelly8_mc; 
 			
-			_jelly1.hit_mc.visible = false;
-			_jelly2.hit_mc.visible = false;
-			_jelly3.hit_mc.visible = false;
-			_jelly4.hit_mc.visible = false;
-			_jelly5.hit_mc.visible = false;
-			_jelly6.hit_mc.visible = false;
-			_jelly7.hit_mc.visible = false;
-			_jelly8.hit_mc.visible = false;
+			_fish1 = _mc.fish1_mc;
+			_fish2 = _mc.fish2_mc;
+			_fish3 = _mc.fish3_mc;
+			_fish4 = _mc.fish4_mc;
 			
-			
-			_jelly1.stop();
-			_jelly2.stop();
-			_jelly3.stop();
-			_jelly4.stop();
-			_jelly5.stop();
-			_jelly6.stop();
-			_jelly7.stop();
-			_jelly8.stop(); 
-			
-			_jellyArray = new Array();
-			_jellyArray.push(_jelly1);
-			_jellyArray.push(_jelly2);
-			_jellyArray.push(_jelly3);
-			_jellyArray.push(_jelly4);
-			_jellyArray.push(_jelly5);
-			_jellyArray.push(_jelly6);
-			_jellyArray.push(_jelly7);
-			_jellyArray.push(_jelly8);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -151,34 +111,31 @@ package view.shipwreck
 					
 					_nextY += _tf.height + part.top;
 					
-					if (part.id == "end") {
-						_mc.end_mc.y = _nextY + 60; 
-						_nextY += 100;
-					}
-					
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
 					_nextY += part.height + part.top;
+					
+					//EXCEPTION
+					_fish1.y = _nextY - 70;
 				}
 			}
 			
 			// decision
-			_nextY += _pageInfo.decisionsMarginTop
+			_nextY += _pageInfo.decisionsMarginTop;
 			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY; 
-			
 			_mc.addChild(_decisions);
+
+			//EXCEPTION
+			_mc.bg_mc.height = _decisions.y + 275;
+			_fish2.y = _decisions.y + 120;
+			_fish3.y = _decisions.y - 100;
+			_fish4.y = _decisions.y + 120;
 			
 			_frame = new FrameView(_mc.frame_mc); 
-			//CUSTOM!!!
-			var frameSize:int = _decisions.y + 400;
-			//CUSTOM
-			var diff:int = frameSize - _mc.bg_mc.height; 
-			_mc.sand_mc.y += diff;  
-			
-			_mc.bg_mc.height = frameSize;
+			var frameSize:int = _mc.bg_mc.height;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
@@ -194,48 +151,68 @@ package view.shipwreck
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			//TODO MIGHT HAVE TO KILL ANIMATION FOR IPAD1
-			if (DataModel.ipad1) _timerSpeed = 3000;
-			_jellyTimer = new Timer(_timerSpeed);
-			_jellyTimer.addEventListener(TimerEvent.TIMER, animateJelly); 
-			_jellyTimer.start();
+			
+			_fish1.goLeft = false;  
+			_fish1.orientRight = true; 
+			_fish2.goLeft = false;
+			_fish2.orientRight = true;
+			_fish3.goLeft = true;
+			_fish4.goLeft = false;  
+			_fish4.orientRight = true; 
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function animateJelly(e:TimerEvent):void {
-			var thisJelly:MovieClip = _jellyArray[_counter] as MovieClip;
-			thisJelly.play(); 
-			_counter++;
-			if (_counter > _jellyArray.length-1) {
-				_counter = 0;
-			}
-		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
 			
-			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
-				_jellyTimer.stop();
-					
+				
 				_scrolling = true;
 			} else {
 				
+				moveFish(_fish1, .5);
+				moveFish(_fish2, .8);
+				moveFish(_fish3, .6);
+				moveFish(_fish4, .4);
+				
 				if (!_scrolling) return;
-				
-				_jellyTimer.start();
-				
 				TweenMax.resumeAll();
 				_scrolling = false;
 			}
 		}
 		
+		private function moveFish(thisMC:MovieClip, thisAmt:Number):void {
+			if (thisMC.goLeft) {
+				thisMC.x -= thisAmt;
+				if (thisMC.x < - (thisMC.width*2)) {
+					thisMC.goLeft = false;
+					if (thisMC.orientRight) {
+						thisMC.scaleX = 1;
+					} else {
+						thisMC.scaleX = -1;
+					}
+					
+				}
+			} else {
+				thisMC.x += thisAmt;
+				if (thisMC.x > DataModel.APP_WIDTH + thisMC.width) {
+					thisMC.goLeft = true;
+					if (thisMC.orientRight) {
+						thisMC.scaleX = -1;
+					} else {
+						thisMC.scaleX = 1;
+					}
+					
+				}
+			}
+			
+		}
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			_jellyTimer.stop();
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

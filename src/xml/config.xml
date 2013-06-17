@@ -3953,6 +3953,143 @@ The commodore nodded in agreement. “Beautiful from a distance,” he said. “
 	</starfish2>
 <!-- ***			STARFISH2 			-->
 
+<!-- 			STARFISH3			-->
+	<starfish3 id="Starfish3View">
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[As [defender]’s hand closed around the starfish, a white light enveloped [pronoun2]. A moment later, [pronoun3] vision cleared. [Pronoun1]’d been transported back to the very same sailboat where [pronoun1]’d first met Morrissey. The sea god was once again there, wearing his shark’s smile.  
+
+“Well?” he said, struggling to keep the excitement from his face.
+
+[defender] reached into [pronoun3] pocket and pulled the starfish out with a flourish. “I believe we had an agreement,” [pronoun1] reminded the sea god.
+
+“Yes, yes, very well,” Morrissey replied. “Name your favor.”
+
+“I need my companion back, as well as the pearl.”
+
+Once again the sea god looked at [pronoun2] from unblinking green eyes.]]> 				
+			</item>
+			<item type="image" id="" width="" height="125" top="40" left="" size="" align="" leading="" file="assets/images/shipwreck/starfish3_imageText1.png"/>
+			<item type="text" id="" width="575" height="" top="60" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[defender] tried to remain calm. “But I need both,” [pronoun1] argued. “You lead me to believe that these were the terms of the arrangement.”
+
+“I did no such thing,” Morrissey said. His former depression had been replaced by a kind of giddiness, and he swam a loop around [defender]. “Which will it be? Your companion, or my pearl—on loan, of course. With the pearl, the secrets of the ocean will be yours to command. No small feat, I’m sure you’ll agree.” Morrissey spun his trident lazily, but [defender] could see by the clenching of his jaw that he was impatient. “Now go on,” Morrissey continued, suddenly cross. “Make a decision. If you recall, I am a sea god, with my luck now returned. The world is my oyster, as they say, and I’ve things to do.”]]> 				
+			</item>
+		</body>
+		<decisions top="160">
+			<decision id="shipwreck.CompanionView"><![CDATA[SAVE COMPANION]]></decision>
+			<decision id="shipwreck.Pearl1View"><![CDATA[REQUEST PEARL]]></decision>
+		</decisions>	
+	</starfish3>
+<!-- ***			STARFISH3 			-->
+
+<!-- 			PEARL1			-->
+	<pearl1 id="Pearl1View">
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[There is a time when every hero has to weigh a small victory against a big one. This was, [defender] mused, just such a time. It was with a heavy heart that [pronoun1] picked the pearl.  
+
+“Interesting decision,” was all the sea god said before dislodging the pearl from his trident, placing it into [defender]’s outstretched hand, and disappearing in a poof of billowing sand.
+
+Left alone with [pronoun3] thoughts, [defender] couldn’t help thinking of poor [companionName], left alone behind the dungeonfish’s barred teeth. It was a horrible fate, but wasn’t this sacrifice worth it? After all, the pearl was vital if [pronoun1] was going to save the realm from Nero. 
+
+A tear squeezed from [defender]’s eye, and then another, and another, mixing with the pressing salt water. A sudden vision of [companionName] sprung into [pronoun3] mind, and [pronoun1] gasped with the sudden horror of what would soon occur. [Pronoun1] simply couldn’t leave the [companion] to [companionPronoun3] fate. It was unthinkable. Unconscionable, even! It occurred to [pronoun2] that when a decision felt this wrong, it probably was. [Pronoun1] had to find Morrissey while there was still time. [Pronoun1] refused to turn [pronoun3] back on [pronoun3] companion, realm be blasted. 
+
+[Pronoun1] turned back around, desperate to find Morrissey. In [pronoun3] haste, [pronoun1] failed to notice]]> 				
+			</item>
+			<item type="image" id="" width="" height="318" top="80" left="" size="" align="" leading="" file="assets/images/shipwreck/pearl1_imageText1.png"/>
+			<item type="text" id="end" width="575" height="" top="80" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[Pronoun1] swam right into a large tentacle.
+
+[defender]’s last thought was not for the realm. Or even for [pronoun2]self. It was for [pronoun3] companion, who [pronoun1] had left in a most undefenderlike fashion. If [pronoun1] had the decision to make over again, [pronoun1] vowed it would have been different. Instead, as [pronoun1] drifted into unconsciousness from repeated stingings, [pronoun1] reflected that it was most assuredly…]]> 				
+			</item>
+			<item type="text" id="" width="575" height="" top="160" left="100" size="20" align="center" leading="10" file="">
+			<![CDATA[Though the singing sure was nice.]]> 				
+			</item>
+		</body>
+		<decisions top="230">
+			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
+			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+		</decisions>	
+	</pearl1>
+<!-- ***			PEARL1 			-->
+
+<!-- 			COMPANION			-->
+	<companion id="CompanionView">
+		<companion1>
+			<companion><![CDATA[Sure, Oonie liked to lecture from time to time, and could get downright bossy when the mood struck. But that mattered little. [defender] would never leave a friend in a bind. It went against [pronoun3] principles as a Defender of the Realm.]]></companion>
+			<companion><![CDATA[Sure, Linus often preferred sleep to conversation. Or advice. Or other companion-like activities. But that mattered little. [defender] would never leave a friend in a bind. It went against [pronoun3] principles as a Defender of the Realm.]]></companion>
+			<companion><![CDATA[Sure, Noah was the most forgetful goldfish—or creature for that matter— [defender] had ever met. But that mattered little. [defender] would never leave a friend in a bind. It went against [pronoun3] principles as a Defender of the Realm.]]></companion>
+		</companion1>
+		<companion2>
+			<companion><![CDATA[“Stop your fussing,” Oonie said, smoothing down her rumpled feathers. 
+
+But [defender] didn’t care. [Pronoun1] circled [pronoun3] arms around the ostrich’s neck and hugged her gently. “I’m so glad you’re alright,” [pronoun1] said.
+
+“Pish posh,” Oonie replied, but [defender] could tell the ostrich was pleased. “Let’s just avoid dungeonfish in the future, shall we?” The ostrich reached under one of her wings and pulled out a velvet bag. “Still, I did find this tucked behind one of the fish’s teeth.” The ostrich shook out a pair of golden dice into one wing. “Anyone missing these?”]]></companion>
+			<companion><![CDATA[“Oh, I’m jussssst fine,” Linus replied. “Though in need of a nap.” The lizard carried a small bag, almost as big as him, in one hand.
+
+[defender] scooped the lizard up in [pronoun3] hands and gently placed him onto [pronoun3] shoulder. “I’m so glad you’re alright,” [pronoun1] said. “You can nap on me anytime you’d like.” [Pronoun1] motioned to the bag. “But what is it you have there?
+
+Linus opened the bag and pulled out two golden dice. “You can find the ssssstrangest things stuck in a dungeonfish’s teeth,” he said. “I thought sssssomeone might be misssssing these.”]]></companion>
+			<companion><![CDATA[“Oh I’m okay,” Noah said happily. “Just happy to be out of there. I hate the dark.” Noah had a small bag, almost as big as him, tied around one fin. He dragged it toward [defender].  
+
+[defender] beamed at the fish. “I’m just glad you’re alright,” [pronoun1] said. “But what is it you have there?”
+
+Noah dropped the bag in [defender]’s hand. Inside were two golden dice. “I found this bag wedged behind one of its teeth,” Noah explained.]]></companion>
+		</companion2>
+		<islands1>
+			<island><![CDATA[“One step closer to your confrontation with the prince, eh?” the captain continued. “So where to next?” 
+
+[defender]’s smile faltered as [pronoun1] considered [pronoun3] next move. From here, [pronoun3] mission would only become more treacherous.]]></island>
+			<island><![CDATA[“Time for your confrontation with the prince, eh?” the captain continued. “Are you ready?” 
+
+[defender]’s smile faltered. “Ready as I’ll ever be,” [pronoun1] said.]]></island>
+		</islands1>
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[defender] never hesitated. [Pronoun3] companion had been with [pronoun2] since the beginning. 
+
+[companion1]
+
+“Return my companion,” [defender] announced, “and the starfish is yours.”
+
+Morrissey spun his trident through the water, and a moment later, [defender] could see a light coming toward them from the distance. It grew brighter, until [defender] realized it was the dungeonfish. The fish stopped beside Morrissey, opened its mouth, and belched loudly. The [companion] came tumbling out.]]> 				
+			</item>
+			<item type="text" id="dungeonFish" width="575" height="" top="520" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[“[companionName],” [defender] shouted in relief. [Pronoun1] quickly swam to [pronoun3] companion’s side to make sure the [companion] was unharmed.
+
+[companion2]]]> 				
+			</item>
+			<item type="image" id="" width="" height="300" top="110" left="" size="" align="" leading="" file="assets/images/shipwreck/companion_imageText1.png"/>
+			<item type="text" id="" width="575" height="" top="120" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[defender] gave him a shark’s grin back. “I’ll trade you,” [pronoun1] said. “For the pearl.”
+
+After wheedling, cajoling, and even some half-hearted begging, Morrissey finally agreed to part with his pearl. From there it was a quick trip back to the surface of the ocean. Smeg was on watch as they reached the top, and threw a rope down for them to climb up.
+
+“Congratulations,” the first mate said, pounding [defender] on the back. 
+
+“I couldn’t have done it without that password,” [defender] replied. 
+
+“It worked, did it?” Smeg asked, looking pleased. “Glad to have helped.”]]> 				
+			</item>
+			<item type="text" id="weapon" width="275" height="" top="40" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[The crew quickly gathered around [defender] and [companionName], anxious to hear about their adventures under the sea and to admire the pearl. When [defender] was finished, the captain spoke.
+
+“Now that you have the pearl,” she said, “we’ll be able to track Nero’s island as it moves through the water. Well done, Defender.”
+
+[defender] grinned, relishing the captain’s praise.]]> 				
+			</item>
+			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
+			<![CDATA[[islands1]]]> 				
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="MapView"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</companion>
+<!-- ***			COMPANION 			-->
+
 <!-- 			SANDLANDS			-->
 	<sandlands id="SandlandsView">
 		<intro1>

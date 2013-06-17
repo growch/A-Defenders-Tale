@@ -253,18 +253,18 @@ package view.prologue
 //			TweenMax.to(_mc, 1, {alpha:0});
 //			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
 			// coin/alms count
-//			if (event.data.decisionNumber == 1) {
-//				DataModel.coinCount++;
-//			}
+			if (event.data.decisionNumber == 1) {
+				DataModel.coinCount++;
+			}
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		
-		private function nextPage(thisPage:Object):void {
-			// coin/alms count
-			if (thisPage.decisionNumber == 1) {
-				DataModel.coinCount++;
-			}
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
-		}
+//		private function nextPage(thisPage:Object):void {
+//			// coin/alms count
+//			if (thisPage.decisionNumber == 1) {
+//				DataModel.coinCount++;
+//			}
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
+//		}
 	}
 }

@@ -8,7 +8,7 @@ package view.shipwreck
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import assets.Jellyfish1MC;
+	import assets.Pearl1MC;
 	
 	import control.EventController;
 	
@@ -26,9 +26,9 @@ package view.shipwreck
 	import view.FrameView;
 	import view.IPageView;
 	
-	public class Jellyfish1View extends MovieClip implements IPageView
+	public class Pearl1View extends MovieClip implements IPageView
 	{
-		private var _mc:Jellyfish1MC; 
+		private var _mc:Pearl1MC; 
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -42,15 +42,13 @@ package view.shipwreck
 		private var _jelly4:MovieClip;
 		private var _jelly5:MovieClip;
 		private var _jelly6:MovieClip;
-		private var _jelly7:MovieClip;
-		private var _jelly8:MovieClip;
 		private var _jellyArray:Array;
 		private var _counter:int = 0;
 		private var _pageInfo:PageInfo;
 		private var _jellyTimer:Timer;
 		private var _timerSpeed:int = 800;
 		
-		public function Jellyfish1View()
+		public function Pearl1View()
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, init); 
@@ -89,11 +87,11 @@ package view.shipwreck
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new Jellyfish1MC(); 
+			_mc = new Pearl1MC(); 
 			
 			_nextY = 110;
 			
-			_pageInfo = DataModel.appData.getPageInfo("jellyfish1");
+			_pageInfo = DataModel.appData.getPageInfo("pearl1");
 			_bodyParts = _pageInfo.body;
 			
 			_jelly1 = _mc.jelly1_mc; 
@@ -102,8 +100,6 @@ package view.shipwreck
 			_jelly4 = _mc.jelly4_mc; 
 			_jelly5 = _mc.jelly5_mc; 
 			_jelly6 = _mc.jelly6_mc; 
-			_jelly7 = _mc.jelly7_mc; 
-			_jelly8 = _mc.jelly8_mc; 
 			
 			_jelly1.hit_mc.visible = false;
 			_jelly2.hit_mc.visible = false;
@@ -111,9 +107,6 @@ package view.shipwreck
 			_jelly4.hit_mc.visible = false;
 			_jelly5.hit_mc.visible = false;
 			_jelly6.hit_mc.visible = false;
-			_jelly7.hit_mc.visible = false;
-			_jelly8.hit_mc.visible = false;
-			
 			
 			_jelly1.stop();
 			_jelly2.stop();
@@ -121,8 +114,6 @@ package view.shipwreck
 			_jelly4.stop();
 			_jelly5.stop();
 			_jelly6.stop();
-			_jelly7.stop();
-			_jelly8.stop(); 
 			
 			_jellyArray = new Array();
 			_jellyArray.push(_jelly1);
@@ -131,8 +122,6 @@ package view.shipwreck
 			_jellyArray.push(_jelly4);
 			_jellyArray.push(_jelly5);
 			_jellyArray.push(_jelly6);
-			_jellyArray.push(_jelly7);
-			_jellyArray.push(_jelly8);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -152,14 +141,26 @@ package view.shipwreck
 					_nextY += _tf.height + part.top;
 					
 					if (part.id == "end") {
-						_mc.end_mc.y = _nextY + 60; 
-						_nextY += 100;
+						_mc.end_mc.y = _nextY + 180; 
+						
+						//EXCEPTION
+						_jelly5.y = _mc.end_mc.y - 160;
+						_jelly6.y = _mc.end_mc.y - 40;
+						
+						_nextY += 120;
 					}
 					
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					
+					//EXCEPTION
+					_jelly1.y = _nextY + 20;
+					_jelly2.y = _nextY + 200;
+					_jelly3.y = _nextY;
+					_jelly4.y = _nextY + 200;
+					
 					_nextY += part.height + part.top;
 				}
 			}
@@ -214,7 +215,6 @@ package view.shipwreck
 		
 		protected function enterFrameLoop(event:Event):void
 		{
-			
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();

@@ -21,7 +21,7 @@ package view
 	
 	public class FrameView extends Sprite 
 	{
-		private var _mc:MovieClip;
+		private var _mc:Sprite;
 		private var _top:MovieClip;
 		private var _mid:MovieClip;
 		private var _bottom:MovieClip;
@@ -34,7 +34,7 @@ package view
 		private var onStage:Boolean;
 		private var _frameSize:Number;
 		
-		public function FrameView(mc:MovieClip)
+		public function FrameView(mc:Sprite)
 		{
 			super();
 			_mc = mc;
