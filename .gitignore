@@ -1,4 +1,9 @@
 bin-debug/
+_experiments/
+_swfs/
+src/assets/
+release/
+src/ADefendersTale.swf
 
 # OS generated files #
 ######################

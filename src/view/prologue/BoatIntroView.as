@@ -8,16 +8,16 @@ package view.prologue
 	import flash.events.Event;
 	import flash.geom.ColorTransform;
 	
-	import assets.BoatIntroMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -26,11 +26,10 @@ package view.prologue
 	import view.FrameView;
 	import view.IPageView;
 	import view.StarryNight;
-	import model.PageInfo;
 	
 	public class BoatIntroView extends MovieClip implements IPageView
 	{
-		private var _mc:BoatIntroMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -45,12 +44,12 @@ package view.prologue
 		private var _posNegWave:int;
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
-		BoatView
 		public function BoatIntroView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("prologue.BoatIntroMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -71,6 +70,8 @@ package view.prologue
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null;
 			
 			_dragVCont.dispose();
@@ -83,21 +84,24 @@ package view.prologue
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+		public function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
+			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new BoatIntroMC();
 			_boat = _mc.boat_mc;
 			_nextY = 140;
 			
 			_boat.stop();
 			
+			_boat.mask_mc.cacheAsBitmap = true;
+			_boat.waves_mc.cacheAsBitmap = true;
+			_boat.waves_mc.mask = _boat.mask_mc;
+			
 			_stars = new StarryNight(680,350,.5,1,800);
 			_stars.x = 50;
 			_stars.y = 50;
-//			_stars.alpha = .8;
-//			TweenMax.to(_stars,0,{colorMatrixFilter:{colorize:0x191052, amount:.6}});
 			var c:ColorTransform = new ColorTransform(); 
 			c.color = (0x4124b3);
 			_stars.transform.colorTransform = c;
@@ -159,6 +163,13 @@ package view.prologue
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
+			_frame = new FrameView(_mc.frame_mc);
+			var frameSize:int = _decisions.y + 210;
+			_frame.sizeFrame(frameSize);
+			if (frameSize < DataModel.APP_HEIGHT) {
+				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+			}
+			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
@@ -166,16 +177,7 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_frame = new FrameView(_mc.frame_mc);
-			
-			var frameSize:int = _decisions.y + 210;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-			
 			_boat.waves_mc.visible = false;
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageAnimation}); 
 		}
 		
 		private function pageOn(event:ViewEvent):void {
@@ -240,12 +242,8 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-			TweenMax.to(_mc, 1, {alpha:0});
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
-		}
 	}
 }

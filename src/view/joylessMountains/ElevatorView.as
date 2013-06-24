@@ -1,13 +1,11 @@
 package view.joylessMountains
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.*;
+	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
 	
 	import assets.ElevatorMC;
 	
@@ -16,6 +14,7 @@ package view.joylessMountains
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -26,7 +25,6 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class ElevatorView extends MovieClip implements IPageView
 	{

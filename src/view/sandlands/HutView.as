@@ -6,7 +6,7 @@ package view.sandlands
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	import assets.HutMC; 
+	import assets.HutMC;
 	
 	import control.EventController;
 	
@@ -14,6 +14,7 @@ package view.sandlands
 	
 	import model.DataModel;
 	import model.DecisionInfo;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -21,12 +22,9 @@ package view.sandlands
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
-	import view.ApplicationView;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.MapView;
-	import model.PageInfo;
 	
 	public class HutView extends MovieClip implements IPageView
 	{
@@ -40,7 +38,6 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		
-		MapView, ApplicationView
 		public function HutView()
 		{
 			super();

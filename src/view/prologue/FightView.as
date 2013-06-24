@@ -11,30 +11,27 @@ package view.prologue
 	import flash.geom.Rectangle;
 	import flash.utils.Timer;
 	
-	import assets.FightMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
-	import view.ApplicationView;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.MapView;
-	import model.PageInfo;
 	
 	public class FightView extends MovieClip implements IPageView
 	{
-		private var _mc:FightMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -50,12 +47,13 @@ package view.prologue
 		private var _noteTimer:Timer;
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
-		IntroAllIslandsView, MapView, ApplicationView
 		public function FightView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("prologue.FightMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
+			
 //			*** USED LATER
 			DataModel.captainBattled = true;
 			
@@ -73,7 +71,6 @@ package view.prologue
 			TweenMax.killAll();
 			
 			_frame.destroy();
-			
 			_frame = null;
 			
 			_decisions.destroy();
@@ -86,6 +83,8 @@ package view.prologue
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null;
 			
 			_dragVCont.dispose();
@@ -95,11 +94,11 @@ package view.prologue
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade); 
+		public function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new FightMC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade); 
 			
 			_nextY = 110;
 			
@@ -179,7 +178,7 @@ package view.prologue
 						//big callout text in mc
 						var index3:int = copy.indexOf("inspection.", 0);
 						var rect3:Rectangle = _tf.getCharBoundaries(index3);
-						_mc.instruments_mc.y = rect3.y - 320;
+						_mc.instruments_mc.y = rect3.y - 300;
 					}
 					if (_weaponInt == 2) {
 						var index:int = copy.indexOf("[spacer]", 0);
@@ -205,6 +204,13 @@ package view.prologue
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
+			_frame = new FrameView(_mc.frame_mc); 
+			var frameSize:int = _decisions.y + 210;
+			_frame.sizeFrame(frameSize);
+			if (frameSize < DataModel.APP_HEIGHT) {
+				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+			}
+			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
@@ -212,15 +218,6 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_frame = new FrameView(_mc.frame_mc); 
-			
-			var frameSize:int = _decisions.y + 210;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -305,16 +302,10 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-//			TweenMax.to(_mc, 1, {alpha:0});
-//			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
 			if (_noteTimer) {
 				_noteTimer.stop();
 			}
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}
 	}
 }

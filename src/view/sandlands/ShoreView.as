@@ -1,12 +1,10 @@
 package view.sandlands
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import assets.ShoreMC;
 	
@@ -15,6 +13,7 @@ package view.sandlands
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -25,7 +24,6 @@ package view.sandlands
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class ShoreView extends MovieClip implements IPageView
 	{
@@ -39,7 +37,6 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		
-		StraightView, WindingView
 		public function ShoreView()
 		{
 			super();
@@ -81,7 +78,7 @@ package view.sandlands
 			
 			_nextY = 110;
 			
-			_pageInfo = DataModel.appData.getPageInfo("prologue");
+			_pageInfo = DataModel.appData.getPageInfo("shore");
 			_bodyParts = _pageInfo.body;
 			
 			// set the text

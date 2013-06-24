@@ -38,7 +38,6 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		
-		Well2View, Well3View
 		public function WellView()
 		{
 			super();

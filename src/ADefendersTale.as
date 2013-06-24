@@ -8,7 +8,7 @@ package
 	import flash.events.Event;
 	import flash.text.AntiAliasType;
 	
-	import control.ViewController;
+	import control.*;
 	
 	import events.ApplicationEvent;
 	
@@ -29,7 +29,7 @@ package
 	public class ADefendersTale extends MovieClip
 	{
 		private var _dm:DataModel;
-		private var _vc:ViewController; ViewController
+		private var _vc:ViewController; 
 		
 		public function ADefendersTale()
 		{

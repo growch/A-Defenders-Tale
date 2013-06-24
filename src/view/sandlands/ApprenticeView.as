@@ -13,17 +13,16 @@ package view.sandlands
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
-	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class ApprenticeView extends MovieClip implements IPageView
 	{
@@ -37,7 +36,6 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		
-		WellView
 		public function ApprenticeView()
 		{
 			super();

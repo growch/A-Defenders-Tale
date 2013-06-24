@@ -8,6 +8,7 @@ package view.joylessMountains
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import flash.utils.getDefinitionByName;
 	
 	import assets.ExploreMC;
 	
@@ -16,6 +17,7 @@ package view.joylessMountains
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -26,11 +28,10 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class ExploreView extends MovieClip implements IPageView
 	{
-		private var _mc:ExploreMC;
+		private var _mc:*;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -88,7 +89,9 @@ package view.joylessMountains
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new ExploreMC();
+			var tempClass:Class = getDefinitionByName("ExploreMC") as Class
+//			_mc = new ExploreMC();
+			_mc = new tempClass();
 			
 			_nextY = 110;
 			

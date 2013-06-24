@@ -37,7 +37,6 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:Object;
 		
-		WellView, HutView
 		public function Sand3View()
 		{
 			super();

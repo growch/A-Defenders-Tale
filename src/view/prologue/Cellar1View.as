@@ -6,8 +6,6 @@ package view.prologue
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	import assets.Cellar1MC;
-	
 	import control.EventController;
 	import control.GoViralService;
 	
@@ -15,22 +13,22 @@ package view.prologue
 	
 	import model.DataModel;
 	import model.DecisionInfo;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
-	import view.ApplicationView;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class Cellar1View extends MovieClip implements IPageView
 	{
-		private var _mc:Cellar1MC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -40,12 +38,12 @@ package view.prologue
 		private var _frame:FrameView;
 		private var _magicSpacer:int = 210;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
-		PrologueView, ApplicationView, BoatIntroView
 		public function Cellar1View()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("prologue.Cellar1MC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 		}
 		
 		public function destroy() : void {
@@ -64,6 +62,8 @@ package view.prologue
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null;
 			
 			_dragVCont.dispose();
@@ -71,12 +71,13 @@ package view.prologue
 			_dragVCont = null; 
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+		public function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
+			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			
-			_mc = new Cellar1MC();
 			_mc.companion_mc.gotoAndStop(DataModel.defenderInfo.companion+1);
 			_mc.end_mc.visible = false;
 			
@@ -157,15 +158,7 @@ package view.prologue
 				_magicSpacer += 60;
 			}
 			
-			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
-			_dragVCont.width = DataModel.APP_WIDTH;
-			_dragVCont.height = DataModel.APP_HEIGHT;
-			_dragVCont.addChild(_mc);
-			_dragVCont.refreshView(true);
-			addChild(_dragVCont);
-			
 			_frame = new FrameView(_mc.frame_mc);
-			
 			var frameSize:int = _decisions.y + 210;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
@@ -178,7 +171,12 @@ package view.prologue
 				_decisions.y += 20;
 			}
 			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0}); 
+			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
+			_dragVCont.width = DataModel.APP_WIDTH;
+			_dragVCont.height = DataModel.APP_HEIGHT;
+			_dragVCont.addChild(_mc);
+			_dragVCont.refreshView(true);
+			addChild(_dragVCont);
 		}
 		
 		protected function facebookContactResponded(event:ViewEvent):void
@@ -204,13 +202,7 @@ package view.prologue
 				_goViral.postWallHelp();
 				return;
 			}
-			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-			TweenMax.to(_mc, 1, {alpha:0});
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
-			TweenMax.to(_mc, 1, {alpha:0});
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}
 }

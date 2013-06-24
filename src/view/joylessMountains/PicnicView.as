@@ -137,7 +137,7 @@ package view.joylessMountains
 			
 			// decision
 			_nextY +=_pageInfo.decisionsMarginTop
-			_decisions = new DecisionsView(DataModel.appData.picnic.decisions,0xFFFFFF,true); //tint it white, showBG
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			

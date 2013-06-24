@@ -36,7 +36,7 @@ package view
 		
 		public function FrameView(mc:Sprite)
 		{
-			super();
+//			super();
 			_mc = mc;
 			_mc.addEventListener(Event.ADDED_TO_STAGE, addedToStage);
 			init();

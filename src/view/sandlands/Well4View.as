@@ -14,6 +14,7 @@ package view.sandlands
 	
 	import model.DataModel;
 	import model.DecisionInfo;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -24,7 +25,6 @@ package view.sandlands
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class Well4View extends MovieClip implements IPageView
 	{
@@ -38,7 +38,6 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		
-		Well2View
 		public function Well4View()
 		{
 			super();

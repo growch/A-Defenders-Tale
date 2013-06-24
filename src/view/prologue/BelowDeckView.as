@@ -16,35 +16,35 @@ package view.prologue
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.MapView;
-	import model.PageInfo;
 	
 	public class BelowDeckView extends MovieClip implements IPageView
 	{
-		private var _mc:BelowDeckMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
-		private var _mugs:DisplayObject;
+		private var _mugText:MovieClip;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
-		MapView
 		public function BelowDeckView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("prologue.BelowDeckMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -65,6 +65,8 @@ package view.prologue
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null; 
 			
 			_dragVCont.dispose();
@@ -72,16 +74,18 @@ package view.prologue
 			_dragVCont = null; 
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+		public function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
+			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new BelowDeckMC();
 			_mc.mugs_mc.visible = false;
+			
+			_mugText = _mc.mugs_mc.mugText_mc;
 			
 			_nextY = 110;
 			
-//			_bodyParts = _pageInfo.body;
 			_pageInfo = DataModel.appData.getPageInfo("belowDeck");
 			_bodyParts = _pageInfo.body;
 			
@@ -115,25 +119,24 @@ package view.prologue
 						_mc.joyless_mc.y = Math.round(_tf.y + ((_tf.height - _mc.joyless_mc.height))/2);
 					}
 					
+					
 					_mc.addChild(_tf);
 					_nextY += Math.round(_tf.height + part.top);
 					
-				} else if (part.type == "image") {
-					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, onComplete:onImageLoad, scaleX:.5, scaleY:.5});
-					
 					if (part.id == "mugs") {
-						_mc.mugs_mc.y = Math.round(_nextY+part.top-20);
+						_mc.mugs_mc.y = Math.round(_nextY+part.top+40);
+						_nextY += _mc.mugs_mc.height + 20;
 					}
+					
+				} else if (part.type == "image") {
+					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
+					
+					
 					
 					//begin loading
 					loader.load();
 					_nextY += Math.round(part.height + part.top);
 				}
-			}
-			
-			function onImageLoad(event:LoaderEvent):void {
-				_mugs = event.target.content;
-				_mugs.alpha = 0;
 			}
 			
 			// decision
@@ -142,6 +145,13 @@ package view.prologue
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
+			_frame = new FrameView(_mc.frame_mc);
+			var frameSize:int = _decisions.y + 210;
+			_frame.sizeFrame(frameSize);
+			if (frameSize < DataModel.APP_HEIGHT) {
+				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+			}
+			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
@@ -149,15 +159,6 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_frame = new FrameView(_mc.frame_mc);
-			
-			var frameSize:int = _decisions.y + 210;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageAnimation}); 
 		}
 		
 		private function pageOn(event:ViewEvent):void {
@@ -174,7 +175,7 @@ package view.prologue
 			TweenMax.to(_mc.mugs_mc.mugLeft_mc, 1, {bezierThrough:[{x:mugLX+90}, {x:mugLX}], ease:Quad.easeInOut});
 			TweenMax.to(_mc.mugs_mc.mugRight_mc, 1, {bezierThrough:[{x:mugRX-90}, {x:mugRX}], ease:Quad.easeInOut});
 			
-			TweenMax.to(_mugs, .8, {alpha:1, delay:.8});
+			TweenMax.from(_mugText, .8, {alpha:0, delay:.8});
 			
 			_mc.mugs_mc.visible = true;
 		}

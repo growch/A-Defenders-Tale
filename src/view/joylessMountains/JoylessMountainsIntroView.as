@@ -5,7 +5,6 @@ package view.joylessMountains
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
-	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.utils.setTimeout;
@@ -17,7 +16,7 @@ package view.joylessMountains
 	import events.ViewEvent;
 	
 	import model.DataModel;
-	import model.DecisionInfo;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import org.flintparticles.common.counters.Steady;
@@ -44,7 +43,6 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class JoylessMountainsIntroView extends MovieClip implements IPageView
 	{
@@ -144,7 +142,7 @@ package view.joylessMountains
 				introInt = 2;
 			}
 			
-			_pageInfo = DataModel.appData.getPageInfo("joylessIntro");
+			_pageInfo = DataModel.appData.getPageInfo("joylessMountainsIntro");
 			_bodyParts = _pageInfo.body;
 			
 			// set the text

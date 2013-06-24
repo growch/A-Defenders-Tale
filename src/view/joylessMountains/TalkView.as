@@ -1,9 +1,6 @@
 package view.joylessMountains
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Bounce;
-	import com.greensock.easing.Elastic;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
@@ -16,6 +13,7 @@ package view.joylessMountains
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -26,7 +24,6 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class TalkView extends MovieClip implements IPageView
 	{

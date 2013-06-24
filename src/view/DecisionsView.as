@@ -31,18 +31,19 @@ package view
 			_showBG = showBG;
 			_tintColor = tintColor;
 			
-			super();
+//			super();
 			
-			addEventListener(Event.ADDED_TO_STAGE, init);
+//			addEventListener(Event.ADDED_TO_STAGE, init);
+			init();
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+//		private function init(e:Event) : void {
+		private function init() : void {
+//			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			_mc = new DecisionsMC();
 			_mc.cacheAsBitmap = true;
 			_mc.stop();
-			trace("DEC init");
 			
 			_divider = _mc.divider_mc;
 			
@@ -74,11 +75,11 @@ package view
 					if (_decisions.length == 1) {
 						decButt.x = Math.round(_divider.x + (_divider.width - decButt.width)/2);
 						_mc.divider_mc.gotoAndStop("single");
-						trace("single decision");
+//						trace("single decision");
 					} else {
 						decButt.x = _divider.x;
 						_mc.divider_mc.gotoAndStop("double");
-						trace("double decision");
+//						trace("double decision");
 					}
 					
 				} else if (i == 1) {

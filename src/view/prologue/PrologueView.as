@@ -2,7 +2,9 @@ package view.prologue
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Bounce;
+	import com.greensock.events.LoaderEvent;
 	import com.greensock.loading.ImageLoader;
+	import com.greensock.loading.SWFLoader;
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.Bitmap;
@@ -10,9 +12,6 @@ package view.prologue
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.ColorTransform;
-	import flash.geom.Matrix;
-	
-	import assets.PrologueMC;
 	
 	import control.EventController;
 	
@@ -21,9 +20,9 @@ package view.prologue
 	import model.DataModel;
 	import model.PageInfo;
 	import model.StoryPart;
-	import model.PageInfo;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -32,11 +31,10 @@ package view.prologue
 	import view.FrameView;
 	import view.IPageView;
 	import view.StarryNight;
-	import view.prologue.coins.Coin1View;
 	
 	public class PrologueView extends MovieClip implements IPageView
 	{
-		private var _mc:PrologueMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -53,14 +51,13 @@ package view.prologue
 		private var _bmp:Bitmap;
 		private var _bgSound:Track;
 		private var _pageInfo:PageInfo;
+//		private var _swfLoader:SWFLoader;
+		private var _SAL:SWFAssetLoader;
 		
-		DocksView, Coin1View
 		public function PrologueView()
 		{
-			super();
-//			var c:Class = DocksView;
-//			c = Coin1View;
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("prologue.PrologueMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
 		}
@@ -82,6 +79,8 @@ package view.prologue
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null;
 			
 			_dragVCont.dispose();
@@ -98,11 +97,11 @@ package view.prologue
 			_stars = null;
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade); 
+		public function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new PrologueMC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade); 
 			
 			// mc assets
 			_lantern = _mc.lantern_mc;
@@ -150,8 +149,8 @@ package view.prologue
 					_tf.x = part.left; 
 					_tf.y = _nextY + part.top;
 					
-					_tf.cacheAsBitmap = true;
-					_tf.cacheAsBitmapMatrix = new Matrix();
+//					_tf.cacheAsBitmap = true;
+//					_tf.cacheAsBitmapMatrix = new Matrix();
 					
 					if (part.id == "lantern") {
 						_mc.lantern_mc.y = _tf.y - 100;
@@ -201,10 +200,6 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
-			
 			// load sound
 			_bgSound = new Track("assets/audio/prologue/prologue.mp3");
 			_bgSound.start(true);
@@ -222,16 +217,16 @@ package view.prologue
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
-				_mc.firefliesText_mc.stopFlies();
-				_mc.firefliesLamp_mc.stopFlies();
+//				_mc.firefliesText_mc.stopFlies();
+//				_mc.firefliesLamp_mc.stopFlies();
 				_stars.pause();
 
 				_scrolling = true;
 			} else {
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
-				_mc.firefliesText_mc.playFlies();
-				_mc.firefliesLamp_mc.playFlies();
+//				_mc.firefliesText_mc.playFlies();
+//				_mc.firefliesLamp_mc.playFlies();
 				_stars.resume();
 				
 				_scrolling = false;

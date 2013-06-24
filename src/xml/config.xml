@@ -36,7 +36,7 @@
 			<companion><![CDATA[a goldfish by the name of Noah who was strapped in a travel tank at [pronoun3] side.]]></companion>
 		</companion1>	
 		<body>
-			<item type="image" id="" width="" height="92" top="55" left="" size="" align="" leading="" file="assets/images/prologue/prologue_imageText1.png"/>
+			<item type="image" id="" width="" height="92" top="55" left="" size="" align="" leading="" file="app:/assets/images/prologue/prologue_imageText1.png"/>
 			<item type="text" id="" width="420" height="" top="30" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[remained firmly closed as [defender] entered the town. Darkness had settled around [wardrobe1]
 			
@@ -49,7 +49,7 @@ But that had been months ago, before [pronoun1]’d heard of this cursed realm. 
 
 [Pronoun3] friend, [contact], had dared [pronoun2] to submit an application. [defender] had never been one to back down from a challenge, and [pronoun1]’d never expected to be selected—it was unheard of when you considered the number of candidates. [Pronoun1] wondered what [contact] had thought when [contactPronoun1] heard [defender] had been given the title. [defender] hadn’t been given a chance to tell [contactPronoun2], or anyone for that matter, goodbye.]]> 		
 			</item>
-			<item type="image" id="fireflyText" width="" height="145" top="40" left="" size="" align="" leading="" file="assets/images/prologue/prologue_imageText2.png"/>
+			<item type="image" id="fireflyText" width="" height="145" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/prologue_imageText2.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[to the day, on [date]. [Pronoun1]’d been in this place ever since, and had made it to the town by some combination of dumb luck, determination, and driving fear. [Pronoun1]’d avoided the monsters and night things that had hunted [pronoun2] with the same wariness [pronoun1] now avoided the townspeople. No one could be trusted. [Pronoun1] knew that from a growing collection of dismal experiences.
 
@@ -84,7 +84,7 @@ But in the meantime, [defender] had somewhere to be, and time was running out. [
 
 [defender] neither agreed, nor disagreed. [Pronoun1] simply waited, while the man cleared his throat to speak.]]> 		
 			</item>
-			<item type="image" id="" width="" height="241" top="20" left="" size="" align="" leading="" file="assets/images/prologue/coin1_imageText1.png"/>
+			<item type="image" id="" width="" height="241" top="20" left="" size="" align="" leading="" file="app:/assets/images/prologue/coin1_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] gave the old man an incredulous look. “Surely not the same Prince Nero who has destroyed so much of this realm?”
 			
@@ -116,7 +116,7 @@ The man nodded. “The very same. There was a time when the prince was our champ
 
 [defender] nodded. “Intent is honorable,” [pronoun1] said,]]> 			
 			</item>
-			<item type="image" id="fireflyText" width="" height="115" top="40" left="" size="" align="" leading="" file="assets/images/prologue/coin2_imageText1.png"/>
+			<item type="image" id="fireflyText" width="" height="115" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/coin2_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[“’Tis true,” the man agreed. “Once Nero had a taste of sunlight, he changed. His days of insomnia were over, for he no longer needed sleep. He maintained perfect clarity of thought. His senses were enhanced. For a time, the realm thrived under his newfound power, but eventually his gift became a curse. He began to suck the realm dry. Until the previous Defender—Defender [previousDefender]—arrived.”
 
@@ -140,7 +140,7 @@ The man took a long pull from the bottle. “Thank you, stranger,” he said. �
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[The old man guzzled the rest of the [beverage], smackin his lips contentedly before continuing.]]> 			
 			</item>
-			<item type="image" id="" width="" height="241" top="30" left="" size="" align="" leading="" file="assets/images/prologue/coin3_imageText1.png"/>
+			<item type="image" id="" width="" height="241" top="30" left="" size="" align="" leading="" file="app:/assets/images/prologue/coin3_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="30" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] nodded. Everything [pronoun1]’d learned on [pronoun3] travels pointed to finding the prince near the Isles, and [pronoun1] was pleased to hear another report of it. “How did [previousDefender] track the prince?” [pronoun1] asked.
 
@@ -180,7 +180,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 
 “Who's there?” [defender] inquired.]]> 			
 			</item>
-			<item type="image" id="" width="" height="110" top="40" left="" size="" align="" leading="" file="assets/images/prologue/coin4_imageText1.png"/>
+			<item type="image" id="" width="" height="110" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/coin4_imageText1.png"/>
 			<item type="text" id="coinImage" width="260" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[“Heidi who?” [defender] asked.
 
@@ -206,7 +206,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 
 “Aaron who?” [defender] asked.]]> 			
 			</item>
-			<item type="image" id="" width="" height="114" top="40" left="" size="" align="" leading="" file="assets/images/prologue/coin5_imageText1.png"/>
+			<item type="image" id="" width="" height="114" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/coin5_imageText1.png"/>
 			<item type="text" id="coinImage" width="260" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[the man announced, and thumped [defender] on the back. “Get it?” he continued. “Aaron on the side of caution!”
 			]]> 			
@@ -226,7 +226,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 
 “Who's there?” [defender] demanded.]]> 			
 			</item>
-			<item type="image" id="" width="" height="96" top="40" left="" size="" align="" leading="" file="assets/images/prologue/coin6_imageText1.png"/>
+			<item type="image" id="" width="" height="96" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/coin6_imageText1.png"/>
 			<item type="text" id="" width="260" height="" top="30" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[“Justin who?”]]> 			
 			</item>
@@ -246,7 +246,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="20" file="">
 			<![CDATA[The man’s voice grew grave as he turned to [defender] and said,]]> 			
 			</item>
-			<item type="image" id="" width="" height="63" top="35" left="" size="" align="" leading="" file="assets/images/prologue/coin7_imageText1.png"/>
+			<item type="image" id="" width="" height="63" top="35" left="" size="" align="" leading="" file="app:/assets/images/prologue/coin7_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="35" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] paused, wondering why the old man would want [pronoun2] to say such a thing. Still, it couldn’t hurt to humor him. “Knock knock,” [pronoun1] announced.
 
@@ -279,7 +279,7 @@ The old man raised his hand in farewell. “Fare you well, young [gender1],” h
 
 [defender] nodded politely, then turned to go. [Pronoun1] quickly darted through the twists and turns of the street until [pronoun1] reached the docks. The smell and sound of the sea surrounded [pronoun2] as [pronoun1] emerged from the cramped buildings of the town. A crescent moon shone overhead, painting the tips of the waves with light. [Pronoun1] made [pronoun3] way toward a lone vessel bobbing in the water, anchored at the dock’s edge.]]>
 			</item>
-			<item type="image" id="" width="" height="116" top="40" left="" size="" align="" leading="" file="assets/images/prologue/docks_imageText1.png"/>
+			<item type="image" id="" width="" height="116" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/docks_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[A shadow—human, [pronoun1] thought—glided across the deck. It jumped up to the boat’s railing and balanced for a moment before leaping down in a graceful summersault, landing directly in front of [pronoun2].
 
@@ -485,7 +485,7 @@ The captain reached out and, pumping [defender]’s hand up and down. “[defeee
 
 Cleapeezious mulled [pronoun3] words over.]]>
 			</item>
-			<item type="image" id="coinImage" width="" height="136" top="50" left="" size="" align="" leading="" file="assets/images/prologue/negotiate_imageText1.png"/>
+			<item type="image" id="coinImage" width="" height="136" top="50" left="" size="" align="" leading="" file="app:/assets/images/prologue/negotiate_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] felt a smile ghosting over [pronoun3] face in response. The first smile, [pronoun1] realized, in months. As the captain’s laughter died down again, [defender] held out [pronoun3] hand. “Please call me [defender],” [pronoun1] said. “I’d like to book passage to the Barrier Isles.”
 
@@ -509,7 +509,7 @@ The captain shook her head again, this time more decisively. “I support your q
 
 “Well, now,” the captain said, ]]>
 			</item>
-			<item type="image" id="instrumentImage" width="" height="314" top="50" left="" size="" align="" leading="" file="assets/images/prologue/negotiate_imageText2.png"/>
+			<item type="image" id="instrumentImage" width="" height="314" top="50" left="" size="" align="" leading="" file="app:/assets/images/prologue/negotiate_imageText2.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[The captain applauded heartily as [defender] stowed [pronoun3] instrument. “Bravo, Defender. Your music is merry, and I shall grant you passage. But I have few supplies. A tin of sea cakes is the best I can offer for the crossing, music or no. Make haste to town if you want something more to your liking. Elsewise, climb aboard the Stormin’ Norman and we’ll be off.”
 
@@ -799,7 +799,7 @@ One look at Rey’s horrified expression was answer enough. “Perhaps a nice eg
 
 “Good citizens,” [pronoun1] began, “I have traveled the wilds to be here tonight. I must prepare to embark upon a grave and perilous journey,]]> 			
 			</item>
-			<item type="image" id="" width="" height="241" top="40" left="" size="" align="" leading="" file="assets/images/prologue/truth_imageText1.png"/>
+			<item type="image" id="" width="" height="241" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/truth_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 				<![CDATA[The man scratched his thinning hair as he looked back at the other townspeople. In one motion, they all raised from their seats.
 
@@ -919,7 +919,7 @@ After the townspeople had let [pronoun2] go, [defender] and [companionName] had 
 
 				The man towered above [defender] and [companionName]. His height was amplified by his orange kilt and matching life vest. It strained across his broad chest. He took a moment to loosen one of its straps before giving [defender] a curt nod. “You must be the Defender, then. I’m the Cap’n’s first mate, Smeg.” He held out a second life vest.]]> 			
 			</item>
-			<item type="image" id="" width="" height="119" top="40" left="" size="" align="" leading="" file="assets/images/prologue/boat_imageText1.png"/>
+			<item type="image" id="" width="" height="119" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/boat_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 				<![CDATA[[defender] slipped the vest on [wardrobe2] and followed Smeg to the stern of the boat. The first mate stopped there to lift a trap door. Light tumbled out, accompanied by the sounds of voices and music. A staircase led below.
 
@@ -934,13 +934,12 @@ After the townspeople had let [pronoun2] go, [defender] and [companionName] had 
 <!-- 			BELOW DECK 			-->
 	<belowDeck id="BelowDeckView">
 		<body>
-			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
+			<item type="text" id="mugs" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] widened [pronoun3] eyes as [pronoun1] walked down the stairs into the berth of the ship. Smeg lead [pronoun2] into an enormous room filled with hanging lanterns that swayed with the rocking of the waves. Over a dozen red-faced sailors sat, slumped, or sprawled at three wooden plank tables. All were drinking a blue, frothy beverage that sloshed from their mugs; most were involved in a rousing song. The singing stopped as [pronoun1] entered the room.
 
 Smeg picked up a mug and filled it with the frothy beverage.]]> 			
 			</item>
-			<item type="image" id="mugs" width="" height="264" top="60" left="" size="" align="" leading="" file="assets/images/prologue/belowDeck_imageText1.png"/>
-			<item type="text" id="" width="575" height="" top="100" left="100" size="20" align="left" leading="10" file="">
+			<item type="text" id="" width="575" height="" top="60" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] pointed to [pronoun3] canteen. “I’ll stick with [beverage], but thanks,” [pronoun1] replied.
 
 “As you like,” Smeg replied. He raised his own mug toward the sailors. “To a safe passage,” he said.
@@ -1048,7 +1047,7 @@ Smeg nodded. “And will you be needing supplies? The captain says to help yours
 			<item type="text" id="" width="620" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] and [companionName] scrambled into the action. Around [pronoun2], sailors hacked at the tentacles with anything they could find—]]> 			
 			</item>
-			<item type="image" id="" width="" height="105" top="40" left="" size="" align="" leading="" file="assets/images/prologue/seaMonster_imageText1.png"/>
+			<item type="image" id="" width="" height="105" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/seaMonster_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[Captain Cleapeezious fired her musket into each new tentacle as it slid onto the ship, causing slimy pieces of the squid to rain down into the deck.]]> 			
 			</item>
@@ -1073,7 +1072,7 @@ Smeg nodded. “And will you be needing supplies? The captain says to help yours
 
 The squid hesitated, scratching its giant head with a muscular tentacle. “That’s a great question,” the squid replied. The richness and depth of its voice made the deck vibrate under [defender]’s feet. “My therapist and I have talked about this at great length,” it continued.]]> 			
 			</item>
-			<item type="image" id="arms" width="" height="102" top="40" left="" size="" align="" leading="" file="assets/images/prologue/reason_imageText1.png"/>
+			<item type="image" id="arms" width="" height="102" top="40" left="" size="" align="" leading="" file="app:/assets/images/prologue/reason_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[“I like the way it sounds when it crunches.”
 
@@ -1223,6 +1222,7 @@ The squid turned its beady eyes in [pronoun3] direction, eyeing the [instrument]
 
 
 
+
 [defender] [instrument1] [Pronoun1] played a lugubrious ballad of remorse and sorrow, so tragic that even [pronoun1] began to tear up. When the song was finished, [pronoun1] paused to blow [pronoun3] nose. 
 
 A sense of peace descended over the sea creature. It nodded its giant head and unwrapped its tentacles, slithering away from the ship to disappear beneath the waves. [defender] waited, [pronoun3] fingers crossed for luck. 
@@ -1247,6 +1247,7 @@ It was then that something occurred to [pronoun2]. Perhaps [pronoun1] was going 
 “Hey up there,” [pronoun1] shouted. 
 
 The squid turned its beady eyes in [pronoun3] direction, eyeing the [instrument] [pronoun1] held aloft for inspection.
+
 
 
 
@@ -1344,8 +1345,8 @@ The [companion2]
 		<decisions top="640">
 			<decision id="theCattery.Island1View"><![CDATA[FIND CAPTAIN]]></decision>
 			<decision id="joylessMountains.JoylessMountainsIntroView"><![CDATA[FIND CAPTAIN]]></decision>
-			<decision id="Island3View"><![CDATA[FIND CAPTAIN]]></decision>
-			<decision id="Island4View"><![CDATA[FIND CAPTAIN]]></decision>
+			<decision id="shipwreck.ShipwreckCoveView"><![CDATA[FIND CAPTAIN]]></decision>
+			<decision id="sandlands.SandlandsView"><![CDATA[FIND CAPTAIN]]></decision>
 		</decisions>	
 	</introAllIslands>
 <!-- ***			INTRO ALL ISLANDS 			-->
@@ -1376,7 +1377,7 @@ They found the captain at the helm. She had an eyeglass pressed to one eye and h
 
 “Ahh, Defender,” the captain said, lowering the eyeglass. “We’ve almost reached [island1]. The crew and I will stay aboard when we dock.]]> 			
 			</item> 
-			<item type="image" id="" width="" height="92" top="40" left="" size="" align="" leading="" file="assets/images/cattery/catteryIntro_imageText1.png"/>
+			<item type="image" id="" width="" height="92" top="40" left="" size="" align="" leading="" file="app:/assets/images/cattery/catteryIntro_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="50" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[“Of course,” [defender] replied. “May I have a look?”
 
@@ -1448,7 +1449,7 @@ A white Persian cat waited on shore. She smoothed her pink taffeta pantsuit over
 			<item type="text" id="" width="575" height="" top="660" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[The cat licked one paw to smooth the whiskers back from her flat, round face. She purred silkily.]]> 			
 			</item>
-			<item type="image" id="" width="" height="128" top="40" left="" size="" align="" leading="" file="assets/images/cattery/catRanchShore_imageText1.png"/>
+			<item type="image" id="" width="" height="128" top="40" left="" size="" align="" leading="" file="app:/assets/images/cattery/catRanchShore_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[the Persian said. She licked one paw and smoothed the whiskers back from her flat, round face.
 
@@ -1500,7 +1501,7 @@ The tabby turned toward [companionName], smiling even wider. “This,” he bega
 
 The tabby motioned for them to enter as he concluded his call. “I’ve heard enough. If you can’t take care of this latest rodent infestation then I’ll have to find someone else who can.]]> 			
 			</item>
-			<item type="image" id="" width="" height="120" top="40" left="" size="" align="" leading="" file="assets/images/cattery/catlingAffairs_imageText1.png"/>
+			<item type="image" id="" width="" height="120" top="40" left="" size="" align="" leading="" file="app:/assets/images/cattery/catlingAffairs_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[He slammed the phone down and looked up. A wide, sharp-toothed smile replacing his fury. 
 
@@ -1654,7 +1655,7 @@ The cats were mesmerized by [pronoun3] companion, and several gathered to [compa
 			<![CDATA[As much as [defender] wanted to help the less fortunate, [pronoun1] had one mission on this island: find the vizier to state [pronoun3] case. If [pronoun1] stopped to help every creature that needed [pronoun2], [pronoun1]’d never complete [pronoun3] quest. [Pronoun1] continued on, then rapped [pronoun3] knuckles against the fourth door before peering inside. A wrinkled, hairless sphinx pricked up his ears as [defender] peered inside.
 
 “Come in, don’t be shy,” the sphinx said. His thin, hairless tail curled into a question mark. “I don’t bite… usually.” The cat stretched his mouth into a smile, revealing a row of gleaming white teeth.]]></item>
-			<item type="image" id="picture" width="" height="135" top="40" left="" size="" align="" leading="" file="assets/images/cattery/fourthDoor_imageText1.png"/>
+			<item type="image" id="picture" width="" height="135" top="40" left="" size="" align="" leading="" file="app:/assets/images/cattery/fourthDoor_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="100" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[“You must be the Defender.” [companionComing1]
 				
@@ -1697,7 +1698,7 @@ The cats were mesmerized by [pronoun3] companion, and several gathered to [compa
 			<item type="text" id="leaves" width="360" height="" top="40" left="200" size="20" align="left" leading="10" file="">
 			<![CDATA[They climbed into a black limousine. [defender] admired the leafy countryside as they traveled, though as she inspected the land, she noticed something strange.]]> 	
 			</item>		
-			<item type="image" id="" width="" height="180" top="30" left="" size="" align="" leading="" file="assets/images/cattery/rendezvous_imageText1.png"/>
+			<item type="image" id="" width="" height="180" top="30" left="" size="" align="" leading="" file="app:/assets/images/cattery/rendezvous_imageText1.png"/>
 			<item type="text" id="" width="360" height="" top="40" left="200" size="20" align="left" leading="10" file="">
 			<![CDATA[[Pronoun1] was about to ask Olivia about the strange vegetation, when they pulled up outside of a beautiful, marble mansion. The tree trunks outside were wrapped in rope. A portly cat in a tuxedo dangled from one, stretching.
 
@@ -1726,7 +1727,7 @@ The cat sighed. “The entire island is overwrought with a mouse problem. This t
 
 As [pronoun1] took another step, [pronoun1] felt an odd shortness of breath. The next step had [pronoun2] panting, causing [pronoun3] to drop down to [pronoun3] knees. Something was wrong with [pronoun3] lungs. [Pronoun1] looked back toward Olivia who watched through slitted eyes.]]> 			
 			</item>
-			<item type="image" id="" width="" height="153" top="30" left="" size="" align="" leading="" file="assets/images/cattery/noTrespassing_imageText1.png"/>
+			<item type="image" id="" width="" height="153" top="30" left="" size="" align="" leading="" file="app:/assets/images/cattery/noTrespassing_imageText1.png"/>
 			<item type="text" id="end" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[Olivia sighed, shaking her fluffy head in annoyance. “Typical, impetuous human,” she said. “The vizier will be displeased, and who will have to tell him? Me, that’s who.” She hissed in displeasure before continuing. “This field was poisoned to control our mouse problem. They’ve become immune to the chemicals, but it looks like it’s working on you.”
 
@@ -1777,7 +1778,7 @@ Inside the mansion, a ball was underway. The fading light streamed in through th
 
 Olivia swept a paw toward the dais.]]> 			
 			</item>
-			<item type="image" id="" width="" height="180" top="30" left="" size="" align="" leading="" file="assets/images/cattery/follow_imageText1.png"/>
+			<item type="image" id="" width="" height="180" top="30" left="" size="" align="" leading="" file="app:/assets/images/cattery/follow_imageText1.png"/>
 			<item type="text" id="vizier" width="365" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[The vizier’s ears swiveled 
 toward the newcomers and 
@@ -1834,7 +1835,7 @@ Vizier Alphonse’s pupils widened in interest.
 
 [defender] smoothed [pronoun3] [wardrobeShort] as [pronoun1] continued, unflustered. “Some even considered me a scratching aficionado.]]> 			
 			</item>
-			<item type="image" id="" width="" height="258" top="30" left="" size="" align="" leading="" file="assets/images/cattery/scratchEars_imageText1.png"/>
+			<item type="image" id="" width="" height="258" top="30" left="" size="" align="" leading="" file="app:/assets/images/cattery/scratchEars_imageText1.png"/>
 			<item type="text" id="last" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[Pronoun1] paused for effect. “Under the chin.”
 
@@ -1877,7 +1878,7 @@ Years later, [defender] learned of another Defender who had taken [pronoun3] pla
 
 Vizier Alphonse’s pupils widened in interest. “Go on,” he said.]]> 			
 			</item>
-			<item type="image" id="" width="" height="119" top="30" left="" size="" align="" leading="" file="assets/images/cattery/mouseConsultation_imageText1.png"/>
+			<item type="image" id="" width="" height="119" top="30" left="" size="" align="" leading="" file="app:/assets/images/cattery/mouseConsultation_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] announced.
 
@@ -1947,7 +1948,7 @@ The vizier bumped his gray head against [defender]’s hip, purring. “I’m gl
 The vizier sighed. “A deal is a deal, I suppose.
 “A deal is a deal, I suppose.]]> 			
 			</item>
-			<item type="image" id="" width="" height="119" top="30" left="" size="" align="" leading="" file="assets/images/cattery/gameWon_imageText1.png"/>
+			<item type="image" id="" width="" height="119" top="30" left="" size="" align="" leading="" file="app:/assets/images/cattery/gameWon_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] nodded. “If I have any hope of saving the realm, I must collect all of the stones.”
 
@@ -1985,7 +1986,7 @@ And as the realm plunged into eternal darkness, Prince Nero enslaved the populat
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] cracked open the door to peer inside. [Pronoun1] hadn’t been sure what to expect, but certainly it had not been…]]></item>
-			<item type="image" id="ball" width="" height="133" top="30" left="" size="" align="" leading="" file="assets/images/cattery/thirdDoor_imageText1.png"/>
+			<item type="image" id="ball" width="" height="133" top="30" left="" size="" align="" leading="" file="app:/assets/images/cattery/thirdDoor_imageText1.png"/>
 			<item type="text" id="final" width="575" height="" top="80" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[Dozens of hopeful, furry faces looked up at [pronoun2] as [pronoun1] stepped into the room. The kittens were all shapes and sizes: black, white, gray, brown, orange, speckled, striped, and everything in between. [defender] couldn’t help [pronoun2]self. [Pronoun1] dropped to [pronoun3] knees to cuddle the nearest kitten [pronoun1] could find. 
 
@@ -2072,7 +2073,7 @@ Bruno took a puff from his cigar and blew it out in a series of smoke circles. �
 
 The Persian swept back in. Her emerald eyes bored into the tabby’s as he cleared his throat. “Could you escort our guest [companionComing1] to the vizier’s mansion.]]>
 			</item>
-			<item type="image" id="" width="" height="241" top="30" left="" size="" align="" leading="" file="assets/images/cattery/privateAudience_imageText1.png"/>
+			<item type="image" id="" width="" height="241" top="30" left="" size="" align="" leading="" file="app:/assets/images/cattery/privateAudience_imageText1.png"/>
 			<item type="text" id="vizier" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[Olivia licked a paw and swept it over her cheek. Her tail swayed back and forth as she held the tabby’s eyes.
 
@@ -2207,7 +2208,7 @@ Vizier Alphonse, accompanied by dozens of drooling cats, had surrounded them.
 
 “Never,” [defender] spat.]]> 			
 			</item>
-			<item type="image" id="" width="" height="125" top="40" left="" size="" align="" leading="" file="assets/images/cattery/linger_imageText1.png"/>
+			<item type="image" id="" width="" height="125" top="40" left="" size="" align="" leading="" file="app:/assets/images/cattery/linger_imageText1.png"/>
 			<item type="text" id="final" width="575" height="" top="50" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[He turned toward [companionName], pausing to run a pink tongue over his teeth. “But first, I think I’ll have the [companion] as a snack.”
 
@@ -2280,7 +2281,7 @@ Oonie’s feathers trembled at the thought of it. “How dreadful,” she replie
 “Thank you,” [defender] said. [Pronoun1] felt a knot forming in [pronoun3] stomach. Of all of the isles, this was the one [pronoun1] knew the least about. “Any last advice before we cast off?” [pronoun1] asked the captain.
 
 Cleapeezious scratched her head. “No one’s ever come back from the Joyless Mountains, so I couldn’t rightly say.” Cleapeezious clapped [defender] on the back jovially.]]> 				</item>
-			<item type="image" id="" width="" height="222" top="40" left="" size="" align="" leading="" file="assets/images/joyless/joylessIntro_imageText1.png"/>
+			<item type="image" id="" width="" height="222" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/joylessIntro_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[Thirty minutes later, [defender] and [companionName] had rowed across the sea, careful to avoid the algae-covered rocks jutting up from the water. They landed on a narrow, rocky beach at the foot of the Joyless Mountain. An ascending escalator touched down to the beach not ten feet from where they stood. It wrapped up around the side of the mountain, out of sight.
 
@@ -2315,7 +2316,7 @@ Cleapeezious scratched her head. “No one’s ever come back from the Joyless M
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] couldn’t shake the idea that something was wrong about an escalator circling the side of the mountain.]]> 				</item>
-			<item type="image" id="" width="" height="137" top="30" left="" size="" align="" leading="" file="assets/images/joyless/climb1_imageText1.png"/>
+			<item type="image" id="" width="" height="137" top="30" left="" size="" align="" leading="" file="app:/assets/images/joyless/climb1_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="30" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[Instead, [pronoun1] walked over the rocky wall of the mountain and looked up. It had few outcroppings of rocks to use as handholds, but at least [pronoun1] could see where [pronoun1] was going. The top of the mountain was visible, despite a few wisps of clouds that drifted by. 
 
@@ -2364,7 +2365,7 @@ Cleapeezious scratched her head. “No one’s ever come back from the Joyless M
 			<item type="text" id="" width="275" height="" top="30" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[Just as [pronoun1] was starting to think about turning around, [pronoun1] spotted a dark opening on the face of the mountain. “[companionName],” [pronoun1] began.]]>
 			</item>
-			<item type="image" id="" width="" height="122" top="30" left="" size="" align="" leading="" file="assets/images/joyless/climb2_imageText1.png"/>
+			<item type="image" id="" width="" height="122" top="30" left="" size="" align="" leading="" file="app:/assets/images/joyless/climb2_imageText1.png"/>
 			<item type="text" id="" width="250" height="" top="30" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[companion1]]]>
 			</item>
@@ -2413,7 +2414,7 @@ As [pronoun1] tumbled down through the air, [pronoun1] had a sudden clarity of t
 [companion1]
 ]]> 				
 			</item>
-			<item type="image" id="" width="" height="198" top="30" left="" size="" align="" leading="" file="assets/images/joyless/climb3_imageText1.png"/>
+			<item type="image" id="" width="" height="198" top="30" left="" size="" align="" leading="" file="app:/assets/images/joyless/climb3_imageText1.png"/>
 			<item type="text" id="final" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] snapped between gasps for breaths. “We’ve made it this far. We need to keep going.”
 
@@ -2513,7 +2514,7 @@ other read, “Lobby”.]]>
 			<item type="text" id="" width="575" height="" top="32" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] pressed the button for the Penthouse and it lit up as the doors closed. The elevator rattled to life, slowly crawling upward, until several minutes later it shuddered to a stop. When the doors opened, [defender] and [companionName] stepped out of a massive tree trunk, and into the daylight. They had reached the top of the Joyless Mountains.]]> 				
 			</item>
-			<item type="image" id="" width="" height="29" top="40" left="" size="" align="" leading="" file="assets/images/joyless/elevator_imageText1.png"/>
+			<item type="image" id="" width="" height="29" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/elevator_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[It was cold this high up, and snow dusted the ground. In one direction, [pronoun1] could see the ocean. Far out in the waves [pronoun1] could make out the Stormin’ Norman, bobbing like a toy boat. In the other direction loomed a forest of gnarled trees. A path led under the canopy of branches. It was coated in an oily, black residue, with smoke drifting up from its surface. The higher branches of the trees were coated in ice, but those closest to the path had melted. Their drips rained down, splashing the path with a hiss. A discarded shield lay beside the path, half buried in the ground. A hole was burned into its center. 
 
@@ -2643,7 +2644,7 @@ In the morning, when the tide receded, [pronoun1] summoned the elevator. Once in
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] had climbed no more than five feet when [pronoun1] reached up to hook [pronoun3] fingers over a ledge. As [pronoun1] pulled [pronoun2]self up, [pronoun1] felt [pronoun3] fingers begin to slip, and then, as if in slow motion, [pronoun1] fell backward. As [pronoun1] tumbled down through the air [pronoun1] had an epiphany.]]> 				
 			</item>
-			<item type="image" id="" width="" height="130" top="40" left="" size="" align="" leading="" file="assets/images/joyless/climb4_imageText1.png"/>
+			<item type="image" id="" width="" height="130" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/climb4_imageText1.png"/>
 			<item type="text" id="final" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[Pronoun1] was tired from [pronoun3] lack of sleep. Scaling the side of a mountain without proper climbing gear was a terrible idea. [Pronoun3] last thought as [pronoun1] plummeted toward the ground was of the realm. Without [pronoun3] help, its inhabitants would surely perish. The fact that [pronoun1] would be gone long before that day was little comfort.]]>
 			</item>
@@ -2722,7 +2723,7 @@ The [companion] shrugged. “Why not?”
 
 And so the two struck out together, down the path. It was a beautiful afternoon. The leaves formed a canopy overhead that let enough sunlight through that [defender] was not too hot, and not too cool, but just right. Within a few minutes of their walk, [pronoun1] heard what sounded like chimes. Intrigued, [pronoun1] quickened [pronoun3] pace. The pathway soon opened up into a sunny clearing. Thick, green grass covered the area, and a riot of wildflowers grew in colorful fits and starts. In the center stood a massive tree. Branches stretched over the clearing, and a sudden gust of wind sent the sound of chimes to ringing once again.]]> 				
 			</item>
-			<item type="image" id="" width="" height="123" top="280" left="" size="" align="" leading="" file="assets/images/joyless/explore_imageText1.png"/>
+			<item type="image" id="" width="" height="123" top="280" left="" size="" align="" leading="" file="app:/assets/images/joyless/explore_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="120" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] pointed toward the nearest branch. A triumphant smile spread over [pronoun3] face as [pronoun1] solved the mystery. “The leaves aren’t leaves at all. They’re little green bells. That’s the sound we’ve been hearing!”
 
@@ -2801,7 +2802,7 @@ the fire breathing, acid drooling Snowmonch.]]>
 
 With that, [pronoun1] allowed the ringing bells overhead to lull [pronoun2] into a deep, dreamless sleep.]]>
 			</item>	
-			<item type="image" id="" width="" height="37" top="40" left="" size="" align="" leading="" file="assets/images/joyless/picnic_imageText1.png"/>
+			<item type="image" id="" width="" height="37" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/picnic_imageText1.png"/>
 			<item type="text" id="last" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] woke with a start. [Pronoun1] was surrounded by a darker night than [pronoun1] had ever experienced, even back on the continent where the sunlight had been all but a memory. “[companionName],” [pronoun1] called in concern. 
 
@@ -2875,7 +2876,7 @@ Pappathon nodded in excitement. “I’m sure you’ve heard of us,” he contin
 
 “What an honor!” Pappathon exclaimed. “What a privilege!” he continued, his voice growing louder until he was shouting.]]> 				
 			</item>
-			<item type="image" id="" width="" height="135" top="40" left="" size="" align="" leading="" file="assets/images/joyless/escalator2_imageText1.png"/>
+			<item type="image" id="" width="" height="135" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/escalator2_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[He shot up into the air, flapping his wings excitedly. “You simply must come and meet everyone,” he called. “With our forces combined, Nero won’t stand a chance. We can save the realm!” 
 
@@ -2920,7 +2921,7 @@ That did it. “I suppose we could delay for ten minutes,” [defender] said.
 
 [companion1]]]> 				
 			</item>
-			<item type="image" id="" width="" height="103" top="16" left="" size="" align="" leading="" file="assets/images/joyless/rally_imageText1.png"/>
+			<item type="image" id="" width="" height="103" top="16" left="" size="" align="" leading="" file="app:/assets/images/joyless/rally_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="16" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[And so [defender] and [companionName] followed Pappathon down a forest path lined by tall, leafy trees that lead into a clearing. A group of at least 100 monkeys, all wearing matching red sashes, were riveted by a speaker who perched atop a podium. She was smaller than the rest, and her wings were folded tidily across the back of her suit jacket. A banner hung next to her that read Stay Strong with the METS. She appeared to be mid speech.
 
@@ -2948,7 +2949,7 @@ Immediately a cheer rang out over the clearing.
 
 “Well,” Barbie concluded, after sharing her ten-step plan for realm domination, “what do you think? Would you like to join us? You could help finalize the ten steps.]]> 				
 			</item>
-			<item type="image" id="" width="" height="120" top="32" left="" size="" align="" leading="" file="assets/images/joyless/rally_imageText2.png"/>
+			<item type="image" id="" width="" height="120" top="32" left="" size="" align="" leading="" file="app:/assets/images/joyless/rally_imageText2.png"/>
 			<item type="text" id="" width="575" height="" top="32" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] considered the proposition carefully. On one hand, there was no reason [pronoun1] had to defeat Nero alone. On the other, [pronoun1] already had a perfectly good plan in place that [pronoun1] thought would work. [Pronoun1] glanced at [companionName], whose look of indecision matched [pronoun3] own. It only confused [pronoun2] further.]]> 				
 			</item>
@@ -3033,7 +3034,7 @@ This time they were far enough up the mountain that the escalator wrapped a full
 			<item type="text" id="roses" width="300" height="" top="32" left="250" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] stood in the middle of the garden and let the sugary scents fill [pronoun3] nose. It was enough to make [pronoun3] head spin, and [pronoun1] sat down beside a bush covered in white roses.]]> 				
 			</item>
-			<item type="image" id="" width="" height="300" top="40" left="" size="" align="" leading="" file="assets/images/joyless/roses_imageText1.png"/>
+			<item type="image" id="" width="" height="300" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/roses_imageText1.png"/>
 			<item type="text" id="" width="300" height="" top="40" left="250" size="20" align="left" leading="8" file="">
 			<![CDATA[“[defender],” [pronoun1] heard [companionName] call as [pronoun1] leaned back into the dirt surrounding the rosebushes. [Pronoun3] body twitched, ¬¬overcome by the sugary sweetness.]]> 				
 			</item>
@@ -3068,7 +3069,7 @@ This time they were far enough up the mountain that the escalator wrapped a full
 
 The [companion] ignored [defender] and so, with nothing else to do, [pronoun1] stepped onto what appeared to be the final escalator. Several minutes later they stood at the very top of the mountain.]]> 				
 			</item>
-			<item type="image" id="" width="" height="103" top="40" left="" size="" align="" leading="" file="assets/images/joyless/platform4_imageText1.png"/>
+			<item type="image" id="" width="" height="103" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/platform4_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[A light dusting of snow covered the area. As [defender] stepped off of the platform, [pronoun1] [wardrobe1]
 
@@ -3174,7 +3175,7 @@ Snowmonch continued to stare at them. Steam billowed from her mouth, and [defend
 
 “Ohmygosh!” the serpent said in a high-pitched squeal. “My name is Snowmonch and I’m pleased as punch that you like my hat, because I love [wardrobe1] It’s simply impossible to find anything becoming in extra extra extra extra extra extra large. ]]> 				
 			</item>
-			<item type="image" id="" width="" height="128" top="30" left="" size="" align="" leading="" file="assets/images/joyless/awakenSerpent_imageText1.png"/>
+			<item type="image" id="" width="" height="128" top="30" left="" size="" align="" leading="" file="app:/assets/images/joyless/awakenSerpent_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[Before [defender] could formulate an answer the serpent rushed on. 
 
@@ -3209,7 +3210,7 @@ Snowmonch’s bottom lip trembled. “You mean…” she began, her words tremul
 
 “I’m afraid we’re not at liberty to take a dinner break,” [defender] replied.]]> 				
 			</item>
-			<item type="image" id="butBut" width="" height="60" top="50" left="" size="" align="" leading="" file="assets/images/joyless/impatience1_imageText1.png"/>
+			<item type="image" id="butBut" width="" height="60" top="50" left="" size="" align="" leading="" file="app:/assets/images/joyless/impatience1_imageText1.png"/>
 			<item type="text" id="last" width="350" height="" top="50" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[Snowmonch sniffed as her eyes welled with steaming tears. 
 
@@ -3266,7 +3267,7 @@ The serpent bustled around the cave, opening cupboards and bringing plates and s
 			<item type="text" id="" width="300" height="" top="32" left="360" size="20" align="left" leading="8" file="">
 			<![CDATA[“Now tell me all about your adventures,” Snowmonch said as she sliced a piece of the meatloaf with the tip of her tail.]]> 				
 			</item>
-			<item type="image" id="tail" width="" height="185" top="40" left="" size="" align="" leading="" file="assets/images/joyless/dinner_imageText1.png"/>
+			<item type="image" id="tail" width="" height="185" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/dinner_imageText1.png"/>
 			<item type="text" id="" width="295" height="" top="40" left="360" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] considered the serpent’s request, wondering if there was any way to speed the dinner along.]]> 				
 			</item>
@@ -3330,7 +3331,7 @@ Snowmonch’s bottom lip trembled. “You mean…” she began, her words tremul
 
 “Which is why,” [pronoun1] concluded, “we came to visit you. You see, to defeat Prince Nero, we—.” Before [defender] could explain how the serpentine stone would help in [pronoun3] quest, the serpent pounded the ground with her tail and began to bellow.]]> 				
 			</item>
-			<item type="image" id="" width="" height="218" top="40" left="" size="" align="" leading="" file="assets/images/joyless/talk_imageText1.png"/>
+			<item type="image" id="" width="" height="218" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/talk_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[Why I’ve always loved the [instrument],” the serpent continued. “Such a dignified way to make music.”
 
@@ -3376,7 +3377,7 @@ The serpent slithered over to the victrola and took the needle from the record w
 
 [defender] looked surprised but the serpent just smiled as she held the mottled green stone up in one claw. “Answer my riddle correctly and you can take the stone and be on your way. Answer incorrectly and stay on as my guest. For the next, oh, say…” Snowmonch paused and counted under her breath.]]> 				
 			</item>
-			<item type="image" id="" width="" height="140" top="50" left="" size="" align="" leading="" file="assets/images/joyless/impatience3_imageText1.png"/>
+			<item type="image" id="" width="" height="140" top="50" left="" size="" align="" leading="" file="app:/assets/images/joyless/impatience3_imageText1.png"/>
 		</body>
 		<decisions top="100">
 			<decision id="joylessMountains.PlaySongView"><![CDATA[CONTINUE]]></decision>
@@ -3415,7 +3416,7 @@ As the song crescendoed into its final reprise, Snowmonch’s eyes welled with g
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[“Listen carefully,” Snowmonch said, “for I’ll only tell you once. This is one of my favorite riddles. It’s called]]> 				
 			</item>
-			<item type="image" id="" width="" height="62" top="40" left="" size="" align="" leading="" file="assets/images/joyless/playRiddles_imageText1.png"/>
+			<item type="image" id="" width="" height="62" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/playRiddles_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[The serpent leaned back, stretching out her tail across the cave. “It could be coffee, but not tea; a moon, but not the stars; a hill, but not a mountain; a dizzy, but not a daisy.” The serpent giggled loudly. The giggles shook her whole body, and she paused to adjust her tiny hat. “A dizzy, but not a daisy,” she repeated. “That’s funny, right? Because it could be. Funny, that is.” 
 
@@ -3750,7 +3751,7 @@ When [pronoun1] had almost reached the bottom, a large shadow passed overhead. [
 
 Which is when [defender] realized that the embrace wasn’t metaphorical. [Pronoun1] was surrounded by a]]> 				
 			</item>
-			<item type="image" id="" width="" height="340" top="40" left="" size="" align="" leading="" file="assets/images/shipwreck/jellyfish1_imageText1.png"/>
+			<item type="image" id="" width="" height="340" top="40" left="" size="" align="" leading="" file="app:/assets/images/shipwreck/jellyfish1_imageText1.png"/>
 			<item type="text" id="end" width="375" height="" top="40" left="200" size="20" align="left" leading="10" file="">
 			<![CDATA[A tentacle whipped around [pronoun3] leg. Then another around [pronoun3] arm. [Pronoun1] gasped at the initial shock of pain, and then felt [pronoun3] muscles begin to slacken. Another tentacle wound around [pronoun3] middle, squeezing the air from [pronoun3] lungs. [Pronoun1] screamed out in agony until [pronoun3] chest began to go numb. [Pronoun1] tried to kick [pronoun3] legs and escape the tentacles streaming around [pronoun2], but they no longer seemed to work. As [pronoun1] sank through the chorus of jellyfish, one thought filled [pronoun3] mind: regret at being unable to save [pronoun3] companion, and the realm. Had [pronoun1] only stayed focused on the task at hand…
 
@@ -3897,7 +3898,7 @@ Morrissey straightened, turning around with sudden interest. “I’m listening,
 
 [defender] thought quickly before blurting out two of [pronoun3] favorite words.]]> 				
 			</item>
-			<item type="image" id="" width="" height="53" top="50" left="" size="" align="" leading="" file="assets/images/shipwreck/joke_imageText1.png"/>
+			<item type="image" id="" width="" height="53" top="50" left="" size="" align="" leading="" file="app:/assets/images/shipwreck/joke_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="60" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[“Who’s there?” Morrissey demanded.
 
@@ -3938,7 +3939,7 @@ Five minutes passed before the commodore stopped. They stood together, looking o
 
 “What is it?” [pronoun1] asked in hushed tones. There was a haunting quality to the song that made [pronoun2] want to whisper.]]> 				
 			</item>
-			<item type="image" id="" width="" height="224" top="40" left="" size="" align="" leading="" file="assets/images/shipwreck/starfish2_imageText1.png"/>
+			<item type="image" id="" width="" height="224" top="40" left="" size="" align="" leading="" file="app:/assets/images/shipwreck/starfish2_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="60" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[“No,” [defender] replied. “It’s beautiful.”
 
@@ -3969,7 +3970,7 @@ The commodore nodded in agreement. “Beautiful from a distance,” he said. “
 
 Once again the sea god looked at [pronoun2] from unblinking green eyes.]]> 				
 			</item>
-			<item type="image" id="" width="" height="125" top="40" left="" size="" align="" leading="" file="assets/images/shipwreck/starfish3_imageText1.png"/>
+			<item type="image" id="" width="" height="125" top="40" left="" size="" align="" leading="" file="app:/assets/images/shipwreck/starfish3_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="60" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] tried to remain calm. “But I need both,” [pronoun1] argued. “You lead me to believe that these were the terms of the arrangement.”
 
@@ -3997,7 +3998,7 @@ A tear squeezed from [defender]’s eye, and then another, and another, mixing w
 
 [Pronoun1] turned back around, desperate to find Morrissey. In [pronoun3] haste, [pronoun1] failed to notice]]> 				
 			</item>
-			<item type="image" id="" width="" height="318" top="80" left="" size="" align="" leading="" file="assets/images/shipwreck/pearl1_imageText1.png"/>
+			<item type="image" id="" width="" height="318" top="80" left="" size="" align="" leading="" file="app:/assets/images/shipwreck/pearl1_imageText1.png"/>
 			<item type="text" id="end" width="575" height="" top="80" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[Pronoun1] swam right into a large tentacle.
 
@@ -4061,7 +4062,7 @@ Morrissey spun his trident through the water, and a moment later, [defender] cou
 
 [companion2]]]> 				
 			</item>
-			<item type="image" id="" width="" height="300" top="110" left="" size="" align="" leading="" file="assets/images/shipwreck/companion_imageText1.png"/>
+			<item type="image" id="" width="" height="300" top="110" left="" size="" align="" leading="" file="app:/assets/images/shipwreck/companion_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="120" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] gave him a shark’s grin back. “I’ll trade you,” [pronoun1] said. “For the pearl.”
 
@@ -4159,7 +4160,7 @@ As [defender] was trying to decide on a direction, two ravens flew down, landing
 
 The smaller raven concluded the warning with a sneer.]]> 				
 			</item>
-			<item type="image" id="" width="" height="203" top="40" left="" size="" align="" leading="" file="assets/images/sandlands/shore_imageText1.png"/>
+			<item type="image" id="" width="" height="203" top="40" left="" size="" align="" leading="" file="app:/assets/images/sandlands/shore_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[“I see,” [defender] replied. “And you are?” [pronoun1] continued pleasantly.
 
@@ -4245,7 +4246,7 @@ The boy opened the door wider, and [defender] could see a small fire burning, wi
 
 “Tell you what,” the boy said, smacking his gum thoughtfully.]]> 				
 			</item>
-			<item type="image" id="" width="" height="212" top="30" left="" size="" align="" leading="" file="assets/images/sandlands/winding_imageText1.png"/>
+			<item type="image" id="" width="" height="212" top="30" left="" size="" align="" leading="" file="app:/assets/images/sandlands/winding_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[I’m behind on making this potion, and Maysel will be mad if it’s not done when he gets back. I’m just missing two ingredients. If you could get them for me, I’ll be done on time, which will make the wizard happy. I’ll even put a good word in for you.”
 
@@ -4314,7 +4315,7 @@ The apprentice handed [defender] a shovel, a tape measure, and a bucket.]]>
 
 “Oh it is, it is,” the apprentice said, escorting [defender] and [companionName] back to the door. “But it’s very important to follow the instructions exactly, so don’t rush.]]> 				
 			</item>
-			<item type="image" id="" width="" height="200" top="30" left="" size="" align="" leading="" file="assets/images/sandlands/apprentice_imageText1.png"/>
+			<item type="image" id="" width="" height="200" top="30" left="" size="" align="" leading="" file="app:/assets/images/sandlands/apprentice_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] nodded. “See you soon,” [pronoun1] said, and waved before closing the door behind [pronoun2] and [companionName].]]> 				
 			</item>
@@ -4504,7 +4505,7 @@ Noah grinned, and used his tail to splash water into [defender]’s face. “Foo
 
 [defender] dipped the beaker into the bucket of water, and poured out a bit until it was even with the Fill Line.]]> 				
 			</item>
-			<item type="image" id="" width="" height="136" top="380" left="" size="" align="" leading="" file="assets/images/sandlands/well4_imageText1.png"/>
+			<item type="image" id="" width="" height="136" top="380" left="" size="" align="" leading="" file="app:/assets/images/sandlands/well4_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[companionName] gave [defender] a disapproving look, but [pronoun1] ignored it. “Shall we?” [pronoun1] asked instead, and set off back up the trail.]]> 				
 			</item>
@@ -4530,7 +4531,7 @@ Noah grinned, and used his tail to splash water into [defender]’s face. “Foo
 
 [defender] jumped when the lips moved.]]> 				
 			</item>
-			<item type="image" id="" width="" height="250" top="40" left="" size="" align="" leading="" file="assets/images/sandlands/findWizard_imageText1.png"/>
+			<item type="image" id="" width="" height="250" top="40" left="" size="" align="" leading="" file="app:/assets/images/sandlands/findWizard_imageText1.png"/>
 			<item type="text" id="" width="375" height="" top="50" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[“I beg your pardon,” [defender] said hastily. “I didn’t realize I was staring.”
 
@@ -4610,7 +4611,7 @@ But [defender], rather than keeping anything up, paused to sit down on the edge 
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] grit [pronoun3] teeth, and shoved [pronoun3] hands into the sand. [Pronoun1] had told the apprentice [pronoun1] would bring back a bucket of sand from five feet down.]]> 				
 			</item>
-			<item type="image" id="" width="" height="125" top="30" left="" size="" align="" leading="" file="assets/images/sandlands/sand2_imageText1.png"/>
+			<item type="image" id="" width="" height="125" top="30" left="" size="" align="" leading="" file="app:/assets/images/sandlands/sand2_imageText1.png"/>
 			<item type="text" id="bucket" width="275" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[For the next hour [pronoun1] continued to dig, only stopping for occasional drinks of [beverage]. When [pronoun1] finally reached five feet (and [pronoun1] knew it was five feet because [pronoun3] tape measure told [pronoun2] so) [pronoun1] dipped the bucket into the sand. [Pronoun1] made sure to pack it in tightly, then stood and climbed out of the pit.]]> 				
 			</item>
@@ -4646,7 +4647,7 @@ But [defender], rather than keeping anything up, paused to sit down on the edge 
 
 [defender] snapped back.]]> 				
 			</item>
-			<item type="image" id="bucket" width="" height="138" top="30" left="" size="" align="" leading="" file="assets/images/sandlands/sand3_imageText1.png"/>
+			<item type="image" id="bucket" width="" height="138" top="30" left="" size="" align="" leading="" file="app:/assets/images/sandlands/sand3_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[Pronoun1] brushed the grains from [pronoun3] [wardrobe] and turned from [pronoun3] companion. “Let’s go,” [pronoun1] said impatiently.]]>
 			</item>
@@ -4702,7 +4703,7 @@ The boy smiled. “There won’t be any need for that,” he said,]]></intro>
 			<item type="text" id="intro2" width="575" height="" top="32" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[intro2]]]>
 			</item>
-			<item type="image" id="" width="" height="136" top="30" left="" size="" align="" leading="" file="assets/images/sandlands/hut_imageText1.png"/>
+			<item type="image" id="" width="" height="136" top="30" left="" size="" align="" leading="" file="app:/assets/images/sandlands/hut_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[“What?” [defender] and [companionName] both announced at once.
 

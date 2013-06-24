@@ -37,7 +37,6 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		
-		Well4View, FindWizardView
 		public function Well2View()
 		{
 			super();

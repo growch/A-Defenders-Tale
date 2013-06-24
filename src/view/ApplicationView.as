@@ -1,23 +1,20 @@
 package view
 {
-	import assets.ApplicationMC;
-	
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
+	
+	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.events.FocusEvent;
+	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	
+	import assets.ApplicationMC;
 	
 	import control.EventController;
 	
 	import events.ApplicationEvent;
 	import events.ViewEvent;
-	
-	import flash.display.DisplayObject;
-	import flash.display.MovieClip;
-	import flash.events.Event;
-	import flash.events.FocusEvent;
-	import flash.events.MouseEvent;
-	import flash.events.TextEvent;
-	import flash.text.TextField;
-	import flash.utils.flash_proxy;
 	
 	import model.DataModel;
 	

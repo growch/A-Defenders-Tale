@@ -15,9 +15,11 @@ package view.prologue
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -25,11 +27,10 @@ package view.prologue
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class CrossSeaView extends MovieClip implements IPageView
 	{
-		private var _mc:CrossSeaMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -39,12 +40,12 @@ package view.prologue
 		private var _boat:MovieClip;
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
-		SeaMonsterView
 		public function CrossSeaView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("prologue.CrossSeaMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -65,6 +66,8 @@ package view.prologue
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null;
 			
 			_dragVCont.dispose();
@@ -74,11 +77,11 @@ package view.prologue
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		public function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new CrossSeaMC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -93,6 +96,17 @@ package view.prologue
 			}
 			
 			_boat = _mc.boat_mc;
+			
+			_boat.mask_mc.cacheAsBitmap = true;
+			_boat.waves_mc.cacheAsBitmap = true;
+			_boat.waves_mc.mask = _boat.mask_mc;
+			
+			_boat.boatMask_mc.cacheAsBitmap = true;
+			_boat.boat_mc.cacheAsBitmap = true;
+			_boat.boat_mc.mask = _boat.boatMask_mc;
+			
+			_boat.boatMask_mc.alpha = 1;
+			_boat.mask_mc.alpha = 1;
 			
 			
 			// set the text
@@ -125,9 +139,16 @@ package view.prologue
 			
 			// decision
 			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF); //tint white show bg
-//			_decisions.y = _nextY + _pageInfo.decisionsMarginTop;
+//			EXCEPTION FOR FIXED HEIGHT BG
 			_decisions.y = _mc.bg_mc.height - 50;
 			_mc.addChild(_decisions);
+			
+			_frame = new FrameView(_mc.frame_mc); 
+			var frameSize:int = _decisions.y + 260;
+			_frame.sizeFrame(frameSize);
+			if (frameSize < DataModel.APP_HEIGHT) {
+				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+			}
 			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
@@ -135,16 +156,6 @@ package view.prologue
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
-			
-			_frame = new FrameView(_mc.frame_mc); 
-			
-			var frameSize:int = _decisions.y + 260;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
 		}
 		
 		private function pageOn(event:ViewEvent):void {
@@ -198,14 +209,8 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-//			TweenMax.to(_mc, 1, {alpha:0});
-//			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
-		}
 	}
 }

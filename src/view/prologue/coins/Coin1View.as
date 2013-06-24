@@ -5,19 +5,17 @@ package view.prologue.coins
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
-	import flash.events.Event;
-	import flash.geom.Matrix;
-	
-	import assets.CoinMC;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -25,13 +23,10 @@ package view.prologue.coins
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.prologue.DocksView;
-	import model.PageInfo;
 	
-	DocksView, Coin2View
 	public class Coin1View extends MovieClip implements IPageView
 	{
-		private var _mc:CoinMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -41,12 +36,12 @@ package view.prologue.coins
 		private var _coin:MovieClip;
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
-		
+		private var _SAL:SWFAssetLoader;
 		
 		public function Coin1View()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("prologue.CoinMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
 		}
@@ -68,6 +63,8 @@ package view.prologue.coins
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null;
 			
 			_dragVCont.dispose();
@@ -75,11 +72,12 @@ package view.prologue.coins
 			_dragVCont = null; 
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+		public function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
+			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade); 
 			
-			_mc = new CoinMC();
 			_cup = _mc.cup_mc;
 			_coin = _cup["coin_mc"];
 			_coin.visible = false;
@@ -127,23 +125,19 @@ package view.prologue.coins
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
-			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
-			_dragVCont.width = DataModel.APP_WIDTH;
-			_dragVCont.height = DataModel.APP_HEIGHT;
-			_dragVCont.addChild(_mc);
-			addChild(_dragVCont);
-			
 			_frame = new FrameView(_mc.frame_mc);
-			
 			var frameSize:int = _decisions.y + 210;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
 			}
 			
+			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
+			_dragVCont.width = DataModel.APP_WIDTH;
+			_dragVCont.height = DataModel.APP_HEIGHT;
+			_dragVCont.addChild(_mc);
+			addChild(_dragVCont);
 			_dragVCont.refreshView(true);
-			
-//			TweenMax.from(_dragVCont, 2, {alpha:0, delay:0, onComplete:coinAnimation}); 
 		}
 		
 		private function pageOn(event:ViewEvent):void {
@@ -166,19 +160,12 @@ package view.prologue.coins
 //			TweenMax.to(_mc, 1, {alpha:0});
 //			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
 			// coin/alms count
-//			if (event.data.decisionNumber == 1) {
-//				DataModel.coinCount++;
-//			}
-//			
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			// coin/alms count
-			if (thisPage.decisionNumber == 1) {
+			if (event.data.decisionNumber == 1) {
 				DataModel.coinCount++;
 			}
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
+			
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
+
 	}
 }

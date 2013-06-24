@@ -31,7 +31,6 @@ package view.joylessMountains
 	import view.Smoke;
 	import model.PageInfo;
 	
-	
 	public class SnowmonchView extends MovieClip implements IPageView
 	{
 		private var _mc:SnowmonchMC;

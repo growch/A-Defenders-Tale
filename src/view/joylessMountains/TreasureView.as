@@ -10,6 +10,7 @@ package view.joylessMountains
 	import flash.geom.Rectangle;
 	import flash.utils.Timer;
 	
+	import assets.SparkleMotionMC;
 	import assets.TreasureMC;
 	
 	import control.EventController;
@@ -18,6 +19,7 @@ package view.joylessMountains
 	
 	import model.DataModel;
 	import model.DecisionInfo;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
@@ -28,7 +30,6 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class TreasureView extends MovieClip implements IPageView
 	{
@@ -43,6 +44,9 @@ package view.joylessMountains
 		private var _sparkleTimer:Timer;
 		private var _weaponInt:int;
 		private var _pageInfo:PageInfo;
+		private var _sparkle1:SparkleMotionMC;
+		private var _sparkle2:SparkleMotionMC;
+		private var _sparkle3:SparkleMotionMC;
 		
 		public function TreasureView()
 		{
@@ -221,6 +225,25 @@ package view.joylessMountains
 			
 			shineWeapon();
 			
+			//sort of hacky, so as to not have to remove stop frames from og animation
+			_sparkle1 = new SparkleMotionMC();
+			_sparkle1.x = _mc.treasure_mc.sparkle1_mc.x;
+			_sparkle1.y = _mc.treasure_mc.sparkle1_mc.y;
+			_mc.treasure_mc.removeChild(_mc.treasure_mc.sparkle1_mc);
+			_mc.treasure_mc.addChild(_sparkle1);
+			
+			_sparkle2 = new SparkleMotionMC();
+			_sparkle2.x = _mc.treasure_mc.sparkle2_mc.x;
+			_sparkle2.y = _mc.treasure_mc.sparkle2_mc.y;
+			_mc.treasure_mc.removeChild(_mc.treasure_mc.sparkle2_mc);
+			_mc.treasure_mc.addChild(_sparkle2);
+			
+			_sparkle3 = new SparkleMotionMC();
+			_sparkle3.x = _mc.treasure_mc.sparkle3_mc.x;
+			_sparkle3.y = _mc.treasure_mc.sparkle3_mc.y;
+			_mc.treasure_mc.removeChild(_mc.treasure_mc.sparkle3_mc);
+			_mc.treasure_mc.addChild(_sparkle3);
+			
 			_sparkleTimer = new Timer(5000);
 			_sparkleTimer.addEventListener(TimerEvent.TIMER, sparkleMotion);
 			_sparkleTimer.start();
@@ -236,9 +259,9 @@ package view.joylessMountains
 		}
 		
 		private function sparkleMotion(e:TimerEvent) : void {
-			playSparkle(_mc.treasure_mc.sparkle1_mc);
-			TweenMax.delayedCall(.3, playSparkle, [_mc.treasure_mc.sparkle2_mc]);
-			TweenMax.delayedCall(.5, playSparkle, [_mc.treasure_mc.sparkle3_mc]);
+			playSparkle(_sparkle1);
+			TweenMax.delayedCall(.3, playSparkle, [_sparkle2]);
+			TweenMax.delayedCall(.5, playSparkle, [_sparkle3]);
 		}
 		
 		private function playSparkle(thisMC:MovieClip):void {

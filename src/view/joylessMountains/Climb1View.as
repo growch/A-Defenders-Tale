@@ -1,41 +1,21 @@
 package view.joylessMountains
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.geom.Point;
-	import flash.utils.setTimeout;
-	
-	import assets.Climb1MC;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
-	import model.DecisionInfo;
+	import model.PageInfo;
 	import model.StoryPart;
 	
-	import org.flintparticles.common.counters.Steady;
-	import org.flintparticles.common.displayObjects.RadialDot;
-	import org.flintparticles.common.initializers.ColorInit;
-	import org.flintparticles.common.initializers.ImageClass;
-	import org.flintparticles.common.initializers.ScaleImageInit;
-	import org.flintparticles.twoD.actions.DeathZone;
-	import org.flintparticles.twoD.actions.Move;
-	import org.flintparticles.twoD.actions.RandomDrift;
-	import org.flintparticles.twoD.emitters.Emitter2D;
-	import org.flintparticles.twoD.initializers.Position;
-	import org.flintparticles.twoD.initializers.Velocity;
-	import org.flintparticles.twoD.renderers.DisplayObjectRenderer;
-	import org.flintparticles.twoD.zones.LineZone;
-	import org.flintparticles.twoD.zones.PointZone;
-	import org.flintparticles.twoD.zones.RectangleZone;
-	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -43,11 +23,10 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class Climb1View extends MovieClip implements IPageView
 	{
-		private var _mc:Climb1MC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -55,14 +34,13 @@ package view.joylessMountains
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
-//		private var _emitter:Emitter2D;
-//		private var _renderer:DisplayObjectRenderer;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
 		public function Climb1View()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("joyless.Climb1MC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -78,31 +56,28 @@ package view.joylessMountains
 			_decisions = null;
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
+			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
 			
-			DataModel.getInstance().removeAllChildren(_mc);
-			
-//			_emitter.stop();
-//			_renderer.removeEmitter( _emitter );
-//			_mc.cloudSnow_mc.removeChild( _renderer );
-//			_renderer = null;
-//			_emitter = null;
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new Climb1MC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -162,44 +137,11 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			trace("CLIMB !!!!1");
-			
-//			_frame = new FrameView(_mc.frame_mc); 
-//			
-//			var frameSize:int = _decisions.y + 210;
-//			_frame.sizeFrame(frameSize);
-//			if (frameSize < DataModel.APP_HEIGHT) {
-//				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-//			}
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
-			//dust??
-//			_emitter = new Emitter2D();
-//			
-//			_emitter.counter = new Steady( 15 );
-//			
-//			_emitter.addInitializer( new ImageClass( RadialDot, [2] ) );
-//			_emitter.addInitializer(new ColorInit(4288043961,4294967295));
-//			_emitter.addInitializer( new Position( new LineZone( new Point( -5, -5 ), new Point( 140, -5 ) ) ) );
-//			_emitter.addInitializer( new Velocity( new PointZone( new Point( 0, 45 ) ) ) );
-//			_emitter.addInitializer( new ScaleImageInit( 0.75, 2 ) );
-//			
-//			_emitter.addAction( new Move() );
-//			_emitter.addAction( new DeathZone( new RectangleZone( -20, -10, 180, 400 ), true ) );
-//			_emitter.addAction( new RandomDrift( 60, 40 ) );
-//			
-//			_renderer = new DisplayObjectRenderer();
-//			_renderer.addEmitter( _emitter );
-//			_mc.cloudSnow_mc.addChild( _renderer );
-//			_renderer.y = _mc.cloudSnow_mc.height;
-//			
-//			_emitter.start();
-//			_emitter.runAhead( 10 );
 		}
 		
 		protected function enterFrameLoop(event:Event):void
@@ -223,14 +165,9 @@ package view.joylessMountains
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-//			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-//			TweenMax.to(_mc, 1, {alpha:0});
+			//for delayed calls
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}
 	}
 }

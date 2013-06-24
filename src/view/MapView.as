@@ -1,7 +1,5 @@
 package view
 {
-	import com.greensock.TweenMax;
-	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -14,13 +12,6 @@ package view
 	
 	import model.DataModel;
 	
-	import view.joylessMountains.JoylessMountainsIntroView;
-	import view.prologue.CrossSeaView;
-	import view.prologue.SeaMonsterView;
-	import view.sandlands.SandlandsView;
-	import view.shipwreck.ShipwreckCoveView;
-	import view.theCattery.Island1View;
-	
 	public class MapView extends MovieClip implements IPageView
 	{
 		private var _mc:MapMC;
@@ -29,7 +20,6 @@ package view
 		private var _joylessBtn:MovieClip;
 		private var _shipwreckBtn:MovieClip;
 		
-		SeaMonsterView, Island1View, JoylessMountainsIntroView, ShipwreckCoveView, SandlandsView, CrossSeaView
 		public function MapView()
 		{
 			super();
