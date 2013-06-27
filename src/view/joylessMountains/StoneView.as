@@ -86,6 +86,11 @@ package view.joylessMountains
 			
 			_mc = new StoneMC();
 			
+			_mc.boatMask_mc.cacheAsBitmap = true;
+			_mc.boat_mc.cacheAsBitmap = true;
+			_mc.boat_mc.mask = _mc.boatMask_mc;
+			_mc.boatMask_mc.alpha = 1;
+			
 			_nextY = 110;
 			
 			//!IMPORTANT

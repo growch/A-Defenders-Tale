@@ -11,7 +11,6 @@ package view.joylessMountains
 	import flash.utils.Timer;
 	
 	import assets.SparkleMotionMC;
-	import assets.TreasureMC;
 	
 	import control.EventController;
 	
@@ -23,6 +22,7 @@ package view.joylessMountains
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -33,7 +33,7 @@ package view.joylessMountains
 	
 	public class TreasureView extends MovieClip implements IPageView
 	{
-		private var _mc:TreasureMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -47,16 +47,20 @@ package view.joylessMountains
 		private var _sparkle1:SparkleMotionMC;
 		private var _sparkle2:SparkleMotionMC;
 		private var _sparkle3:SparkleMotionMC;
+		private var _SAL:SWFAssetLoader;
 		
 		public function TreasureView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("joyless.TreasureMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
+			_sparkleTimer.stop();
+			_sparkleTimer = null;
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -65,26 +69,29 @@ package view.joylessMountains
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
-			_sparkleTimer.stop();
-			_sparkleTimer = null;
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new TreasureMC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -171,7 +178,6 @@ package view.joylessMountains
 				}
 			}
 			
-			
 			// decision
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			if (_weaponInt == 0) {
@@ -182,12 +188,21 @@ package view.joylessMountains
 				dv.push(_pageInfo.decisions[3]);
 			} 
 			
+			//EXCEPTION
 			_decisions = new DecisionsView(dv,0xFFFFFF,true);
-			
 			_nextY += _pageInfo.decisionsMarginTop
 //			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
+			
+			_frame = new FrameView(_mc.frame_mc); 
+			var frameSize:int = _decisions.y + 210;
+			// size bg differently depending on weapon
+			_mc.bg_mc.height = frameSize;
+			_frame.sizeFrame(frameSize);
+			if (frameSize < DataModel.APP_HEIGHT) {
+				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+			}
 			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
@@ -195,35 +210,6 @@ package view.joylessMountains
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
-			
-			_frame = new FrameView(_mc.frame_mc); 
-			
-			var frameSize:int = _decisions.y + 210;
-			
-			// size bg differently depending on weapon
-			_mc.bg_mc.height = frameSize;
-			
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-			
-			
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
-		}
-		
-		private function pageOn(e:ViewEvent):void {
-			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			
-			_mc.weapon_mc.glows_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.shine_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.glows_mc.mask = _mc.weapon_mc.shine_mc;
-			
-			_mc.weapon_mc.glows_mc.visible = true;
-			_mc.weapon_mc.shine_mc.visible = true;
-			
-			shineWeapon();
 			
 			//sort of hacky, so as to not have to remove stop frames from og animation
 			_sparkle1 = new SparkleMotionMC();
@@ -243,6 +229,20 @@ package view.joylessMountains
 			_sparkle3.y = _mc.treasure_mc.sparkle3_mc.y;
 			_mc.treasure_mc.removeChild(_mc.treasure_mc.sparkle3_mc);
 			_mc.treasure_mc.addChild(_sparkle3);
+			
+		}
+		
+		private function pageOn(e:ViewEvent):void {
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_mc.weapon_mc.glows_mc.cacheAsBitmap = true;
+			_mc.weapon_mc.shine_mc.cacheAsBitmap = true;
+			_mc.weapon_mc.glows_mc.mask = _mc.weapon_mc.shine_mc;
+			
+			_mc.weapon_mc.glows_mc.visible = true;
+			_mc.weapon_mc.shine_mc.visible = true;
+			
+			shineWeapon();
 			
 			_sparkleTimer = new Timer(5000);
 			_sparkleTimer.addEventListener(TimerEvent.TIMER, sparkleMotion);
@@ -289,12 +289,11 @@ package view.joylessMountains
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-			TweenMax.to(_mc, 1, {alpha:0});
-		}
-
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
+			_sparkleTimer.stop();
+			
+			//for delayed calls
+			TweenMax.killAll();
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}
 }

@@ -9,8 +9,6 @@ package view.joylessMountains
 	import flash.geom.Point;
 	import flash.utils.setTimeout;
 	
-	import assets.JoylessMountainsIntroMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
@@ -36,6 +34,7 @@ package view.joylessMountains
 	import org.flintparticles.twoD.zones.RectangleZone;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -46,14 +45,13 @@ package view.joylessMountains
 	
 	public class JoylessMountainsIntroView extends MovieClip implements IPageView
 	{
-		private var _mc:JoylessMountainsIntroMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
-//		private var _boat:MovieClip;
 		private var _scrolling:Boolean;
 		private var _cloud1:MovieClip;
 		private var _cloud2:MovieClip;
@@ -67,11 +65,12 @@ package view.joylessMountains
 		private var _emitter:Emitter2D;
 		private var _renderer:DisplayObjectRenderer;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
 		public function JoylessMountainsIntroView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("joyless.JoylessMountainsIntroMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -85,38 +84,44 @@ package view.joylessMountains
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
+			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
-			
-			_dragVCont.removeChild(_mc);
-			_dragVCont.dispose();
-			removeChild(_dragVCont);
-			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
+			//EXCEPTION
+			if (_emitter) {
+				_emitter.stop();
+				_renderer.removeEmitter( _emitter );
+				_mc.cloudSnow_mc.removeChild( _renderer );
+				_renderer = null;
+				_emitter = null;
+			}
 			
-			//			if(DataModel.ipad1) return;
-			_emitter.stop();
-			_renderer.removeEmitter( _emitter );
-			_mc.cloudSnow_mc.removeChild( _renderer );
-			_renderer = null;
-			_emitter = null;
-			
-			//for delayed calls
-			TweenMax.killAll();
-			
+			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
+			_dragVCont.dispose();
+			removeChild(_dragVCont);
+			_dragVCont = null; 
 
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
+			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new JoylessMountainsIntroMC();
+			_mc.mask_mc.cacheAsBitmap = true;
+			_mc.waves_mc.cacheAsBitmap = true;
+			_mc.waves_mc.mask = _mc.mask_mc;
 			
 			_nextY = 110;
 			
@@ -182,7 +187,6 @@ package view.joylessMountains
 			_mc.addChild(_decisions);
 			
 			_frame = new FrameView(_mc.frame_mc); 
-			//			
 			var frameSize:int = _decisions.y + 210;
 			// size bg
 			_mc.bg_mc.height = frameSize;
@@ -198,19 +202,9 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-//			_frame = new FrameView(_mc.frame_mc); 
-//			
-//			var frameSize:int = _decisions.y + 210;
-//			_frame.sizeFrame(frameSize);
-//			if (frameSize < DataModel.APP_HEIGHT) {
-//				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-//			}
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-//			return;
 			initWave(_wave1);
 			initWave(_wave2);
 			initWave(_wave3);
@@ -291,9 +285,11 @@ package view.joylessMountains
 				if (_cloud3.x < -_cloud3.width) _cloud3.x = 768;
 				
 				if (!_scrolling) return;
+				
 				if (_emitter) {
 					_emitter.resume();
 				}
+				
 				TweenMax.resumeAll();
 				_scrolling = false;
 			}
@@ -301,14 +297,9 @@ package view.joylessMountains
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-//			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-//			TweenMax.to(_mc, 1, {alpha:0});
+			//for delayed calls
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}
 	}
 }

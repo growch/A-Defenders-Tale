@@ -158,7 +158,11 @@ package view
 		}
 		
 		private function makeBitmap(h:int):void {
-//			return;
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			//not doing this anymore cuz iPad1 top/bottom looked bad
+			//performance not an issue now that individually loading swfs
+			_mc.cacheAsBitmap = true;
+			return;
 			_mc.stage.quality = StageQuality.HIGH;
 //			trace("makeBitmap: h"+h);
 			
