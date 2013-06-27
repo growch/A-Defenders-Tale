@@ -6,27 +6,26 @@ package view.sandlands
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	import assets.StraightMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class StraightView extends MovieClip implements IPageView
 	{
-		private var _mc:StraightMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -35,12 +34,13 @@ package view.sandlands
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
 		
 		public function StraightView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("sandlands.StraightMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -54,13 +54,15 @@ package view.sandlands
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null;
 			
 			_dragVCont.dispose();
@@ -70,11 +72,11 @@ package view.sandlands
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new StraightMC(); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -137,7 +139,6 @@ package view.sandlands
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
-			
 			
 		}
 		
