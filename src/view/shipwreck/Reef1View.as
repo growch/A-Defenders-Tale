@@ -8,8 +8,6 @@ package view.shipwreck
 	import flash.events.Event;
 	import flash.utils.setTimeout;
 	
-	import assets.Reef1MC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
@@ -21,6 +19,7 @@ package view.shipwreck
 	import org.flintparticles.twoD.renderers.DisplayObjectRenderer;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -32,7 +31,7 @@ package view.shipwreck
 	
 	public class Reef1View extends MovieClip implements IPageView
 	{
-		private var _mc:Reef1MC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -56,37 +55,17 @@ package view.shipwreck
 		private var _fish2:MovieClip;
 		private var _fish3:MovieClip;
 		private var _fish4:MovieClip;
+		private var _SAL:SWFAssetLoader;
 		
-		Shark1View, Shark2View
 		public function Reef1View()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("shipwreck.Reef1MC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
-			_pageInfo = null; 
-			
-			_frame.destroy();
-			_frame = null;
-			
-			_decisions.destroy();
-			_mc.removeChild(_decisions);
-			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
-			
-			_dragVCont.dispose();
-			removeChild(_dragVCont);
-			_dragVCont = null; 
-			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
-			
 			_bubbles1.stop();
 			_bubbles2.stop();
 			_bubbles3.stop();
@@ -106,15 +85,39 @@ package view.shipwreck
 			_renderer3 = null;
 			_renderer4 = null;
 			_rendererDung = null;
+//			
+			_pageInfo = null;
 			
+			_frame.destroy();
+			_frame = null;
+			
+			_decisions.destroy();
+			_mc.removeChild(_decisions);
+			_decisions = null;
+			
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
+			
+			_dragVCont.dispose();
+			removeChild(_dragVCont);
+			_dragVCont = null; 
+			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 		}
 		
 		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new Reef1MC(); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -181,8 +184,9 @@ package view.shipwreck
 			// decision
 			_nextY += _pageInfo.decisionsMarginTop
 			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
-//			_decisions.y = _nextY; FIXED BG HEIGHT
-			_decisions.y = _mc.bg_mc.height - 520;
+			_decisions.y = _nextY; 
+//			FIXED BG HEIGHT
+//			_decisions.y = _mc.bg_mc.height - 520;
 			
 			_mc.addChild(_decisions);
 			
@@ -318,10 +322,6 @@ package view.shipwreck
 			
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}
 	}
 }

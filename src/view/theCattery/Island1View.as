@@ -8,16 +8,16 @@ package view.theCattery
 	import flash.events.Event;
 	import flash.utils.setTimeout;
 	
-	import assets.Island1CatteryMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -25,11 +25,10 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class Island1View extends MovieClip implements IPageView
 	{
-		private var _mc:Island1CatteryMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -45,12 +44,12 @@ package view.theCattery
 		private var _wave3:MovieClip;
 		private var _wave4:MovieClip;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
-		CatRanchShoreView
 		public function Island1View()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("theCattery.Island1MC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -64,13 +63,15 @@ package view.theCattery
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null;
 			
 			_dragVCont.dispose();
@@ -78,21 +79,24 @@ package view.theCattery
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new Island1CatteryMC(); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
 			_cloud1 = _mc.cloud1_mc;
 			_cloud2 = _mc.cloud2_mc;
 			_cloud3 = _mc.cloud3_mc;
+			
+			_mc.mask_mc.cacheAsBitmap = true;
+			_mc.waves_mc.cacheAsBitmap = true;
+			_mc.waves_mc.mask = _mc.mask_mc;
+			_mc.mask_mc.alpha = 1;
 			
 			_wave1 = _mc.waves_mc.wave1_mc;
 			_wave2 = _mc.waves_mc.wave2_mc;
@@ -140,6 +144,13 @@ package view.theCattery
 			_decisions.y = _mc.bg_mc.height - 210;
 			_mc.addChild(_decisions);
 			
+			_frame = new FrameView(_mc.frame_mc); 
+			var frameSize:int = _decisions.y + 210;
+			_frame.sizeFrame(frameSize);
+			if (frameSize < DataModel.APP_HEIGHT) {
+				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+			}
+			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
@@ -147,15 +158,6 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_frame = new FrameView(_mc.frame_mc); 
-			
-			var frameSize:int = _decisions.y + 210;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -194,7 +196,6 @@ package view.theCattery
 			setTimeout(waveUp, 2000, _wave3); 
 			setTimeout(waveUp, 2500, _wave4); 
 			
-			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
@@ -226,13 +227,9 @@ package view.theCattery
 			} else {
 				DataModel.COMPANION_TAKEN = false;
 			}
-			TweenMax.to(_mc, 1, {alpha:0});
-//			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
+			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
-		}
 	}
 }

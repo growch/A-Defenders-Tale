@@ -6,8 +6,6 @@ package view.shipwreck
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	import assets.Starfish3MC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
@@ -18,6 +16,7 @@ package view.shipwreck
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -27,7 +26,7 @@ package view.shipwreck
 	
 	public class Starfish3View extends MovieClip implements IPageView
 	{
-		private var _mc:Starfish3MC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -41,18 +40,18 @@ package view.shipwreck
 		private var _fish3:MovieClip;
 		private var _fish4:MovieClip;
 		private var _dv:Vector.<DecisionInfo>;
+		private var _SAL:SWFAssetLoader;
 
-		//		ApplicationView, MapView
 		public function Starfish3View()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("shipwreck.Starfish3MC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
-			_pageInfo = null; 
+			_pageInfo = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -60,27 +59,29 @@ package view.shipwreck
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
-			
-			
-			DataModel.getInstance().removeAllChildren(_mc);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new Starfish3MC(); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -215,10 +216,6 @@ package view.shipwreck
 		{
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}
 	}
 }

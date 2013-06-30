@@ -7,21 +7,19 @@ package view.theCattery
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
-	import flash.utils.Timer;
 	import flash.utils.setTimeout;
-	
-	import assets.FourthDoorMC;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -29,11 +27,10 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class FourthDoorView extends MovieClip implements IPageView
 	{
-		private var _mc:FourthDoorMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -47,19 +44,24 @@ package view.theCattery
 		private var _scissorsComb:MovieClip;
 		private var _scissors:MovieClip;
 		private var _comb:MovieClip;
-		private var _shineTimer:Timer;
 		private var _compAlongIndex:int;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
 		public function FourthDoorView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("theCattery.FourthDoorMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
+//			!!!
+			_picture.removeEventListener(MouseEvent.CLICK, swingPic);
+			_scissors.removeEventListener(MouseEvent.CLICK, scissorClick);
+			_comb.removeEventListener(MouseEvent.CLICK, combClick);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -68,24 +70,29 @@ package view.theCattery
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			
-			_picture.removeEventListener(MouseEvent.CLICK, swingPic);
 		}
 		
 		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new FourthDoorMC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			// companion take or not
 			var compTakenInt:int = DataModel.COMPANION_TAKEN ? 0 : 1;
@@ -120,7 +127,7 @@ package view.theCattery
 				supplyIndex = 1;
 			}
 			
-			_pageInfo = DataModel.appData.getPageInfo("prologue");
+			_pageInfo = DataModel.appData.getPageInfo("fourthDoor");
 			_bodyParts = _pageInfo.body;
 			
 			// set the text
@@ -182,6 +189,20 @@ package view.theCattery
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
+			_frame = new FrameView(_mc.frame_mc); 
+			var frameSize:int = _decisions.y + 210;
+			//unique hack due to 2 diff size pages
+			_compAlongIndex = 0;
+			if(_compAlongIndex == 1) {
+				// size bg
+				_mc.bg_mc.height = _decisions.y + 207;
+				_frame.sizeFrame(_decisions.y + 207);
+			} else {
+				// size bg
+				_mc.bg_mc.height = frameSize;
+				_frame.sizeFrame(frameSize);
+			}
+			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
@@ -189,31 +210,6 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_frame = new FrameView(_mc.frame_mc); 
-			
-			var frameSize:int = _decisions.y + 210;
-//			_frame.sizeFrame(frameSize);
-//			if (frameSize < DataModel.APP_HEIGHT) {
-//				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-//			}
-			
-			//unique hack due to 2 diff size pages
-			_compAlongIndex = 0;
-			if(_compAlongIndex == 1) {
-				//				clipMC(_mc.bg_mc, _decisions.y + 20);
-//				_mc.bg_mc.scrollRect = new Rectangle(0, 0, 768, _decisions.y + 20);
-				// size bg
-				_mc.bg_mc.height = _decisions.y + 207;
-				_frame.sizeFrame(_decisions.y + 207);
-//				TweenMax.delayedCall(1, clipMC,[_mc.bg_mc, _decisions.y + 20]);
-				
-			} else {
-				// size bg
-				_mc.bg_mc.height = frameSize;
-				_frame.sizeFrame(frameSize);
-			}
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn});
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -233,12 +229,23 @@ package view.theCattery
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
-			_shineTimer = new Timer(5000); 
-			_shineTimer.addEventListener(TimerEvent.TIMER, shineTime); 
-			_shineTimer.start();
+			_scissors.addEventListener(MouseEvent.CLICK, scissorClick);
+			_comb.addEventListener(MouseEvent.CLICK, combClick);
+			
+//			setTimeout(shineTime, 5000);
 		} 
 		
-		protected function shineTime(event:TimerEvent):void
+		protected function scissorClick(event:MouseEvent):void
+		{
+			showShine(_scissors);
+		}
+		
+		protected function combClick(event:MouseEvent):void
+		{
+			showShine(_comb);
+		}
+		
+		protected function shineTime():void
 		{
 			showShine(_scissors);
 			setTimeout(showShine, 800, _comb);
@@ -288,11 +295,8 @@ package view.theCattery
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
+			TweenMax.killAll();
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}
 }

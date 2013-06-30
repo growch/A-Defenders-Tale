@@ -1,7 +1,6 @@
 package view.shipwreck
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
@@ -9,8 +8,6 @@ package view.shipwreck
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.utils.setTimeout;
-	
-	import assets.Reef2MC;
 	
 	import control.EventController;
 	
@@ -24,12 +21,12 @@ package view.shipwreck
 	import org.flintparticles.twoD.renderers.DisplayObjectRenderer;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
 	import view.ApplicationView;
 	import view.Bubbles;
-	import view.Bubbles2;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
@@ -37,7 +34,7 @@ package view.shipwreck
 	
 	public class Reef2View extends MovieClip implements IPageView
 	{
-		private var _mc:Reef2MC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -62,37 +59,18 @@ package view.shipwreck
 		private var _incorrectText:TextField;
 		private var _dv:Vector.<DecisionInfo>;
 		private var _passwordArray:Array = ["barnacle", "conch", "surf", "clam", "shell"];
+		private var _SAL:SWFAssetLoader;
+		private var _clawAnimating:Boolean;
 		
-		ApplicationView, MapView, FollowCommodoreView
 		public function Reef2View()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("shipwreck.Reef2MC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
-			_pageInfo = null; 
-			
-			_frame.destroy();
-			_frame = null;
-			
-			_decisions.destroy();
-			_mc.removeChild(_decisions);
-			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
-			
-			_dragVCont.dispose();
-			removeChild(_dragVCont);
-			_dragVCont = null; 
-			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
-			
 			_bubbles1.stop();
 			_bubbles2.stop();
 			_bubbles3.stop();
@@ -102,21 +80,44 @@ package view.shipwreck
 			_renderer2.removeEmitter(_bubbles2);
 			_renderer3.removeEmitter(_bubbles3);
 			_renderer4.removeEmitter(_bubbles4);
-
 			
 			_renderer1 = null;
 			_renderer2 = null;
 			_renderer3 = null;
 			_renderer4 = null;
 			
+			//
+			_pageInfo = null;
+			
+			_frame.destroy();
+			_frame = null;
+			
+			_decisions.destroy();
+			_mc.removeChild(_decisions);
+			_decisions = null;
+			
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
+			
+			_dragVCont.dispose();
+			removeChild(_dragVCont);
+			_dragVCont = null; 
+			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new Reef2MC(); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -135,7 +136,6 @@ package view.shipwreck
 			_renderer4 = new DisplayObjectRenderer();
 			_mc.addChild(_renderer4);
 			
-			
 			_lobster = _mc.lobster_mc;
 			_fish2 = _mc.fish2_mc;
 			_fish3 = _mc.fish3_mc;
@@ -146,7 +146,6 @@ package view.shipwreck
 			_mc.addChild(_fish2);
 			_mc.addChild(_fish3);
 			_mc.addChild(_fish4);
-			
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -262,7 +261,8 @@ package view.shipwreck
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			_mc.lobster_mc.play();
+//			_mc.lobster_mc.play();
+			setTimeout(turnOffClaw, 1800);
 			
 			_fish2.goLeft = true;
 			_fish3.goLeft = true;
@@ -296,12 +296,22 @@ package view.shipwreck
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
+		private function turnOffClaw():void {
+			_clawAnimating = true;
+		}
+		
 		protected function enterFrameLoop(event:Event):void
 		{
 			
+			if (_clawAnimating) {
+				if (_lobster.currentFrame == 1) {
+					_lobster.stop();
+					_clawAnimating = false;
+				}
+			}
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
-//				TweenMax.pauseAll();
+				TweenMax.pauseAll();
 				
 				_bubbles1.pause()
 				_bubbles2.pause();
@@ -323,6 +333,7 @@ package view.shipwreck
 				_bubbles4.resume();
 				_scrolling = false;
 			}
+			
 		}
 		
 		private function moveFish(thisMC:MovieClip, thisAmt:Number):void {
@@ -349,7 +360,6 @@ package view.shipwreck
 					
 				}
 			}
-			
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
@@ -361,10 +371,6 @@ package view.shipwreck
 			
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}
 	}
 }

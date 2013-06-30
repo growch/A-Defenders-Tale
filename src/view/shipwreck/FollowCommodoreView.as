@@ -8,8 +8,6 @@ package view.shipwreck
 	import flash.events.Event;
 	import flash.utils.setTimeout;
 	
-	import assets.FollowCommodoreMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
@@ -22,20 +20,19 @@ package view.shipwreck
 	import org.flintparticles.twoD.renderers.DisplayObjectRenderer;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
-	import view.ApplicationView;
 	import view.Bubbles;
 	import view.Bubbles2;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.MapView;
 	
 	public class FollowCommodoreView extends MovieClip implements IPageView
 	{
-		private var _mc:FollowCommodoreMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -59,37 +56,17 @@ package view.shipwreck
 		private var _fish4:MovieClip;
 		private var _dv:Vector.<DecisionInfo>;
 		private var _morrisey:MovieClip;
+		private var _SAL:SWFAssetLoader;
 		
-//		ApplicationView, MapView
 		public function FollowCommodoreView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("shipwreck.FollowCommodoreMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init); 
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
-			_pageInfo = null; 
-			
-			_frame.destroy();
-			_frame = null;
-			
-			_decisions.destroy();
-			_mc.removeChild(_decisions);
-			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
-			
-			_dragVCont.dispose();
-			removeChild(_dragVCont);
-			_dragVCont = null; 
-			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
-			
 			_bubbles1.stop();
 			_bubbles2.stop();
 			_bubbles3.stop();
@@ -100,7 +77,6 @@ package view.shipwreck
 			_renderer2.removeEmitter(_bubbles2);
 			_renderer3.removeEmitter(_bubbles3);
 			_renderer4.removeEmitter(_bubbles4);
-			
 			_rendererMo.removeEmitter(_bubblesMo);
 			
 			_morrisey.removeChild(_rendererMo);
@@ -111,14 +87,37 @@ package view.shipwreck
 			_renderer4 = null;
 			_rendererMo = null;
 			
+			_pageInfo = null;
+			
+			_frame.destroy();
+			_frame = null;
+			
+			_decisions.destroy();
+			_mc.removeChild(_decisions);
+			_decisions = null;
+			
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
+			
+			_dragVCont.dispose();
+			removeChild(_dragVCont);
+			_dragVCont = null; 
+			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new FollowCommodoreMC(); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -270,7 +269,7 @@ package view.shipwreck
 			}
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
-//				TweenMax.pauseAll();
+				TweenMax.pauseAll();
 				
 				_bubbles1.pause()
 				_bubbles2.pause();
@@ -330,10 +329,6 @@ package view.shipwreck
 			
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}
 	}
 }

@@ -1,12 +1,9 @@
 package games.bopMice.objects
 {
-//	import core.Assets;
 	import flash.display.MovieClip;
 	import flash.utils.setTimeout;
 	
 	import games.bopMice.core.Game;
-	
-//	import states.Play;
 	
 	public class Enemy extends flash.display.MovieClip 
 	{

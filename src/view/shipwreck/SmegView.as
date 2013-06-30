@@ -1,17 +1,10 @@
 package view.shipwreck
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.MovieClip;
-	import flash.display.StageQuality;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
-	
-	import assets.SmegMC;
 	
 	import control.EventController;
 	
@@ -22,7 +15,7 @@ package view.shipwreck
 	import model.StoryPart;
 	
 	import util.Formats;
-	import util.StringUtil;
+	import util.SWFAssetLoader;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -32,7 +25,7 @@ package view.shipwreck
 	
 	public class SmegView extends MovieClip implements IPageView
 	{
-		private var _mc:SmegMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -41,11 +34,12 @@ package view.shipwreck
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
+		private var _SAL:Object;
 		
 		public function SmegView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("shipwreck.SmegMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -59,26 +53,28 @@ package view.shipwreck
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
-			
-			DataModel.getInstance().removeAllChildren(_mc);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			
-			_mc = new SmegMC(); 
 			
 			_nextY = 110;
 			
@@ -160,8 +156,5 @@ package view.shipwreck
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
-		}
 	}
 }

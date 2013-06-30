@@ -14,7 +14,11 @@ package view.shipwreck
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
 	
-	import assets.JellyfishGameMC;
+	import assets.Jelly1MC;
+	import assets.Jelly2MC;
+	import assets.Jelly3MC;
+	import assets.Jelly4MC;
+	import assets.JellyfishGameGlowMC;
 	
 	import control.EventController;
 	
@@ -22,12 +26,14 @@ package view.shipwreck
 	
 	import model.DataModel;
 	
+	import util.SWFAssetLoader;
+	
 	import view.FrameView;
 	import view.IPageView;
 	
 	public class JellyfishGameView extends MovieClip implements IPageView
 	{
-		private var _mc:JellyfishGameMC; 
+		private var _mc:MovieClip; 
 		private var _frame:FrameView;
 		private var _accel:Accelerometer;
 		private var _accelX:int = 0;
@@ -47,6 +53,7 @@ package view.shipwreck
 		private var _counter:int = 0;
 		private var i:int;
 		private var thisJ:MovieClip;
+		private var thisRef:Class;
 		private var _glowHit:MovieClip;
 		private var _collisionList:CollisionList;
 		private var _collisions:Array;
@@ -56,13 +63,17 @@ package view.shipwreck
 		private var _loseMC:MovieClip;
 		private var _hitCount:int = 0;
 		private var _starfish:MovieClip;
+		private var _SAL:SWFAssetLoader;
 		
 		public function JellyfishGameView()
 		{
-			addEventListener(Event.ADDED_TO_STAGE, init);
+			_SAL = new SWFAssetLoader("shipwreck.JellyfishGameMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init); 
 		}
 		
 		public function destroy() : void {
+			_SAL.destroy();
+			_SAL = null;
 			
 			_jellyTimer.removeEventListener(TimerEvent.TIMER, animateJelly); 
 			_jellyTimer = null;
@@ -89,11 +100,10 @@ package view.shipwreck
 		}
 		
 		private function init (event:Event) : void {
-			_dm = DataModel.getInstance();
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-//			var newPageClass:Class = getDefinitionByName("assets.JellyfishGameMC") as Class
-//			_mc = new newPageClass();	
-			_mc = new JellyfishGameMC();
+			_dm = DataModel.getInstance();
 			
 			_bg = _mc.bg_mc;
 			
@@ -104,7 +114,12 @@ package view.shipwreck
 			_bottomBGY = frameSize - DataModel.APP_HEIGHT;
 			_bottomGlowY = frameSize - 180;
 			
-			_glow = _mc.glow_mc;
+//			_glow = _mc.glow_mc;
+			_glow = new JellyfishGameGlowMC();
+			_glow.x = _mc.glow_mc.x;
+			_glow.y = _mc.glow_mc.y;
+			_mc.addChild(_glow);
+			_mc.removeChild(_mc.glow_mc);
 			_glowHit = _glow.hit_mc;
 			_glowHit.alpha = .1;
 			_glow.hitArea = _glowHit;
@@ -121,14 +136,26 @@ package view.shipwreck
 			_rightEdge = DataModel.APP_WIDTH - buffer;
 			
 			var jellyfish:MovieClip = _mc.jellyfish_mc;
+			var jellyTypeArray:Array = [Jelly1MC, Jelly2MC, Jelly3MC, Jelly1MC, Jelly4MC, Jelly1MC, Jelly2MC,
+				Jelly3MC, Jelly4MC, Jelly1MC, Jelly2MC, Jelly3MC, Jelly4MC, Jelly2MC, Jelly3MC, Jelly4MC, Jelly1MC];
+			
 			for (var i:int = 0; i < jellyfish.numChildren; i++) 
 			{
-				var thisJelly:MovieClip = jellyfish.getChildAt(i) as MovieClip;
+				var thisRef:MovieClip = jellyfish.getChildByName("jelly"+String(i+1)+"_mc") as MovieClip;
+				var thisClass:Class = jellyTypeArray[i];
+				var thisJelly:MovieClip = new thisClass() as MovieClip;
 				
-				var jellyF:Jellyfish = new Jellyfish(thisJelly);
+				jellyfish.addChild(thisJelly);
 				
 				thisJelly.stop();
 				thisJelly.hit_mc.alpha = .1;
+				thisJelly.x = thisRef.x;
+				thisJelly.y = thisRef.y;
+				thisJelly.scaleX = thisJelly.scaleY = thisRef.scaleX;
+				
+				jellyfish.removeChild(thisRef);
+				
+				var jellyF:Jellyfish = new Jellyfish(thisJelly);
 				
 				_jellyfishArray.push(jellyF);
 				
@@ -161,6 +188,10 @@ package view.shipwreck
 			_loseMC.map_btn.addEventListener(MouseEvent.CLICK, gameLostDecision);
 			_loseMC.restart_btn.addEventListener(MouseEvent.CLICK, gameLostDecision);
 			
+			//put things back on top since glow was added above
+			_mc.addChild(_startMC);
+			_mc.addChild(_winMC);
+			_mc.addChild(_loseMC);
 			
 			addChild(_mc);
 		}

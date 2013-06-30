@@ -3,7 +3,6 @@ package games.bopMice.managers
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
-	import flash.display.Stage;
 	
 	import games.bopMice.core.Game;
 	import games.bopMice.objects.Enemy;
@@ -15,11 +14,14 @@ package games.bopMice.managers
 		private var count:int = 0;
 		private var _hit:MovieClip;
 		private var _hitSound:Track;
+		private var _ea:Array;
+		private var _enem:Enemy;
 		
 		public function CollisionManager(game:Game)
 		{
 			_game = game;
 			_hitSound = new Track("assets/audio/games/bopMice/hitMouse.mp3");
+			_ea = _game.enemyManager.enemies;
 		}
 		
 		public function update():void
@@ -35,35 +37,40 @@ package games.bopMice.managers
 		
 		private function heroAndEnemies():void
 		{
-			var ea:Array = _game.enemyManager.enemies;
-			var enem:Enemy;
+//			_ea = _game.enemyManager.enemies;
+//			var enem:Enemy;
 			
 //			trace("heroAndEnemies");
 //			return;
 			
-			for(var i:int=ea.length-1; i>=0; i--)
+			for(var i:int=_ea.length-1; i>=0; i--)
 			{
 				if (!_game.hero.malletDown) return;
 				
-				enem = ea[i];
+				_enem = _ea[i];
 				
-				if(!enem.showing) continue;
+				if(!_enem.showing) continue;
 				
-				_hit = enem.hitMC;
+				_hit = _enem.hitMC;
 				
 				if (_hit.height <= 1) continue;
 				
 				if(_game.hero.hitMC.hitTestObject(_hit))
 				{
-//					trace("enem: "+enem.name + " || hit: " +_game.hero.hitMC.hitTestObject(enem.hitMC));
-					enem.hitEnemy();
+					_enem.hitEnemy();
 					_game.explosionManager.spawn(_game.stage.mouseX, _game.stage.mouseY);
 					_game.score.addScore(1);
-					//					Assets.enemyHit.play(); // sound
 					_hitSound.start();
 					return;
 				}
 			}
+		}
+		
+		public function destroy():void
+		{
+			_game = null;
+			_hitSound = null;
+			_ea = null;
 		}
 	}
 }

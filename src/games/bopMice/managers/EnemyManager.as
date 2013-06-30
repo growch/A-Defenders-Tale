@@ -11,6 +11,8 @@ package games.bopMice.managers
 		public var enemies:Array;
 		public var count:int = 0;
 		private var _enemyCount:int;
+		private var _len:int;
+		private var _enemy:Enemy;
 		
 		public function EnemyManager(enemsMC:MovieClip)
 		{
@@ -19,6 +21,7 @@ package games.bopMice.managers
 			_enemyCount = _enemsMC.numChildren;
 			addEnemies();
 			
+			_len = enemies.length;
 		}
 		
 		private function addEnemies():void {
@@ -34,13 +37,13 @@ package games.bopMice.managers
 		{
 			if(Math.random() < 0.04) spawn();
 			
-			var en:Enemy;
-			var len:int = enemies.length;
+//			var en:Enemy;
+//			var len:int = enemies.length;
 			
-			for(var i:int=len-1; i>=0; i--)
+			for(var i:int=_len-1; i>=0; i--)
 			{
-				en = enemies[i];
-				en.update();
+				_enemy = enemies[i];
+				_enemy.update();
 			}
 		}
 		
@@ -58,6 +61,7 @@ package games.bopMice.managers
 		public function destroy():void
 		{
 			enemies = null;
+			_enemsMC = null;
 		}
 		
 		public function killAll():void

@@ -8,16 +8,16 @@ package view.theCattery
 	import flash.geom.ColorTransform;
 	import flash.geom.Rectangle;
 	
-	import assets.ReturnToBoatMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -26,11 +26,10 @@ package view.theCattery
 	import view.FrameView;
 	import view.IPageView;
 	import view.StarryNight;
-	import model.PageInfo;
 	
 	public class ReturnToBoatView extends MovieClip implements IPageView
 	{
-		private var _mc:ReturnToBoatMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -46,11 +45,12 @@ package view.theCattery
 		private var _cloud4:MovieClip;
 		private var _cloud5:MovieClip;		
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
 		public function ReturnToBoatView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("theCattery.ReturnToBoatMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -64,28 +64,36 @@ package view.theCattery
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			
-			
-			_stars.destroy();
-			_stars = null;
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
+			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc = new ReturnToBoatMC();
-			
 			_nextY = 110;
+			
+			_mc.boat_mc.boatMask_mc.cacheAsBitmap = true;
+			_mc.boat_mc.boat_mc.cacheAsBitmap = true;
+			_mc.boat_mc.boat_mc.mask = _mc.boat_mc.boatMask_mc;
+			_mc.boat_mc.boatMask_mc.alpha = 1;
 			
 			_cloud1 = _mc.clouds_mc.cloud1_mc;
 			_cloud2 = _mc.clouds_mc.cloud2_mc;
@@ -154,6 +162,13 @@ package view.theCattery
 			_decisions.y = _mc.bg_mc.height - 210;
 			_mc.addChild(_decisions);
 			
+			_frame = new FrameView(_mc.frame_mc);  
+			var frameSize:int = _decisions.y + 210;
+			_frame.sizeFrame(frameSize);
+			if (frameSize < DataModel.APP_HEIGHT) {
+				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+			}
+			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
@@ -161,15 +176,6 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_frame = new FrameView(_mc.frame_mc);  
-			 
-			var frameSize:int = _decisions.y + 210;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn});
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -211,14 +217,11 @@ package view.theCattery
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			TweenMax.to(_mc, 1, {alpha:0});
-			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
+			// INCREMENT STONE COUNT!
+			if (event.data.decisionNumber == 1) DataModel.STONE_COUNT++;
+			TweenMax.killAll();
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
-			// INCREMENT STONE COUNT!
-			if (thisPage.decisionNumber == 1) DataModel.STONE_COUNT++;
-		}
 	}
 }

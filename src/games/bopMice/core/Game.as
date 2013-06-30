@@ -9,7 +9,8 @@ package games.bopMice.core
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import assets.BopMiceMC;
+	import assets.MalletMC;
+	import assets.MouseStatesMC;
 	
 	import control.EventController;
 	
@@ -28,8 +29,9 @@ package games.bopMice.core
 	
 	import model.DataModel;
 	
+	import util.SWFAssetLoader;
 	
-	public class Game extends Sprite
+	public class Game extends MovieClip
 	{
 		
 		public static const FPS:int = DataModel.BOP_MICE_FPS; 
@@ -37,11 +39,10 @@ package games.bopMice.core
 		public static const MINIMUM_SCORE:int = 30;	
 		
 		public var userScore:int;
-		private var _mc:BopMiceMC;
+		private var _mc:MovieClip;
 		public var enemyManager:EnemyManager;
 		public var hero:Hero;
 		public var collisionManager:CollisionManager;
-		
 		public var fire:Boolean;
 		private var _countdownClock:CountdownClock;
 		private var _timer:int;
@@ -53,16 +54,19 @@ package games.bopMice.core
 		private var _startGame:MovieClip;
 		private var _tryAgain:MovieClip;
 		private var _gameWon:GameWon;
+		private var _SAL:SWFAssetLoader;
+		private var _mallet:MalletMC;
 		
 		public function Game()
 		{
-			addEventListener(Event.ADDED_TO_STAGE, init);
+			_SAL = new SWFAssetLoader("theCattery.BopMiceMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 		}
 		
 		private function init(event:Event):void
 		{
-			
-			_mc = new BopMiceMC();
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
 			_mc.frame_mc.mouseEnabled = false;
 			_mc.frameShadow_mc.mouseEnabled = false;
@@ -88,6 +92,37 @@ package games.bopMice.core
 			
 			addChild(_mc);
 			
+			addAssets();
+			
+			//restack screens
+			_mc.addChild(_mc.startGame_mc);
+			_mc.addChild(_mc.tryAgain_mc);
+			_mc.addChild(_mc.gameWon_mc);
+		}
+		
+		private function addAssets():void
+		{
+			//add and replace assets from swc
+			for (var i:int = 0; i < _mc.mice_mc.numChildren; i++) 
+			{
+				var thisRef:MovieClip = _mc.mice_mc.getChildByName("mouse"+i) as MovieClip;
+				var thisMouse:MovieClip = new MouseStatesMC();
+				
+//								thisMouse.stop();
+				thisMouse.name = "mouse"+i;
+				thisMouse.x = thisRef.x;
+				thisMouse.y = thisRef.y;
+				thisMouse.scaleX = thisMouse.scaleY = thisRef.scaleX;
+				
+				_mc.mice_mc.removeChild(thisRef);
+				_mc.mice_mc.addChild(thisMouse);
+			}
+			
+			_mallet = new MalletMC();
+			_mc.addChild(_mallet);
+			_mallet.x = _mc.mallet_mc.x;
+			_mallet.y = _mc.mallet_mc.y;
+			_mc.removeChild(_mc.mallet_mc);
 		}
 		
 		public function startGame():void {
@@ -96,7 +131,8 @@ package games.bopMice.core
 			enemyManager = new EnemyManager(_mc.mice_mc);
 			collisionManager = new CollisionManager(this);
 			explosionManager = new ExplosionManager(this);
-			hero = new Hero(this, _mc.mallet_mc);
+			
+			hero = new Hero(this, _mallet);
 			
 			_countdownClock.startClock();
 			_gameTimer.start();
@@ -106,6 +142,7 @@ package games.bopMice.core
 			_bgMusic = new Track("assets/audio/games/bopMice/bg.mp3");
 			_bgMusic.start(true);
 			_bgMusic.loop = true;
+			
 		}
 		
 		protected function timerTick(event:TimerEvent):void
@@ -166,9 +203,16 @@ package games.bopMice.core
 			removeEventListener(Event.ENTER_FRAME, update);
 			
 			explosionManager.destroy();
+			collisionManager.destroy();
+			enemyManager.destroy();
 			
 			_bgMusic.stop(true);
 			_bgMusic = null;
+			
+			DataModel.getInstance().removeAllChildren(_mc);
+			
+			_SAL.destroy();
+			_SAL = null;
 		}
 		
 		public function restartGame():void

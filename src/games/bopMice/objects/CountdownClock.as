@@ -30,6 +30,9 @@ package games.bopMice.objects
 			_num1 = _mc.number1_mc;
 			_num2 = _mc.number2_mc;
 			
+			_num1.stop();
+			_num2.stop();
+			
 			_hourglass = _mc.hourglass_mc;
 			_topMask =  _hourglass.maskTop_mc;
 			_maskInitHeight = _topMask.height;

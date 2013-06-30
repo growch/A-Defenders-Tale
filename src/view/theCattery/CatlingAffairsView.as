@@ -4,18 +4,17 @@ package view.theCattery
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
-	import flash.events.Event;
-	
-	import assets.CatlingAffairsMC;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -23,11 +22,10 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class CatlingAffairsView extends MovieClip implements IPageView
 	{
-		private var _mc:CatlingAffairsMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -36,12 +34,12 @@ package view.theCattery
 		private var _frame:FrameView;
 		private var _smokes:MovieClip;
 		private var _pageInfo:PageInfo;
-		
+		private var _SAL:SWFAssetLoader;
 		
 		public function CatlingAffairsView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("theCattery.CatlingAffairsMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -55,20 +53,29 @@ package view.theCattery
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
+			
+			//			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new CatlingAffairsMC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			// companion take or not
 			var compTakenInt:int = DataModel.COMPANION_TAKEN ? 0 : 1;
@@ -76,8 +83,13 @@ package view.theCattery
 			_nextY = 110;
 			
 			_smokes = _mc.smokes_mc;
-			_smokes.visible = false;
 			
+			if (DataModel.ipad1) {
+				//				_smokes.cacheAsBitmap = true;
+				_smokes.visible = true;
+			} else {
+				_smokes.visible = false;
+			}
 			
 			var compAlongIndex:int;
 			if (DataModel.COMPANION_TAKEN) {
@@ -132,6 +144,13 @@ package view.theCattery
 			_decisions.y = _mc.bg_mc.height - 330;
 			_mc.addChild(_decisions);
 			
+			_frame = new FrameView(_mc.frame_mc); 
+			var frameSize:int = _decisions.y + 330;
+			_frame.sizeFrame(frameSize);
+			if (frameSize < DataModel.APP_HEIGHT) {
+				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+			}
+			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
@@ -139,26 +158,10 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_frame = new FrameView(_mc.frame_mc); 
-			
-			var frameSize:int = _decisions.y + 330;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-			
-			
-			if (DataModel.ipad1) {
-				_smokes.cacheAsBitmap = true;
-				_smokes.visible = true;
-			}
-			//EXCEPTION
-//			_decisions.y = frameSize - 100;
-			
-//			TweenMax.from(_mc, 1, {alpha:0, delay:0, onComplete:pageOn});
 		}
 		
 		private function pageOn(e:ViewEvent):void {
+			trace("page ON CatAffairs!");
 			if (DataModel.ipad1) return;
 			
 			_smokes.smoke3_mc.alpha = 0;
@@ -172,12 +175,8 @@ package view.theCattery
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			TweenMax.to(_mc, 1, {alpha:0});
-			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
+			TweenMax.killAll();
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}
 }

@@ -16,7 +16,7 @@ package view
 	
 	import model.DataModel;
 	
-	public class JellyfishGameView extends MovieClip
+	public class JellyfishGameOGView extends MovieClip
 	{
 		private var _mc:UnderwaterMC;
 		private var _accel:Accelerometer;
@@ -30,7 +30,7 @@ package view
 		private var _jellyCount:int;
 		private var _colTest:CollisionTest;
 		
-		public function JellyfishGameView()
+		public function JellyfishGameOGView()
 		{
 			super();
 			

@@ -1,7 +1,5 @@
 package view.theCattery
 {
-	import com.greensock.TweenMax;
-	
 	import flash.display.MovieClip;
 	
 	import control.EventController;
@@ -15,7 +13,6 @@ package view.theCattery
 	public class BopMiceView extends MovieClip implements IPageView
 	{
 		private var _game:Game;
-		
 		
 		public function BopMiceView()
 		{
@@ -35,11 +32,7 @@ package view.theCattery
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			TweenMax.to(_game, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}
 }

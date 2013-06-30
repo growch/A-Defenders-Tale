@@ -24,6 +24,7 @@ package games.bopMice.managers
 		{
 			explosion.destroy();
 			explosion = null;
+			_game = null;
 		}
 	}
 }

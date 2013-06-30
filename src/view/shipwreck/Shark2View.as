@@ -6,8 +6,6 @@ package view.shipwreck
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	import assets.Shark2MC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
@@ -17,6 +15,7 @@ package view.shipwreck
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -28,7 +27,7 @@ package view.shipwreck
 	
 	public class Shark2View extends MovieClip implements IPageView
 	{
-		private var _mc:Shark2MC; 
+		private var _mc:MovieClip; 
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -39,14 +38,13 @@ package view.shipwreck
 		private var _shark:MovieClip;
 		private var _fish2:MovieClip;
 		private var _fish4:MovieClip;
-
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
-		ApplicationView, MapView
 		public function Shark2View()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("shipwreck.Shark2MC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
@@ -60,26 +58,29 @@ package view.shipwreck
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
-			
-			DataModel.getInstance().removeAllChildren(_mc);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new Shark2MC(); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -93,7 +94,6 @@ package view.shipwreck
 			//put fish back on top of bubbles
 			_mc.addChild(_fish4);
 			_mc.addChild(_fish2);
-			
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -146,7 +146,6 @@ package view.shipwreck
 			var diff:int = frameSize - _mc.bg_mc.height; 
 			_mc.sand_mc.y += diff;  
 			
-			
 			_mc.bg_mc.height = frameSize;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
@@ -171,13 +170,12 @@ package view.shipwreck
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		
 		protected function enterFrameLoop(event:Event):void
 		{
 			
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
-//				TweenMax.pauseAll();
+				TweenMax.pauseAll();
 				
 				_scrolling = true;
 			} else {
@@ -217,7 +215,6 @@ package view.shipwreck
 					
 				}
 			}
-			
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
@@ -225,10 +222,6 @@ package view.shipwreck
 			
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}
 	}
 }

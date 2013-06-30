@@ -6,19 +6,20 @@ package view.theCattery
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	
-	import assets.MouseConsultationMC;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -26,32 +27,35 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class MouseConsultationView extends MovieClip implements IPageView
 	{
-		private var _mc:MouseConsultationMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
-		private var _noteTimer:Timer; 
+//		private var _noteTimer:Timer; 
 		private var _singleStart:Array;
 		private var _doubleStart:Array;
 		private var _scrolling:Boolean;		
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
 		public function MouseConsultationView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("theCattery.MouseConsultationMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
+//			!!!
+			_mc.instrument_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -60,25 +64,29 @@ package view.theCattery
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
-			_dragVCont = null;
+			_dragVCont = null; 
 			
-			_noteTimer.stop();
-			_noteTimer = null;
-			
-			removeEventListener(Event.ENTER_FRAME, frameLoop);
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new MouseConsultationMC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -126,15 +134,7 @@ package view.theCattery
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
-			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
-			_dragVCont.width = DataModel.APP_WIDTH;
-			_dragVCont.height = DataModel.APP_HEIGHT;
-			_dragVCont.addChild(_mc);
-			_dragVCont.refreshView(true);
-			addChild(_dragVCont);
-			
 			_frame = new FrameView(_mc.frame_mc); 
-			
 			var frameSize:int = _decisions.y + 210;
 			// size bg
 			_mc.bg_mc.height = frameSize;
@@ -142,6 +142,13 @@ package view.theCattery
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
 			}
+			
+			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
+			_dragVCont.width = DataModel.APP_WIDTH;
+			_dragVCont.height = DataModel.APP_HEIGHT;
+			_dragVCont.addChild(_mc);
+			_dragVCont.refreshView(true);
+			addChild(_dragVCont);
 			
 //			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn});
 			
@@ -159,30 +166,38 @@ package view.theCattery
 		
 		private function pageOn(e:ViewEvent):void {
 			
-			_noteTimer = new Timer(3000);
-			_noteTimer.addEventListener(TimerEvent.TIMER, showNotes); 
-			_noteTimer.start();
+//			_noteTimer = new Timer(3000);
+//			_noteTimer.addEventListener(TimerEvent.TIMER, showNotes); 
+//			_noteTimer.start();
 			
-			addEventListener(Event.ENTER_FRAME, frameLoop);
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_mc.instrument_mc.addEventListener(MouseEvent.CLICK, clickToShine);
+			
+			showNotes();
 		}
 		
-		protected function frameLoop(event:Event):void
+		private function clickToShine(e:MouseEvent):void {
+			showNotes();
+		}
+		
+		protected function enterFrameLoop(event:Event):void
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;
 				
-				_noteTimer.stop();
+//				_noteTimer.stop();
 			} else {
 				if (!_scrolling) return;
 				
-				_noteTimer.start();
+//				_noteTimer.start();
 				TweenMax.resumeAll();
 				_scrolling = false;
 			}
 		}
 		
-		protected function showNotes(event:TimerEvent):void
+		protected function showNotes():void
 		{
 			TweenMax.to(_mc.instrument_mc.shine_mc, 1.4, {y:520, ease:Quad.easeIn, onComplete:function():void {_mc.instrument_mc.shine_mc.y = -400}}); 
 			TweenMax.to(_mc.instrument_mc.noteSingle_mc, .4, {alpha:1});
@@ -204,12 +219,8 @@ package view.theCattery
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			TweenMax.to(_mc, 1, {alpha:0});
-			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
+			TweenMax.killAll();
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}
 }

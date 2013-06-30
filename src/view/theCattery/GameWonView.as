@@ -6,17 +6,18 @@ package view.theCattery
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	
-	import assets.GameWonMC;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -24,11 +25,10 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class GameWonView extends MovieClip implements IPageView
 	{
-		private var _mc:GameWonMC;
+		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -37,17 +37,21 @@ package view.theCattery
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
 		
 		
 		public function GameWonView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("theCattery.GameWonMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
+//			!!!
+			_mc.weapon_mc.removeEventListener(MouseEvent.CLICK, weaponClick);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -56,22 +60,29 @@ package view.theCattery
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, frameLoop);
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+		private function init(e:ViewEvent) : void {
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new GameWonMC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -140,15 +151,7 @@ package view.theCattery
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
-			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
-			_dragVCont.width = DataModel.APP_WIDTH;
-			_dragVCont.height = DataModel.APP_HEIGHT;
-			_dragVCont.addChild(_mc);
-			_dragVCont.refreshView(true);
-			addChild(_dragVCont);
-			
 			_frame = new FrameView(_mc.frame_mc); 
-			
 			var frameSize:int = _decisions.y + 210;
 			// size bg
 			_mc.bg_mc.height = frameSize;
@@ -157,7 +160,13 @@ package view.theCattery
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
 			}
 			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn});
+			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
+			_dragVCont.width = DataModel.APP_WIDTH;
+			_dragVCont.height = DataModel.APP_HEIGHT;
+			_dragVCont.addChild(_mc);
+			_dragVCont.refreshView(true);
+			addChild(_dragVCont);
+			
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -168,21 +177,27 @@ package view.theCattery
 			_mc.weapon_mc.glows_mc.visible = true;
 			_mc.weapon_mc.shine_mc.visible = true;
 			
-			shineWeapon();
+//			shineWeapon();
 			
-			addEventListener(Event.ENTER_FRAME, frameLoop);
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_mc.weapon_mc.addEventListener(MouseEvent.CLICK, weaponClick);
+		}
+		
+		private function weaponClick(e:MouseEvent):void {
+			shineWeapon();
 		}
 		
 		private function shineWeapon():void {
-			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn, delay:4, onComplete:resetReplay}); 
+			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn, onComplete:resetReplay}); 
 		}
 		
 		private function resetReplay():void {
 			_mc.weapon_mc.shine_mc.y = -250;
-			shineWeapon();
+//			shineWeapon();
 		}
 		
-		protected function frameLoop(event:Event):void
+		protected function enterFrameLoop(event:Event):void
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
@@ -196,12 +211,8 @@ package view.theCattery
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			TweenMax.to(_mc, 1, {alpha:0});
-			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
+			TweenMax.killAll();
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}
 }

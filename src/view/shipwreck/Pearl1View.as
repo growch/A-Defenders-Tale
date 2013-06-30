@@ -8,7 +8,10 @@ package view.shipwreck
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import assets.Pearl1MC;
+	import assets.Jelly1MC;
+	import assets.Jelly2MC;
+	import assets.Jelly3MC;
+	import assets.Jelly4MC;
 	
 	import control.EventController;
 	
@@ -19,6 +22,7 @@ package view.shipwreck
 	import model.StoryPart;
 	
 	import util.Formats;
+	import util.SWFAssetLoader;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -28,7 +32,7 @@ package view.shipwreck
 	
 	public class Pearl1View extends MovieClip implements IPageView
 	{
-		private var _mc:Pearl1MC; 
+		private var _mc:MovieClip; 
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
@@ -36,27 +40,25 @@ package view.shipwreck
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
-		private var _jelly1:MovieClip;
-		private var _jelly2:MovieClip;
-		private var _jelly3:MovieClip;
-		private var _jelly4:MovieClip;
-		private var _jelly5:MovieClip;
-		private var _jelly6:MovieClip;
 		private var _jellyArray:Array;
 		private var _counter:int = 0;
 		private var _pageInfo:PageInfo;
 		private var _jellyTimer:Timer;
 		private var _timerSpeed:int = 800;
+		private var _SAL:SWFAssetLoader;
 		
 		public function Pearl1View()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("shipwreck.Pearl1MC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
+			_jellyTimer.stop();
+			_jellyTimer = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -65,63 +67,56 @@ package view.shipwreck
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
-			
-			DataModel.getInstance().removeAllChildren(_mc);
-			
-			_jellyTimer.stop();
-			_jellyTimer = null;
 		}
 		
 		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new Pearl1MC(); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
 			_pageInfo = DataModel.appData.getPageInfo("pearl1");
 			_bodyParts = _pageInfo.body;
 			
-			_jelly1 = _mc.jelly1_mc; 
-			_jelly2 = _mc.jelly2_mc; 
-			_jelly3 = _mc.jelly3_mc; 
-			_jelly4 = _mc.jelly4_mc; 
-			_jelly5 = _mc.jelly5_mc; 
-			_jelly6 = _mc.jelly6_mc; 
-			
-			_jelly1.hit_mc.visible = false;
-			_jelly2.hit_mc.visible = false;
-			_jelly3.hit_mc.visible = false;
-			_jelly4.hit_mc.visible = false;
-			_jelly5.hit_mc.visible = false;
-			_jelly6.hit_mc.visible = false;
-			
-			_jelly1.stop();
-			_jelly2.stop();
-			_jelly3.stop();
-			_jelly4.stop();
-			_jelly5.stop();
-			_jelly6.stop();
-			
 			_jellyArray = new Array();
-			_jellyArray.push(_jelly1);
-			_jellyArray.push(_jelly2);
-			_jellyArray.push(_jelly3);
-			_jellyArray.push(_jelly4);
-			_jellyArray.push(_jelly5);
-			_jellyArray.push(_jelly6);
+			
+			var jellyTypeArray:Array = [Jelly1MC, Jelly2MC, Jelly3MC, Jelly4MC, Jelly1MC, Jelly2MC];
+			
+			for (var i:int = 0; i < jellyTypeArray.length; i++) 
+			{
+				var thisRef:MovieClip = _mc.getChildByName("jelly"+String(i+1)+"_mc") as MovieClip;
+				
+				var thisClass:Class = jellyTypeArray[i];
+				var thisJ:MovieClip = new thisClass() as MovieClip;
+				thisJ.hit_mc.visible = false;
+				thisJ.stop();
+				thisJ.x = thisRef.x;
+				thisJ.y = thisRef.y;
+				thisJ.alpha = thisRef.alpha;
+				
+				_jellyArray.push(thisJ);
+				
+				_mc.addChild(thisJ);
+				_mc.removeChild(thisRef);
+			}
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -144,8 +139,10 @@ package view.shipwreck
 						_mc.end_mc.y = _nextY + 180; 
 						
 						//EXCEPTION
-						_jelly5.y = _mc.end_mc.y - 160;
-						_jelly6.y = _mc.end_mc.y - 40;
+//						_jelly5.y = _mc.end_mc.y - 160;
+//						_jelly6.y = _mc.end_mc.y - 40;
+						_jellyArray[4].y = _mc.end_mc.y - 160;
+						_jellyArray[5].y = _mc.end_mc.y - 40;
 						
 						_nextY += 120;
 					}
@@ -156,10 +153,15 @@ package view.shipwreck
 					loader.load();
 					
 					//EXCEPTION
-					_jelly1.y = _nextY + 20;
-					_jelly2.y = _nextY + 200;
-					_jelly3.y = _nextY;
-					_jelly4.y = _nextY + 200;
+//					_jelly1.y = _nextY + 20;
+//					_jelly2.y = _nextY + 200;
+//					_jelly3.y = _nextY;
+//					_jelly4.y = _nextY + 200;
+					
+					_jellyArray[0].y = _nextY + 20;
+					_jellyArray[1].y = _nextY + 200;
+					_jellyArray[2].y = _nextY;
+					_jellyArray[3].y = _nextY + 200;
 					
 					_nextY += part.height + part.top;
 				}
@@ -238,10 +240,6 @@ package view.shipwreck
 			_jellyTimer.stop();
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
-		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
 		}
 	}
 }
