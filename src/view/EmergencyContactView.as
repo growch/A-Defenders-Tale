@@ -42,15 +42,6 @@ package view
 			
 			_mc = new EmergencyContactMC();
 			
-//			trace("_goViral: "+_goViral);
-//			if (!_goViral) {
-//				_goViral = DataModel.goViralService = new GoViralService();
-//				addChild(_goViral);
-//				trace('new goVir');
-//			}
-//			_goViral = DataModel.getGoViral(); 
-			
-			
 			_signInMC = _mc.getChildByName("singIn_mc") as MovieClip;
 			_signInSelect = new EmergencySignInSelectView(_signInMC);
 			

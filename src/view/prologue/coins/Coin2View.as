@@ -157,12 +157,16 @@ package view.prologue.coins
 		private function pageOn(event:ViewEvent) : void {
 			addEventListener(Event.ENTER_FRAME, scrollCheck);
 			
+			coinAnimation();
+		}
+		
+		private function coinAnimation() : void {
 			_mc.addChild(_cup);
 			
-			_coin.y = -_cup.y - 170;
+			_coin.y = -_cup.y + 50;
+			
+			TweenMax.to(_coin, 1.6, {y:170, ease:Quad.easeIn, onComplete:function():void{_coin.visible = false;}});
 			_coin.visible = true;
-			TweenMax.to(_coin, 1.6, {y:170, ease:Quad.easeIn});
-			TweenMax.to(_coin, 0, {autoAlpha:0, delay:1.6});
 		}
 		
 		protected function scrollCheck(event:Event):void
@@ -182,8 +186,6 @@ package view.prologue.coins
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-//			TweenMax.to(this, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
-//			TweenMax.to(_mc, 1, {alpha:0});
 			// coin/alms count
 			if (event.data.decisionNumber == 1) {
 				DataModel.coinCount++;

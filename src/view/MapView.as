@@ -4,26 +4,27 @@ package view
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import assets.MapMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
 	
+	import util.SWFAssetLoader;
+	
 	public class MapView extends MovieClip implements IPageView
 	{
-		private var _mc:MapMC;
+		private var _mc:MovieClip;
 		private var _catteryBtn:MovieClip;
 		private var _sandlandsBtn:MovieClip;
 		private var _joylessBtn:MovieClip;
 		private var _shipwreckBtn:MovieClip;
+		private var _SAL:SWFAssetLoader;
 		
 		public function MapView()
 		{
-			super();
-			addEventListener(Event.ADDED_TO_STAGE, init); 
+			_SAL = new SWFAssetLoader("common.MapMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 		}
 		
 		public function destroy() : void {
@@ -35,15 +36,16 @@ package view
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
-			removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
 			_mc = null;
 		}
 		
 		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
-			_mc = new MapMC();
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_catteryBtn = _mc.cattery_btn;
 			_catteryBtn.mouseChildren = false;
@@ -63,7 +65,6 @@ package view
 			
 			addChild(_mc);
 			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0}); 
 		}
 		
 		protected function islandClick(event:MouseEvent):void
@@ -76,14 +77,14 @@ package view
 				case "cattery_btn":
 				{
 					DataModel.CURRENT_ISLAND_INT = 0;
-					tempObj.id = "cattery.Island1View";
+					tempObj.id = "theCattery.Island1View";
 					break;
 				}
 					
 				case "joyless_btn":
 				{
 					DataModel.CURRENT_ISLAND_INT = 1;
-					tempObj.id = "joyless.JoylessMountainsIntroView";
+					tempObj.id = "joylessMountains.JoylessMountainsIntroView";
 					break;
 				}	
 				
@@ -113,18 +114,13 @@ package view
 				tempObj.id = "prologue.CrossSeaView";
 			}
 			
-			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-//			TweenMax.to(_mc, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		
-		private function nextPage(thisPage:Object):void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
-		}
 	}
 }

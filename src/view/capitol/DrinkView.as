@@ -1,12 +1,10 @@
-package view.theCattery
+package view.capitol
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
@@ -18,7 +16,6 @@ package view.theCattery
 	
 	import util.Formats;
 	import util.SWFAssetLoader;
-	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -26,7 +23,7 @@ package view.theCattery
 	import view.FrameView;
 	import view.IPageView;
 	
-	public class GameWonView extends MovieClip implements IPageView
+	public class DrinkView extends MovieClip implements IPageView
 	{
 		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
@@ -39,19 +36,15 @@ package view.theCattery
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		
-		
-		public function GameWonView()
+		public function DrinkView()
 		{
-			_SAL = new SWFAssetLoader("theCattery.GameWonMC", this);
+			_SAL = new SWFAssetLoader("capitol.DrinkDontDrinkMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
-//			!!!
-			_mc.weapon_mc.removeEventListener(MouseEvent.CLICK, weaponClick);
-//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -84,35 +77,15 @@ package view.theCattery
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_nextY = 110;
+			_nextY = 140;
 			
-			_pageInfo = DataModel.appData.getPageInfo("gameWon");
+			_pageInfo = DataModel.appData.getPageInfo("drink");
 			_bodyParts = _pageInfo.body;
 			
-			var weaponIndex:int = DataModel.defenderInfo.weapon;
+			_mc.companionsDont_mc.stop();
+			_mc.companionsDont_mc.visible = false;
 			
-			_mc.weapon_mc.gotoAndStop(weaponIndex+1); // zero based
-			_mc.weapon_mc.glows_mc.gotoAndStop(weaponIndex+1); // zero based
-			_mc.weapon_mc.glows_mc.visible = false;
-			_mc.weapon_mc.shine_mc.visible = false;
-			
-			var stoneIndex: int;
-			if (DataModel.STONE_COUNT >=1 && DataModel.STONE_COUNT <= 2) {
-				stoneIndex = 1;
-			} else if (DataModel.STONE_COUNT == 3) {
-				stoneIndex = 2;
-			}
-			
-			//!IMPORTANT
-			DataModel.STONE_CAT = true;
-			DataModel.STONE_COUNT++;
-			
-			_mc.weapon_mc.stonePearl_mc.visible = false;
-			if (DataModel.STONE_PEARL) _mc.weapon_mc.stonePearl_mc.visible = true;
-			_mc.weapon_mc.stoneSand_mc.visible = false;
-			if (DataModel.STONE_SAND) _mc.weapon_mc.stoneSand_mc.visible = true;
-			_mc.weapon_mc.stoneSerpent_mc.visible = false;
-			if (DataModel.STONE_SERPENT) _mc.weapon_mc.stoneSerpent_mc.visible = true;
+			_mc.companionsDrink_mc.gotoAndStop(DataModel.defenderInfo.companion + 1); // zero based
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -120,23 +93,27 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[weaponIndex]);
-					copy = StringUtil.replace(copy, "[stones1]", _pageInfo.stones1[weaponIndex][stoneIndex]);
-					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
 					
 					// set the respective text
-					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading, 0x000000), part.width, true, true, true); 
+					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading, 0x14142a), part.width, true, true, true); 
 					_tf.x = part.left; 
 					_tf.y = _nextY + part.top;
 					_mc.addChild(_tf);
 					
-					if (part.id == "weapon") {
-						_mc.weapon_mc.y = _tf.y;	
+					_nextY += _tf.height + part.top;
+					
+					if (part.id == "topText") {
+						_mc.companionsDrink_mc.y = _nextY + 10;
+						_nextY += _mc.companionsDrink_mc.height;
 					}
 					
-					_nextY += _tf.height + part.top;
+					if (part.id == "bottomText") {
+						_mc.end_mc.y = _nextY + 70;
+						_nextY += _mc.end_mc.height + 60;
+					}
+					
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
@@ -147,20 +124,20 @@ package view.theCattery
 			
 			// decision
 			_nextY += _pageInfo.decisionsMarginTop
-			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
+			_decisions = new DecisionsView(_pageInfo.decisions,0X040404,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
 			_frame = new FrameView(_mc.frame_mc); 
-			var frameSize:int = _decisions.y + 210;
-			// size bg
+			var frameSize:int = _decisions.y + 240;
+			//size bg 
 			_mc.bg_mc.height = frameSize;
-			_frame.sizeFrame(frameSize);
+			_frame.sizeFrame(_mc.bg_mc.height );
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
 			}
 			
-			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
+			_dragVCont = new DraggableVerticalContainer(0,0X040404,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
 			_dragVCont.addChild(_mc);
@@ -170,31 +147,8 @@ package view.theCattery
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			_mc.weapon_mc.glows_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.shine_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.glows_mc.mask = _mc.weapon_mc.shine_mc;
-			
-			_mc.weapon_mc.glows_mc.visible = true;
-			_mc.weapon_mc.shine_mc.visible = true;
-			
-//			shineWeapon();
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			
-			_mc.weapon_mc.addEventListener(MouseEvent.CLICK, weaponClick);
-		}
-		
-		private function weaponClick(e:MouseEvent):void {
-			shineWeapon();
-		}
-		
-		private function shineWeapon():void {
-			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn, onComplete:resetReplay}); 
-		}
-		
-		private function resetReplay():void {
-			_mc.weapon_mc.shine_mc.y = -250;
-//			shineWeapon();
 		}
 		
 		protected function enterFrameLoop(event:Event):void
@@ -203,6 +157,7 @@ package view.theCattery
 				TweenMax.pauseAll();
 				_scrolling = true;
 			} else {
+				
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
 				_scrolling = false;

@@ -1,17 +1,14 @@
 package view
 {
 	
-	import control.EventController;
-	import control.GoViralService;
-	
-	import events.ViewEvent;
-	
-	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
-	import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	
+	import control.EventController;
+	
+	import events.ViewEvent;
 	
 	import model.DataModel;
 	
@@ -26,7 +23,7 @@ package view
 		public function EmergencySignInSelectView(mc:MovieClip)
 		{
 			_mc = mc;
-			super();
+//			super();
 			init();
 		}
 		

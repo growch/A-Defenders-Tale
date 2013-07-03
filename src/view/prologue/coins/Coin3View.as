@@ -152,10 +152,10 @@ package view.prologue.coins
 		private function coinAnimation() : void {
 			_mc.addChild(_cup);
 			
-			_coin.y = -_cup.y - 170;
+			_coin.y = -_cup.y + 50;
+			
+			TweenMax.to(_coin, 1.8, {y:170, ease:Quad.easeIn, onComplete:function():void{_coin.visible = false;}});
 			_coin.visible = true;
-			TweenMax.to(_coin, 2, {y:170, ease:Quad.easeIn});
-			TweenMax.to(_coin, 0, {autoAlpha:0, delay:2});
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

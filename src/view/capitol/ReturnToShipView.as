@@ -1,4 +1,4 @@
-package view.theCattery
+package view.capitol
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
@@ -7,12 +7,14 @@ package view.theCattery
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.ColorTransform;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.DecisionInfo;
 	import model.PageInfo;
 	import model.StoryPart;
 	
@@ -25,8 +27,9 @@ package view.theCattery
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
+	import view.StarryNight;
 	
-	public class GameWonView extends MovieClip implements IPageView
+	public class ReturnToShipView extends MovieClip implements IPageView
 	{
 		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
@@ -34,24 +37,31 @@ package view.theCattery
 		private var _nextY:int;
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
-		private var _frame:FrameView;
+		private var _boat:MovieClip;
 		private var _scrolling:Boolean;
+		private var _frame:FrameView;
+		private var _stars:StarryNight;
+		private var _cloud1:MovieClip;
+		private var _cloud2:MovieClip;
+		private var _cloud3:MovieClip;
+		private var _cloud4:MovieClip;
+		private var _cloud5:MovieClip;		
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		
-		
-		public function GameWonView()
+		public function ReturnToShipView()
 		{
-			_SAL = new SWFAssetLoader("theCattery.GameWonMC", this);
-			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
+			_SAL = new SWFAssetLoader("capitol.ReturnToShipMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init); 
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
-//			!!!
-			_mc.weapon_mc.removeEventListener(MouseEvent.CLICK, weaponClick);
-//			
+			_stars.destroy();
+			_stars = null;
+			
+			//
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -78,41 +88,40 @@ package view.theCattery
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:ViewEvent) : void {
+		private function init(e:Event) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_nextY = 110;
+			_nextY = 140;
 			
-			_pageInfo = DataModel.appData.getPageInfo("gameWon");
+			_cloud1 = _mc.clouds_mc.cloud1_mc;
+			_cloud2 = _mc.clouds_mc.cloud2_mc;
+			_cloud3 = _mc.clouds_mc.cloud3_mc;
+			_cloud4 = _mc.clouds_mc.cloud4_mc;
+			_cloud5 = _mc.clouds_mc.cloud5_mc;
+			
+			_stars = new StarryNight(680, 1200, .2, .8, 200);
+			_stars.x = 50;
+			_stars.y = 100;
+			_mc.addChild(_stars);
+			
+			//tint
+			var c:ColorTransform = new ColorTransform(); 
+			c.color = 0xbfb3fc;
+			c.alphaMultiplier = .9;
+			_stars.transform.colorTransform = c;
+			
+			_pageInfo = DataModel.appData.getPageInfo("returnToShip");
 			_bodyParts = _pageInfo.body;
 			
-			var weaponIndex:int = DataModel.defenderInfo.weapon;
+			_boat = _mc.boat_mc;
 			
-			_mc.weapon_mc.gotoAndStop(weaponIndex+1); // zero based
-			_mc.weapon_mc.glows_mc.gotoAndStop(weaponIndex+1); // zero based
-			_mc.weapon_mc.glows_mc.visible = false;
-			_mc.weapon_mc.shine_mc.visible = false;
-			
-			var stoneIndex: int;
-			if (DataModel.STONE_COUNT >=1 && DataModel.STONE_COUNT <= 2) {
-				stoneIndex = 1;
-			} else if (DataModel.STONE_COUNT == 3) {
-				stoneIndex = 2;
-			}
-			
-			//!IMPORTANT
-			DataModel.STONE_CAT = true;
-			DataModel.STONE_COUNT++;
-			
-			_mc.weapon_mc.stonePearl_mc.visible = false;
-			if (DataModel.STONE_PEARL) _mc.weapon_mc.stonePearl_mc.visible = true;
-			_mc.weapon_mc.stoneSand_mc.visible = false;
-			if (DataModel.STONE_SAND) _mc.weapon_mc.stoneSand_mc.visible = true;
-			_mc.weapon_mc.stoneSerpent_mc.visible = false;
-			if (DataModel.STONE_SERPENT) _mc.weapon_mc.stoneSerpent_mc.visible = true;
+			_boat.boatMask_mc.cacheAsBitmap = true;
+			_boat.boat_mc.cacheAsBitmap = true;
+			_boat.boat_mc.mask = _boat.boatMask_mc;
+			_boat.boatMask_mc.alpha = 1;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -120,23 +129,18 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[weaponIndex]);
-					copy = StringUtil.replace(copy, "[stones1]", _pageInfo.stones1[weaponIndex][stoneIndex]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
 					
 					// set the respective text
-					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading, 0x000000), part.width, true, true, true); 
+					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading), part.width, true, true, true); 
 					_tf.x = part.left; 
 					_tf.y = _nextY + part.top;
 					_mc.addChild(_tf);
 					
-					if (part.id == "weapon") {
-						_mc.weapon_mc.y = _tf.y;	
-					}
-					
 					_nextY += _tf.height + part.top;
+					
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
@@ -147,14 +151,13 @@ package view.theCattery
 			
 			// decision
 			_nextY += _pageInfo.decisionsMarginTop
-			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
+			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF,true); //tint it white, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
-			_frame = new FrameView(_mc.frame_mc); 
-			var frameSize:int = _decisions.y + 210;
-			// size bg
-			_mc.bg_mc.height = frameSize;
+			_frame = new FrameView(_mc.frame_mc);  
+//			var frameSize:int = _decisions.y + 210; FIXED BG SIZE
+			var frameSize:int = _mc.bg_mc.height;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
@@ -170,49 +173,46 @@ package view.theCattery
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			_mc.weapon_mc.glows_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.shine_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.glows_mc.mask = _mc.weapon_mc.shine_mc;
-			
-			_mc.weapon_mc.glows_mc.visible = true;
-			_mc.weapon_mc.shine_mc.visible = true;
-			
-//			shineWeapon();
-			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
-			_mc.weapon_mc.addEventListener(MouseEvent.CLICK, weaponClick);
 		}
 		
-		private function weaponClick(e:MouseEvent):void {
-			shineWeapon();
-		}
-		
-		private function shineWeapon():void {
-			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn, onComplete:resetReplay}); 
-		}
-		
-		private function resetReplay():void {
-			_mc.weapon_mc.shine_mc.y = -250;
-//			shineWeapon();
-		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
+				_boat.stop();
 				_scrolling = true;
 			} else {
+				
+				_cloud1.x -= .2;
+				if (_cloud1.x < -_cloud1.width) _cloud1.x = 768;
+				
+				_cloud2.x -= .3;
+				if (_cloud2.x < -_cloud2.width) _cloud2.x = 768;
+				
+				_cloud3.x -= .15;
+				if (_cloud3.x < -_cloud3.width) _cloud3.x = 768;
+				
+				_cloud4.x -= .35;
+				if (_cloud4.x < -_cloud4.width) _cloud4.x = 768;
+				
+				_cloud5.x -= .1;
+				if (_cloud5.x < -_cloud5.width) _cloud5.x = 768;
+				
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
+				_boat.play();
 				_scrolling = false;
 			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
-		{
+		{			
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
+
 	}
 }

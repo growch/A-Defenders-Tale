@@ -141,7 +141,6 @@ package view.joylessMountains
 		
 		private function pageOn(e:ViewEvent):void {
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			
 		}
 		
 		protected function enterFrameLoop(event:Event):void
@@ -150,13 +149,9 @@ package view.joylessMountains
 				TweenMax.pauseAll();
 				_scrolling = true;
 				
-//				_emitter.pause();
-				
 			} else {
 				
 				if (!_scrolling) return;
-				
-//				_emitter.resume();
 				
 				TweenMax.resumeAll();
 				_scrolling = false;

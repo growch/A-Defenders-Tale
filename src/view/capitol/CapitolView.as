@@ -1,4 +1,4 @@
-package view.joylessMountains
+package view.capitol
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
@@ -6,8 +6,8 @@ package view.joylessMountains
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import flash.geom.ColorTransform;
+	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -27,9 +27,8 @@ package view.joylessMountains
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.StarryNight;
 	
-	public class StoneView extends MovieClip implements IPageView
+	public class CapitolView extends MovieClip implements IPageView
 	{
 		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
@@ -37,33 +36,30 @@ package view.joylessMountains
 		private var _nextY:int;
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
-		private var _boat:MovieClip;
-		private var _scrolling:Boolean;
 		private var _frame:FrameView;
-		private var _stars:StarryNight;
+		private var _scrolling:Boolean;
+		private var _pageInfo:PageInfo;
+		private var _SAL:SWFAssetLoader;
+		private var _vortex:MovieClip;
 		private var _cloud1:MovieClip;
 		private var _cloud2:MovieClip;
 		private var _cloud3:MovieClip;
-		private var _cloud4:MovieClip;
-		private var _cloud5:MovieClip;		
-		private var _pageInfo:PageInfo;
-		private var _SAL:SWFAssetLoader;
+		private var _wave1:MovieClip;
+		private var _wave2:MovieClip;
+		private var _wave3:MovieClip;
+		private var _wave4:MovieClip;
+		private var _wave5:MovieClip;
+		private var _wave6:MovieClip;
 		
-		public function StoneView()
+		public function CapitolView()
 		{
-			_SAL = new SWFAssetLoader("joyless.StoneMC", this);
-			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init); 
+			_SAL = new SWFAssetLoader("capitol.CapitolMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
-			_stars.destroy();
-			_stars = null;
-			
-			_mc.weapon_mc.removeEventListener(MouseEvent.CLICK, weaponClick);
-			
-			//
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -90,71 +86,45 @@ package view.joylessMountains
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:Event) : void {
+		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_nextY = 110;
+			_nextY = 140;
 			
-			//!IMPORTANT
-			DataModel.STONE_SERPENT = true;
-			DataModel.STONE_COUNT++;
+			_vortex = _mc.vortex_mc;
+			_vortex.stop();
 			
-			_mc.weapon_mc.stonePearl_mc.visible = false;
-			if (DataModel.STONE_PEARL) _mc.weapon_mc.stonePearl_mc.visible = true;
-			_mc.weapon_mc.stoneSand_mc.visible = false;
-			if (DataModel.STONE_SAND) _mc.weapon_mc.stoneSand_mc.visible = true;
-			_mc.weapon_mc.stoneCat_mc.visible = false;
-			if (DataModel.STONE_CAT) _mc.weapon_mc.stoneCat_mc.visible = true;
+			_mc.mask_mc.cacheAsBitmap = true;
+			_mc.waves_mc.cacheAsBitmap = true;
+			_mc.waves_mc.mask = _mc.mask_mc;
+			_mc.mask_mc.alpha = 1;
 			
-			var weaponIndex:int = DataModel.defenderInfo.weapon;
+			_cloud1 = _mc.cloud1_mc;
+			_cloud2 = _mc.cloud2_mc;
+			_cloud3 = _mc.cloud3_mc;
 			
-			_mc.weapon_mc.shine_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.glows_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.glows_mc.mask = _mc.weapon_mc.shine_mc;
+			_wave1 = _mc.waves_mc.wave1_mc;
+			_wave2 = _mc.waves_mc.wave2_mc;
+			_wave3 = _mc.waves_mc.wave3_mc;
+			_wave4 = _mc.waves_mc.wave4_mc;
+			_wave5 = _mc.waves_mc.wave5_mc;
+			_wave6 = _mc.waves_mc.wave6_mc;
+			_wave1.visible = _wave2.visible = _wave3.visible = false;
+			_wave4.visible = _wave5.visible = _wave6.visible = false;
 			
-			_mc.weapon_mc.gotoAndStop(weaponIndex+1); // zero based
-			_mc.weapon_mc.glows_mc.gotoAndStop(weaponIndex+1); // zero based
-			
-			_cloud1 = _mc.clouds_mc.cloud1_mc;
-			_cloud2 = _mc.clouds_mc.cloud2_mc;
-			_cloud3 = _mc.clouds_mc.cloud3_mc;
-			_cloud4 = _mc.clouds_mc.cloud4_mc;
-			_cloud5 = _mc.clouds_mc.cloud5_mc;
-			
-			_stars = new StarryNight(680, 1200, .2, .8, 200);
-			_stars.x = 50;
-			_stars.y = 100;
-			_mc.addChild(_stars);
-			
-			//tint
-			var c:ColorTransform = new ColorTransform(); 
-			c.color = 0xbfb3fc;
-			c.alphaMultiplier = .9;
-			_stars.transform.colorTransform = c;
-			
-			_pageInfo = DataModel.appData.getPageInfo("stone");
+			_pageInfo = DataModel.appData.getPageInfo("capitol");
 			_bodyParts = _pageInfo.body;
 			
-			_boat = _mc.boat_mc;
+			var compInt:int = DataModel.defenderInfo.companion;
 			
-			_boat.boatMask_mc.cacheAsBitmap = true;
-			_boat.boat_mc.cacheAsBitmap = true;
-			_boat.boat_mc.mask = _boat.boatMask_mc;
-			_boat.boatMask_mc.alpha = 1;
-			
-			var island1Int: int;
-			if (DataModel.STONE_COUNT == 4) {
-				island1Int = 2;
-			} else if (DataModel.STONE_COUNT == 3) {
-				island1Int = 1;
-			} else {
-				island1Int = 0;
+			var introInt:int = 0;
+			if (DataModel.STONE_PEARL && DataModel.STONE_CAT) {
+				introInt = 1;
 			}
-			
-			var island2Int: int = DataModel.STONE_COUNT == 4 ? 1:0;
+			var stoneCount:int = DataModel.STONE_COUNT == 4 ? 0 : 1;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -162,8 +132,9 @@ package view.joylessMountains
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[islands1]", _pageInfo.islands1[island1Int]);
-					copy = StringUtil.replace(copy, "[islands2]", _pageInfo.islands2[island2Int]);
+					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[introInt]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[compInt][stoneCount]);
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -176,9 +147,9 @@ package view.joylessMountains
 					
 					_nextY += _tf.height + part.top;
 					
-					if (part.id == "weapon") {
-						_mc.weapon_mc.y = _tf.y;
-					}
+//					if (part.id == "companion") {
+//						_mc.companions_mc.y = _nextY;
+//					}
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
@@ -188,21 +159,26 @@ package view.joylessMountains
 			}
 			
 			// decision
-			_nextY += _pageInfo.decisionsMarginTop;
-			
+			_nextY += _pageInfo.decisionsMarginTop
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			if (DataModel.STONE_COUNT == 4) {
-				dv.push(_pageInfo.decisions[0]);
+				dv.push(_pageInfo.decisions[2]);
 			} else {
+				dv.push(_pageInfo.decisions[0]);
 				dv.push(_pageInfo.decisions[1]);
 			}		
 			_decisions = new DecisionsView(dv,0xFFFFFF,true); 
 //			_decisions.y = _nextY;
+//			EXCEPTION FIXED BG SIZE
 			_decisions.y = _mc.bg_mc.height - 210;
 			_mc.addChild(_decisions);
 			
-			_frame = new FrameView(_mc.frame_mc);  
-			var frameSize:int = _decisions.y + 210;
+			_frame = new FrameView(_mc.frame_mc); 
+//			var frameSize:int = _decisions.y + 210;
+//			EXCEPTION FIXED BG SIZE
+			var frameSize:int = _mc.bg_mc.height;
+			//size bg
+//			_mc.bg_mc.height = frameSize;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
@@ -218,59 +194,65 @@ package view.joylessMountains
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			shineWeapon();
-			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (!DataModel.ipad1) _vortex.play();
 			
-			_mc.weapon_mc.addEventListener(MouseEvent.CLICK, weaponClick);
-		}
-		
-		private function weaponClick(e:MouseEvent):void {
-			shineWeapon();
-		}
-		
-		private function shineWeapon():void {
-			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn, onComplete:resetReplay}); 
-		}
-		
-		private function resetReplay():void {
-			_mc.weapon_mc.shine_mc.y = -250;
+			initWave(_wave1);
+			initWave(_wave2);
+			initWave(_wave3);
+			initWave(_wave4);
+			initWave(_wave5);
+			initWave(_wave6);
+			
+			setTimeout(waveUp, 1000, _wave1); 
+			setTimeout(waveUp, 2000, _wave2); 
+			setTimeout(waveUp, 3000, _wave3); 
+			setTimeout(waveUp, 4000, _wave4);
+			setTimeout(waveUp, 5000, _wave5);
+			setTimeout(waveUp, 6000, _wave6);
+			
+			function initWave(thisWave:MovieClip):void {
+				thisWave.initX = thisWave.x;
+				thisWave.initY = thisWave.y;
+				thisWave.downY = thisWave.initY + thisWave.height + 2;
+				thisWave.y = thisWave.downY;
+			}
+			
+			function waveUp(thisWave:MovieClip):void {
+				thisWave.visible = true;
+				thisWave.x = thisWave.initX -10;
+				TweenMax.to(thisWave, 1, {y:thisWave.initY, x:"+10", ease:Quad.easeOut, delay:.7 + DataModel.getInstance().randomRange(.2, .6), onComplete:waveDown, onCompleteParams:[thisWave]});
+			} 			
+			function waveDown(thisWave:MovieClip): void {
+				TweenMax.to(thisWave, 1, {y:thisWave.downY, x:"+20", ease:Quad.easeIn, delay:0, onComplete:waveUp, onCompleteParams:[thisWave]});
+			}
+			
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
-				_boat.stop();
 				_scrolling = true;
 			} else {
 				
-				_cloud1.x -= .2;
+				_cloud1.x -= .3;
 				if (_cloud1.x < -_cloud1.width) _cloud1.x = 768;
-				
-				_cloud2.x -= .3;
+				_cloud2.x -= .2;
 				if (_cloud2.x < -_cloud2.width) _cloud2.x = 768;
-				
 				_cloud3.x -= .15;
 				if (_cloud3.x < -_cloud3.width) _cloud3.x = 768;
 				
-				_cloud4.x -= .35;
-				if (_cloud4.x < -_cloud4.width) _cloud4.x = 768;
-				
-				_cloud5.x -= .1;
-				if (_cloud5.x < -_cloud5.width) _cloud5.x = 768;
-				
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
-				_boat.play();
 				_scrolling = false;
 			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
-		{			
+		{
 			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
-
 	}
 }

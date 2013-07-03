@@ -1,38 +1,41 @@
 package view
 {
-	import assets.TitleMC;
 	
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
-	import control.EventController;
-	
-	import events.ApplicationEvent;
-	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	public class TitleScreenView extends MovieClip
+	import control.EventController;
+	
+	import events.ApplicationEvent;
+	import events.ViewEvent;
+	
+	import model.DataModel;
+	
+	import util.SWFAssetLoader;
+	
+	public class TitleScreenView extends MovieClip implements IPageView
 	{
-		private var _mc:TitleMC;
+		private var _mc:MovieClip;
 		private var _fog1:MovieClip;
 		private var _sun:MovieClip;
 		private var _beginBtn:MovieClip;
 		private var _bgSound:Track;
+		private var _SAL:SWFAssetLoader;
 		
 		public function TitleScreenView()
 		{
-			super();
-			
-			addEventListener(Event.ADDED_TO_STAGE, init);
+			_SAL = new SWFAssetLoader("common.TitleScreenMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 		}
 		
 		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
-			_mc = new TitleMC;
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
 			_fog1 = _mc.fog1_mc;
 			_fog1.visible = false;
@@ -44,8 +47,12 @@ package view
 			_beginBtn.buttonMode = true;
 			_beginBtn.addEventListener(MouseEvent.CLICK, beginBook);
 			
+			_bgSound = new Track("assets/audio/intro.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 			
-			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pulseSun}); 
+			
+//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pulseSun}); 
 			addChild(_mc);
 		}
 		
@@ -53,6 +60,16 @@ package view
 		{
 			_beginBtn.removeEventListener(MouseEvent.CLICK, beginBook);
 			_bgSound = null;
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
+		}
+		
+		private function pageOn(e:ViewEvent):void {
+			pulseSun();
 		}
 		
 		private function pulseSun(): void {
@@ -73,11 +90,15 @@ package view
 			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
 			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
-			TweenMax.to(_mc, .3, {alpha:0, delay:2.4, onComplete:nextScreen}); 
+			TweenMax.to(_mc, .3, {alpha:0, delay:2.4, onComplete:nextScreen});
 		}
 		
 		private function nextScreen() : void {
-			EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.TITLE_DONE));
+			_bgSound.stop(true);
+//			EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.SHOW_APPLICATION));
+			var tempObj:Object = new Object();
+			tempObj.id = "ApplicationView";
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 		}
 		
 	}

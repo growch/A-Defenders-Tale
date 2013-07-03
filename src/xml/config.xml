@@ -4649,7 +4649,7 @@ But [defender], rather than keeping anything up, paused to sit down on the edge 
 			</item>
 			<item type="image" id="bucket" width="" height="138" top="30" left="" size="" align="" leading="" file="app:/assets/images/sandlands/sand3_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[[Pronoun1] brushed the grains from [pronoun3] [wardrobe] and turned from [pronoun3] companion. “Let’s go,” [pronoun1] said impatiently.]]>
+			<![CDATA[[Pronoun1] brushed the grains from [pronoun3] [wardrobeShort] and turned from [pronoun3] companion. “Let’s go,” [pronoun1] said impatiently.]]>
 			</item>
 		</body>
 		<decisions top="110">
@@ -4727,10 +4727,553 @@ Maysel adjusted his wizard’s hat in concentration. “If you can find it, it�
 <!-- ***			HUT 			-->
 	
 
+<!-- 			CAPITOL			-->
+	<capitol id="CapitolView">
+		<intro1>
+			<intro id="onlyCatsEye"><![CDATA[Cleapeezious set sail for the Capitol. Soon the stars and moon were blotted from the sky, and the Stormin’ Norman shrouded in darkness. Smeg lit several lamps across the deck of the ship, but they did little to repel the night. 
 
+Despite the knowledge the pearl had given [defender], and [pronoun3] newfound ability to track the Capitol, it was impossible to see anything in the darkness. The ship was soon lost. They drifted for weeks until one night (or perhaps it was day, it being difficult to judge such things when overwhelmed by endless darkness), [defender] heard an unmistakable crunch as the ship scraped something in the water. Moments later [pronoun1] felt a sickening lurch as the Stormin’ Norman tipped sideways. The crews’ panicked screams surrounded [pronoun2]. As the black seawater pulled the ship under, [pronoun1] couldn’t help but blame [pronoun2]self. Had [pronoun1] just been patient enough to collect all of the stones, this might not have happened. 
+]]>
+			</intro>
+			<intro><![CDATA[Cleapeezious was true to her word. With the aid of the pearl and cat’s eye, the Stormin’ Norman charted a course to the Capitol. Despite the island’s constant movement, the captain kept the ship a steady 100 yards from its shore. 
 
+A black haze draped the island, bruising its rocky shore with a sickly purple light. From the center of the haze, a thin funnel of darkness and light sprang. It streaked through the air, spinning down toward the center of the island. From the ship, [defender] could just make out the silhouette of a castle. [Pronoun1] swallowed the fear rising in [pronoun3] throat and turned to [companionName].
 
+“Well, I guess this is it,” [pronoun1] said, keeping [pronoun3] tone light.
 
+But [pronoun1] couldn’t fool [pronoun3] companion. [companion1]
+
+[defender] and [companionName] then went in search of Cleapeezious. She was naturally at the helm, and bade them good morning before getting down to strategy. “Take the dinghy from here,” she advised. “I’ll keep pace with the island until you return.”]]>
+			</intro>
+		</intro1>
+		<companion1>
+			<companion>
+				<stones id="allStones"><![CDATA[“Fear not,” Oonie murmured. “You have proven yourself to be a Defender of the highest caliber. Nero won’t stand a chance now that you possess the stones, of that I’m sure.”
+
+“Absolutely,” [defender] replied with a decisive shake of [pronoun3] head. “Nothing to worry about.” [Pronoun1] hoped that saying the words would somehow make them true. [Pronoun1] pulled out [pronoun3] [weapon], and [weapon1]]]></stones>
+				<stones id="notAllStones"><![CDATA[“Are you sure you won’t reconsider?” Oonie said. “It would be in your best interest to collect all of the stones before confronting Prince Nero.”]]></stones>
+			</companion>
+			<companion>
+				<stones id="allStones"><![CDATA[“Piece a cake,” Linus said. “We’ve made it thissss far. Nero won’t stand a chance now that you have the ssssstones.” He swished his tail bravely. “Esssspecially with me along.”
+
+“Absolutely,” [defender] replied with a decisive shake of [pronoun3] head. “Nothing to worry about.” [Pronoun1] hoped that saying the words would somehow make them true. [Pronoun1] pulled out [pronoun3] [weapon], and [weapon1]]></stones>
+				<stones id="notAllStones"><![CDATA[“You sssssure about this?” Linus asked. “I think you’ll have a better chance of defeating the prince with all of the sssssstones in your posssssession.”]]></stones>
+			</companion>
+			<companion>
+				<stones id="allStones"><![CDATA[“Looks kinda scary,” Noah said, his voice quavering. “But you’re brave, and you have the stones, and you’re the Defender of the Realm. So, um, Nero won’t stand a chance.”
+
+“Absolutely,” [defender] replied with a decisive shake of [pronoun3] head. “Nothing to worry about.” [Pronoun1] hoped that saying the words would somehow make them true. [Pronoun1] pulled out [pronoun3] [weapon], and [weapon1]]]></stones>
+				<stones id="notAllStones"><![CDATA[“Maybe we should come back when you have all of the stones,” Noah said with a quavering voice. He cowered at the bottom of his tank behind a rock.]]></stones>
+			</companion>
+		</companion1>
+		<weapon1>
+			<weapon><![CDATA[polished it until it gleamed in the morning light.]]></weapon>
+			<weapon><![CDATA[checked [pronoun3] ink supple in case [pronoun1] needed to draw [pronoun2]self out of any scrapes.]]></weapon>
+			<weapon><![CDATA[marked a few spells that would be useful in the upcoming confrontation.]]></weapon>
+		</weapon1>		
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[[intro1]]]> 				
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
+			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="capitol.GiantessView"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</capitol>
+<!-- ***			CAPITOL 			-->
+
+<!-- 			GIANTESS			-->
+	<giantess id="GiantessView">
+		<body>
+			<item type="text" id="giantess" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[[defender] and [companionName] climbed into the dinghy and rowed to shore.  Once there, they stowed their craft, and followed a short dirt path to reach the castle. It zigzagged until it ran into a high, metal gate. [defender] reached out to open the gate’s door, but it was locked.
+
+“Well, [companionName],” [pronoun1] began. “Now what?”
+
+Before the [companion] could answer, a loud, booming voice interrupted.]]> 				
+			</item>
+			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[A giantess rounded the corner, squinting down at them through bifocals. She wore a bright blue pinafore that matched her equally bright blue hair. She carried an enormous wooden mallet. [defender] dodged to one side, narrowly escaping its strike.
+
+“I am the Smashley!” the giantess roared. She adjusted her glasses and peered down at [defender] with a scowl. “Now stand still so I can do my job.”]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="capitol.FightSmashleyView"><![CDATA[FIGHT GIANTESS]]></decision>
+			<decision id="capitol.ReasonSmashleyView"><![CDATA[TALK IT OUT]]></decision>
+		</decisions>	
+	</giantess>
+<!-- ***			GIANTESS 			-->
+
+<!-- 			FIGHT SMASHLEY			-->
+	<fightSmashley id="FightSmashleyView">
+		<companion1>
+			<companion><![CDATA[“What a dreadful creature,” Oonie said, eyeing the Smashley with extreme dislike.]]></companion>
+			<companion><![CDATA[“Giantessessssss,” Linus hissed unhappily, “are really jusssst the worsssst.”]]></companion>
+			<companion><![CDATA[“Aaaaaagh!” Noah screamed. He bobbed in his tank, staring at the giantess in terror.]]></companion>
+		</companion1>
+		<weapon1>
+			<weapon>
+				<stones id="hasSerpentine"><![CDATA[[defender] unsheathed [pronoun3] blade. The stones in the hilt gleamed brilliantly, and [pronoun1] ran toward the giantess, slashing [pronoun3] way as [pronoun1] went. “For the realm!” [pronoun1] bellowed, with a final mighty strike. The dagger made contact, slicing through the giantess’s shin. The Smashley’s body quivered and smoke billowed from her blotchy skin.
+
+“Arrrgh,” the Smashley cried. “You cursed Defender!]]></stones>
+				<stones id="notSerpentine"><![CDATA[[defender] unsheathed [pronoun3] dagger and ran toward the giantess. Just as [pronoun1] was about to slash [pronoun3] blade toward the Smashley, [pronoun1] tripped over a rock. 
+
+<TEXTFORMAT RIGHTMARGIN='325'>It occurred to [pronoun2] that if [pronoun1] had collected the serpentine stone, [pronoun1] might have simply eviscerated the giantess. [Pronoun1] looked up just in time to see a mallet coming straight for [pronoun2].</TEXTFORMAT>]]></stones>
+			</weapon>
+			<weapon>
+				<stones id="hasSerpentine"><![CDATA[[defender] pulled out [pronoun3] quill, and dipped it into the ink, quickly scrawling a lightning bolt onto the air. The stones in the inkpot shone brightly as [pronoun1] threw the bolt. It slashed through the air, hitting the giantess’s shin. The Smashley’s body quivered and smoke billowed from her blotchy skin.
+
+“Arrrgh,” the Smashley cried. “You cursed Defender!]]></stones>
+				<stones id="notSerpentine"><![CDATA[[defender] pulled out [pronoun3] quill, and dipped it into the ink, quickly scrawling a lightning bolt onto the air. [Pronoun1] aimed it toward the Smashley and threw with as much power as [pronoun1] could muster. 
+
+<TEXTFORMAT RIGHTMARGIN='325'>Just as it was ready to strike, a gust of wind blew it off course. The last thing [defender] saw was the giantess’s mallet coming straight for [pronoun2].</TEXTFORMAT>]]></stones>
+			</weapon>
+			<weapon>
+				<stones id="hasSerpentine"><![CDATA[[defender] opened [pronoun3] book of spells, scrambling in one direction, then another, to avoid the giantess’s relentless attack. When [pronoun1] finally found the spell [pronoun1] was looking for, [pronoun1] stopped in [pronoun3] tracks. The stones in the spellbook’s binding gleamed as [pronoun1] screamed an ancient liquefaction spell of such power that the words could not be reprinted for fear of them getting into the wrong hands.
+
+“Arrrgh,” the Smashley cried. “You cursed Defender!]]></stones>
+				<stones id="notSerpentine"><![CDATA[[defender] opened [pronoun3] book of spells, scrambling in one direction, then another, to avoid the giantess’s relentless attack. 
+
+<TEXTFORMAT RIGHTMARGIN='325'>[Pronoun1] opened [pronoun3] mouth to scream out a spell of ancient power, but instead choked on a dust cloud that [pronoun3] movement had kicked up. In that moment, the giantess sprang. The last thing [defender] saw was the mallet coming straight for [pronoun2].</TEXTFORMAT>]]></stones>
+			</weapon>
+		</weapon1>
+		<body>
+			<item type="text" id="topText" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[“Look out, [companionName]!” [defender] called as the Smashley pounded her mallet down again. They both dodged the giantess’s blow in the nick of time. 
+
+[companion1]
+
+Before the Smashley could strike again, [weapon1]]]> 				
+			</item>
+			<item type="text" id="" width="575" height="" top="100" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[A moment later, the Smashley had been reduced to a large pool of blue goo. Next to the pool was a key. [defender] plucked the key from the ground and unlocked the gate.]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
+			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="capitol.TheCastleView"><![CDATA[ENTER GATE]]></decision>
+		</decisions>	
+	</fightSmashley>
+<!-- ***			FIGHT SMASHLEY 			-->
+
+<!-- 			REASON SMASHLEY			-->
+	<reasonSmashley id="ReasonSmashleyView">
+		<companion1>
+			<companion><![CDATA[“After you,” [defender] said pleasantly.]]></companion>
+			<companion><![CDATA[“After you,” [defender] said pleasantly.]]></companion>
+			<companion><![CDATA[]]></companion>
+		</companion1>
+		<weapon1>
+			<weapon>
+				<stones id="hasSerpentine"><![CDATA[[defender] sighed. [Pronoun1] had attempted a peaceful negotiation, to no avail. If the Smashley was determined to fight, then so be it.
+
+[defender] unsheathed [pronoun3] dagger. The stones in the hilt gleamed brilliantly, and [pronoun1] ran toward the giantess, slashing [pronoun3] way as [pronoun1] went. “For the realm!” [pronoun1] bellowed, with one last mighty strike. The dagger made contact, slicing through the giantess’s shin. For a moment, [defender] and the Smashley stared at one another, before the giantess’s entire body began to quiver and steam.
+
+“Arrrgh,” the Smashley cried. “You cursed Defender! Look what you've done!]]></stones>
+				<stones id="notSerpentine"><![CDATA[<TEXTFORMAT RIGHTMARGIN='325'>This time as the Smashley raised her wooden mallet, [defender] stumbled. [Pronoun1] had just enough time to wonder how [pronoun3] story might have been different if [pronoun1]’d collected all of the stones before coming to Nero’s island. And then the mallet came crashing down, and that, as they say, was that.</TEXTFORMAT>]]></stones>
+			</weapon>
+			<weapon>
+				<stones id="hasSerpentine"><![CDATA[[defender] sighed. [Pronoun1] had attempted a peaceful negotiation, to no avail. If the Smashley was determined to fight, then so be it.
+
+[defender] pulled out [pronoun3] quill, and dipped it into the ink, quickly scrawling a lightning bolt onto the air. The stones in the inkpot shone brightly as [defender] threw the bolt. It slashed through the air, hitting the giantess’s shin. For a moment, [defender] and the Smashley stared at one another, before the giantess’s entire body began to quiver and steam.
+
+“Arrrgh,” the Smashley cried. “You cursed Defender! Look what you've done!]]></stones>
+				<stones id="notSerpentine"><![CDATA[<TEXTFORMAT RIGHTMARGIN='325'>This time as the Smashley raised her wooden mallet, [defender] stumbled. [Pronoun1] had just enough time to wonder how [pronoun3] story might have been different if [pronoun1]’d collected all of the stones before coming to Nero’s island. And then the mallet came crashing down, and that, as they say, was that.</TEXTFORMAT>]]></stones>
+			</weapon>
+			<weapon>
+				<stones id="hasSerpentine"><![CDATA[[defender] sighed. [Pronoun1] had attempted a peaceful negotiation, to no avail. If the Smashley was determined to fight, then so be it.
+
+[defender] opened [pronoun3] book of spells, scrambling in one direction, then another, to avoid the giantess’s relentless attack. When [pronoun1] finally found the spell [pronoun1] was looking for, [pronoun1] stopped. The stones in the spellbook gleamed brightly as [pronoun1] rattled off an ancient liquefaction spell of such power that the words could not be reprinted for fear of them getting around.
+
+“Arrrgh,” the Smashley cried. “You cursed Defender! Look what you've done!]]></stones>
+				<stones id="notSerpentine"><![CDATA[<TEXTFORMAT RIGHTMARGIN='325'>This time as the Smashley raised her wooden mallet, [defender] stumbled. [Pronoun1] had just enough time to wonder how [pronoun3] story might have been different if [pronoun1]’d collected all of the stones before coming to Nero’s island. And then the mallet came crashing down, and that, as they say, was that.</TEXTFORMAT>]]></stones>
+			</weapon>
+		</weapon1>
+		<body>
+			<item type="text" id="topText" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[“Good day,” [defender] called up, narrowly dodging another blow of the Smashley’s mallet. “I am the Defender of the Realm, and I’ve come to talk to Prince Nero. Would you be so kind as to open the castle gates?”
+
+“You may not pass!” the Smashley bellowed.
+
+[defender] lurched to avoid the giantess’s mallet. 
+
+“If you’d just let me explain,” [defender] continued breathlessly, wondering if perhaps polite conversation might not have been the best course of action.
+
+The Smashley pushed her glasses up from the bridge of her nose, and glared at [defender]. “What part of ‘you may not pass’ do you not understand?” the giantess asked crossly. “Now for the last time, stand still!”
+ 
+[weapon1]]]> 				
+			</item>
+			<item type="text" id="" width="575" height="" top="100" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[A moment later, the Smashley had been reduced to a large pool of blue goo. Next to the pool was a key. [defender] plucked the key from the ground and unlocked the gate.
+
+[companion1]]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
+			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="capitol.CastleView"><![CDATA[ENTER GATE]]></decision>
+		</decisions>	
+	</reasonSmashley>
+<!-- ***			REASON SMASHLEY 			-->
+
+<!-- 			CASTLE			-->
+	<castle id="CastleView">
+		<companion1>
+			<companion><![CDATA[“Why I say,” Oonie said, looking at [defender] with a hint of pride in her eyes. “That was a fine feat of daring-do. Well done, Defender.”]]></companion>
+			<companion><![CDATA[“Sssssshowed the Sssssmashley who’s bosssss,” Linus said with pride. “A niccccce piece of work back there, Defender.”]]></companion>
+			<companion><![CDATA[“The Smashley didn’t stand a chance!” Noah exclaimed. “And Nero won’t either. Let’s get ‘em! Come on! Come on!”]]></companion>
+		</companion1>
+		<companion2>
+			<companion><![CDATA[“If you’d had the sandstone you could have just toppled the castle,” Oonie clucked haughtily. “That’s what you get for being impatient.” The ostrich glared at [pronoun2] before turning to groom her feathers.]]></companion>
+			<companion><![CDATA[“Mighta just blown the casssstle down back there if you’d just had the sssssandstone,” Linus commented. He closed his eyes and immediately began to snore.]]></companion>
+			<companion><![CDATA[“That was close!” Noah said. “You know, if you would have just had the sandstone, you could have blown down that prince’s castle! That would have shown him a thing or two!”]]></companion>
+		</companion2>
+		<companion3>
+			<companion><![CDATA[“Really,” Oonie interrupted, shaking her tail feathers at the dwarf in irritation. “Can’t you see this is the Defender of the Realm, not some overgrown wolf with a predilection for blowing things down? Show some respect, sir.”]]></companion>
+			<companion><![CDATA[“Look here, missssster,” Linus interjected. “This is the Defender of the Realm, not sssssome wolf with a pair of overgrown lungs and an obssssesssssion with blowing buildings down. Ssssssshow sssssome ressssspect.”]]></companion>
+			<companion><![CDATA[“Um, excuse me,” Noah called, smacking his tank with a fin. “You should know that you’re addressing the Defender of the Realm, not a wolf with super powered lung capacity. I think a little respect is in order, don’t you?”]]></companion>
+		</companion3>
+		<weapon1>
+			<weapon>
+				<stones id="hasSandstone"><![CDATA[“Sergeant,” [pronoun1] yelled, “I’m afraid I’ll have to blow down the castle if you don’t let me in.”
+
+The dwarf opened the panel again, this time more thoughtfully. He studied [defender] more closely this time. “Don’t tell me you’re one a them ‘huff and puff’ sorts. I’ve got news for you, buddy. This castle is built from stone, not twigs.”
+
+<TEXTFORMAT RIGHTMARGIN='275'>[defender] brandished [pronoun3] [weapon]. “I’m giving you fair warning,” [pronoun1] advised, “that I intend to do much more than huff and puff.” 
+
+[companion3]</TEXTFORMAT>
+
+The dwarf’s eyes moved from [defender] to [pronoun3] [weapon] with newfound respect. “Well why didn’t you tell me that to begin with?” He slammed the panel closed again, and the next thing [defender] knew the dwarf was walking around from the side of the castle, whistling a lively tune. “The prince says I gotta keep people out,” he explained. “But the rules don’t say nothin’ about me staying in.” He scuffed a heavy work boot against the ground, and lowered his voice. “And besides, this job’s for the birds. No overtime pay. No benefits.” He gave [defender] a lopsided grin. “Go on then.” 
+
+[defender] reached out and pumped the dwarf’s hand up and down. “Very sporting of you, sergeant,” [pronoun1] said. “Might I suggest you take a few steps back?” [Pronoun1] motioned toward a tree about twenty yards away. “That should be a fine distance.”
+
+The dwarf obliged, and [defender] rubbed the stones on [pronoun3] [weapon] for luck. 
+
+[weapon2]]]></stones>
+				<stones id="noSandstone"><![CDATA[A moment later a throng of dwarves surrounded [defender]. A quick tally revealed 7 blades pointing at various parts of [pronoun3] body. [Pronoun1] had no choice but to accompany the guards back to the shore. Once there, [pronoun1] and [companionName] were prodded into the dinghy and forced back into the sea. 
+
+[companion2]]]></stones>
+			</weapon>
+			<weapon>
+				<stones id="hasSandstone"><![CDATA[!!!SAME FOR ALL 3!!!]]></stones>
+				<stones id="noSandstone"><![CDATA[A moment later a throng of dwarves surrounded [defender]. A quick tally revealed 7 blades pointing at various parts of [pronoun3] body. [Pronoun1] had no choice but to accompany the guards back to the shore. Once there, [pronoun1] and [companionName] were prodded into the dinghy and forced back into the sea. 
+
+[companion2]]]></stones>
+			</weapon>
+			<weapon>
+				<stones id="hasSandstone"><![CDATA[!!!SAME FOR ALL 3!!!]]></stones>
+				<stones id="noSandstone"><![CDATA[A moment later a throng of dwarves surrounded [defender]. A quick tally revealed 7 blades pointing at various parts of [pronoun3] body. [Pronoun1] had no choice but to accompany the guards back to the shore. Once there, [pronoun1] and [companionName] were prodded into the dinghy and forced back into the sea. 
+
+[companion2]]]></stones>
+			</weapon>
+		</weapon1>
+		<weapon2>
+			<weapon><![CDATA[They glimmered as [pronoun1] raised the Marrotti blade into the air, then thrust it down into the earth.]]></weapon>
+			<weapon><![CDATA[They gleamed as [pronoun1] dipped [pronoun3] quill into the ink and drew a jagged line over the earth.]]></weapon>
+			<weapon><![CDATA[[Pronoun1] flipped to a spell promising Castle Disintegration. “Ollie Ollie Castle Crumble,” [pronoun1] read.]]></weapon>
+		</weapon2>
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[[companion1]
+
+[defender] and [companionName] marched to the castle door and knocked. A small panel slid open near [defender]’s knees and [pronoun1] bent down to peer inside. A dwarf with a long, grizzled beard peered out. “No visitors,” he announced before shutting the panel with a bang.
+
+[defender] rapped [pronoun3] knuckles against the door, and once again, the small panel slid open.
+
+“Excuse me,” [pronoun1] said. “My name is [defender] and this is [companionName] and we are here to speak to Prince Nero, please.”
+
+“And I’m Sergeant Mikey Lewis, Master-At-Arms, and if you’re wise you’ll listen closely.]]> 				
+			</item>
+			<item type="image" id="" width="" height="144" top="30" left="" size="" align="" leading="" file="app:/assets/images/capitol/castle_imageText1.png"/>
+			<item type="text" id="bottomText" width="575" height="" top="60" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[The dwarf slammed the panel closed with gusto.
+
+[weapon1]]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
+			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="capitol.ConfrontNeroView"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</castle>
+<!-- ***			CASTLE 			-->
+
+<!-- 			CONFRONT NERO			-->
+	<confrontNero id="ConfrontView">
+		<weapon1>
+			<weapon><![CDATA[With the power of the four stones on [pronoun3] side, [pronoun1] might be able to defeat Nero at his own game. [Pronoun1] pointed [pronoun3] dagger toward the approaching hoard, pressing the stones as [pronoun1] did so. A surge of power coursed through the blade before it shimmered brightly, suddenly transforming, inexplicably, into a small canon. [Pronoun1] aimed and shot. Several of the advancing creatures exploded in front of [pronoun2].]]></weapon>
+			<weapon><![CDATA[Without further ado, [pronoun1] sketched several long, sprawling arcs over the air to form the shaft of a canon, followed by a circular base that [pronoun1] could spin the canon from. [Pronoun1] aimed the barrel toward the hoard of approaching creatures, and fired. A huge boom filled the air, followed by an explosion of light as several creatures were demolished.]]></weapon>
+			<weapon><![CDATA[[defender] had been saving a very special spell for [pronoun3] final confrontation with Nero, crafted by the author of [pronoun3] spellbook, the famous magician, Dusty Whittenbacher. He was a renowned combat spellmaker, specializing in light defense. [defender] grinned as [pronoun1] uttered the words, “I’ll have a Whittenbacher special, please.” A moment later a shiny canon materialized in [pronoun3] hands. [Pronoun1] aimed and shot. Several creatures exploded in front of [pronoun2].]]></weapon>
+		</weapon1>		
+		<body>
+			<item type="text" id="picture" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[The ground trembled beneath [pronoun3] feet, and [pronoun1] took several steps backward to join the sergeant as the castle tumbled down, stone by stone. When the dust cleared, a funny little man with a purple cape and a thin golden crown stared at [pronoun2], looking quite put out.
+
+“Prince Nero,” Sergeant Mikey said nervously. The dwarf took a step back before pausing to give a formal bow.]]> 				
+			</item>
+			<item type="text" id="" width="575" height="" top="60" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[The prince ignored the dwarf, instead turning toward [defender]. His face turned a violent shade of purple that matched his cape and he stamped his golden shoes over the rubble. “My castle!” he shouted angrily. “What is the meaning of this?” The prince took in [defender]’s [wardrobe] and groaned. “Don’t tell me. You must be the new Defender everyone is talking about.” He shook his head in disgust. “How dare you destroy my home.”
+
+“How dare you drink all of the realm’s sunlight,” [defender] countered. “You should be ashamed of yourself. You’ve been a very bad prince. But there’s still time to redeem yourself.”
+
+“Yeah yeah,” Nero replied, holding out one skinny arm. “Make me.” Sunlight poured from his open palm, oozing out over the rubble to create an army of terrifying, glowing creatures. They marched toward [defender] with vacant, lifeless eyes.
+
+[weapon1]
+
+But it wasn’t enough. More and more light creatures swarmed toward [pronoun2].]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="capitol.GameView"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</confrontNero>
+<!-- ***			CONFRONT NERO 			-->
+
+<!-- 			WIN			-->
+	<win id="WinView">
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[Nero fell to his knees as the last light creature exploded in front of him. “Forgive me,” he said, hanging his head in defeat. “The light makes me do things I wouldn’t normally do.”
+
+[defender] looked at him skeptically. “It’s not me who you should be asking, it’s the people of the realm.”
+
+“I know, I know,” Nero said, climbing to his feet shakily. “And I will ask my loyal subjects for their forgiveness. I know it’s wrong to steal the sunlight, but you have to understand,]]> 				
+			</item>
+			<item type="image" id="" width="" height="130" top="40" left="" size="" align="" leading="" file="app:/assets/images/capitol/win_imageText1.png"/>
+			<item type="text" id="" width="575" height="" top="50" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[he confessed. 
+
+[defender] felt a sudden pang of sadness for the prince. He looked so distraught. But it didn’t matter how sorry he was now, he had to answer for his crimes. “It’s too late for apologies,” [defender] said. “You should have taken control of your addiction. You had a realm to rule!” 
+
+“It’s not my fault,” Nero said, abashed. “I want to stop, but I can’t kick the habit. You’d understand if you tried drinking sunlight too.” Nero pointed toward the overturned tank. “There’s still some left. If you’re as understanding as everyone says, you’d at least try and experience what I’ve been going through.”
+
+[defender] paused, considering the prince’s words. It was true that sometimes when [pronoun1] put [pronoun2]self in other people’s shoes (golden, or otherwise), [pronoun1] gained a greater understanding of what they’d been going through. [Pronoun1]’d always prided [pronoun2]self on approaching [pronoun3] job with care and thoughtfulness. And yet here the prince was telling [pronoun2] that [pronoun1] couldn’t possibly understand. At the same time, common sense told [pronoun2] that sunlight in massive quantities was a dangerous substance, and not to be trifled with.
+
+The prince seemed to sense [pronoun3] hesitation, and continued his plea with an encouraging smile. “It will make you a better Defender of the Realm,” he said smoothly. “You’ll have a greater capacity for empathy.”]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="capitol.DontDrinkView"><![CDATA[JUST SAY NO]]></decision>
+			<decision id="capitol.DrinkView"><![CDATA[DRINK SUNLIGHT]]></decision>
+		</decisions>	
+	</win>
+<!-- ***			WIN 			-->
+
+<!-- 			DRINK			-->
+	<drink id="DrinkView">
+		<body>
+			<item type="text" id="topText" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[[defender] walked toward the overturned tank and dipped [pronoun3] empty canteen into the remaining sunlight.]]> 				
+			</item>
+			<item type="text" id="bottomText" width="575" height="" top="20" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[But [pronoun3] companion’s warning came too late, for [defender] was suddenly overcome with a sense of euphoria. [Pronoun3] senses felt enhanced. [Pronoun1] could hear the sound of [pronoun3] own heartbeat. [Pronoun1] could hear the sound of [companionName]’s heartbeat! A sense of such elation overcame [pronoun2] that [pronoun1] walked over to the prince and gave him a hug. 
+
+“You were right,” [defender] told the prince. “I do understand now. But you were still in the wrong.”
+
+“Have another drink,” the prince suggested.
+
+[defender] could hear Nero’s heartbeat quicken as [pronoun1] gulped down more of the liquid sunlight. The warmth spread from [pronoun3] stomach to [pronoun3] fingertips and toes. [Pronoun1] was brimming with so much sunlight that [pronoun1] could barely contain [pronoun2]self, and suddenly, [pronoun3] enhanced senses were too much. [Pronoun1] could hear the fishes swimming in the ocean. [Pronoun1] could see a solitary crow swimming miles and miles over the sea, and feel the breeze from its beating wings. The sunlight pressed against [pronoun2], stretching [pronoun3] skin until it felt too tight, as though [pronoun1] might pop. 
+
+“What’s happening to me?” [pronoun1] whispered, cringing at the volume of [pronoun3] voice. It sounded like it had been broadcast through a speaker placed next to [pronoun3] ear.
+
+Prince Nero shrugged. “Overdose, I suspect. A drink of concentrated sunlight is enough to drive anyone mad, even someone who has a tolerance for the stuff. I should know.” 
+
+The prince laughed maniacally as [defender] fell to [pronoun3] knees, then toppled to one side. [Pronoun3] skin felt too tight, [pronoun3] throat as though it had been filled with sand. As [pronoun1] slipped into a bloated, coma-like state, [pronoun1] wondered why in the world [pronoun1] would have let the prince talk [pronoun2] into this. [Pronoun1] then succumbed to a dark void of nothingness.]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
+			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+		</decisions>	
+	</drink>
+<!-- ***			DRINK 			-->
+
+<!-- 			DON'T DRINK			-->
+	<dontDrink id="DontDrinkView">
+		<weapon1>
+			<weapon><![CDATA[Even with the aid of [pronoun3] Marrotti blade, [pronoun1] had little real chance against Nero’s attack. All [pronoun1] could do was stall, and hope an idea came, and soon.]]></weapon>
+			<weapon><![CDATA[There was no time to draw [pronoun3] way out of this fight. All [pronoun1] could do is protect [pronoun2]self as best [pronoun1] was able, and hope a better idea came, and soon.]]></weapon>
+			<weapon><![CDATA[There was no time to consult [pronoun3] spellbook for a way out of the fight. The best [pronoun1] could hope for was to defend [pronoun2]self until [pronoun1] had a better idea.]]></weapon>
+		</weapon1>
+		<body>
+			<item type="text" id="topText" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[“Of course I’m not going to try out an addictive substance,” [defender] scoffed. “What a terrible idea. Just look at what it’s done to the realm.”]]> 				
+			</item>
+			<item type="text" id="bottomText" width="575" height="" top="20" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[“I know, I know,” Nero said meekly. 
+
+Before [defender] could respond, Nero sprung toward [pronoun2]. [Pronoun1] blocked and parried the prince’s attack, but was no match for him in hand-to-hand combat. The prince was still fueled with lingering sunlight, and his constant blows were unstoppable. [defender] took several steps back, beginning to worry.
+
+[weapon1]
+
+The prince pressed [defender] back until [pronoun1] was trapped against a wall. Just as Nero landed a particularly severe blow, a [previousDefenderGender] joined the battle, who looked close in age to [defender]. [Pronoun1] couldn’t help but notice how incredibly good looking [pronoun3] new ally was, and together, the two of them were able to wrestle Nero to the ground. 
+
+“I’ve got him,” the stranger said. “I’ll hold him while you tie him up.” The [previousDefenderGender] flashed [defender] a wide smile, which [pronoun1] couldn’t help but return. 
+
+“Thanks,” [defender] replied, quickly binding the prince’s wrists behind his back. 
+
+“But, but, but,” Nero stuttered, before dissolving into inconsolable tears. 
+
+The [previousDefenderGender] looked at the prince in disgust, and shook [previousDefenderPronoun3] head in disbelief. “He’s such a baby when he doesn’t get his way. It really makes negotiations tough, believe me.”
+
+[defender] looked at the [previousDefenderGender] in confusion, but the stranger just laughed and held out [previousDefenderPronoun3] hand.
+
+“I’m [previousDefender], the previous Defender of the Realm. Nero’s had me trapped in the dungeon for months now. I attempted to hold a civilized negotiation with him, and the next thing I knew, I woke up behind bars. I was freed when the walls of the castle turned to ash. How can I ever repay you?”
+
+[defender] held out [pronoun3] own hand and shook the previous Defender’s hand. “How do you do,” [pronoun3] said. “I’m [defender], the current Defender of the Realm. I’m a big fan of your work.”
+
+The [previousDefenderGender] blushed. 
+
+“What do you say we get Nero back to the ship?” [defender] asked. “We could use your help. I’m sure the realm will be pleased to have you back.”
+
+[previousDefender] nodded [previousDefenderPronoun3] head. “I’d be delighted,” [previousDefenderPronoun1] said, motioning for [defender] to lead the way.]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="capitol.ReturnToShip"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</dontDrink>
+<!-- ***			DON'T DRINK 			-->
+
+<!-- 			RETURN TO SHIP			-->
+	<returnToShip id="ReturnToShipView">
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[[defender], [previousDefender], and [companionName] ushered the still blubbering Nero back to the ship. Sergeant Mikey came along as well, professing a keen interest in the Defending business. Once Nero was secured, and Cleapeezious cast off for the continent, [defender] and [previousDefender] spent the night immersed in pleasant conversation. [defender] was surprised to find out how many hobbies they had in common. [previousDefender] even shared [pronoun3] love of [beverage]. Before bed that night, the new friends toasted toward a happier realm now that Nero had been stopped. [defender] slept peacefully for the first time since [pronoun1]’d arrived to the realm.
+
+Once they reached the continent, [defender] and [companionName] escorted Nero to a maximum-security rehabilitation facility specializing in sunlight addiction. Once this task was completed, the high council designated [pronoun3] defense of the realm a rousing success, and [pronoun1] was given a commemorative plaque of thanks. 
+
+That night, Cleapeeazious threw a celebratory party on the Stormin’ Norman unlike anything [defender] had experienced. [defender] sang and played [pronoun3] [instrument] and took a turn dancing with several of the crewmembers, eventually finding [pronoun2]self partnered with [previousDefender] more and more throughout the night. [Pronoun1] was surprised when the captain finally bade them a goodnight. As the captain turned in for the night, [defender] and [previousDefender] found themselves alone, under a star-filled sky.
+
+“What a fun night,” [defender] said happily. “I’m glad you were here too.” Suddenly [pronoun1] felt a twinge of sadness. [Pronoun1] wondered if [pronoun1]’d see [previousDefender] again after they anchored again tomorrow. [Pronoun1]’d grown fond of [previousDefenderPronoun2]. 
+
+A moment later, [previousDefender] took [pronoun3] hands in [previousDefenderPronoun3] own. [PreviousDefenderPronoun1] looked at [defender] hopefully and cleared [previousDefenderPronoun3] throat before saying,]]> 				
+			</item>
+			<item type="image" id="" width="" height="148" top="40" left="" size="" align="" leading="" file="app:/assets/images/capitol/returnToShip_imageText1.png"/>
+			<item type="text" id="" width="575" height="" top="50" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[[defender]’s heart fluttered as [pronoun1] considered the offer. It was all rather sudden, but there was something about [previousDefender] that made [pronoun2] very happy.]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="capitol.GoWithPreviousView"><![CDATA[ACCEPT OFFER]]></decision>
+			<decision id="capitol.DelayView"><![CDATA[DELAY DECISION]]></decision>
+		</decisions>	
+	</returnToShip>
+<!-- ***			RETURN TO SHIP 			-->
+
+<!-- 			GO WITH PREVIOUS			-->
+	<goWithPrevious id="GoWithPreviousView">
+		<companion1>
+			<companion><![CDATA[wings,]]></companion>
+			<companion><![CDATA[claws,]]></companion>
+			<companion><![CDATA[fins,]]></companion>
+		</companion1>
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[After Prince Nero was safely locked up, and the stones returned to their rightful owners, a summons was sent out for a new leader of the realm. After careful consideration, [defender] nominated [companionName] and the [companion] won by a landslide vote. 
+
+Once the realm was in [companionName]’s capable [companion1] [defender] and [previousDefender] set off in search of new challenges. [previousDefender] wound up being everything that [defender] could have hoped for in a partner.]]> 				
+			</item>
+			<item type="image" id="" width="" height="210" top="50" left="" size="" align="" leading="" file="app:/assets/images/capitol/goWith_imageText1.png"/>
+			<item type="text" id="bottomText" width="575" height="" top="50" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[When time permitted, they often met [companionName] at Snowmonch’s for meatloaf. The serpent’s cooking never disappointed.
+
+And so they lived happily. That is until [previousDefender] was captured by intergalactic space pirates and spirited off to another dimension. But that, as they say, is an entirely different story.]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
+			<decision id="TitleScreenView"><![CDATA[RESTART BOOK]]></decision>
+		</decisions>	
+	</goWithPrevious>
+<!-- ***			GO WITH PREVIOUS 			-->
+
+<!-- 			DELAY			-->
+	<delay id="DelayView">
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[After Prince Nero was safely locked up, and the magical stones returned to their rightful owners, [defender] could put off [pronoun3] decision no longer. Although [previousDefender] seemed like someone [pronoun1] wanted to know better, it was hard to trust someone so quickly. After all, [previousDefender] was from another realm. And [defender] really missed [pronoun3] own home. Particularly [pronoun3] dear friend, [contact]. 
+
+In addition, after [pronoun3] recent success as a Defender, [defender] really wanted to focus on [pronoun3] career. Now that [pronoun1]’d succeeded in saving the realm, job offers were pouring in. A new world of opportunity had just burst open, and [defender] wanted to experience it all. 
+
+Which is why [pronoun1] told [previousDefender] kindly, but firmly, that [pronoun1] needed some time to focus on [pronoun3] own affairs. [previousDefender] respected [defender]’s feelings, but asked if [previousDefenderPronoun1] might visit [pronoun2] in [pronoun3] own realm after [pronoun1]’d had a chance to see [pronoun3] friends and family.
+
+]]> 				
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="capitol.TogetherView"><![CDATA[EXTEND INVITATION]]></decision>
+			<decision id="capitol.AloneView"><![CDATA[FOCUS ON CAREER]]></decision>
+		</decisions>	
+	</delay>
+<!-- ***			DELAY 			-->
+
+<!-- 			TOGETHER			-->
+	<together id="TogetherView">
+		<weapon1>
+			<companion><![CDATA[Marrotti blades than [pronoun1] did,]]></companion>
+			<companion><![CDATA[enchanted quills and ink than [pronoun1] did,]]></companion>
+			<companion><![CDATA[spellbooks than [pronoun1] did,]]></companion>
+		</weapon1>
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[As [defender] considered [previousDefender]’s request, an unexpected thing happened. [Pronoun1] felt a strange sense of nervousness take hold of [pronoun3] stomach, flapping through [pronoun3] middle like a thousand fireflies. There was something about the previous Defender that made [pronoun2] feel anxious and happy and excited all at the same time. [Pronoun1] was determined to get to the bottom of it, and so [pronoun1] did as [previousDefender] suggested, and invited [previousDefenderPronoun2] for a visit.
+
+[Pronoun1] spent the first week alone in [pronoun3] home realm, seeing friends and family and catching up on all that had happened since [pronoun1]’d been called for duty. By the end of the first day [pronoun1] was so tired of recounting [pronoun3] adventures that [contact] quickly typed up [pronoun3] story and handed it out to anyone wanting details. ]]> 				
+			</item>
+			<item type="image" id="" width="" height="205" top="50" left="" size="" align="" leading="" file="app:/assets/images/capitol/together_imageText1.png"/>
+			<item type="text" id="bottomText" width="575" height="" top="50" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[and was an immediate hit. While everyone was busy reading the book, [defender] and [contact] finally had time to catch up, and the two were inseparable.
+
+A week later, [previousDefender] joined [pronoun2]. [defender] was shocked to see how perfectly the previous Defender fit in with [pronoun3] friends. Even better, [previousDefenderPronoun1] and [contact] struck up an immediate friendship. The three could often be found laughing loudly together, sharing a canteen of [beverage]. 
+
+[defender] and [previousDefender] soon grew quite close, finishing each other’s sentences and finding even more unlikely similarities. The previous Defender had an even larger collection of [weapon1] as well as wonderful stories of [previousDefenderPronoun3] own time spent in the defense business. In fact, the two got on so well that they decided to go into business together. [contact] managed their contracts, [companionName] stayed on as a trusted consultant, and Sergeant Mikey joined them for missions requiring an extra pair of hands. When things got really tough, the wizard Maysel prepared them a custom potion guaranteed to vanquish foes, big and small. Together, their group was unstoppable, freeing realm after realm from corruption, tyranny, and evil. Life was happy. 
+
+That is until [previousDefender] was captured by intergalactic space pirates and spirited off to another dimension. But that, as they say, is an entirely different story.
+
+]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
+			<decision id="TitleScreenView"><![CDATA[RESTART BOOK]]></decision>
+		</decisions>	
+	</together>
+<!-- ***			TOGETHER 			-->
+
+<!-- 			ALONE			-->
+	<alone id="AloneView">
+		<gender1>
+			<gender><![CDATA[With nothing else on his agenda looming, he agreed.]]></gender>
+			<gender><![CDATA[The monkeys scoffed when she suggested the title of Princess, informing her that a title had nothing to do with gender. After she thought about it, she realized the METS were absolutely right, and ran as Prince with head held high.]]></gender>
+		</gender1>
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[Although [previousDefender] seemed great, [defender] wasn’t ready for a committed relationship—[pronoun1] just wanted to focus on [pronoun3] career. [Pronoun1] explained the situation as well as [pronoun1] was able… after all, sometimes ‘it’s not you, it’s me’ really was the truth. [previousDefender] was disappointed, but respected [defender]’s wishes, and the two remained distant friends, sending occasional postcards from their respective interrealm Defense missions.
+
+After pouring through a flood of opportunities, [defender] found [pronoun2]self gravitating toward one in particular. The political party known as the METS (Monkeys for the Ethical Treatment of Sunlight) nominated [pronoun2] to become the next Prince of the Realm.
+
+[gender1] 
+
+After a grueling campaign, the ballots were cast. [defender] won by a landslide. [Pronoun3] first act as prince was to set up an advisory council, and [pronoun1] brought together the smartest people and creatures [pronoun1] knew. [companionName] joined first, followed by Snowmonch and Maysel. [Pronoun1] then hired on Sergeant Mikey Lewis for advice on military strategy. Even [contact] lent a hand, focusing on interrealm peace. 
+
+The realm flourished under [defender]’s care, and its denizens enjoyed peace and prosperity unlike anything they had known. [defender] spent [pronoun3] days resolving disputes and finding efficiencies where there had once been none. [Pronoun1] flourished under the challenges of leadership, becoming quite famous for [pronoun3] wisdom and bravery. In fact, everyone was well on their way to living happily ever after. 
+
+That is until a band of unruly intergalactic space pirates created a very big commotion. But that, as they say, is an entirely different story. ]]> 				
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
+			<decision id="TitleScreenView"><![CDATA[RESTART BOOK]]></decision>
+		</decisions>	
+	</alone>
+<!-- ***			ALONE 			-->
 
 
 

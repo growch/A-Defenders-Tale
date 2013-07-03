@@ -13,6 +13,9 @@ package view.prologue
 	import flash.events.Event;
 	import flash.geom.ColorTransform;
 	
+	import assets.FirefliesLampMC;
+	import assets.FirefliesTextMC;
+	
 	import control.EventController;
 	
 	import events.ViewEvent;
@@ -51,8 +54,9 @@ package view.prologue
 		private var _bmp:Bitmap;
 		private var _bgSound:Track;
 		private var _pageInfo:PageInfo;
-//		private var _swfLoader:SWFLoader;
 		private var _SAL:SWFAssetLoader;
+		private var _firefliesText:MovieClip;
+		private var _firefliesLamp:MovieClip;
 		
 		public function PrologueView()
 		{
@@ -128,6 +132,15 @@ package view.prologue
 			threeMonthsAgo.setTime(appDate.time - ( 90 * 24 * 60 * 60 * 1000 ));
 //			trace("threeMonthsAgo: "+threeMonthsAgo); 
 			
+			_firefliesText = new FirefliesTextMC();
+			_firefliesText.x = _mc.firefliesText_mc.x;
+			_mc.removeChild(_mc.firefliesText_mc);
+			_mc.addChild(_firefliesText);
+			
+			_firefliesLamp = new FirefliesLampMC();
+			_firefliesLamp.x = _mc.firefliesLamp_mc.x;
+			_mc.removeChild(_mc.firefliesLamp_mc);
+			_mc.addChild(_firefliesLamp);
 			
 			for each (var part:StoryPart in _bodyParts) 
 			{
@@ -154,7 +167,7 @@ package view.prologue
 					
 					if (part.id == "lantern") {
 						_mc.lantern_mc.y = _tf.y - 100;
-						_mc.firefliesLamp_mc.y = _mc.lantern_mc.y + 237;
+						_firefliesLamp.y = _mc.lantern_mc.y + 237;
 					}
 
 //					_bmpD = new BitmapData(_tf.width,_tf.height,true,0xff0000);
@@ -173,7 +186,7 @@ package view.prologue
 				} else if (part.type == "image") {
 				
 					if (part.id == "fireflyText") {
-						_mc.firefliesText_mc.y = Math.round(_nextY+part.top + 30);
+						_firefliesText.y = Math.round(_nextY+part.top + 30);
 					}
 					
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
@@ -217,16 +230,16 @@ package view.prologue
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
-//				_mc.firefliesText_mc.stopFlies();
-//				_mc.firefliesLamp_mc.stopFlies();
+				_firefliesText.stopFlies();
+				_firefliesLamp.stopFlies();
 				_stars.pause();
 
 				_scrolling = true;
 			} else {
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
-//				_mc.firefliesText_mc.playFlies();
-//				_mc.firefliesLamp_mc.playFlies();
+				_firefliesText.playFlies();
+				_firefliesLamp.playFlies();
 				_stars.resume();
 				
 				_scrolling = false;
@@ -245,21 +258,13 @@ package view.prologue
 		{
 			// fade down sound
 			_bgSound.stop(true);
-//			TweenMax.to(_mc, 1, {alpha:0});
-//			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
 			// coin/alms count
 			if (event.data.decisionNumber == 1) {
 				DataModel.coinCount++;
 			}
+			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		
-//		private function nextPage(thisPage:Object):void {
-//			// coin/alms count
-//			if (thisPage.decisionNumber == 1) {
-//				DataModel.coinCount++;
-//			}
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, thisPage));
-//		}
 	}
 }

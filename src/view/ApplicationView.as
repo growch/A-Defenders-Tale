@@ -9,20 +9,20 @@ package view
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	
-	import assets.ApplicationMC;
-	
 	import control.EventController;
 	
 	import events.ApplicationEvent;
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.DefenderApplicationInfo;
 	
+	import util.SWFAssetLoader;
 	import util.StringUtil;
 	
 	public class ApplicationView extends MovieClip implements IPageView
 	{
-		private var _mc:ApplicationMC;
+		private var _mc:MovieClip;
 		private var _nameTF:TextField;
 		private var _ageTF:TextField;
 		private var _hairTF:TextField;
@@ -46,21 +46,23 @@ package view
 		private var _today:Date;
 		private var _months:Array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		private var _emergencyOverlay:EmergencyContactView;
-		
+		private var _SAL:SWFAssetLoader;
 		
 		public function ApplicationView()
 		{
-			super();
-			
-			addEventListener(Event.ADDED_TO_STAGE, init);
+			_SAL = new SWFAssetLoader("common.ApplicationMC", this);
+			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
+
 			EventController.getInstance().addEventListener(ViewEvent.CLOSE_EMERGENCY_OVERLAY, removeEmergencyOverlay);
 			EventController.getInstance().addEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
+			
+//			!!!IMPORTANT
+			DataModel.defenderInfo = new DefenderApplicationInfo();
 		}
 		
 		private function init(e:Event) : void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
-			_mc = new ApplicationMC();
+			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
+			_mc = _SAL.assetMC;
 			
 			_error1 = _mc.getChildByName("error1_mc") as MovieClip;
 			_error1.visible = false;
@@ -155,20 +157,6 @@ package view
 		
 		private function nameFocusOut(event:FocusEvent) : void {
 			_nameTF.text = StringUtil.ucFirst(_nameTF.text);
-			
-//			_swearTF.alpha = 0;
-//			
-//			var thisTF:TextField = event.target as TextField;
-//			var str:String = thisTF.text;
-//			var firstChar:String = str.substr(0, 1);
-//			var restOfString:String = str.substr(1, str.length);
-//			thisTF.text = firstChar.toUpperCase()+restOfString.toLowerCase();
-//			
-//			if (_nameTF.text != "") {
-//				_swearTF.text = "I, "+_nameTF.text+", on this day of "+_months[_today.month]+" " + _today.date+", " + _today.fullYear + ", being of sound mind and sounder constitution, do solemnly swear that I will protect the realm from such nefarious foes as orcs, ghouls, giant squid, things that go bump in the night, and the evil Prince Nero." 
-//					
-//			}
-//			TweenMax.to(_swearTF, 1, {alpha:1});
 		}
 		
 		protected function submitClick(event:MouseEvent):void
@@ -263,6 +251,12 @@ package view
 			_weapon.destroy();
 			_instrument.destroy();
 			_wardrobe.destroy();
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 		}
 	}
 }

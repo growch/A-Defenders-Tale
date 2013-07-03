@@ -1,4 +1,4 @@
-package view.prologue
+package view.capitol
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
@@ -7,7 +7,6 @@ package view.prologue
 	import flash.events.Event;
 	
 	import control.EventController;
-	import control.GoViralService;
 	
 	import events.ViewEvent;
 	
@@ -26,7 +25,7 @@ package view.prologue
 	import view.FrameView;
 	import view.IPageView;
 	
-	public class Cellar1View extends MovieClip implements IPageView
+	public class FightSmashleyView extends MovieClip implements IPageView
 	{
 		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
@@ -34,21 +33,20 @@ package view.prologue
 		private var _nextY:int;
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
-		private var _goViral:GoViralService;
 		private var _frame:FrameView;
-		private var _magicSpacer:int = 210;
+		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		
-		public function Cellar1View()
+		public function FightSmashleyView()
 		{
-			_SAL = new SWFAssetLoader("prologue.Cellar1MC", this);
+			_SAL = new SWFAssetLoader("capitol.FightReasonSmashleyMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
+			
+			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		public function destroy() : void {
-			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
-
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -58,6 +56,8 @@ package view.prologue
 			_mc.removeChild(_decisions);
 			_decisions = null;
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -69,22 +69,30 @@ package view.prologue
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
+			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 		}
 		
-		public function init(e:ViewEvent) : void {
+		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			
-			_mc.companion_mc.gotoAndStop(DataModel.defenderInfo.companion+1);
+			_nextY = 140;
+			
+			_mc.mallet_mc.visible = false;
 			_mc.end_mc.visible = false;
+			_mc.winPuddle_mc.visible = false;
 			
-			_nextY = 110;
+			//used later in Escalator1View
+			DataModel.climbDone = true;
 			
-			_pageInfo = DataModel.appData.getPageInfo("cellar1");
+			_pageInfo = DataModel.appData.getPageInfo("fightSmashley");
 			_bodyParts = _pageInfo.body;
+			
+			var hasSerpentine:int = DataModel.STONE_SERPENT? 0 : 1;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -93,41 +101,50 @@ package view.prologue
 					var copy:String = part.copyText;
 					
 					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
-					
-					// only add copy for no FB contact
-					if (part.id == "noFacebook") {
-						// don't add
-						if (DataModel.defenderInfo.contactFBID != null) {
-							break;
-						} 
-					}
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon][hasSerpentine]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
 					
 					// set the respective text
-					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading), part.width, true, true, true); 
+					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading, 0x14142a), part.width, true, true, true); 
 					_tf.x = part.left; 
 					_tf.y = _nextY + part.top;
 					
-					if (part.id == "companionImage") {
-						_mc.companion_mc.y = Math.round(((_tf.y + _tf.height) - part.height)/2);
-					}
-					
 					_mc.addChild(_tf);
-					_nextY += Math.round(_tf.height + part.top);
+					_nextY += _tf.height + part.top;
 					
-					if (part.id == "noFacebook" && DataModel.defenderInfo.contactFBID == null) {
-							_mc.end_mc.y = _nextY + 30;
-							_mc.end_mc.visible = true;
-							_nextY += _mc.end_mc.height + 30;
+					if (hasSerpentine == 1) {
+						_mc.mallet_mc.visible = true;
+						
+						_nextY += 60;
+						
+//						EXCEPTION CUZ DIFFERENT LENGTH TEXT
+						if(DataModel.defenderInfo.weapon == 1) _nextY += 40;
+						
+						_mc.end_mc.visible = true;
+						_mc.end_mc.y = _nextY + 20;
+						
+						if(DataModel.defenderInfo.weapon == 2) {
+							_mc.mallet_mc.y = _mc.end_mc.y - _mc.mallet_mc.height;
+						} else {
+							_mc.mallet_mc.y = _mc.end_mc.y - _mc.mallet_mc.height + 60;
+						}
+						
+						_nextY += _mc.end_mc.height + 40;
+						
+						break;
+					} else {
+						_mc.winPuddle_mc.visible = true;
+						if (part.id == "topText") {
+							_mc.winPuddle_mc.y = _nextY + 40;
+							_nextY += _mc.winPuddle_mc.height;
+						}
 					}
 					
+
 				} else if (part.type == "image") {
-					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top});
+					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
 					_nextY += part.height + part.top;
@@ -136,39 +153,25 @@ package view.prologue
 			
 			// decision
 			_nextY += _pageInfo.decisionsMarginTop
-				
+//			_decisions = new DecisionsView(_pageInfo.decisions,0X040404,true); //tint it white, showBG
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			
-			if (DataModel.defenderInfo.contactFBID != null) {
+			if (DataModel.STONE_SERPENT) {
+				dv.push(_pageInfo.decisions[2]);
+			} else {
 				dv.push(_pageInfo.decisions[0]);
 				dv.push(_pageInfo.decisions[1]);
-				dv.push(_pageInfo.decisions[2]);
-				
-			} else {
-				dv.push(_pageInfo.decisions[1]);
-				dv.push(_pageInfo.decisions[2]);
-			}	
-			_decisions = new DecisionsView(dv);
-				
+			}		
+			_decisions = new DecisionsView(dv,0X040404,true);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
-			// HACK for 3 decisions
-			if(dv.length > 2) {
-				_magicSpacer += 60;
-			}
-			
-			_frame = new FrameView(_mc.frame_mc);
-			var frameSize:int = _decisions.y + 210;
+			_frame = new FrameView(_mc.frame_mc); 
+			var frameSize:int = _decisions.y + 260;
+			// size bg
+			_mc.bg_mc.height = frameSize;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
-			// HACK for 3 decisions
-			if(dv.length > 2) {
-				_frame.sizeFrame(_decisions.y + _magicSpacer - 60);
-				_frame.extraDecisionAdjust(60);
-				_decisions.y += 20;
 			}
 			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
@@ -177,31 +180,32 @@ package view.prologue
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
+			
 		}
 		
-		protected function facebookContactResponded(event:ViewEvent):void
+		private function pageOn(e:ViewEvent):void {
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+		}
+		
+		protected function enterFrameLoop(event:Event):void
 		{
-			var decY:int = _decisions.y;
-			_decisions.destroy();
-			_mc.removeChild(_decisions);
-			
-			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			dv.push(_pageInfo.decisions[3]);
-			_decisions = new DecisionsView(dv);
-			_decisions.y = decY;
-			_mc.addChild(_decisions);
-			
-			TweenMax.from(_decisions, 1, {alpha:0, delay:0});
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				TweenMax.pauseAll();
+				_scrolling = true;
+				
+			} else {
+				
+				if (!_scrolling) return;
+				
+				TweenMax.resumeAll();
+				_scrolling = false;
+			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (event.data.id == "FacebookNotifyView") {
-				_decisions.deactivateButton(0);
-				_goViral = DataModel.getGoViral();
-				_goViral.postWallHelp();
-				return;
-			}
+			//for delayed calls
+			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}

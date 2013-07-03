@@ -210,7 +210,7 @@ package view.prologue
 		{
 			if (event.data.id == "FacebookNotifyView") {
 				_decisions.deactivateButton(0);
-				_goViral = DataModel.goViralService;
+				_goViral = DataModel.getGoViral();
 				_goViral.postWallHelp();
 				return;
 			}

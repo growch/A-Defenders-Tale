@@ -5,9 +5,6 @@ package view.prologue.coins
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
-	import flash.events.Event;
-	
-	import assets.CoinMC;
 	
 	import control.EventController;
 	
@@ -151,10 +148,10 @@ package view.prologue.coins
 		private function coinAnimation() : void {
 			_mc.addChild(_cup);
 			
-			_coin.y = -_cup.y - 170;
+			_coin.y = -_cup.y + 50;
+			
+			TweenMax.to(_coin, 1.2, {y:170, ease:Quad.easeIn, onComplete:function():void{_coin.visible = false;}});
 			_coin.visible = true;
-			TweenMax.to(_coin, 1.2, {y:170, ease:Quad.easeIn});
-			TweenMax.to(_coin, 0, {autoAlpha:0, delay:1.2});
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

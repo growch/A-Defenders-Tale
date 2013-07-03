@@ -1,11 +1,11 @@
-package view.prologue.coins
+package view.capitol
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
-	import flash.geom.Rectangle;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
@@ -25,30 +25,34 @@ package view.prologue.coins
 	import view.FrameView;
 	import view.IPageView;
 	
-	public class Coin1View extends MovieClip implements IPageView
+	public class ConfrontNeroView extends MovieClip implements IPageView
 	{
 		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _bodyParts:Vector.<StoryPart>; 
 		private var _nextY:int;
-		private var _tf:Text; 
-		private var _decisions:DecisionsView;		
-		private var _cup:MovieClip;
-		private var _coin:MovieClip;
+		private var _tf:Text;
+		private var _decisions:DecisionsView;
+		private var _picture:MovieClip;
 		private var _frame:FrameView;
+		private var _scrolling:Boolean;
+		private var _force:Number;
+		private var _n:Number;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		
-		public function Coin1View()
+		public function ConfrontNeroView()
 		{
-			_SAL = new SWFAssetLoader("prologue.CoinMC", this);
+			_SAL = new SWFAssetLoader("capitol.ConfrontNeroMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
-			
-			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
+
+			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
-		public function destroy():void
-		{
+		public function destroy() : void {
+//			!!!
+			_picture.removeEventListener(MouseEvent.CLICK, swingPic);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -57,8 +61,8 @@ package view.prologue.coins
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
@@ -71,47 +75,46 @@ package view.prologue.coins
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
+			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		public function init(e:ViewEvent) : void {
+		private function init(e:Event) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
-			_mc = _SAL.assetMC;
+			_mc = _SAL.assetMC;	
 			
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_cup = _mc.cup_mc;
-			_coin = _cup["coin_mc"];
-			_coin.visible = false;
+			_nextY = 140;
 			
-			_nextY = 110;
+			_picture = _mc.picture_mc;
 			
-			_pageInfo = DataModel.appData.getPageInfo("coin1");
+			_pageInfo = DataModel.appData.getPageInfo("confrontNero");
 			_bodyParts = _pageInfo.body;
 			
 			// set the text
-			for each (var part:StoryPart in _bodyParts)      
+			for each (var part:StoryPart in _bodyParts) 
 			{
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[wardrobe]", DataModel.defenderOptions.wardrobeShortArray[DataModel.defenderInfo.wardrobe]);
-					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
 					
 					// set the respective text
-					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading), part.width, true, true, true); 
+					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading, 0x14142a), part.width, true, true, true); 
 					_tf.x = part.left; 
-					_tf.y = _nextY + part.top;
+					_tf.y = Math.round(_nextY + part.top);
+					_mc.addChild(_tf);
 					
-					if (part.id == "coinImage") {
-						_cup.y = Math.round(_tf.y + (_tf.height-_cup["cup_mc"].height)/2) + 25;
+					if (part.id == "picture") {
+						_picture.y = Math.round(_tf.y + _tf.height) + 30;
+						_nextY += _picture.height + 20;
 					}
 					
-					_mc.addChild(_tf);
 					_nextY += Math.round(_tf.height + part.top);
-					
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
@@ -121,13 +124,15 @@ package view.prologue.coins
 			}
 			
 			// decision
-			_nextY += _pageInfo.decisionsMarginTop;
-			_decisions = new DecisionsView(_pageInfo.decisions);
+			_nextY += _pageInfo.decisionsMarginTop
+			_decisions = new DecisionsView(_pageInfo.decisions,0X040404,true); //tint it black, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
-			_frame = new FrameView(_mc.frame_mc);
+			_frame = new FrameView(_mc.frame_mc); 
 			var frameSize:int = _decisions.y + 210;
+			// size bg
+			_mc.bg_mc.height = frameSize;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
@@ -137,32 +142,55 @@ package view.prologue.coins
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
 			_dragVCont.addChild(_mc);
-			addChild(_dragVCont);
 			_dragVCont.refreshView(true);
+			addChild(_dragVCont);
+			
 		}
 		
-		private function pageOn(event:ViewEvent):void {
-			coinAnimation();
+		private function pageOn(e:ViewEvent):void {
+//			return;
+			_force = 20;
+			_n = 0;
+			_picture.addEventListener(MouseEvent.CLICK, swingPic);
+			
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function coinAnimation() : void {
-			_mc.addChild(_cup);
-			
-			_coin.y = -_cup.y + 50;
-			
-			TweenMax.to(_coin, 2, {y:170, ease:Quad.easeIn, onComplete:function():void{_coin.visible = false;}});
-			_coin.visible = true;
+		private function swing():void {
+			if (_force <= 0) {
+				_force = 0;
+				return;
+			}
+			_n += .1;
+			_picture.rotation += ((Math.cos(_n)*_force) - _picture.rotation) * .08;
+			_force -= .08;
+		}
+		
+		protected function swingPic(event:MouseEvent):void
+		{
+			_force = 20;
+//			_n = 0;
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				TweenMax.pauseAll();
+				_scrolling = true;
+			} else {
+				
+				swing();
+				
+				if (!_scrolling) return;
+				TweenMax.resumeAll();
+				_scrolling = false;
+			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			// coin/alms count
-			if (event.data.decisionNumber == 1) {
-				DataModel.coinCount++;
-			}
-			
+			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
-
 	}
 }

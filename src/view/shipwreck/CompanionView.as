@@ -129,8 +129,8 @@ package view.shipwreck
 			
 			var weaponIndex:int = DataModel.defenderInfo.weapon;
 			
-			_mc.weapon_mc.gotoAndStop(weaponIndex); // zero based
-			_mc.weapon_mc.glows_mc.gotoAndStop(weaponIndex); // zero based
+			_mc.weapon_mc.gotoAndStop(weaponIndex+1); // zero based
+			_mc.weapon_mc.glows_mc.gotoAndStop(weaponIndex+1); // zero based
 			_mc.weapon_mc.glows_mc.visible = false;
 			_mc.weapon_mc.shine_mc.visible = false;
 			
