@@ -1,9 +1,7 @@
 package view.shipwreck
 {
 	import com.coreyoneil.collision.CollisionList;
-	import com.greensock.TweenMax;
 	
-	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.AccelerometerEvent;
 	import flash.events.Event;

@@ -57,6 +57,13 @@ package view.capitol
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
+			
+			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
+		}
+		
+		protected function loggedInFacebook(event:ViewEvent):void
+		{
+			_goViral.postFinishedAppFacebook();
 		}
 		
 		public function destroy() : void {
@@ -71,6 +78,7 @@ package view.capitol
 			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -254,9 +262,8 @@ package view.capitol
 		protected function decisionMade(event:ViewEvent):void
 		{
 			if (event.data.id == "FacebookNotifyView") {
-				_decisions.deactivateButton(0);
 				_goViral = DataModel.getGoViral();
-				_goViral.postWallEnding("I finished A Defender's Tale! And I decided to live happily ever after with the previous Defender.");
+				_goViral.loginFacebook();
 				return;
 			}
 			TweenMax.killAll();

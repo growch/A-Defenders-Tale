@@ -153,7 +153,7 @@ package view
 			_bottom.y = _nextY;
 			
 //			trace("_mc.height: "+_mc.height);
-			makeBitmap(_mc.height);
+//			makeBitmap(_mc.height);
 			
 		}
 		

@@ -4,9 +4,6 @@ package view.prologue
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
-	import flash.events.Event;
-	
-	import assets.Cellar2MC;
 	
 	import control.EventController;
 	import control.GoViralService;
@@ -168,16 +165,18 @@ package view.prologue
 			}
 			
 			_frame = new FrameView(_mc.frame_mc);
-			var frameSize:int = _decisions.y + 210;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
+			
 			// HACK for 3 decisions
 			if(dv.length > 2) {
-				_frame.sizeFrame(_decisions.y + _magicSpacer - 60);
+				_frame.sizeFrame(_decisions.y + _magicSpacer);
 				_frame.extraDecisionAdjust(60);
 				_decisions.y += 20;
+			} else {
+				var frameSize:int = _decisions.y + 210;
+				_frame.sizeFrame(frameSize);
+				if (frameSize < DataModel.APP_HEIGHT) {
+					_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+				}
 			}
 			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
@@ -186,8 +185,6 @@ package view.prologue
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
-			
-			
 			
 		}
 		

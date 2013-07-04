@@ -5,9 +5,6 @@ package view.prologue.coins
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
-	import flash.events.Event;
-	
-	import assets.CoinMC;
 	
 	import control.EventController;
 	

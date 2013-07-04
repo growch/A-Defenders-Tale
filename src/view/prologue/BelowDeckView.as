@@ -2,14 +2,9 @@ package view.prologue
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
-	import com.greensock.events.LoaderEvent;
 	import com.greensock.loading.ImageLoader;
 	
-	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
-	import flash.events.Event;
-	
-	import assets.BelowDeckMC;
 	
 	import control.EventController;
 	

@@ -265,7 +265,6 @@
 				<string>351887674885054</string>
 				<key>UIDeviceFamily</key> 
 				<array> 
-				    <string>1</string> 
 				    <string>2</string> 
 				</array>
 				<key>CFBundleURLTypes</key>

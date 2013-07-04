@@ -10,8 +10,6 @@ package view.prologue
 	import flash.utils.Timer;
 	import flash.utils.setTimeout;
 	
-	import assets.NegotiateMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;

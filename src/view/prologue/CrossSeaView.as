@@ -8,8 +8,6 @@ package view.prologue
 	import flash.events.Event;
 	import flash.utils.setTimeout;
 	
-	import assets.CrossSeaMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;

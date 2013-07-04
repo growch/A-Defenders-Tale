@@ -7,8 +7,6 @@ package view.prologue
 	import flash.events.Event;
 	import flash.geom.ColorTransform;
 	
-	import assets.BoatMC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;

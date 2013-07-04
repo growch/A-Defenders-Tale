@@ -6,10 +6,7 @@ package view.prologue
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.geom.ColorTransform;
 	import flash.utils.setTimeout;
-	
-	import assets.IntroAllIslandsMC;
 	
 	import control.EventController;
 	

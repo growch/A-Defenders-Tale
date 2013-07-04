@@ -44,10 +44,19 @@ package view.prologue
 		{
 			_SAL = new SWFAssetLoader("prologue.Cellar1MC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
+			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
+			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
+		}
+		
+		protected function loggedInFacebook(event:ViewEvent):void
+		{
+//			_goViral.postWallHelp();
+			_goViral.postHelpFacebook();
 		}
 		
 		public function destroy() : void {
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
+			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
 
 			_pageInfo = null;
 			
@@ -58,6 +67,7 @@ package view.prologue
 			_mc.removeChild(_decisions);
 			_decisions = null;
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -76,7 +86,6 @@ package view.prologue
 			_mc = _SAL.assetMC;
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			
 			_mc.companion_mc.gotoAndStop(DataModel.defenderInfo.companion+1);
 			_mc.end_mc.visible = false;
@@ -138,7 +147,6 @@ package view.prologue
 			_nextY += _pageInfo.decisionsMarginTop
 				
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			
 			if (DataModel.defenderInfo.contactFBID != null) {
 				dv.push(_pageInfo.decisions[0]);
 				dv.push(_pageInfo.decisions[1]);
@@ -159,16 +167,18 @@ package view.prologue
 			}
 			
 			_frame = new FrameView(_mc.frame_mc);
-			var frameSize:int = _decisions.y + 210;
-			_frame.sizeFrame(frameSize);
-			if (frameSize < DataModel.APP_HEIGHT) {
-				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
-			}
+			
 			// HACK for 3 decisions
 			if(dv.length > 2) {
-				_frame.sizeFrame(_decisions.y + _magicSpacer - 60);
+				_frame.sizeFrame(_decisions.y + _magicSpacer);
 				_frame.extraDecisionAdjust(60);
 				_decisions.y += 20;
+			} else {
+				var frameSize:int = _decisions.y + 210;
+				_frame.sizeFrame(frameSize);
+				if (frameSize < DataModel.APP_HEIGHT) {
+					_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
+				}
 			}
 			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
@@ -199,7 +209,7 @@ package view.prologue
 			if (event.data.id == "FacebookNotifyView") {
 				_decisions.deactivateButton(0);
 				_goViral = DataModel.getGoViral();
-				_goViral.postWallHelp();
+				_goViral.loginFacebook();
 				return;
 			}
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
