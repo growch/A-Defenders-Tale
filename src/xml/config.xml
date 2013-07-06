@@ -4725,6 +4725,71 @@ Maysel adjusted his wizard’s hat in concentration. “If you can find it, it�
 		</decisions>	
 	</hut>
 <!-- ***			HUT 			-->
+
+<!-- 			SANDSTONE WIN			-->
+	<sandstoneWin id="SandstoneWinView">
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[Maysel congratulated [defender] on [pronoun3] successful tracking skills. “That stone has been missing for months,” he said. “When you’re done with this Defending business, I’d be happy to hire you on as my personal assistant. It’s always good to have someone who can find things on staff.” 
+
+“Thank you,” [defender] said. “I’ll give that some thought.”
+
+Maysel nodded. “Now as for the properties of the stone. It will give you the power of sand. Add it to your [weapon], and you’ll have the strength to topple buildings, walls, you name it.”]]> 				
+			</item>
+			<item type="text" id="weapon" width="300" height="" top="32" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[“A very handy stone,” [defender] said. [Pronoun1] eyed its sand-colored exterior with thought before pressing it into [pronoun3] [weapon].
+
+“Indeed it is,” Maysel replied. “Handy enough that you might want to put it away until you leave my island, hmm?”
+
+[defender] laughed as [pronoun1] stowed [pronoun3] weapon. [Pronoun1] thanked Maysel again before turning to go.]]>
+			</item>
+			<item type="text" id="" width="575" height="" top="32" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[“A word of advice,” the wizard called after [pronoun3]. “If you do find Nero, remember one thing. “No single person could contain all of that power.]]>
+			</item>
+			<item type="image" id="" width="" height="129" top="40" left="" size="" align="" leading="" file="app:/assets/images/sandlands/sandstoneWin_imageText1.png"/>
+			<item type="text" id="" width="575" height="" top="50" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[“I’ll take it under advisement,” [defender] replied, and waved goodbye as [pronoun1] and [companionName] headed back to the ship.]]>
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="sandlands.ShipView"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</sandstoneWin>
+<!-- ***			SANDSTONE WIN 			-->
+
+<!-- 			SHIP			-->
+	<ship id="ShipView">
+		<islands1>
+			<island id="notAllIslands"><![CDATA[“Then let us consult the map,” Cleapeezious said, unrolling the parchment and handing the map of the islands to [defender]. “Where shall we go next?”]]></island>
+			<island id="allIslands"><![CDATA[“Are you ready for the battle, then?” Cleapeezious asked.
+
+“As ready as I shall be,” [defender] said. “I have all four stones assembled. The only thing left to do is cast off toward the Capitol.”
+
+“We shall be there with the rising sun,” the captain promised.]]></island>
+		</islands1>
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[After a quick jaunt back down from the beach, [defender] and [companionName] pulled their dinghy into the waves, and rowed back to the Stormin’ Norman. The sun was just beginning to set over the sea, and from far overhead, [defender] could just make out the silhouette of two ravens. They cawed down, but if they had anything to say, it was lost in the surf.
+
+When they reached the boat, the crew helped them back aboard with a roar of excitement. 
+
+“Hip hip, hooray,” Captain Cleapeezious said.
+
+“Hip hip, hooray,” the crew answered.
+
+“Well done, Defender,” the captain said a little later, after the cheers had dissipated. “The realm chose its Defender wisely.”
+
+[defender] held [pronoun3] [weapon] up, and they examined the sandstone in the fading light. “With this,” [defender] said, I shall have the power to turn Nero’s castle walls to dust.” 
+
+[islands1]]]> 				
+			</item>
+		</body>
+		<decisions top="110">
+			<decision id="MapView"><![CDATA[CONSULT MAP]]></decision>
+			<decision id="capitol.CapitolView"><![CDATA[CONTINUE]]></decision>
+		</decisions>	
+	</ship>
+<!-- ***			SHIP 			-->
 	
 
 <!-- 			CAPITOL			-->
