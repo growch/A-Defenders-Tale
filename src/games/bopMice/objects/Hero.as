@@ -17,7 +17,6 @@ package games.bopMice.objects
 			_player = mc;
 			hitMC = _player.getChildByName("hit_mc") as MovieClip;
 			
-			trace("HERO HITTTT! hitMC: " + hitMC);
 		}
 		
 		public function update():void

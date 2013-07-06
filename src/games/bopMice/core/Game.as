@@ -35,7 +35,8 @@ package games.bopMice.core
 	{
 		
 		public static const FPS:int = DataModel.BOP_MICE_FPS; 
-		public static const DURATION:int = 60; // in seconds
+//		public static const DURATION:int = 60; // in seconds
+		public var DURATION:int = 60; // in seconds
 		public static const MINIMUM_SCORE:int = 30;	
 		
 		public var userScore:int;
@@ -51,8 +52,8 @@ package games.bopMice.core
 		private var _clouds:Clouds;
 		public var explosionManager:ExplosionManager;
 		private var _bgMusic:Track;
-		private var _startGame:MovieClip;
-		private var _tryAgain:MovieClip;
+		private var _startGame:StartGame;
+		private var _tryAgain:RetryGame;
 		private var _gameWon:GameWon;
 		private var _SAL:SWFAssetLoader;
 		private var _mallet:MalletMC;
@@ -79,13 +80,14 @@ package games.bopMice.core
 			_gameWon = new GameWon(this, _mc.gameWon_mc);
 			_mc.gameWon_mc.visible = false;
 			
-			_countdownClock = new CountdownClock(_mc.countdown_mc);
+			_countdownClock = new CountdownClock(_mc.countdown_mc, this);
 			
 			_clouds = new Clouds(_mc.clouds_mc);
 			
 			score = new Score(_mc.counter_mc);
 			
-			_timer = Game.DURATION;
+//			_timer = Game.DURATION;
+			_timer = DURATION;
 			
 			_gameTimer = new Timer(1000);
 			_gameTimer.addEventListener(TimerEvent.TIMER, timerTick);
@@ -202,12 +204,17 @@ package games.bopMice.core
 			//TODO!!!!!! clean everything UP!!!!!!!!
 			removeEventListener(Event.ENTER_FRAME, update);
 			
+			_gameWon.destroy();
+			_tryAgain.destroy();
+			
 			explosionManager.destroy();
 			collisionManager.destroy();
 			enemyManager.destroy();
 			
 			_bgMusic.stop(true);
 			_bgMusic = null;
+			
+			_gameTimer = null;
 			
 			DataModel.getInstance().removeAllChildren(_mc);
 			
@@ -224,7 +231,8 @@ package games.bopMice.core
 			
 			score.resetScore();
 			
-			_timer = Game.DURATION;
+//			_timer = Game.DURATION;
+			_timer = DURATION;
 				
 			_gameTimer.reset();
 			_gameTimer.start();
