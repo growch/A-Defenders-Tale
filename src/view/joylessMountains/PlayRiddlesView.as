@@ -39,9 +39,16 @@ package view.joylessMountains
 		private var _couldText:TextField;
 		private var _couldntText:TextField;
 		private var _submitBtn:MovieClip;
-		private var _dv:Vector.<DecisionInfo>;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _start:MovieClip;
+		private var _retry:MovieClip;
+		private var _gameLost:MovieClip;
+		private var _gameWon:MovieClip;
+		private var _hints:MovieClip;
+		private var _hintBtn:MovieClip;
+		private var _hintCount:int = 1;
+		private var _retryCount:int = 0;
 		
 		public function PlayRiddlesView()
 		{
@@ -52,6 +59,12 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+			_hintBtn.removeEventListener(MouseEvent.CLICK, hintClick);
+			_retry.cta_btn.removeEventListener(MouseEvent.CLICK, retryClick);
+			_gameLost.map_btn.removeEventListener(MouseEvent.CLICK, lostClick);
+			_gameLost.restart_btn.removeEventListener(MouseEvent.CLICK, lostClick);
+			_gameWon.cta_btn.removeEventListener(MouseEvent.CLICK, wonClick);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -90,6 +103,29 @@ package view.joylessMountains
 			_couldntText = _mc.couldnt_txt;
 			
 			_submitBtn = _mc.submit_btn;
+			
+			_start = _mc.startGame_mc;
+			_start.cta_btn.addEventListener(MouseEvent.CLICK, startClick);
+			
+			_retry = _mc.tryAgain_mc;
+			_retry.stop();
+			_retry.visible = false;
+			_retry.cta_btn.addEventListener(MouseEvent.CLICK, retryClick);
+			
+			_gameLost = _mc.gameLost_mc;
+//			_gameLost.visible = false;
+			_gameLost.map_btn.addEventListener(MouseEvent.CLICK, lostClick);
+			_gameLost.restart_btn.addEventListener(MouseEvent.CLICK, lostClick);
+			
+			_gameWon = _mc.gameWon_mc;
+			_gameWon.visible = false;
+			_gameWon.cta_btn.addEventListener(MouseEvent.CLICK, wonClick);
+			
+			_hintBtn = _mc.hint_btn;
+			_hintBtn.addEventListener(MouseEvent.CLICK, hintClick); 
+			
+			_hints = _mc.hints_mc;
+			_hints.stop();
 			
 			_pageInfo = DataModel.appData.getPageInfo("playRiddles");
 			_bodyParts = _pageInfo.body;
@@ -144,12 +180,37 @@ package view.joylessMountains
 			addChild(_dragVCont);
 			
 			_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
-			_dv = new Vector.<DecisionInfo>();
+		}
+		
+		protected function hintClick(event:MouseEvent):void
+		{
+			_hintCount++;
+			if (_hintCount > _hints.totalFrames) {
+				_hintBtn.visible = false;
+				return;
+			}
+			TweenMax.to(_hints, .5, {alpha:0, onComplete:
+				function():void{
+					_hints.gotoAndStop(_hintCount);
+					TweenMax.to(_hints, .5, {alpha:1});
+				}
+			});
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+		}
+		
+		private function startClick(e:MouseEvent):void {
+			_start.cta_btn.removeEventListener(MouseEvent.CLICK, startClick);
+			_start.visible = false;
+		}
+		private function retryClick(e:MouseEvent):void {
+			_couldText.text = "";
+			_couldntText.text = "";
+			_retryCount++;
+			_retry.visible = false;
 		}
 		
 		protected function submitClick(event:MouseEvent):void
@@ -181,28 +242,17 @@ package view.joylessMountains
 				}
 			}
 			
+			
 			if (couldGood && couldntGood) {
-				trace("you win");
-				_dv.push(_pageInfo.decisions[0]);
-				addDecision();
-			} else if (DataModel.impatience3) {
-				trace("impatience 3 NO GOOD");
-				_dv.push(_pageInfo.decisions[1]);
-				_dv.push(_pageInfo.decisions[2]);
-				addDecision();
+				_gameWon.visible = true;
+			} else if (_retryCount < 3) {
+				_retry.gotoAndStop(_retryCount+1);
+				_retry.visible = true;
 			} else {
-				trace("nope");
+				_gameLost.visible = true;
 			}
 //			trace("couldGood : "+couldGood);
 //			trace("couldntGood : "+couldntGood);
-		}
-		
-		private function addDecision():void {
-			_decisions = new DecisionsView(_dv,0xFFFFFF,true);
-			
-			_nextY += _pageInfo.decisionsMarginTop;
-			_decisions.y = _nextY;
-			_mc.addChild(_decisions);
 		}
 		
 		protected function enterFrameLoop(event:Event):void
@@ -217,6 +267,27 @@ package view.joylessMountains
 				TweenMax.resumeAll();
 				_scrolling = false;
 			}
+		}
+		
+		private function wonClick(e:MouseEvent):void {
+			var tempObj:Object = new Object();
+			tempObj.id = "joylessMountains.StoneView";
+			decisionClicked(tempObj);
+		}
+		
+		private function lostClick(e:MouseEvent):void {
+			var tempObj:Object = new Object();
+			if (e.target.name == "map_btn") {
+				tempObj.id = "MapView";
+			} else {
+				tempObj.id = "ApplicationView";
+			}
+			
+			decisionClicked(tempObj);
+		}
+		
+		private function decisionClicked(thisPageObj:Object):void {
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

@@ -3413,7 +3413,7 @@ As the song crescendoed into its final reprise, Snowmonch’s eyes welled with g
 <!-- 			PLAY RIDDLES			-->
 	<playRiddles id="PlayRiddlesView">
 		<body>
-			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+<!-- 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[“Listen carefully,” Snowmonch said, “for I’ll only tell you once. This is one of my favorite riddles. It’s called]]> 				
 			</item>
 			<item type="image" id="" width="" height="62" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/playRiddles_imageText1.png"/>
@@ -3427,7 +3427,7 @@ When she had gotten herself under control, she continued. “It could be an appl
 “Now it’s your turn,” Snowmonch said.” “Tell me what it could be, and what it couldn’t, and the stone is yours.”
 
 ]]> 				
-			</item>
+			</item> -->
 		</body>
 		<decisions top="100">
 			<decision id="joylessMountains.StoneView"><![CDATA[CONTINUE]]></decision>

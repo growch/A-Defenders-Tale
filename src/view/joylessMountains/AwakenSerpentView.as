@@ -69,7 +69,7 @@ package view.joylessMountains
 			
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
 			
-			if (!DataModel.ipad1) {
+//			if (!DataModel.ipad1) {
 				_smokeTimer.stop();
 				_smokeTimer = null;
 				
@@ -81,7 +81,7 @@ package view.joylessMountains
 				_renderer = null;
 				_smoke1 = null;
 				_smoke2 = null;
-			}
+//			}
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -97,18 +97,6 @@ package view.joylessMountains
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			//for delayed calls
 			TweenMax.killAll();
-			
-			_smokeTimer.stop();
-			_smokeTimer = null;
-			
-			_smoke1.stop();
-			_smoke2.stop();
-			_renderer.removeEmitter( _smoke1 );
-			_renderer.removeEmitter( _smoke2 );
-			_mc.snowmonch_mc.removeChild( _renderer );
-			_renderer = null;
-			_smoke1 = null;
-			_smoke2 = null;
 		}
 		
 		private function init(e:ViewEvent) : void {
