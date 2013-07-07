@@ -113,7 +113,7 @@ package view.joylessMountains
 			_retry.cta_btn.addEventListener(MouseEvent.CLICK, retryClick);
 			
 			_gameLost = _mc.gameLost_mc;
-//			_gameLost.visible = false;
+			_gameLost.visible = false;
 			_gameLost.map_btn.addEventListener(MouseEvent.CLICK, lostClick);
 			_gameLost.restart_btn.addEventListener(MouseEvent.CLICK, lostClick);
 			
@@ -241,7 +241,6 @@ package view.joylessMountains
 					couldntGood = true;
 				}
 			}
-			
 			
 			if (couldGood && couldntGood) {
 				_gameWon.visible = true;
