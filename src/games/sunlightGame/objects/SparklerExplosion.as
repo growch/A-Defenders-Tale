@@ -8,17 +8,17 @@ import org.flintparticles.common.events.EmitterEvent;
 import org.flintparticles.twoD.emitters.Emitter2D;
 import org.flintparticles.twoD.renderers.BitmapRenderer;
 
-	public class StarExplosion extends Sprite
+	public class SparklerExplosion extends Sprite
 	{
 			private var emitter:Emitter2D; 
 			private var renderer:BitmapRenderer; 
 	
-			public function StarExplosion() : void
+			public function SparklerExplosion() : void
 			{
 				renderer = new BitmapRenderer( new Rectangle( 0, 0, 768, 1024) );
 				addChild( renderer );
 				
-				emitter = new Star2D( renderer );
+				emitter = new Sparkler( renderer );
 				renderer.addEmitter( emitter );
 				
 				emitter.addEventListener( EmitterEvent.EMITTER_EMPTY, cleanUp ); 

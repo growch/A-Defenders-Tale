@@ -1,17 +1,17 @@
 package games.sunlightGame.managers
 {
 	import games.sunlightGame.core.Game;
-	import games.sunlightGame.objects.StarExplosion;
+	import games.sunlightGame.objects.SparklerExplosion;
 	
 	public class ExplosionManager
 	{
 		private var _game:Game;
-		public var explosion:StarExplosion;
+		public var explosion:SparklerExplosion;
 		
 		public function ExplosionManager(game:Game)
 		{
 			_game = game;
-			explosion = new StarExplosion();
+			explosion = new SparklerExplosion();
 			_game.addChild(explosion);
 		}
 		

@@ -82,10 +82,10 @@ package games.sunlightGame.managers
 					_hit = _enem.hitMC;
 					
 					if (b.hitTestObject(_hit)) {
-//						_game.explosionManager.spawn(_enem.x, _enem.y);
+						_game.explosionManager.spawn(_enem.x, _enem.y);
 						_game.enemyManager.destroyEnemy(_enem);
 						_game.bulletManager.destroyBullet(b);
-						_hitSound.start();
+//						_hitSound.start();
 					}
 //					a = aa[j];
 //					p1.x = b.x;
