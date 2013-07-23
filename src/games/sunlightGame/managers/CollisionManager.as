@@ -28,10 +28,14 @@ package games.sunlightGame.managers
 		public function update():void
 		{
 			// alternates so both not happening every single frame
-			if(count & 1)
-				bulletsAndAliens();
-			else
+			if(count & 1) {
+				bulletsAndEnemies();
+				bulletsAndBlocks();	
+			}		
+			else {
 				heroAndEnemies();
+			}
+				
 			count++;
 		}
 		
@@ -55,7 +59,6 @@ package games.sunlightGame.managers
 //				if(_game.hero.hit1MC.hitTestObject(_hit) || _game.hero.hit2MC.hitTestObject(_hit))
 				if(_game.hero.hit1MC.hitTestObject(_hit))
 				{
-					trace(_enem.hitArea.name);
 //					_enem.hitEnemy();
 //					_game.explosionManager.spawn(_game.stage.mouseX, _game.stage.mouseY);
 //					_hitSound.start();
@@ -65,7 +68,31 @@ package games.sunlightGame.managers
 			}
 		}
 		
-		private function bulletsAndAliens():void
+		private function enemiesAndBlocks():void
+		{
+			_ea = _game.enemyManager.enemies;
+			var bla:Array = _game.blockArray;
+			//			var enem:Enemy;
+			var block:MovieClip;
+			
+			for(var i:int=_ea.length-1; i>=0; i--)
+			{
+				_enem = _ea[i];
+				_hit = _enem.hitMC;
+				
+				for(var j:int=bla.length-1; j>=0; j--)
+				{
+					block = bla[j];
+					
+					if (_hit.hitTestObject(block)) {
+//						_game.bulletManager.destroyBullet(b);
+					}
+				}
+
+			}
+		}
+		
+		private function bulletsAndEnemies():void
 		{
 			var ba:Array = _game.bulletManager.bullets;
 			var ea:Array = _game.enemyManager.enemies;
@@ -87,19 +114,28 @@ package games.sunlightGame.managers
 						_game.bulletManager.destroyBullet(b);
 //						_hitSound.start();
 					}
-//					a = aa[j];
-//					p1.x = b.x;
-//					p1.y = b.y;
-//					p2.x = a.x;
-//					p2.y = a.y;
-//					if(Point.distance(p1, p2) < a.pivotY + b.pivotY)
-//					{
-//						Assets.explosion.play();
-//						play.explosionManager.spawn(a.x, a.y);
-//						play.alienManager.destroyAlien(a);
-//						play.bulletManager.destroyBullet(b);
-//						play.score.addScore(200);
-//					}
+				}
+			}
+		}
+		
+		private function bulletsAndBlocks():void
+		{
+			var ba:Array = _game.bulletManager.bullets;
+			var bla:Array = _game.blockArray;
+			
+			var b:Bullet;
+			var block:MovieClip;
+			
+			for(var i:int=ba.length-1; i>=0; i--)
+			{
+				b = ba[i];
+				for(var j:int=bla.length-1; j>=0; j--)
+				{
+					block = bla[j];
+					
+					if (b.hitTestObject(block)) {
+						_game.bulletManager.destroyBullet(b);
+					}
 				}
 			}
 		}

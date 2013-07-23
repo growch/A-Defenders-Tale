@@ -11,6 +11,7 @@ package games.sunlightGame.objects
 	import org.flintparticles.common.initializers.SharedImage;
 	import org.flintparticles.twoD.actions.Move;
 	import org.flintparticles.twoD.actions.RotateToDirection;
+	import org.flintparticles.twoD.actions.ScaleAll;
 	import org.flintparticles.twoD.emitters.Emitter2D;
 	import org.flintparticles.twoD.initializers.Velocity;
 	import org.flintparticles.twoD.zones.DiscZone;
@@ -29,6 +30,7 @@ package games.sunlightGame.objects
 			addAction( new Age() );
 			addAction( new Move() );
 			addAction( new RotateToDirection() );
+			addAction( new ScaleAll(1, 2) );
 			
 		}
 	}

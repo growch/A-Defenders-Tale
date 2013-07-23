@@ -17,12 +17,17 @@ package games.sunlightGame.managers
 		private var pool:StarlingPool;
 		public var count:int = 0;
 		private var _bottom:Number = DataModel.APP_HEIGHT;
+		private var _spawnX:Number;
+		private var _spawnY:Number;
 		
 		public function EnemyManager(game:Game)
 		{
 			this.game = game;
 			enemies = new Array();
 			pool = new StarlingPool(Enemy, 50);
+			
+			_spawnX = game.nero.neroMC.x + Math.round(game.nero.neroMC.width/2) - 20;
+			_spawnY = game.nero.neroMC.y + Math.round(game.nero.neroMC.height/2) + 30;
 		}
 		
 		public function update():void
@@ -36,7 +41,8 @@ package games.sunlightGame.managers
 			for(var i:int=len-1; i>=0; i--)
 			{
 				e = enemies[i];
-				e.y += 8;
+//				e.y += 8;
+				e.update();
 				if(e.y > _bottom)
 					destroyEnemy(e);
 			}
@@ -46,13 +52,15 @@ package games.sunlightGame.managers
 		{
 			var e:Enemy = pool.getSprite() as Enemy;
 			enemies.push(e);
-			e.y = -50;
-			e.x = Math.random() * 700 + 50;
+			e.x = _spawnX;
+			e.y = _spawnY;
+//			trace(game.nero.getNeroMC());
 			game.enemyHolder.addChild(e);
 		}
 		
 		public function destroyEnemy(e:Enemy):void
 		{
+			
 			var len:int = enemies.length;
 			
 			for(var i:int=0; i<len; i++)

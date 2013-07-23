@@ -1,6 +1,7 @@
 package games.sunlightGame.objects
 {
 	import flash.display.MovieClip;
+	
 	import games.sunlightGame.core.Game;
 	
 	public class Nero extends MovieClip
@@ -14,7 +15,12 @@ package games.sunlightGame.objects
 			_game = game; 
 			_mc = mc;
 			_head = _mc.head_mc;
-			_head.stop()
+			_head.stop();
+			
+		}
+		
+		public function get neroMC():MovieClip {
+			return _mc;
 		}
 		
 		public function update():void

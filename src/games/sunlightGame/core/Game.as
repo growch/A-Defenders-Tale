@@ -60,10 +60,11 @@ package games.sunlightGame.core
 		private var _gameWon:GameWon;
 		private var _SAL:SWFAssetLoader;
 //		private var _mallet:MalletMC;
-		private var nero:Nero;
+		public var nero:Nero;
 		public var bulletManager:BulletManager;
 		public var bulletHolder:MovieClip;
 		public var enemyHolder:MovieClip;
+		public var blockArray:Array;
 		
 		public function Game()
 		{
@@ -100,6 +101,14 @@ package games.sunlightGame.core
 			
 			hero = new Hero(this, _mc.cannon_mc);
 			nero = new Nero(this, _mc.nero_mc);
+			
+			blockArray = new Array();
+			for (var i:int = 0; i < _mc.blocks_mc.numChildren; i++) 
+			{
+				var thisBlock:MovieClip = _mc.blocks_mc.getChildAt(i);
+				blockArray.push(thisBlock);
+			}
+			
 			
 			addChild(_mc);
 			

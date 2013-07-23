@@ -60,6 +60,7 @@ package games.sunlightGame.managers
 					bullets.splice(i, 1);
 //					b.removeFromParent(true);
 					game.bulletHolder.removeChild(b);
+//					b.explode();
 					pool.returnSprite(b);
 				}
 			}
