@@ -19,6 +19,7 @@ package view
 		private var _sandlandsBtn:MovieClip;
 		private var _joylessBtn:MovieClip;
 		private var _shipwreckBtn:MovieClip;
+		private var _capitolBtn:MovieClip;
 		private var _SAL:SWFAssetLoader;
 		
 		public function MapView()
@@ -32,6 +33,7 @@ package view
 			_sandlandsBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_joylessBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_shipwreckBtn.removeEventListener(MouseEvent.CLICK, islandClick);
+			_capitolBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			//!IMPORTANT
@@ -63,6 +65,10 @@ package view
 			_shipwreckBtn.mouseChildren = false;
 			_shipwreckBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			
+			_capitolBtn = _mc.capitol_btn;
+			_capitolBtn.mouseChildren = false;
+			_capitolBtn.addEventListener(MouseEvent.CLICK, islandClick);
+			
 			addChild(_mc);
 			
 		}
@@ -74,6 +80,13 @@ package view
 			
 			switch(thisButton)
 			{
+				case "capitol_btn":
+				{
+					DataModel.CURRENT_ISLAND_INT = 4;
+					tempObj.id = "capitol.CapitolView";
+					break;
+				}
+					
 				case "cattery_btn":
 				{
 					DataModel.CURRENT_ISLAND_INT = 0;

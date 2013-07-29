@@ -479,7 +479,7 @@ A smile stretched over the captain’s face. “Springtime and walks in the park
 
 [defender] felt a smile ghosting over [pronoun3] face in response. The first smile, [pronoun1] realized, in months. As the captain’s laughter died down again, [defender] held out [pronoun3] hand. “Please call me [defender],” [pronoun1] said. “I’d like to book passage to the Barrier Isles.”
 
-The captain reached out and, pumping [defender]’s hand up and down. “[defeeeeender],” she said, drawing the word out like a song. “A nice name. Strong. A Defender’s name.” She took a step back, her eyes sweeping over [defender]’s faded [wardrobeShort] and unwashed, [hair] hair. Her gaze paused at [defender]’s battered travel pack. “But the crossing to the Barrier Isles is not one I make lightly. What leads you there?”
+The captain reached out and, pumping [defender]’s hand up and down. “[defender],” she said, drawing the word out like a song. “A nice name. Strong. A Defender’s name.” She took a step back, her eyes sweeping over [defender]’s faded [wardrobeShort] and unwashed, [hair] hair. Her gaze paused at [defender]’s battered travel pack. “But the crossing to the Barrier Isles is not one I make lightly. What leads you there?”
 
 [defender] hoped [pronoun1] had made the right decision by trusting the captain. “I must speak to the leaders of the Barrier Isles,” [pronoun1] explained. “With their aid, I hope to stop Prince Nero.”
 
@@ -1347,6 +1347,7 @@ The [companion2]
 			<decision id="joylessMountains.JoylessMountainsIntroView"><![CDATA[FIND CAPTAIN]]></decision>
 			<decision id="shipwreck.ShipwreckCoveView"><![CDATA[FIND CAPTAIN]]></decision>
 			<decision id="sandlands.SandlandsView"><![CDATA[FIND CAPTAIN]]></decision>
+			<decision id="capitol.CapitolView"><![CDATA[FIND CAPTAIN]]></decision>
 		</decisions>	
 	</introAllIslands>
 <!-- ***			INTRO ALL ISLANDS 			-->
@@ -2870,7 +2871,7 @@ Pappathon nodded in excitement. “I’m sure you’ve heard of us,” he contin
 
 [companion1]
 
-“Say,” Pappathon continued, his eyes ping ponging between [defender] and [companionName]. “You’re not—” he paused excitedly. “But you ARE! You’re wearing the [wardrobe] and you’re with the [companionOption]. Why, you’re the Defender of the Realm!”
+“Say,” Pappathon continued, his eyes ping ponging between [defender] and [companionName]. “You’re not—” he paused excitedly. “But you ARE! You’re wearing the [wardrobeShort] and you’re with the [companion]. Why, you’re the Defender of the Realm!”
 
 “Well, yes,” [defender] replied, suddenly uncomfortable with the monkey’s enthusiasm. “I am.” 
 
@@ -3949,7 +3950,7 @@ The commodore nodded in agreement. “Beautiful from a distance,” he said. “
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="shipwreck.Starfish2View"><![CDATA[CONTINUE]]></decision>
+			<decision id="shipwreck.JellyfishGameView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</starfish2>
 <!-- ***			STARFISH2 			-->
@@ -4920,7 +4921,7 @@ Before the Smashley could strike again, [weapon1]]]>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
 			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
-			<decision id="capitol.TheCastleView"><![CDATA[ENTER GATE]]></decision>
+			<decision id="capitol.CastleView"><![CDATA[ENTER GATE]]></decision>
 		</decisions>	
 	</fightSmashley>
 <!-- ***			FIGHT SMASHLEY 			-->
@@ -5095,7 +5096,7 @@ But it wasn’t enough. More and more light creatures swarmed toward [pronoun2].
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="capitol.GameView"><![CDATA[CONTINUE]]></decision>
+			<decision id="capitol.SunlightGameView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</confrontNero>
 <!-- ***			CONFRONT NERO 			-->

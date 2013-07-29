@@ -50,6 +50,12 @@ package view.shipwreck
 		private var _counter:int;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bird1:MovieClip;
+		private var _bird2:MovieClip;
+		private var _bird3:MovieClip;
+		private var _bird4:MovieClip;
+		private var _bird5:MovieClip;
+		private var _bird6:MovieClip;
 		
 		public function ShipwreckCoveView()
 		{
@@ -117,6 +123,15 @@ package view.shipwreck
 			_wave2.visible = false;
 			_wave3.visible = false;
 			_wave4.visible = false;
+			
+			_bird1 = _mc.bird1_mc;
+			_bird2 = _mc.bird2_mc;
+			_bird3 = _mc.bird3_mc;
+			_bird4 = _mc.bird4_mc;
+			_bird5 = _mc.bird5_mc;
+			_bird6 = _mc.bird6_mc;
+			
+			birdsOff();
 			
 			_wreckShip = _mc.wreckage_mc.ship_mc;
 			_wreckMast = _mc.wreckage_mc.mast_mc;
@@ -221,6 +236,12 @@ package view.shipwreck
 			setTimeout(waveUp, 2000, _wave3); 
 			setTimeout(waveUp, 2500, _wave4); 
 			
+			setTimeout(birdOn, 200, _bird1);
+			setTimeout(birdOn, 400, _bird2);
+			setTimeout(birdOn, 600, _bird3);
+			setTimeout(birdOn, 800, _bird4);
+			setTimeout(birdOn, 1000, _bird5);
+			setTimeout(birdOn, 1200, _bird6);
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
@@ -235,10 +256,32 @@ package view.shipwreck
 			thisMC.angle += _speed;
 		}
 		
+		private function birdOn(thisBird:MovieClip):void {
+			thisBird.play();
+		}
+		
+		private function birdsOn():void {
+			_bird1.play();
+			_bird2.play();
+			_bird3.play();
+			_bird4.play();
+			_bird5.play();
+			_bird6.play();
+		}
+		private function birdsOff():void {
+			_bird1.stop();
+			_bird2.stop();
+			_bird3.stop();
+			_bird4.stop();
+			_bird5.stop();
+			_bird6.stop();
+		}
+		
 		protected function enterFrameLoop(event:Event):void
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
+				birdsOff();
 				_scrolling = true;
 			} else {
 				
@@ -262,6 +305,7 @@ package view.shipwreck
 				
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
+				birdsOn();
 				_scrolling = false;
 			}
 		}

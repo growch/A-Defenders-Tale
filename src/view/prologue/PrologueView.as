@@ -215,7 +215,7 @@ package view.prologue
 			
 			// load sound
 			_bgSound = new Track("assets/audio/prologue/prologue.mp3");
-			_bgSound.start(true);
+//			_bgSound.start(true);
 			_bgSound.loop = true;
 		}
 		

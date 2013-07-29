@@ -86,8 +86,6 @@ package view.joylessMountains
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
-			_noteTimer.stop();
-			_noteTimer = null;
 		}
 		
 		private function init(e:ViewEvent) : void {

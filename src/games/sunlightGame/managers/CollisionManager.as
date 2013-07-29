@@ -61,7 +61,7 @@ package games.sunlightGame.managers
 				{
 //					_enem.hitEnemy();
 //					_game.explosionManager.spawn(_game.stage.mouseX, _game.stage.mouseY);
-//					_hitSound.start();
+					_hitSound.start();
 					_game.gameOver();
 					return;
 				}
