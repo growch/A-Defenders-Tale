@@ -18,19 +18,27 @@ package util
 		
 		public function SWFAssetLoader(thisSWF:String, thisContainer:MovieClip)
 		{
-			_loader = new SWFLoader("app:/assets/swfs/"+thisSWF+".swf?cacheBuster="+Math.random(), {container:thisContainer, context:DataModel.LoadContext, onInit:initLoadedSWF});
+//			_loader = new SWFLoader("app:/assets/swfs/"+thisSWF+".swf?cacheBuster="+Math.random(), {container:thisContainer, context:DataModel.LoadContext, onInit:initLoadedSWF});
+			_loader = new SWFLoader("app:/assets/swfs/"+thisSWF+".swf", {container:thisContainer, noCache:true, context:DataModel.LoadContext, onInit:initLoadedSWF});
 			_loader.load();
 		}
 		
 		private  function initLoadedSWF(event:LoaderEvent):void { 
 			assetMC = _loader.getSWFChild("mc_mc") as MovieClip;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ASSET_LOADED));
+//			_loader.addEventListener("unload", swfUnloaded);
 		}
+		
+//		protected function swfUnloaded(event:LoaderEvent):void
+//		{
+//			trace("swfUnloaded");
+//		}
 		
 		public function destroy():void
 		{
 			_loader.unload();
 			_loader.dispose(true);
+//			_loader.removeEventListener("unload", swfUnloaded);
 			_loader = null;
 		}
 	}

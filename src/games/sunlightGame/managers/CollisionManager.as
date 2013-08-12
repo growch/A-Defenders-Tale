@@ -3,6 +3,7 @@ package games.sunlightGame.managers
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.geom.Point;
 	
 	import games.sunlightGame.core.Game;
 	import games.sunlightGame.objects.Bullet;
@@ -17,6 +18,13 @@ package games.sunlightGame.managers
 		private var _hitSound:Track;
 		private var _ea:Array;
 		private var _enem:Enemy;
+		private var p1:Point = new Point();
+		private var p2:Point = new Point(); 
+		private var yDistance:Number;
+		private var xDistance:Number;
+		private var yThresh:int = 25;
+		private var leftBlockDistance:int = 33;
+		private var rightBlockDistance:int;
 		
 		public function CollisionManager(game:Game)
 		{
@@ -34,6 +42,7 @@ package games.sunlightGame.managers
 			}		
 			else {
 				heroAndEnemies();
+				enemiesAndBlocks();
 			}
 				
 			count++;
@@ -42,28 +51,21 @@ package games.sunlightGame.managers
 		private function heroAndEnemies():void
 		{
 			_ea = _game.enemyManager.enemies;
-//			var enem:Enemy;
 			
-			
-			for(var i:int=_ea.length-1; i>=0; i--)
+			var len:int = _ea.length-1;
+			for(var i:int=len; i>=0; i--)
 			{
 				_enem = _ea[i];
 //				
-//				if(!_enem.showing) continue;
-//				
 				_hit = _enem.hitMC;
 //				
-//				if (_hit.height <= 1) continue;
-//				trace(_game.hero.hitMC);
-//				
-//				if(_game.hero.hit1MC.hitTestObject(_hit) || _game.hero.hit2MC.hitTestObject(_hit))
 				if(_game.hero.hit1MC.hitTestObject(_hit))
 				{
 //					_enem.hitEnemy();
 //					_game.explosionManager.spawn(_game.stage.mouseX, _game.stage.mouseY);
-					_hitSound.start();
-					_game.gameOver();
-					return;
+//					_hitSound.start();
+//					_game.gameOver();
+//					return;
 				}
 			}
 		}
@@ -72,21 +74,66 @@ package games.sunlightGame.managers
 		{
 			_ea = _game.enemyManager.enemies;
 			var bla:Array = _game.blockArray;
-			//			var enem:Enemy;
 			var block:MovieClip;
 			
-			for(var i:int=_ea.length-1; i>=0; i--)
+			var len:int = _ea.length-1;
+			for(var i:int=len; i>=0; i--)
 			{
 				_enem = _ea[i];
-				_hit = _enem.hitMC;
+				_hit = _enem.hitBigMC;
+				_enem.moveLateral = false;
+//				trace("_enem i: "+i);
 				
-				for(var j:int=bla.length-1; j>=0; j--)
+				var leng:int = bla.length-1;
+//				TESTIN!!!!
+//				leng = 0;	
+				
+				for(var j:int=leng; j>=0; j--)
 				{
 					block = bla[j];
+//					TESTING!!!!!!
+//					block = bla[bla.length-1];
 					
-					if (_hit.hitTestObject(block)) {
-//						_game.bulletManager.destroyBullet(b);
+//					if (_hit.hitTestObject(block)) {
+////						_game.enemyManager.avoidBlock(_enem);
+//						_enem.moveLateral = true;
+//					}
+					p1.x = _enem.x;
+					p1.y = _enem.y;
+					p2.x = 92 + block.x;
+					p2.y = 426 + block.y;
+//					block.localToGlobal(p2);
+//					trace(block.y);
+					
+//					trace(block.name);
+//					trace(Point.distance(p1, p2));
+					yDistance = Math.abs(p2.y - p1.y);
+					xDistance = (p2.x - p1.x);
+					
+					rightBlockDistance = p2.x + block.width - p1.x;
+//					trace("xDistance: "+xDistance);
+//					trace("yDistance: "+yDistance);
+//					trace("rightBlockDistance: "+rightBlockDistance);
+//					trace("enem: "+p1);
+//					trace("block: "+p2);
+					if(yDistance < yThresh && yDistance > 11 && xDistance < leftBlockDistance && rightBlockDistance > -leftBlockDistance)
+					{
+//						trace("hiTTTTT");
+						_enem.moveLateral = true;
+						
+						
+//						if (xDistance < leftBlockDistance) {
+////							trace("bounce left");
+//						} else if (rightBlockDistance > -leftBlockDistance) {
+////							trace("bounce right");
+//						} else {
+//							trace("hiTTTTT");
+////							_enem.moveLateral = true;
+//						}
+						
 					}
+					
+//					_enem.moveLateral = false;
 				}
 
 			}

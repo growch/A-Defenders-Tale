@@ -25,15 +25,21 @@ package games.sunlightGame.managers
 			this.game = game;
 			enemies = new Array();
 			pool = new StarlingPool(Enemy, 50);
+//			pool = new StarlingPool(Enemy, 1);
 			
-			_spawnX = game.nero.neroMC.x + Math.round(game.nero.neroMC.width/2) - 20;
-			_spawnY = game.nero.neroMC.y + Math.round(game.nero.neroMC.height/2) + 30;
+			_spawnX = game.nero.neroMC.x + Math.round(game.nero.neroMC.width/2) - 17;
+			_spawnY = game.nero.neroMC.y + Math.round(game.nero.neroMC.height) + 35;
+			
+//			TESTING!!!!!
+//			spawn();
 		}
 		
 		public function update():void
 		{
-			if(Math.random() < 0.05)
+			if(Math.random() < 0.02) {
 				spawn();
+				game.nero.spawn();
+			}
 			
 			var e:Enemy;
 			var len:int = enemies.length;
@@ -41,7 +47,6 @@ package games.sunlightGame.managers
 			for(var i:int=len-1; i>=0; i--)
 			{
 				e = enemies[i];
-//				e.y += 8;
 				e.update();
 				if(e.y > _bottom)
 					destroyEnemy(e);
@@ -56,6 +61,10 @@ package games.sunlightGame.managers
 			e.y = _spawnY;
 //			trace(game.nero.getNeroMC());
 			game.enemyHolder.addChild(e);
+			
+			e.reset();
+//			TESTING!!!!
+//			e.startDrag(true);
 		}
 		
 		public function destroyEnemy(e:Enemy):void
@@ -81,6 +90,19 @@ package games.sunlightGame.managers
 			pool.destroy();
 			pool = null;
 			enemies = null;
+		}
+		
+		public function avoidBlock(e:Enemy):void
+		{
+			var len:int = enemies.length;
+			
+			for(var i:int=0; i<len; i++)
+			{
+				if(e == enemies[i])
+				{
+					e.moveLateral = true;
+				}
+			}
 		}
 	}
 }

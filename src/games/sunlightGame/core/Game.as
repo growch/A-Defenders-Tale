@@ -21,13 +21,10 @@ package games.sunlightGame.core
 	import games.sunlightGame.managers.CollisionManager;
 	import games.sunlightGame.managers.EnemyManager;
 	import games.sunlightGame.managers.ExplosionManager;
-	import games.sunlightGame.objects.Clouds;
-	import games.sunlightGame.objects.CountdownClock;
 	import games.sunlightGame.objects.GameWon;
 	import games.sunlightGame.objects.Hero;
 	import games.sunlightGame.objects.Nero;
 	import games.sunlightGame.objects.RetryGame;
-	import games.sunlightGame.objects.Score;
 	import games.sunlightGame.objects.StartGame;
 	
 	import model.DataModel;
@@ -218,6 +215,7 @@ package games.sunlightGame.core
 		private function update(event:Event):void
 		{
 			hero.update();
+			nero.update();
 			bulletManager.update();
 			enemyManager.update();
 			collisionManager.update();
