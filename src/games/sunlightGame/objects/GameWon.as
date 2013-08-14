@@ -3,7 +3,7 @@ package games.sunlightGame.objects
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
-	import games.bopMice.core.Game;
+	import games.sunlightGame.core.Game;
 	
 	public class GameWon extends MovieClip
 	{
@@ -14,8 +14,10 @@ package games.sunlightGame.objects
 		{
 			_game = game;
 			_mc = mc;
+			trace("GameWon");
 			
 			MovieClip(_mc.cta_btn).addEventListener(MouseEvent.CLICK, ctaClick);
+//			MovieClip(_mc.cta_btn).alpha = .5;
 		}
 		
 		protected function ctaClick(event:MouseEvent):void

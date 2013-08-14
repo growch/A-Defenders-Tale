@@ -4,11 +4,13 @@ package
 	import flash.desktop.SystemIdleMode;
 	import flash.display.MovieClip;
 	import flash.display.StageAlign;
+	import flash.display.StageOrientation;
 	import flash.display.StageQuality;
 	import flash.events.Event;
+	import flash.events.StageOrientationEvent;
 	import flash.text.AntiAliasType;
 	
-	import control.*;
+	import control.ViewController;
 	
 	import events.ApplicationEvent;
 	
@@ -50,11 +52,12 @@ package
 			_dm.addEventListener( ApplicationEvent.APP_DATA_LOADED, onApplicationDataLoaded ); 
 			_dm.addEventListener( ApplicationEvent.DISPLAY_ERROR, onLoadingError );
 			_dm.loadApplicationConfigurationFile();
-			 
+			
 			//set security
 //			Security.allowDomain("*"); 
 			
 		}
+		
 		
 		private function onLoadingError(e : ApplicationEvent) : void 
 		{

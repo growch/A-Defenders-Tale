@@ -2,7 +2,11 @@ package games.sunlightGame.managers
 {
 	import com.leebrimelow.starling.StarlingPool;
 	
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	
 	import assets.sunlightGame.EnemyMC;
+	import assets.sunlightGame.SundropMC;
 	
 	import games.sunlightGame.core.Game;
 	import games.sunlightGame.objects.Enemy;
@@ -14,11 +18,15 @@ package games.sunlightGame.managers
 	{
 		private var game:Game;
 		public var enemies:Array;
+		public var sundrops:Array;
 		private var pool:StarlingPool;
+		private var sunpool:StarlingPool;
 		public var count:int = 0;
 		private var _bottom:Number = DataModel.APP_HEIGHT;
 		private var _spawnX:Number;
 		private var _spawnY:Number;
+		private var _dropTimer:Timer;
+		private var _dropFrequency:int = 1500;
 		
 		public function EnemyManager(game:Game)
 		{
@@ -27,16 +35,25 @@ package games.sunlightGame.managers
 			pool = new StarlingPool(Enemy, 50);
 //			pool = new StarlingPool(Enemy, 1);
 			
+			sundrops = new Array();
+			sunpool = new StarlingPool(SundropMC, 10);
+			
 			_spawnX = game.nero.neroMC.x + Math.round(game.nero.neroMC.width/2) - 17;
 			_spawnY = game.nero.neroMC.y + Math.round(game.nero.neroMC.height) + 35;
+			
+			_dropTimer = new Timer(_dropFrequency);
+			_dropTimer.addEventListener(TimerEvent.TIMER, addDrop);
+			_dropTimer.start();
 			
 //			TESTING!!!!!
 //			spawn();
 		}
 		
+		
 		public function update():void
 		{
-			if(Math.random() < 0.02) {
+//			trace("update EnemyManager");
+			if(Math.random() < 0.01) {
 				spawn();
 				game.nero.spawn();
 			}
@@ -51,7 +68,52 @@ package games.sunlightGame.managers
 				if(e.y > _bottom)
 					destroyEnemy(e);
 			}
+			
+			var s:SundropMC;
+			var slen:int = sundrops.length;
+			
+			for(var j:int=slen-1; j>=0; j--)
+			{
+				s = sundrops[j];
+				s.y += 3;
+				
+				if(s.y > game.nero.neroMC.y + 20) {
+					game.nero.getSunlight();
+					removeDrop(s);
+				}
+					
+			}
 		}
+		
+		
+		protected function addDrop(event:TimerEvent):void
+		{
+			sunlightDrop();
+		}
+		
+		private function sunlightDrop():void {
+			var s:SundropMC = sunpool.getSprite() as SundropMC;
+			sundrops.push(s);
+			s.x = _spawnX;
+			s.y = 0;
+			game.dropHolder.addChild(s);
+		}
+		
+		private function removeDrop(s:SundropMC):void
+		{
+			var len:int = sundrops.length;
+			
+			for(var i:int=0; i<len; i++)
+			{
+				if(s == sundrops[i])
+				{
+					sundrops.splice(i, 1);
+					game.dropHolder.removeChild(s);
+					sunpool.returnSprite(s);
+				}
+			}
+		}
+		
 		
 		private function spawn():void
 		{
@@ -59,7 +121,6 @@ package games.sunlightGame.managers
 			enemies.push(e);
 			e.x = _spawnX;
 			e.y = _spawnY;
-//			trace(game.nero.getNeroMC());
 			game.enemyHolder.addChild(e);
 			
 			e.reset();
@@ -85,24 +146,34 @@ package games.sunlightGame.managers
 			
 		}
 		
+		public function gameOver():void {
+			_dropTimer.stop();
+		}
+		
 		public function destroy():void
 		{
+			_dropTimer.stop();
+			_dropTimer = null;
+			
 			pool.destroy();
 			pool = null;
 			enemies = null;
+			sunpool.destroy();
+			sunpool = null;
+			sundrops = null;
 		}
 		
-		public function avoidBlock(e:Enemy):void
-		{
-			var len:int = enemies.length;
-			
-			for(var i:int=0; i<len; i++)
-			{
-				if(e == enemies[i])
-				{
-					e.moveLateral = true;
-				}
-			}
-		}
+//		public function avoidBlock(e:Enemy):void
+//		{
+//			var len:int = enemies.length;
+//			
+//			for(var i:int=0; i<len; i++)
+//			{
+//				if(e == enemies[i])
+//				{
+//					e.moveLateral = true;
+//				}
+//			}
+//		}
 	}
 }

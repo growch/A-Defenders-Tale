@@ -4,14 +4,13 @@ package games.sunlightGame.core
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.display.StageOrientation;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.StageOrientationEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import flash.utils.setTimeout;
-	
-	import assets.MalletMC;
-	import assets.MouseStatesMC;
 	
 	import control.EventController;
 	
@@ -21,6 +20,7 @@ package games.sunlightGame.core
 	import games.sunlightGame.managers.CollisionManager;
 	import games.sunlightGame.managers.EnemyManager;
 	import games.sunlightGame.managers.ExplosionManager;
+	import games.sunlightGame.objects.GameLost;
 	import games.sunlightGame.objects.GameWon;
 	import games.sunlightGame.objects.Hero;
 	import games.sunlightGame.objects.Nero;
@@ -53,7 +53,7 @@ package games.sunlightGame.core
 		public var explosionManager:ExplosionManager;
 		private var _bgMusic:Track;
 		private var _startGame:StartGame;
-		private var _tryAgain:RetryGame;
+		private var _gameLost:GameLost;
 		private var _gameWon:GameWon;
 		private var _SAL:SWFAssetLoader;
 //		private var _mallet:MalletMC;
@@ -61,7 +61,11 @@ package games.sunlightGame.core
 		public var bulletManager:BulletManager;
 		public var bulletHolder:MovieClip;
 		public var enemyHolder:MovieClip;
+		public var dropHolder:MovieClip;
 		public var blockArray:Array;
+		public var gameFlipped:Boolean;
+		public var lightSource:MovieClip;
+		public var explosionHolder:MovieClip;
 		
 		public function Game()
 		{
@@ -77,24 +81,22 @@ package games.sunlightGame.core
 //			_mc.frame_mc.mouseEnabled = false;
 //			_mc.frameShadow_mc.mouseEnabled = false;
 //			
-//			_startGame = new StartGame(this, _mc.startGame_mc);
-//			
-//			_tryAgain = new RetryGame(this, _mc.tryAgain_mc);
-//			_mc.tryAgain_mc.visible = false;
-//			
-//			_gameWon = new GameWon(this, _mc.gameWon_mc);
-//			_mc.gameWon_mc.visible = false;
+			_startGame = new StartGame(this, _mc.startGame_mc);
 			
+			_gameLost = new GameLost(this, _mc.gameLost_mc);
+			_mc.gameLost_mc.visible = false;
 			
-			
-//			_timer = Game.DURATION;
-			_timer = DURATION;
+			_gameWon = new GameWon(this, _mc.gameWon_mc);
+			_mc.gameWon_mc.visible = false;
 			
 //			_gameTimer = new Timer(1000);
 //			_gameTimer.addEventListener(TimerEvent.TIMER, timerTick);
 			
 			bulletHolder = _mc.bulletHolder_mc;
 			enemyHolder = _mc.enemyHolder_mc;
+			explosionHolder = _mc.explosionHolder_mc;
+			dropHolder = _mc.dropHolder_mc;
+			lightSource = _mc.light_mc;
 			
 			hero = new Hero(this, _mc.cannon_mc);
 			nero = new Nero(this, _mc.nero_mc);
@@ -106,100 +108,71 @@ package games.sunlightGame.core
 				blockArray.push(thisBlock);
 			}
 			
-			
 			addChild(_mc);
 			
-			startGame();
+			stage.autoOrients = true;
 			
-//			addAssets();
+			stage.addEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
+			stage.addEventListener(	StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging );
+			
+//			TESTING!!!
+			stage.setOrientation(StageOrientation.UPSIDE_DOWN);
 			
 			//restack screens
 //			_mc.addChild(_mc.startGame_mc);
-//			_mc.addChild(_mc.tryAgain_mc);
+//			_mc.addChild(_mc.gameLost_mc);
 //			_mc.addChild(_mc.gameWon_mc);
 		}
 		
-		private function addAssets():void
+		protected function onOrientationChanging(event:StageOrientationEvent):void
 		{
-			//add and replace assets from swc
-			for (var i:int = 0; i < _mc.mice_mc.numChildren; i++) 
-			{
-				var thisRef:MovieClip = _mc.mice_mc.getChildByName("mouse"+i) as MovieClip;
-				var thisMouse:MovieClip = new MouseStatesMC();
-				
-//								thisMouse.stop();
-				thisMouse.name = "mouse"+i;
-				thisMouse.x = thisRef.x;
-				thisMouse.y = thisRef.y;
-				thisMouse.scaleX = thisMouse.scaleY = thisRef.scaleX;
-				
-				_mc.mice_mc.removeChild(thisRef);
-				_mc.mice_mc.addChild(thisMouse);
+//			trace("onOrientationChanging!!!!!!");
+			// If the stage is about to move to an orientation we don't support, lets prevent it
+			// from changing to that stage orientation.
+			if(event.afterOrientation ==
+				StageOrientation.ROTATED_LEFT || event.afterOrientation ==
+				StageOrientation.ROTATED_RIGHT ) {
+//				event.preventDefault(); DOESN'T WORK ANYMORE!!!!
 			}
-			
-//			_mallet = new MalletMC();
-//			_mc.addChild(_mallet);
-//			_mallet.x = _mc.mallet_mc.x;
-//			_mallet.y = _mc.mallet_mc.y;
-//			_mc.removeChild(_mc.mallet_mc);
+		}		
+		
+		protected function onOrientationChange(event:StageOrientationEvent):void
+		{
+//			trace("onOrientationChange :"+event.afterOrientation);
+			if(event.afterOrientation == StageOrientation.ROTATED_LEFT || event.afterOrientation ==	StageOrientation.ROTATED_RIGHT ) {
+				stage.setOrientation( StageOrientation.DEFAULT );
+			}
+			if (event.afterOrientation == StageOrientation.UPSIDE_DOWN) {
+				hero.flipUpsideDown();
+				gameFlipped = true;
+			}
+			if (event.afterOrientation == StageOrientation.DEFAULT) {
+				hero.flipRightSideUp();
+				gameFlipped = false;
+			}
 		}
 		
 		public function startGame():void {
-//			_mc.startGame_mc.visible = false;
+			_mc.startGame_mc.visible = false;
 			
 			bulletManager = new BulletManager(this);
 			enemyManager = new EnemyManager(this);
 			collisionManager = new CollisionManager(this);
 			explosionManager = new ExplosionManager(this);
 			
-			
-			
-//			_countdownClock.startClock();
-//			_gameTimer.start();
 			heroOn();
 			addEventListener(Event.ENTER_FRAME, update);
 			// audio
-//			_bgMusic = new Track("assets/audio/games/sunlightGame/bg.mp3");
+			_bgMusic = new Track("assets/audio/games/sunlightGame/bg.mp3");
 //			_bgMusic.start(true);
 //			_bgMusic.loop = true;
 			
-		}
-		
-		protected function timerTick(event:TimerEvent):void
-		{
-			_timer--;
-			
-//			_countdownClock.updateClock(_timer);
-//			
-//			if (_timer <= 0)
-//			{
-//				removeEventListener(Event.ENTER_FRAME, update);
-//				enemyManager.killAll();
-//				explosionManager.explosion.visible = false;
-////				_gameTimer.stop();
-//				_bgMusic.stop(true);
-//					
-//				if (score.getScore() >= MINIMUM_SCORE) {
-////					trace("you won");
-//					_mc.gameWon_mc.visible = true;
-//				} else {
-////					trace("you lost");
-//					_mc.tryAgain_mc.visible = true;
-//				}
-//			}
 		}
 		
 		private function heroOn():void  {
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, onDown);
 			stage.addEventListener(MouseEvent.MOUSE_UP, onUp);
 		}
-		
-		public function gameOver():void  {
-			removeEventListener(Event.ENTER_FRAME, update);
-			stage.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
-			stage.removeEventListener(MouseEvent.MOUSE_UP, onUp);
-		}
-		
 		
 		private function onDown(event:MouseEvent):void
 		{
@@ -221,15 +194,33 @@ package games.sunlightGame.core
 			collisionManager.update();
 		}
 		
+		public function gameOver():void  {
+			removeEventListener(Event.ENTER_FRAME, update);
+			stage.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
+			stage.removeEventListener(MouseEvent.MOUSE_UP, onUp);
+			_mc.stopAllMovieClips();
+			enemyManager.gameOver();
+			_mc.gameWon_mc.visible = true;
+		}
+		
 		public function destroy():void {
 			//TODO!!!!!! clean everything UP!!!!!!!!
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, update);
 			}
 			
+			stage.removeEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
+			stage.removeEventListener(	StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging );
+			
+			stage.setOrientation( StageOrientation.DEFAULT );
+			stage.autoOrients = false;
 			
 			_gameWon.destroy();
-			_tryAgain.destroy();
+			_gameLost.destroy();
+			
+			_startGame = null;
+			_gameLost = null;
+			_gameWon = null;
 			
 			explosionManager.destroy();
 			collisionManager.destroy();
@@ -246,27 +237,32 @@ package games.sunlightGame.core
 			_SAL = null;
 		}
 		
-		public function restartGame():void
-		{
-			_mc.tryAgain_mc.visible = false;
-			addEventListener(Event.ENTER_FRAME, update);
-			
-			explosionManager.explosion.visible = true;
-			
-			
-//			_timer = Game.DURATION;
-			_timer = DURATION;
-				
-			_gameTimer.reset();
-			_gameTimer.start();
-			_bgMusic.start();
-		}
+//		public function restartGame():void
+//		{
+//			_mc.tryAgain_mc.visible = false;
+//			addEventListener(Event.ENTER_FRAME, update);
+//			
+//			explosionManager.explosion.visible = true;
+//			
+//			
+////			_timer = Game.DURATION;
+//			_timer = DURATION;
+//				
+//			_gameTimer.reset();
+//			_gameTimer.start();
+//			_bgMusic.start();
+//		}
 		
 		public function gameCompleted():void
 		{
+			trace("gameCompleted");
 			var tempObj:Object = new Object();
 			tempObj.id = "capitol.WinView";
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+		}
+		
+		public function gameLost(thisPageObj:Object):void {
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
 		}
 	}
 }

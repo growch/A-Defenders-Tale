@@ -3,7 +3,7 @@ package games.sunlightGame.objects
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
-	import games.bopMice.core.Game;
+	import games.sunlightGame.core.Game;
 	
 	public class StartGame extends MovieClip
 	{

@@ -2,7 +2,6 @@ package com.leebrimelow.starling
 {
 	import flash.display.MovieClip;
 	
-	import starling.display.DisplayObject;
 
 	public class StarlingPool
 	{

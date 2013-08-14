@@ -10,7 +10,7 @@ package games.sunlightGame.objects
 		private var _mc:MovieClip;
 		private var _head:MovieClip;
 		private var counter:int;
-		private var faceTime:int = 8;
+		private var faceTime:int = 10;
 
 		public function Nero(game:Game, mc:MovieClip)
 		{
@@ -27,6 +27,16 @@ package games.sunlightGame.objects
 		
 		public function spawn():void {
 			_head.gotoAndStop("laughing");
+			counter = 0;
+		}
+		
+		public function getSunlight():void {
+			_head.gotoAndStop("evil");
+			counter = 0;
+		}
+		
+		public function enemyHit():void {
+			_head.gotoAndStop("mad");
 			counter = 0;
 		}
 		

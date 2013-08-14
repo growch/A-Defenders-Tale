@@ -12,7 +12,7 @@ package games.sunlightGame.managers
 		{
 			_game = game;
 			explosion = new SparklerExplosion();
-			_game.addChild(explosion);
+			_game.explosionHolder.addChild(explosion);
 		}
 		
 		public function spawn(x:int, y:int):void
@@ -22,6 +22,7 @@ package games.sunlightGame.managers
 		
 		public function destroy():void
 		{
+			_game.explosionHolder.removeChild(explosion);
 			explosion.destroy();
 			explosion = null;
 			_game = null;

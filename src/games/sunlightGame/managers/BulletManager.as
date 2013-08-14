@@ -4,6 +4,8 @@ package games.sunlightGame.managers
 	
 	import games.sunlightGame.core.Game;
 	import games.sunlightGame.objects.Bullet;
+	
+	import model.DataModel;
 
 	public class BulletManager
 	{
@@ -28,9 +30,20 @@ package games.sunlightGame.managers
 			for(var i:int=len-1; i>=0; i--)
 			{
 				b = bullets[i];
-				b.y -= 12;
-				if(b.y < 0)
-					destroyBullet(b);
+				if (game.gameFlipped) {
+					b.y += 12;
+					if(b.y > DataModel.APP_HEIGHT)
+						destroyBullet(b);
+					if(b.hitTestObject(game.lightSource)) {
+						game.gameOver();
+						return;
+					}
+				} else {
+					b.y -= 12;
+					if(b.y < 0)
+						destroyBullet(b);
+					
+				}
 			}
 			
 //			if(game.fire && count%10 == 0)
@@ -45,7 +58,12 @@ package games.sunlightGame.managers
 			var b:Bullet = pool.getSprite() as Bullet;
 			game.bulletHolder.addChild(b);
 			b.x = game.hero.player.x;
-			b.y = game.hero.player.y - 75;
+			if (game.gameFlipped) {
+				b.y = game.hero.player.y + 70;
+			} else {
+				b.y = game.hero.player.y - 75;
+			}
+			
 			bullets.push(b);
 		}
 		

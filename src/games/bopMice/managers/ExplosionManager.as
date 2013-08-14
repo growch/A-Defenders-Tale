@@ -22,6 +22,7 @@ package games.bopMice.managers
 		
 		public function destroy():void
 		{
+			_game.removeChild(explosion);
 			explosion.destroy();
 			explosion = null;
 			_game = null;

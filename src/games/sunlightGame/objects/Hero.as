@@ -1,5 +1,8 @@
 package games.sunlightGame.objects
 {
+	import com.greensock.TweenMax;
+	import com.greensock.easing.Quad;
+	
 	import flash.display.MovieClip;
 	import flash.events.AccelerometerEvent;
 	import flash.sensors.Accelerometer;
@@ -22,6 +25,7 @@ package games.sunlightGame.objects
 		private var _leftEdge:Number;
 		private var _rightEdge:Number;
 //		private var _thisMC:Hero;
+		private var orientationConst:Number = Math.sin(Math.PI/4);
 
 		
 		public function Hero(game:Game, mc:MovieClip)
@@ -29,9 +33,7 @@ package games.sunlightGame.objects
 			_game = game; 
 			player = mc;
 			hit1MC = player.getChildByName("hit1_mc") as MovieClip;
-//			hit1MC.alpha = .5;
 			hit2MC = player.getChildByName("hit2_mc") as MovieClip;
-//			hit2MC.alpha = .5;
 
 			_smoke = player.smoke_mc;
 			_smoke.visible = false;
@@ -51,6 +53,7 @@ package games.sunlightGame.objects
 				// If there is no access to the Accelerometer
 				trace("Accelerometer Not Supported");
 			}
+			
 		}
 		
 		protected function accelUpdate(e:AccelerometerEvent):void
@@ -64,6 +67,16 @@ package games.sunlightGame.objects
 			// Set our Accelerometer movement numbers
 			_accelX = e.accelerationX * 100;
 			_accelY = e.accelerationY * 100;
+			
+//			trace("orientationConst: "+orientationConst);
+//			trace("e.accelerationY: "+e.accelerationY);
+			
+//			trace("_accelY: "+_accelY);
+			
+			if(e.accelerationY <= orientationConst){
+//				trace("upside down");
+//				flipUpsideDown();
+			}      
 		}
 		
 		public function update():void
@@ -95,5 +108,16 @@ package games.sunlightGame.objects
 				_smoke.visible = false;
 			}
 		}
+		
+		public function flipUpsideDown():void
+		{
+			TweenMax.to(player, .7, {rotation:180, ease:Quad.easeOut});
+		}
+		
+		public function flipRightSideUp():void
+		{
+			TweenMax.to(player, .7, {rotation:0, ease:Quad.easeOut});
+		}
+		
 	}
 }

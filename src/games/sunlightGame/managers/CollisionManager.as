@@ -159,6 +159,7 @@ package games.sunlightGame.managers
 						_game.explosionManager.spawn(_enem.x, _enem.y);
 						_game.enemyManager.destroyEnemy(_enem);
 						_game.bulletManager.destroyBullet(b);
+						_game.nero.enemyHit();
 //						_hitSound.start();
 					}
 				}
