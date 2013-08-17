@@ -41,8 +41,11 @@ package
 		}
 		
 		private function init(e:Event): void {
-			this.stage.align = StageAlign.TOP_LEFT;
-			this.stage.quality = StageQuality.LOW; //HUGE PERFOMANCE BOOST!!!!!!!!
+			stage.align = StageAlign.TOP_LEFT;
+			stage.quality = StageQuality.LOW; //HUGE PERFOMANCE BOOST!!!!!!!!
+			
+			//SunlightGame turns this on temporarily
+			stage.autoOrients = false;
 			
 			// This will keep the device from "sleeping"
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE; 

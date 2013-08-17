@@ -27,12 +27,14 @@ package games.sunlightGame.managers
 		private var _spawnY:Number;
 		private var _dropTimer:Timer;
 		private var _dropFrequency:int = 1500;
+		private var spawnSpeed:Number = .02;
 		
 		public function EnemyManager(game:Game)
 		{
 			this.game = game;
 			enemies = new Array();
 			pool = new StarlingPool(Enemy, 50);
+//			TESTING!!!!
 //			pool = new StarlingPool(Enemy, 1);
 			
 			sundrops = new Array();
@@ -43,7 +45,7 @@ package games.sunlightGame.managers
 			
 			_dropTimer = new Timer(_dropFrequency);
 			_dropTimer.addEventListener(TimerEvent.TIMER, addDrop);
-			_dropTimer.start();
+//			_dropTimer.start();
 			
 //			TESTING!!!!!
 //			spawn();
@@ -52,8 +54,10 @@ package games.sunlightGame.managers
 		
 		public function update():void
 		{
+//			TESTING!!!!!
+//			return;
 //			trace("update EnemyManager");
-			if(Math.random() < 0.01) {
+			if(Math.random() < spawnSpeed) {
 				spawn();
 				game.nero.spawn();
 			}
@@ -84,7 +88,6 @@ package games.sunlightGame.managers
 					
 			}
 		}
-		
 		
 		protected function addDrop(event:TimerEvent):void
 		{

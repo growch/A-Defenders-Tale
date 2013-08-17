@@ -78,6 +78,14 @@ package games.sunlightGame.objects
 				_direction = -_direction;   
 		}
 		
+		public function bounceOff():void
+		{
+			_direction = -_direction;
+			x += lateralDistance * 2 * _direction;
+			y += ySpeed;
+			
+		}
+		
 		private function goLateral():void
 		{
 			y -= 1;

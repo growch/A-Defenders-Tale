@@ -14,8 +14,8 @@ package games.sunlightGame.managers
 	{
 		private var _game:Game;
 		private var count:int = 0;
-		private var _hit:MovieClip;
-		private var _hitSound:Track;
+		private var _enemHit:MovieClip;
+		private var _enemHitSound:Track;
 		private var _ea:Array;
 		private var _enem:Enemy;
 		private var p1:Point = new Point();
@@ -29,7 +29,7 @@ package games.sunlightGame.managers
 		public function CollisionManager(game:Game)
 		{
 			_game = game;
-			_hitSound = new Track("assets/audio/games/sunlightGame/hitEnemy.mp3");
+			_enemHitSound = new Track("assets/audio/games/sunlightGame/hitEnemy.mp3");
 			_ea = _game.enemyManager.enemies;
 		}
 		
@@ -57,13 +57,13 @@ package games.sunlightGame.managers
 			{
 				_enem = _ea[i];
 //				
-				_hit = _enem.hitMC;
+				_enemHit = _enem.hitMC;
 //				
-				if(_game.hero.hit1MC.hitTestObject(_hit))
+				if(_game.hero.hit1MC.hitTestObject(_enemHit))
 				{
 //					_enem.hitEnemy();
 //					_game.explosionManager.spawn(_game.stage.mouseX, _game.stage.mouseY);
-//					_hitSound.start();
+//					_enemHitSound.start();
 //					_game.gameOver();
 //					return;
 				}
@@ -80,7 +80,7 @@ package games.sunlightGame.managers
 			for(var i:int=len; i>=0; i--)
 			{
 				_enem = _ea[i];
-				_hit = _enem.hitBigMC;
+				_enemHit = _enem.hitBigMC;
 				_enem.moveLateral = false;
 //				trace("_enem i: "+i);
 				
@@ -94,7 +94,7 @@ package games.sunlightGame.managers
 //					TESTING!!!!!!
 //					block = bla[bla.length-1];
 					
-//					if (_hit.hitTestObject(block)) {
+//					if (_enemHit.hitTestObject(block)) {
 ////						_game.enemyManager.avoidBlock(_enem);
 //						_enem.moveLateral = true;
 //					}
@@ -116,8 +116,14 @@ package games.sunlightGame.managers
 //					trace("rightBlockDistance: "+rightBlockDistance);
 //					trace("enem: "+p1);
 //					trace("block: "+p2);
-					if(yDistance < yThresh && yDistance > 11 && xDistance < leftBlockDistance && rightBlockDistance > -leftBlockDistance)
+					if(yDistance < yThresh && xDistance < leftBlockDistance && rightBlockDistance > -leftBlockDistance)
 					{
+						
+						if (yDistance < 11) {
+							_enem.bounceOff();
+//							trace("sideCollision");
+							return;
+						}
 //						trace("hiTTTTT");
 						_enem.moveLateral = true;
 						
@@ -153,14 +159,14 @@ package games.sunlightGame.managers
 				for(var j:int=ea.length-1; j>=0; j--)
 				{
 					_enem = ea[j];
-					_hit = _enem.hitMC;
+					_enemHit = _enem.hitMC;
 					
-					if (b.hitTestObject(_hit)) {
+					if (b.hitTestObject(_enemHit)) {
 						_game.explosionManager.spawn(_enem.x, _enem.y);
 						_game.enemyManager.destroyEnemy(_enem);
 						_game.bulletManager.destroyBullet(b);
 						_game.nero.enemyHit();
-//						_hitSound.start();
+//						_enemHitSound.start();
 					}
 				}
 			}
@@ -191,7 +197,7 @@ package games.sunlightGame.managers
 		public function destroy():void
 		{
 			_game = null;
-			_hitSound = null;
+			_enemHitSound = null;
 			_ea = null;
 		}
 	}

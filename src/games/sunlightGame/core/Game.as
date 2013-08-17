@@ -116,7 +116,7 @@ package games.sunlightGame.core
 			stage.addEventListener(	StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging );
 			
 //			TESTING!!!
-			stage.setOrientation(StageOrientation.UPSIDE_DOWN);
+//			stage.setOrientation(StageOrientation.UPSIDE_DOWN);
 			
 			//restack screens
 //			_mc.addChild(_mc.startGame_mc);

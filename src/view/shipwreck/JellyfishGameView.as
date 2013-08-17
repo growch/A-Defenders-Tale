@@ -284,7 +284,7 @@ package view.shipwreck
 		private function accelLoop(e:Event):void
 		{
 //			 Move items based on the accelerometer data
-			_mc.y += _accelY * .04;
+			_mc.y -= _accelY * .02;
 			if (_mc.y <= -_bottomBGY) _mc.y = -_bottomBGY;
 			if (_mc.y >= 0) _mc.y = 0;
 			
@@ -295,8 +295,8 @@ package view.shipwreck
 				_glow.y = stage.mouseY;
 			}
 			
-			_glow.x -= _accelX * .04;
-			_glow.y -= _accelY * .05;
+			_glow.x -= _accelX * .022;
+			_glow.y += _accelY * .022;
 			
 			// Constrain the _glow to the X width boundries of the stage 
 			if(_glow.x <= _leftEdge) _glow.x = _leftEdge;
