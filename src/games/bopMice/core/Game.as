@@ -244,6 +244,7 @@ package games.bopMice.core
 		{
 			var tempObj:Object = new Object();
 			tempObj.id = "theCattery.GameWonView";
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 		}
 	}

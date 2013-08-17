@@ -143,6 +143,7 @@ package view.theCattery
 		protected function decisionMade(event:ViewEvent):void
 		{
 			TweenMax.killAll();
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}

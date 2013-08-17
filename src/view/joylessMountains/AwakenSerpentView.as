@@ -238,6 +238,7 @@ package view.joylessMountains
 
 		protected function decisionMade(event:ViewEvent):void
 		{
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}

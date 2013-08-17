@@ -19,11 +19,9 @@ package view.shipwreck
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
-	import view.ApplicationView;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.MapView;
 	
 	public class Shark2View extends MovieClip implements IPageView
 	{
@@ -221,6 +219,7 @@ package view.shipwreck
 		{
 			
 			TweenMax.killAll();
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}

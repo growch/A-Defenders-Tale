@@ -238,6 +238,7 @@ package view.shipwreck
 		{
 			var tempObj:Object = new Object();
 			tempObj.id = "shipwreck.Starfish3View";
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 		}
 		
@@ -249,6 +250,7 @@ package view.shipwreck
 			} else {
 				tempObj.id = "ApplicationView";
 			}
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 		}
 		

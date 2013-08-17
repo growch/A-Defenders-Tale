@@ -280,6 +280,7 @@ package view.shipwreck
 			_bubbles3.pause();
 			
 			TweenMax.killAll();
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}

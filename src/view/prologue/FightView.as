@@ -305,6 +305,7 @@ package view.prologue
 			if (_noteTimer) {
 				_noteTimer.stop();
 			}
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}

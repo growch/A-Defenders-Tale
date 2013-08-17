@@ -220,6 +220,7 @@ package view.theCattery
 			// INCREMENT STONE COUNT!
 			if (event.data.decisionNumber == 1) DataModel.STONE_COUNT++;
 			TweenMax.killAll();
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		

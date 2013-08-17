@@ -258,10 +258,12 @@ package games.sunlightGame.core
 			trace("gameCompleted");
 			var tempObj:Object = new Object();
 			tempObj.id = "capitol.WinView";
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 		}
 		
 		public function gameLost(thisPageObj:Object):void {
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
 		}
 	}

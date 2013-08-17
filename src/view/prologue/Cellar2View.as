@@ -211,6 +211,7 @@ package view.prologue
 				_goViral.postWallHelp();
 				return;
 			}
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}

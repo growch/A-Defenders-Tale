@@ -126,7 +126,7 @@ package view
 			if (DataModel.ISLAND_SELECTED.length <= 1) {
 				tempObj.id = "prologue.CrossSeaView";
 			}
-			
+			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 		}
 		
