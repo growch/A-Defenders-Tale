@@ -7,9 +7,11 @@ package view.prologue
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
 	import flash.utils.Timer;
+	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -44,10 +46,10 @@ package view.prologue
 		private var _supplyInt:int;
 		private var _singleStart:Array;
 		private var _doubleStart:Array;
-		private var _noteTimer:Timer;
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _notesPlayed:Object;
 		
 		public function FightView()
 		{
@@ -62,13 +64,11 @@ package view.prologue
 		
 		public function destroy():void
 		{
+			_mc.instruments_mc.instrument_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
+			_notesPlayed = null;
+			
 			_pageInfo = null;
 			
-			if (_noteTimer) {
-				_noteTimer.stop();
-				_noteTimer = null;
-			}
-			TweenMax.killAll();
 			
 			_frame.destroy();
 			_frame = null;
@@ -229,8 +229,6 @@ package view.prologue
 			}
 			
 			if (_weaponInt != 2 && _supplyInt == 0) {
-//				TweenMax.from(_mc.armLeft_mc, .8, {x:"-100",scaleX:.6,rotation:-15,rotationZ:45, ease:Quad.easeOut});
-//				TweenMax.from(_mc.armRight_mc, .7, {y:"-200",scaleY:.6,rotation:-10,rotationZ:-45, ease:Quad.easeOut});
 				TweenMax.from(_mc.armLeft_mc, .8, {x:"-100",scaleX:.6,rotation:-15,ease:Quad.easeOut});
 				TweenMax.from(_mc.armRight_mc, .7, {y:"-200",scaleY:.6,rotation:-10,ease:Quad.easeOut});
 				_mc.armLeft_mc.visible = true;
@@ -240,25 +238,29 @@ package view.prologue
 			if (_weaponInt != 2 && _supplyInt == 1) {
 				
 				TweenMax.from(_mc.armRight_mc, .7, {y:"-200",scaleY:.6,rotation:10,ease:Quad.easeOut});
-//				TweenMax.from(_mc.armRight_mc, .7, {y:"-200",scaleY:.6,rotation:10,rotationZ:45, ease:Quad.easeOut});
 				_mc.armRight_mc.visible = true;
 				_mc.armRight_mc.scaleX = -1;
 				_mc.armRight_mc.x = 250;
 				
-				_noteTimer = new Timer(3000);
-				_noteTimer.addEventListener(TimerEvent.TIMER, showNotes); 
-				_noteTimer.start();
 				
 				_mc.instruments_mc.instrument_mc.glows_mc.cacheAsBitmap = true;
 				_mc.instruments_mc.instrument_mc.shine_mc.cacheAsBitmap = true;
 				_mc.instruments_mc.instrument_mc.glows_mc.mask = _mc.instruments_mc.instrument_mc.shine_mc;
-				_mc.instruments_mc.instrument_mc.glows_mc.visible = true;
-				_mc.instruments_mc.instrument_mc.shine_mc.visible = true;
+//				_mc.instruments_mc.instrument_mc.glows_mc.visible = true;
+//				_mc.instruments_mc.instrument_mc.shine_mc.visible = true;
 			}
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_mc.instruments_mc.instrument_mc.addEventListener(MouseEvent.CLICK, clickToShine);
+			
+			setTimeout(showNotes, 1200);
 		}
 		
-		protected function showNotes(event:TimerEvent):void
+		private function clickToShine(e:MouseEvent):void {
+			showNotes();
+		}
+		
+		protected function showNotes():void
 		{
 			TweenMax.to(_mc.instruments_mc.instrument_mc.shine_mc, 1.4, {y:520, ease:Quad.easeIn, onComplete:function():void {_mc.instruments_mc.instrument_mc.shine_mc.y = -400}}); 
 			TweenMax.to(_mc.instruments_mc.instrument_mc.noteSingle_mc, .4, {alpha:1});
@@ -276,24 +278,21 @@ package view.prologue
 					_mc.instruments_mc.instrument_mc.noteDouble_mc.y = _doubleStart[1];
 				}}); 
 			TweenMax.to(_mc.instruments_mc.instrument_mc.noteDouble_mc, .4, {alpha:0, delay:1.8});
+			
+			_mc.instruments_mc.instrument_mc.glows_mc.visible = true;
+			_mc.instruments_mc.instrument_mc.shine_mc.visible = true;
 		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
-				if (_noteTimer) {
-					_noteTimer.stop();
-				}
 				
 				_scrolling = true;
 				
 			} else {
 				
 				if (!_scrolling) return;
-				if (_noteTimer) {
-					_noteTimer.start();
-				}
 				
 				TweenMax.resumeAll();
 				_scrolling = false;
@@ -302,9 +301,7 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (_noteTimer) {
-				_noteTimer.stop();
-			}
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

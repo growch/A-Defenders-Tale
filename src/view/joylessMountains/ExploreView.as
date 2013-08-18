@@ -6,9 +6,7 @@ package view.joylessMountains
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
-	import flash.utils.getDefinitionByName;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
@@ -40,7 +38,6 @@ package view.joylessMountains
 		private var _scrolling:Boolean;
 		private var _singleStart:Array;
 		private var _doubleStart:Array;
-		private var _noteTimer:Timer;
 		private var _bellL1:MovieClip;
 		private var _bellL2:MovieClip;
 		private var _bellL3:MovieClip;
@@ -51,6 +48,7 @@ package view.joylessMountains
 		private var _bellR4:MovieClip;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _notesPlayed:Object;
 		
 		public function ExploreView()
 		{
@@ -61,6 +59,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+			_mc.instrument_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
+			_notesPlayed = null;
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -93,7 +94,6 @@ package view.joylessMountains
 			_mc = _SAL.assetMC;
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			
 			
 			_nextY = 110;
 			
@@ -211,13 +211,9 @@ package view.joylessMountains
 			_mc.instrument_mc.glows_mc.visible = true;
 			_mc.instrument_mc.shine_mc.visible = true;
 			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			_noteTimer = new Timer(3000);
-			_noteTimer.addEventListener(TimerEvent.TIMER, showNotes); 
-			_noteTimer.start();
 			
 			_bellL1.play();
 			_bellL2.play();
@@ -230,9 +226,15 @@ package view.joylessMountains
 			_bellR4.play();
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_mc.instrument_mc.addEventListener(MouseEvent.CLICK, clickToShine);
 		}
 		
-		protected function showNotes(event:TimerEvent):void
+		private function clickToShine(e:MouseEvent):void {
+			showNotes();
+		}
+		
+		protected function showNotes():void
 		{
 			TweenMax.to(_mc.instrument_mc.shine_mc, 1.4, {y:520, ease:Quad.easeIn, onComplete:function():void {_mc.instrument_mc.shine_mc.y = -400}}); 
 			TweenMax.to(_mc.instrument_mc.noteSingle_mc, .4, {alpha:1});
@@ -254,9 +256,13 @@ package view.joylessMountains
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY > 600 && !_notesPlayed) {
+				showNotes();
+				_notesPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
-				_noteTimer.stop();
 				
 				_bellL1.stop();
 				_bellL2.stop();
@@ -273,7 +279,6 @@ package view.joylessMountains
 			} else {
 				
 				if (!_scrolling) return;
-				_noteTimer.start();
 				TweenMax.resumeAll();
 				
 				_bellL1.play();
@@ -292,9 +297,6 @@ package view.joylessMountains
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-//			EXCEPTION!!!
-			_noteTimer.stop();
-			_noteTimer = null;
 			
 			//for delayed calls
 			TweenMax.killAll();

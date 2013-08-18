@@ -7,8 +7,6 @@ package view.theCattery
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
 	
 	import control.EventController;
 	
@@ -37,12 +35,12 @@ package view.theCattery
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;
-//		private var _noteTimer:Timer; 
 		private var _singleStart:Array;
 		private var _doubleStart:Array;
 		private var _scrolling:Boolean;		
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _notesPlayed:Object;
 		
 		public function MouseConsultationView()
 		{
@@ -53,9 +51,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
-//			!!!
 			_mc.instrument_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
-//			
+			_notesPlayed = null;
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -166,35 +164,14 @@ package view.theCattery
 		
 		private function pageOn(e:ViewEvent):void {
 			
-//			_noteTimer = new Timer(3000);
-//			_noteTimer.addEventListener(TimerEvent.TIMER, showNotes); 
-//			_noteTimer.start();
-			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			_mc.instrument_mc.addEventListener(MouseEvent.CLICK, clickToShine);
 			
-			showNotes();
 		}
 		
 		private function clickToShine(e:MouseEvent):void {
 			showNotes();
-		}
-		
-		protected function enterFrameLoop(event:Event):void
-		{
-			if (_dragVCont.isDragging || _dragVCont.isTweening) {
-				TweenMax.pauseAll();
-				_scrolling = true;
-				
-//				_noteTimer.stop();
-			} else {
-				if (!_scrolling) return;
-				
-//				_noteTimer.start();
-				TweenMax.resumeAll();
-				_scrolling = false;
-			}
 		}
 		
 		protected function showNotes():void
@@ -215,6 +192,25 @@ package view.theCattery
 					_mc.instrument_mc.noteDouble_mc.y = _doubleStart[1];
 				}}); 
 			TweenMax.to(_mc.instrument_mc.noteDouble_mc, .4, {alpha:0, delay:1.8});
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY > 600 && !_notesPlayed) {
+				showNotes();
+				_notesPlayed = true;
+			}
+			
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				TweenMax.pauseAll();
+				_scrolling = true;
+				
+			} else {
+				
+				if (!_scrolling) return;
+				TweenMax.resumeAll();
+				_scrolling = false;
+			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

@@ -6,6 +6,7 @@ package view.joylessMountains
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
 	import flash.utils.Timer;
@@ -40,9 +41,9 @@ package view.joylessMountains
 		private var _scrolling:Boolean;
 		private var _singleStart:Array;
 		private var _doubleStart:Array;
-		private var _noteTimer:Timer;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _notesPlayed:Object;
 		
 		public function PlaySongView()
 		{
@@ -53,6 +54,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+			_mc.instrument_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
+			_notesPlayed = null;
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -146,7 +150,6 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			
 			//HACK cuz mask was going off top of frame screwing up height
 			_mc.instrument_mc.scrollRect = new Rectangle(-20, -40, 400, 737);
 			TweenMax.delayedCall(1, clipMC,[_mc.instrument_mc, 737]);
@@ -164,6 +167,7 @@ package view.joylessMountains
 			_mc.instrument_mc.glows_mc.visible = true;
 			_mc.instrument_mc.shine_mc.visible = true;
 			
+			showNotes();
 		}
 		
 		protected function clipMC(thisMC:MovieClip, thisHeight:int):void
@@ -173,14 +177,17 @@ package view.joylessMountains
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			_noteTimer = new Timer(3000);
-			_noteTimer.addEventListener(TimerEvent.TIMER, showNotes); 
-			_noteTimer.start();
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_mc.instrument_mc.addEventListener(MouseEvent.CLICK, clickToShine);
 		}
 		
-		protected function showNotes(event:TimerEvent):void
+		private function clickToShine(e:MouseEvent):void {
+			showNotes();
+		}
+		
+		protected function showNotes():void
 		{
 			TweenMax.to(_mc.instrument_mc.shine_mc, 1.4, {y:520, ease:Quad.easeIn, onComplete:function():void {_mc.instrument_mc.shine_mc.y = -400}}); 
 			TweenMax.to(_mc.instrument_mc.noteSingle_mc, .4, {alpha:1});
@@ -204,14 +211,12 @@ package view.joylessMountains
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
-				_noteTimer.stop();
 				_scrolling = true;
 				
 			} else {
 				
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
-				_noteTimer.start();
 				_scrolling = false;
 			}
 		}

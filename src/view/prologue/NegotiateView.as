@@ -6,8 +6,7 @@ package view.prologue
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
+	import flash.events.MouseEvent;
 	import flash.utils.setTimeout;
 	
 	import control.EventController;
@@ -38,12 +37,12 @@ package view.prologue
 		private var _decisions:DecisionsView;
 		private var _almsGiven:int = 0;;
 		private var _frame:FrameView;
-		private var _noteTimer:Timer;
 		private var _singleStart:Array;
 		private var _doubleStart:Array;
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _notesPlayed:Object;
 		
 		public function NegotiateView()
 		{
@@ -54,6 +53,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+			_mc.instrument_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
+			_notesPlayed = null;
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -77,10 +79,7 @@ package view.prologue
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			_noteTimer.stop();
-			_noteTimer = null;
-			
-			removeEventListener(Event.ENTER_FRAME, frameLoop);
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		public function init(e:ViewEvent) : void {
@@ -177,40 +176,26 @@ package view.prologue
 		
 		private function pageOn(e:ViewEvent):void {
 			
-			_noteTimer = new Timer(3000);
-			_noteTimer.addEventListener(TimerEvent.TIMER, showNotes);
-			_noteTimer.start();
-			
 			setTimeout(function():void{_mc.coin_mc.gotoAndStop(5);}, 3000);
 			
-			addEventListener(Event.ENTER_FRAME, frameLoop);
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_mc.instrument_mc.addEventListener(MouseEvent.CLICK, clickToShine);
 		}
 		
-		protected function frameLoop(event:Event):void
-		{
-			if (_dragVCont.isDragging || _dragVCont.isTweening) {
-				TweenMax.pauseAll();
-				_scrolling = true;
-				
-				_noteTimer.stop();
-			} else {
-				if (!_scrolling) return;
-				
-				_noteTimer.start();
-				TweenMax.resumeAll();
-				_scrolling = false;
-			}
+		private function clickToShine(e:MouseEvent):void {
+			showNotes();
 		}
 		
-		protected function showNotes(event:TimerEvent):void
+		protected function showNotes():void
 		{
 			TweenMax.to(_mc.instrument_mc.shine_mc, 1.4, {y:520, ease:Quad.easeIn, onComplete:function():void {_mc.instrument_mc.shine_mc.y = -400}}); 
 			TweenMax.to(_mc.instrument_mc.noteSingle_mc, .4, {alpha:1});
 			TweenMax.to(_mc.instrument_mc.noteSingle_mc, 2, {bezierThrough:[{x:-12, y:70}, {x:20, y:-10}, {x:-2, y:-40}],
-															onComplete:function():void {
-																_mc.instrument_mc.noteSingle_mc.x = _singleStart[0];
-																_mc.instrument_mc.noteSingle_mc.y = _singleStart[1];
-															}}); 
+				onComplete:function():void {
+					_mc.instrument_mc.noteSingle_mc.x = _singleStart[0];
+					_mc.instrument_mc.noteSingle_mc.y = _singleStart[1];
+				}}); 
 			TweenMax.to(_mc.instrument_mc.noteSingle_mc, .4, {alpha:0, delay:1});
 			
 			TweenMax.to(_mc.instrument_mc.noteDouble_mc, .4, {alpha:1, delay:.4});
@@ -222,9 +207,28 @@ package view.prologue
 			TweenMax.to(_mc.instrument_mc.noteDouble_mc, .4, {alpha:0, delay:1.8});
 		}
 		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY > 2200 && !_notesPlayed) {
+				showNotes();
+				_notesPlayed = true;
+			}
+			
+			
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				TweenMax.pauseAll();
+				_scrolling = true;
+				
+			} else {
+				if (!_scrolling) return;
+				
+				TweenMax.resumeAll();
+				_scrolling = false;
+			}
+		}
+		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			_noteTimer.stop();
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
