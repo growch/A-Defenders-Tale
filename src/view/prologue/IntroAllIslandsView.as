@@ -40,6 +40,14 @@ package view.prologue
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _cloud1:MovieClip;
+		private var _cloud2:MovieClip;
+		private var _cloud3:MovieClip;
+		private var _wave1:MovieClip;
+		private var _wave2:MovieClip;
+		private var _wave3:MovieClip;
+		private var _wave4:MovieClip;
+		private var _wave5:MovieClip;
 		
 		public function IntroAllIslandsView()
 		{
@@ -90,12 +98,27 @@ package view.prologue
 			_boat.boatMask_mc.cacheAsBitmap = true;
 			_boat.boat_mc.cacheAsBitmap = true;
 			_boat.boat_mc.mask = _boat.boatMask_mc;
+			_boat.boatMask_mc.alpha = 1;
 			
 			_boat.mask_mc.cacheAsBitmap = true;
 			_boat.waves_mc.cacheAsBitmap = true;
 			_boat.waves_mc.mask = _boat.mask_mc;
 			
-			_boat.boatMask_mc.alpha = 1;
+			_mc.mask_mc.cacheAsBitmap = true;
+			_mc.waves_mc.cacheAsBitmap = true;
+			_mc.waves_mc.mask = _mc.mask_mc;
+			_mc.mask_mc.alpha = 1;
+			
+			_cloud1 = _mc.cloud1_mc;
+			_cloud2 = _mc.cloud2_mc;
+			_cloud3 = _mc.cloud3_mc;
+			
+			_wave1 = _mc.waves_mc.wave1_mc;
+			_wave2 = _mc.waves_mc.wave2_mc;
+			_wave3 = _mc.waves_mc.wave3_mc;
+			_wave4 = _mc.waves_mc.wave4_mc;
+			_wave5 = _mc.waves_mc.wave5_mc;
+			_wave1.visible = _wave2.visible = _wave3.visible = _wave4.visible = _wave5.visible = false;
 			
 			_pageInfo = DataModel.appData.getPageInfo("introAllIslands");
 			_bodyParts = _pageInfo.body;
@@ -191,6 +214,36 @@ package view.prologue
 			function boatWave2Down(): void {
 				TweenMax.to(_boat.waves_mc.waves2_mc, 1, {y:wave2DownY, x:"+20", ease:Quad.easeIn, delay:0, onComplete:boatWave2Up});
 			}
+			
+			initWave(_wave1);
+			initWave(_wave2);
+			initWave(_wave3);
+			initWave(_wave4);
+			initWave(_wave5);
+			
+			setTimeout(waveUp, 1000, _wave1); 
+			setTimeout(waveUp, 2000, _wave2); 
+			setTimeout(waveUp, 3000, _wave3); 
+			setTimeout(waveUp, 4000, _wave4);
+			setTimeout(waveUp, 5000, _wave5);
+			
+			function initWave(thisWave:MovieClip):void {
+				thisWave.initX = thisWave.x;
+				thisWave.initY = thisWave.y;
+				thisWave.downY = thisWave.initY + thisWave.height + 2;
+				thisWave.y = thisWave.downY;
+			}
+			
+			function waveUp(thisWave:MovieClip):void {
+				thisWave.visible = true;
+				thisWave.x = thisWave.initX -10;
+				TweenMax.to(thisWave, 1, {y:thisWave.initY, x:"+10", ease:Quad.easeOut, delay:.7 + DataModel.getInstance().randomRange(.2, .6), onComplete:waveDown, onCompleteParams:[thisWave]});
+			} 			
+			function waveDown(thisWave:MovieClip): void {
+				TweenMax.to(thisWave, 1, {y:thisWave.downY, x:"+20", ease:Quad.easeIn, delay:0, onComplete:waveUp, onCompleteParams:[thisWave]});
+			}
+			
+			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
@@ -201,6 +254,22 @@ package view.prologue
 				_boat.stop();
 				_scrolling = true;
 			} else {
+				
+				_cloud1.x -= .3;
+				if (_cloud1.x < -_cloud1.width) _cloud1.x = 768;
+				_cloud2.x -= .2;
+				if (_cloud2.x < -_cloud2.width) _cloud2.x = 768;
+				_cloud3.x -= .15;
+				if (_cloud3.x < -_cloud3.width) _cloud3.x = 768;
+				
+				//some weird bug. dunno why!
+				if (!_boat.boat_mc.cacheAsBitmap) {
+					_boat.boat_mc.cacheAsBitmap = true;
+				}
+				if (!_boat.waves_mc.cacheAsBitmap) {
+					_boat.waves_mc.cacheAsBitmap = true;
+				}
+
 				if (!_scrolling) return;
 				TweenMax.resumeAll();
 				_boat.play();
@@ -210,6 +279,7 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

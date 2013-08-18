@@ -238,6 +238,7 @@ package view.capitol
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;
+				_vortex.stop();
 			} else {
 				
 				_cloud1.x -= .3;
@@ -248,6 +249,7 @@ package view.capitol
 				if (_cloud3.x < -_cloud3.width) _cloud3.x = 768;
 				
 				if (!_scrolling) return;
+				_vortex.play();
 				TweenMax.resumeAll();
 				_scrolling = false;
 			}
