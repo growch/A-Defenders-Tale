@@ -5,6 +5,7 @@ package view.shipwreck
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	
@@ -57,6 +58,9 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
+			_submit1.submit_txt.removeEventListener(FocusEvent.FOCUS_IN, clearText);
+			_submit2.submit_txt.removeEventListener(FocusEvent.FOCUS_IN, clearText);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -101,6 +105,9 @@ package view.shipwreck
 			
 			_submit1 = _mc.submit1_mc;
 			_submit2 = _mc.submit2_mc;
+			
+			_submit1.submit_txt.addEventListener(FocusEvent.FOCUS_IN, clearText);
+			_submit2.submit_txt.addEventListener(FocusEvent.FOCUS_IN, clearText);
 			
 			_submit2.visible = false;
 			
@@ -170,6 +177,10 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+		}
+		
+		private function clearText(e:FocusEvent):void {
+			e.target.text = "";
 		}
 		
 		private function pageOn(e:ViewEvent):void {

@@ -100,6 +100,7 @@ package games.bopMice.core
 			_mc.addChild(_mc.startGame_mc);
 			_mc.addChild(_mc.tryAgain_mc);
 			_mc.addChild(_mc.gameWon_mc);
+			_mc.addChild(_mc.frame_mc);
 		}
 		
 		private function addAssets():void
