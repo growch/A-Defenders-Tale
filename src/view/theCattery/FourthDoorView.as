@@ -61,8 +61,16 @@ package view.theCattery
 			_picture.removeEventListener(MouseEvent.CLICK, swingPic);
 			_scissors.removeEventListener(MouseEvent.CLICK, scissorClick);
 			_comb.removeEventListener(MouseEvent.CLICK, combClick);
+			
+			_picture = null;
+			_scissors = null;
+			_comb = null;
+			
+			_scissorsComb = null;
+			_compAlongIndex = null;
 //			
 			_pageInfo = null;
+			_bodyParts = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -174,6 +182,7 @@ package view.theCattery
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 					
 					if (part.id == "picture") {

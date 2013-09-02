@@ -94,6 +94,7 @@ package view.joylessMountains
 			//EXCEPTION
 			if (_emitter) {
 				_emitter.stop();
+				_emitter.killAllParticles();
 				_renderer.removeEmitter( _emitter );
 				_mc.cloudSnow_mc.removeChild( _renderer );
 				_renderer = null;

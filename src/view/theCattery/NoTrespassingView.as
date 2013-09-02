@@ -67,7 +67,6 @@ package view.theCattery
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			//			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		private function init(e:ViewEvent) : void {
@@ -109,6 +108,7 @@ package view.theCattery
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

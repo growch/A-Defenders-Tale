@@ -47,6 +47,7 @@ package view.joylessMountains
 		
 		public function destroy() : void {
 			_pageInfo = null;
+			_bodyParts = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -54,8 +55,8 @@ package view.joylessMountains
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
@@ -111,6 +112,7 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

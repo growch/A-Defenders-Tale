@@ -70,7 +70,6 @@ package view
 		}
 		
 		public function destroy():void {
-			
 		}
 	}
 }

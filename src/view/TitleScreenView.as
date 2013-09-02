@@ -8,10 +8,10 @@ package view
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.system.System;
 	
 	import control.EventController;
 	
-	import events.ApplicationEvent;
 	import events.ViewEvent;
 	
 	import model.DataModel;
@@ -31,6 +31,8 @@ package view
 		{
 			_SAL = new SWFAssetLoader("common.TitleScreenMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
+			
+			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		private function init(e:Event) : void {
@@ -47,25 +49,33 @@ package view
 			_beginBtn.buttonMode = true;
 			_beginBtn.addEventListener(MouseEvent.CLICK, beginBook);
 			
-			_bgSound = new Track("assets/audio/intro.mp3");
-			_bgSound.start(true);
-			_bgSound.loop = true;
+//			_bgSound = new Track("assets/audio/intro.mp3");
+//			_bgSound.start(true);
+//			_bgSound.loop = true;
 			
 			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pulseSun}); 
 			addChild(_mc);
 		}
 		
 		public function destroy():void
 		{
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			
 			_beginBtn.removeEventListener(MouseEvent.CLICK, beginBook);
-			_bgSound = null;
+			_beginBtn = null;
+			
+			_fog1 = null;
+			_sun = null;
+//			_bgSound = null;
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_SAL.destroy();
 			_SAL = null;
+			
+			removeChild(_mc);
 			_mc = null;
+			
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -94,8 +104,12 @@ package view
 		}
 		
 		private function nextScreen() : void {
-			_bgSound.stop(true);
-//			EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.SHOW_APPLICATION));
+			TweenMax.killAll();
+			_mc.stopAllMovieClips();
+			
+//			_bgSound.destroy();
+//			_bgSound.stop(true);
+			
 			var tempObj:Object = new Object();
 			tempObj.id = "ApplicationView";
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));

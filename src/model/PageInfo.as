@@ -3,6 +3,7 @@ package model
 	public class PageInfo
 	{
 		public var id : String;
+		public var contentPanelInfo : ContentPanelInfo;
 		public var body : Vector.<StoryPart>;
 		public var alms:Array;
 		public var coins:Array;

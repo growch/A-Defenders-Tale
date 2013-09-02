@@ -14,10 +14,8 @@ package games.sunlightGame.objects
 		{
 			_game = game;
 			_mc = mc;
-			trace("GameWon");
 			
 			MovieClip(_mc.cta_btn).addEventListener(MouseEvent.CLICK, ctaClick);
-//			MovieClip(_mc.cta_btn).alpha = .5;
 		}
 		
 		protected function ctaClick(event:MouseEvent):void

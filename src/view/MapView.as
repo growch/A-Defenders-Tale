@@ -12,6 +12,12 @@ package view
 	
 	import util.SWFAssetLoader;
 	
+	import view.map.MapCapitolView;
+	import view.map.MapCatteryView;
+	import view.map.MapJoylessView;
+	import view.map.MapSandlandsView;
+	import view.map.MapShipwreckView;
+	
 	public class MapView extends MovieClip implements IPageView
 	{
 		private var _mc:MovieClip;
@@ -21,6 +27,11 @@ package view
 		private var _shipwreckBtn:MovieClip;
 		private var _capitolBtn:MovieClip;
 		private var _SAL:SWFAssetLoader;
+		private var _sandlands:MapSandlandsView;
+		private var _shipwreck:MapShipwreckView;
+		private var _joyless:MapJoylessView;
+		private var _capitol:MapCapitolView;
+		private var _cattery:MapCatteryView;
 		
 		public function MapView()
 		{
@@ -34,7 +45,18 @@ package view
 			_joylessBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_shipwreckBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_capitolBtn.removeEventListener(MouseEvent.CLICK, islandClick);
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+//			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
+//			_sandlands.destroy();
+//			_sandlands = null;
+//			_shipwreck.destroy();
+//			_shipwreck = null;
+//			_joyless.destroy();
+//			_joyless = null;
+//			_capitol.destroy();
+//			_capitol = null;
+//			_cattery.destroy();
+//			_cattery = null;
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -47,7 +69,7 @@ package view
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+//			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_catteryBtn = _mc.cattery_btn;
 			_catteryBtn.mouseChildren = false;
@@ -68,6 +90,16 @@ package view
 			_capitolBtn = _mc.capitol_btn;
 			_capitolBtn.mouseChildren = false;
 			_capitolBtn.addEventListener(MouseEvent.CLICK, islandClick);
+			
+//			_sandlands = new MapSandlandsView(_mc.sandlands_mc);
+//			_shipwreck = new MapShipwreckView(_mc.shipwreck_mc);
+//			_joyless = new MapJoylessView(_mc.joyless_mc); 
+//			_capitol = new MapCapitolView(_mc.capitol_mc);
+//			_cattery = new MapCatteryView(_mc.cattery_mc);
+//			
+//			if (DataModel.STONE_COUNT >= 4) {
+//				_capitol.showCapitol();
+//			}
 			
 			addChild(_mc);
 			
@@ -127,13 +159,15 @@ package view
 				tempObj.id = "prologue.CrossSeaView";
 			}
 			_mc.stopAllMovieClips();
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 		}
 		
-		protected function decisionMade(event:ViewEvent):void
-		{
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-		}
+//		protected function decisionMade(event:ViewEvent):void
+//		{
+//			_mc.stopAllMovieClips();
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
+//		}
 		
 	}
 }

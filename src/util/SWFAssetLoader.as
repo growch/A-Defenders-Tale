@@ -18,7 +18,6 @@ package util
 		
 		public function SWFAssetLoader(thisSWF:String, thisContainer:MovieClip)
 		{
-//			_loader = new SWFLoader("app:/assets/swfs/"+thisSWF+".swf?cacheBuster="+Math.random(), {container:thisContainer, context:DataModel.LoadContext, onInit:initLoadedSWF});
 			_loader = new SWFLoader("app:/assets/swfs/"+thisSWF+".swf", {container:thisContainer, noCache:true, context:DataModel.LoadContext, onInit:initLoadedSWF});
 			_loader.load();
 		}

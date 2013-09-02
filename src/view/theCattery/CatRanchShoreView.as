@@ -52,8 +52,10 @@ package view.theCattery
 		public function destroy() : void {
 //			!!!
 			_picture.removeEventListener(MouseEvent.CLICK, swingPic);
+			_picture = null;
 //			
 			_pageInfo = null;
+			_bodyParts = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -169,7 +171,6 @@ package view.theCattery
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-//			return;
 			_force = 20;
 			_n = 0;
 			_picture.addEventListener(MouseEvent.CLICK, swingPic);
@@ -190,7 +191,6 @@ package view.theCattery
 		protected function swingPic(event:MouseEvent):void
 		{
 			_force = 20;
-//			_n = 0;
 		}
 		
 		protected function enterFrameLoop(event:Event):void

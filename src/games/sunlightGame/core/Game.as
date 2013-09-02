@@ -4,6 +4,7 @@ package games.sunlightGame.core
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.display.StageAspectRatio;
 	import flash.display.StageOrientation;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -45,18 +46,14 @@ package games.sunlightGame.core
 		public var hero:Hero;
 		public var collisionManager:CollisionManager;
 		public var fire:Boolean;
-//		private var _countdownClock:CountdownClock;
 		private var _timer:int;
 		private var _gameTimer:Timer;
-//		public var score:Score;
-//		private var _clouds:Clouds;
 		public var explosionManager:ExplosionManager;
 		private var _bgMusic:Track;
 		private var _startGame:StartGame;
 		private var _gameLost:GameLost;
 		private var _gameWon:GameWon;
 		private var _SAL:SWFAssetLoader;
-//		private var _mallet:MalletMC;
 		public var nero:Nero;
 		public var bulletManager:BulletManager;
 		public var bulletHolder:MovieClip;
@@ -66,6 +63,7 @@ package games.sunlightGame.core
 		public var gameFlipped:Boolean;
 		public var lightSource:MovieClip;
 		public var explosionHolder:MovieClip;
+		private var _speedTimer:int = 15000;
 		
 		public function Game()
 		{
@@ -78,9 +76,6 @@ package games.sunlightGame.core
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
-//			_mc.frame_mc.mouseEnabled = false;
-//			_mc.frameShadow_mc.mouseEnabled = false;
-//			
 			_startGame = new StartGame(this, _mc.startGame_mc);
 			
 			_gameLost = new GameLost(this, _mc.gameLost_mc);
@@ -89,8 +84,8 @@ package games.sunlightGame.core
 			_gameWon = new GameWon(this, _mc.gameWon_mc);
 			_mc.gameWon_mc.visible = false;
 			
-//			_gameTimer = new Timer(1000);
-//			_gameTimer.addEventListener(TimerEvent.TIMER, timerTick);
+			_gameTimer = new Timer(_speedTimer);
+			_gameTimer.addEventListener(TimerEvent.TIMER, speedUp);
 			
 			bulletHolder = _mc.bulletHolder_mc;
 			enemyHolder = _mc.enemyHolder_mc;
@@ -113,10 +108,10 @@ package games.sunlightGame.core
 			stage.autoOrients = true;
 			
 			stage.addEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
-			stage.addEventListener(	StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging );
+//			stage.addEventListener(	StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging );
+			// didn't have to bother with the above, the below locks it in portrait mode
+			stage.setAspectRatio(StageAspectRatio.PORTRAIT); 
 			
-//			TESTING!!!
-//			stage.setOrientation(StageOrientation.UPSIDE_DOWN);
 			
 			//restack screens
 //			_mc.addChild(_mc.startGame_mc);
@@ -124,24 +119,14 @@ package games.sunlightGame.core
 //			_mc.addChild(_mc.gameWon_mc);
 		}
 		
-		protected function onOrientationChanging(event:StageOrientationEvent):void
+		protected function speedUp(event:TimerEvent):void
 		{
-//			trace("onOrientationChanging!!!!!!");
-			// If the stage is about to move to an orientation we don't support, lets prevent it
-			// from changing to that stage orientation.
-			if(event.afterOrientation ==
-				StageOrientation.ROTATED_LEFT || event.afterOrientation ==
-				StageOrientation.ROTATED_RIGHT ) {
-//				event.preventDefault(); DOESN'T WORK ANYMORE!!!!
-			}
-		}		
+			enemyManager.speedUp();
+		}
 		
 		protected function onOrientationChange(event:StageOrientationEvent):void
 		{
 //			trace("onOrientationChange :"+event.afterOrientation);
-			if(event.afterOrientation == StageOrientation.ROTATED_LEFT || event.afterOrientation ==	StageOrientation.ROTATED_RIGHT ) {
-				stage.setOrientation( StageOrientation.DEFAULT );
-			}
 			if (event.afterOrientation == StageOrientation.UPSIDE_DOWN) {
 				hero.flipUpsideDown();
 				gameFlipped = true;
@@ -167,6 +152,7 @@ package games.sunlightGame.core
 //			_bgMusic.start(true);
 //			_bgMusic.loop = true;
 			
+			_gameTimer.start();
 		}
 		
 		private function heroOn():void  {
@@ -192,6 +178,7 @@ package games.sunlightGame.core
 			bulletManager.update();
 			enemyManager.update();
 			collisionManager.update();
+			explosionManager.update();
 		}
 		
 		public function gameOver():void  {
@@ -210,8 +197,6 @@ package games.sunlightGame.core
 			}
 			
 			stage.removeEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
-			stage.removeEventListener(	StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging );
-			
 			stage.setOrientation( StageOrientation.DEFAULT );
 			stage.autoOrients = false;
 			
@@ -229,6 +214,7 @@ package games.sunlightGame.core
 			_bgMusic.stop(true);
 			_bgMusic = null;
 			
+			_gameTimer.stop();
 			_gameTimer = null;
 			
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -237,25 +223,9 @@ package games.sunlightGame.core
 			_SAL = null;
 		}
 		
-//		public function restartGame():void
-//		{
-//			_mc.tryAgain_mc.visible = false;
-//			addEventListener(Event.ENTER_FRAME, update);
-//			
-//			explosionManager.explosion.visible = true;
-//			
-//			
-////			_timer = Game.DURATION;
-//			_timer = DURATION;
-//				
-//			_gameTimer.reset();
-//			_gameTimer.start();
-//			_bgMusic.start();
-//		}
 		
 		public function gameCompleted():void
 		{
-			trace("gameCompleted");
 			var tempObj:Object = new Object();
 			tempObj.id = "capitol.WinView";
 			_mc.stopAllMovieClips();

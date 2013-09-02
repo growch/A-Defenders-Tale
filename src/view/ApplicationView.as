@@ -28,7 +28,6 @@ package view
 		private var _hairTF:TextField;
 		private var _beverageTF:TextField;
 		private var _contactTF:TextField;
-//		private var _swearTF:TextField;
 		private var _romantic:OptionsView;
 		private var _sidekick:OptionsView;
 		private var _weapon:OptionsView;
@@ -60,6 +59,56 @@ package view
 			DataModel.defenderInfo = new DefenderApplicationInfo();
 		}
 		
+		public function destroy():void
+		{
+			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
+			_submitBtn = null;
+			
+			_error1 = null;
+			_error2 = null;
+			_error3 = null;
+			_error4 = null;
+			_error5 = null;
+			
+			_nameTF.removeEventListener(FocusEvent.FOCUS_OUT, nameFocusOut);
+			_contactTF.removeEventListener(FocusEvent.FOCUS_IN, showEmergencyContactOverlay);
+			
+			_nameTF = null;
+			_ageTF = null;
+			_hairTF = null;
+			_beverageTF = null;
+			_contactTF = null;
+			
+			_today = null;
+			_months = null;
+			
+			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_EMERGENCY_OVERLAY, removeEmergencyOverlay);
+			EventController.getInstance().removeEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
+			
+			_gender.destroy();
+			_contactGender.destroy();
+			_romantic.destroy();
+			_sidekick.destroy();
+			_weapon.destroy();
+			_instrument.destroy();
+			_wardrobe.destroy();
+			
+			_gender = null;
+			_contactGender = null;
+			_romantic = null;
+			_sidekick = null;
+			_weapon = null;
+			_instrument = null;
+			_wardrobe = null;
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			removeChild(_mc);
+			_mc = null;
+		}
+		
 		private function init(e:Event) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
@@ -84,38 +133,22 @@ package view
 			_ageTF.maxChars = 4;
 			
 			_hairTF = _mc.getChildByName("hairColor_txt") as TextField;
-//			_hairTF.addEventListener(Event.CHANGE, capitalizeText);
 			_hairTF.maxChars = 100;
 			
 			_beverageTF = _mc.getChildByName("beverage_txt") as TextField;
-//			_beverageTF.addEventListener(Event.CHANGE, capitalizeText);
 			_beverageTF.maxChars = 100;
 			
 			_contactTF = _mc.getChildByName("contact_txt") as TextField;
 			_contactTF.addEventListener(FocusEvent.FOCUS_IN, showEmergencyContactOverlay);
 			_contactTF.maxChars = 100;
 			
-//			_swearTF = _mc.getChildByName("swear_txt") as TextField;
-			
-			var gender:MovieClip = _mc.getChildByName("gender_mc") as MovieClip;
-			_gender = new OptionsView(gender, 3);
-			
+			_gender = new OptionsView(_mc.gender_mc, 3);
 			_contactGender = new OptionsView(_mc.contactGender_mc, 2);
-			
-			var romantic:MovieClip = _mc.getChildByName("romantic_mc") as MovieClip;
-			_romantic = new OptionsView(romantic, 3);
-			
-			var sidekick:MovieClip = _mc.getChildByName("sidekick_mc") as MovieClip;
-			_sidekick = new OptionsView(sidekick, 3);
-			
-			var weapon:MovieClip = _mc.getChildByName("weapon_mc") as MovieClip;
-			_weapon = new OptionsView(weapon, 3);
-			
-			var instrument:MovieClip = _mc.getChildByName("instrument_mc") as MovieClip;
-			_instrument = new OptionsView(instrument, 3);
-			
-			var attire:MovieClip = _mc.getChildByName("attire_mc") as MovieClip;
-			_wardrobe = new OptionsView(attire, 3);
+			_romantic = new OptionsView(_mc.romantic_mc, 3);
+			_sidekick = new OptionsView(_mc.sidekick_mc, 3);
+			_weapon = new OptionsView(_mc.weapon_mc, 3);
+			_instrument = new OptionsView(_mc.instrument_mc, 3);
+			_wardrobe = new OptionsView(_mc.attire_mc, 3);
 			
 			_submitBtn = _mc.getChildByName("submit_btn") as MovieClip;
 			_submitBtn.buttonMode = true;
@@ -236,27 +269,5 @@ package view
 			
 		}
 		
-		public function destroy():void
-		{
-			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
-			
-			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_EMERGENCY_OVERLAY, removeEmergencyOverlay);
-			EventController.getInstance().removeEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
-			
-			_nameTF.removeEventListener(FocusEvent.FOCUS_OUT, nameFocusOut);
-			
-			_gender.destroy();
-			_romantic.destroy();
-			_sidekick.destroy();
-			_weapon.destroy();
-			_instrument.destroy();
-			_wardrobe.destroy();
-			
-			//!IMPORTANT
-			DataModel.getInstance().removeAllChildren(_mc);
-			_SAL.destroy();
-			_SAL = null;
-			_mc = null;
-		}
 	}
 }

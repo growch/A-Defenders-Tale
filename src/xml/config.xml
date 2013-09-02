@@ -8,6 +8,9 @@
 	</dictionary>	
 <!-- 			PROLOGUE 			-->
 	<prologue id="PrologueView">
+		<contents image="app:/assets/images/prologue/PrologueView_thumbnail.png">
+			<title><![CDATA[The mysterious begger]]></title>
+		</contents> 
 		<wardrobe1>
 			<male>
 				<wardrobe><![CDATA[the folds of [pronoun3] cloak, and he pulled [pronoun3] hood up to further conceal [pronoun3] movement. He’d purchased the cloak in [pronoun3] home world, long before he’d heard of this realm, or its endless, permanent night.]]></wardrobe>

@@ -57,8 +57,13 @@ package view.theCattery
 		public function destroy() : void {
 //			!!!!			
 			_mouse.removeEventListener(MouseEvent.CLICK, swingThis); 
+			_mouse = null;
+			
+			_vizier = null;
+			_ball = null;
 //			
 			_pageInfo = null;
+			_bodyParts = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -148,6 +153,7 @@ package view.theCattery
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -195,11 +201,11 @@ package view.theCattery
 			_ball.gotoAndStop(1);
 		}
 		
-		protected function clipMC(thisMC:MovieClip, thisHeight:int):void
-		{
-			thisMC.scrollRect = new Rectangle(0, 0, 768, thisHeight);
-			_dragVCont.refreshView(true);
-		}
+//		protected function clipMC(thisMC:MovieClip, thisHeight:int):void
+//		{
+//			thisMC.scrollRect = new Rectangle(0, 0, 768, thisHeight);
+//			_dragVCont.refreshView(true);
+//		}
 		
 		private function pageOn(e:ViewEvent):void {
 			

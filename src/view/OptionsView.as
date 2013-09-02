@@ -20,20 +20,35 @@ package view
 		{
 			_mc = mc;
 			_optionCount = optionCount;
-			super();
+//			super();
 			init();
 		}
 		
-		public function init() : void {
-			
+		public function destroy():void
+		{
+			var thisOption: MovieClip;
 			for (var i:int = 0; i < _optionCount; i++) 
 			{
-				var thisOption: MovieClip = _mc.getChildByName("option"+i+"_mc") as MovieClip;
+				thisOption = _mc.getChildByName("option"+i+"_mc") as MovieClip;
+				thisOption.ID = null;
+				thisOption.removeEventListener(MouseEvent.CLICK, optionClick);
+			}
+			thisOption = null;
+			_error = null;
+			_mc = null;
+		}
+		
+		public function init() : void {
+			var thisOption: MovieClip;
+			for (var i:int = 0; i < _optionCount; i++) 
+			{
+				thisOption = _mc.getChildByName("option"+i+"_mc") as MovieClip;
 				thisOption.alpha = 0;
 				thisOption.ID = i;
 				thisOption.mouseChildren = false;
 				thisOption.addEventListener(MouseEvent.CLICK, optionClick);
 			}
+			thisOption = null
 			_error = _mc.getChildByName("error_mc") as MovieClip;
 			_error.visible = false;
 		}
@@ -51,14 +66,6 @@ package view
 			_selected = true;
 		}
 		
-		public function destroy():void
-		{
-			for (var i:int = 0; i < _optionCount; i++) 
-			{
-				var thisOption: MovieClip = _mc.getChildByName("option"+i+"_mc") as MovieClip;
-				thisOption.removeEventListener(MouseEvent.CLICK, optionClick);
-			}
-		}
 		
 		public function isSelected(): Boolean
 		{

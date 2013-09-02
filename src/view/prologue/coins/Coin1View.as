@@ -49,6 +49,10 @@ package view.prologue.coins
 		
 		public function destroy():void
 		{
+//		
+			_cup = null;
+			_coin = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -116,6 +120,7 @@ package view.prologue.coins
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += Math.round(part.height + part.top);
 				}
 			}

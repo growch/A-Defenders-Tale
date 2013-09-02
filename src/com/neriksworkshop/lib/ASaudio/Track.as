@@ -1,5 +1,8 @@
 ﻿package com.neriksworkshop.lib.ASaudio
 {
+	import com.neriksworkshop.lib.ASaudio.core.Core;
+	import com.neriksworkshop.lib.ASaudio.core.IAudioItem;
+	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
@@ -14,7 +17,10 @@
 	import flash.system.System;
 	import flash.utils.Timer;
 	
-	import com.neriksworkshop.lib.ASaudio.core.*;
+	import control.EventController;
+	
+	import events.ApplicationEvent;
+	import events.ViewEvent;
 	
 	/**
 	* The Track is the basic audio item. It gathers functionality from the Sound, SoundChannel and SoundTransform classes, and basically throws same events.
@@ -85,10 +91,20 @@
 			
 		
 			Core.manager.add(this);
-
-
+			
+			//		CUSTOM !!!!
+			EventController.getInstance().addEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
 		}
 		
+//		CUSTOM !!!!
+		
+		private function togMute(ApplicationEvent:Event):void
+		{
+			toggleMute(true);
+		}
+		public function destroy():void {
+			EventController.getInstance().removeEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
+		}
 		
 		
 //----------------------- Info ---------------------------------------------------------------------------------------------------		 		

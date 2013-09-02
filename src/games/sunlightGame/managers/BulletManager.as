@@ -12,7 +12,6 @@ package games.sunlightGame.managers
 		private var game:Game;
 		public var bullets:Array;
 		private var pool:StarlingPool;
-		public var count:int = 0;
 		
 		public function BulletManager(game:Game)
 		{
@@ -46,10 +45,6 @@ package games.sunlightGame.managers
 				}
 			}
 			
-//			if(game.fire && count%10 == 0)
-//				fire();
-			
-			count++;
 		}
 		
 		public function fire():void

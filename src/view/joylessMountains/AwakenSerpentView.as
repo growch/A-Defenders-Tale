@@ -57,7 +57,22 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+			//			if (!DataModel.ipad1) {
+			_smokeTimer.stop();
+			_smokeTimer = null;
+			
+			_smoke1.stop();
+			_smoke2.stop();
+			_renderer.removeEmitter( _smoke1 );
+			_renderer.removeEmitter( _smoke2 );
+			_mc.snowmonch_mc.removeChild( _renderer );
+			_renderer = null;
+			_smoke1 = null;
+			_smoke2 = null;
+			//			}
+			
 			_pageInfo = null;
+			_bodyParts = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -65,23 +80,9 @@ package view.joylessMountains
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
+			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
-			
-//			if (!DataModel.ipad1) {
-				_smokeTimer.stop();
-				_smokeTimer = null;
-				
-				_smoke1.stop();
-				_smoke2.stop();
-				_renderer.removeEmitter( _smoke1 );
-				_renderer.removeEmitter( _smoke2 );
-				_mc.snowmonch_mc.removeChild( _renderer );
-				_renderer = null;
-				_smoke1 = null;
-				_smoke2 = null;
-//			}
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -95,8 +96,7 @@ package view.joylessMountains
 			_dragVCont = null; 
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			//for delayed calls
-			TweenMax.killAll();
+			
 		}
 		
 		private function init(e:ViewEvent) : void {
@@ -138,6 +138,7 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -238,6 +239,8 @@ package view.joylessMountains
 
 		protected function decisionMade(event:ViewEvent):void
 		{
+			//for delayed calls
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

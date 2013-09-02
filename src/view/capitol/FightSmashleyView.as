@@ -48,6 +48,7 @@ package view.capitol
 		
 		public function destroy() : void {
 			_pageInfo = null;
+			_bodyParts = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -55,8 +56,8 @@ package view.capitol
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
@@ -93,7 +94,7 @@ package view.capitol
 			_bodyParts = _pageInfo.body;
 			
 //			TESTING!!!!!
-			DataModel.STONE_SERPENT = true;
+//			DataModel.STONE_SERPENT = true;
 //			TESTING!!!!!!!
 			
 			var hasSerpentine:int = DataModel.STONE_SERPENT? 0 : 1;
@@ -152,6 +153,7 @@ package view.capitol
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

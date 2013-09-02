@@ -15,7 +15,7 @@ import org.flintparticles.twoD.renderers.BitmapRenderer;
 	
 			public function SparklerExplosion() : void
 			{
-				renderer = new BitmapRenderer( new Rectangle( 0, 0, 768, 1024) );
+				renderer = new BitmapRenderer( new Rectangle( 0, 350, 768, 500) );
 				addChild( renderer );
 				
 				emitter = new Sparkler( renderer );
@@ -28,10 +28,6 @@ import org.flintparticles.twoD.renderers.BitmapRenderer;
 			protected function cleanUp(event:Event):void
 			{
 				emitter.stop();
-//				renderer.removeEmitter( emitter );
-//				removeChild( renderer );
-//				renderer = null;
-//				emitter = null;		
 			}
 			public function shootStars(x:Number, y:Number):void {
 				emitter.x = x;

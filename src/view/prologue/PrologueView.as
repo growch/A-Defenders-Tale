@@ -50,8 +50,8 @@ package view.prologue
 											"st","nd","rd","th","th","th","th","th","th","th","st"];
 		private var _frame:FrameView;
 		private var _scrolling:Boolean;
-		private var _bmpD:BitmapData;
-		private var _bmp:Bitmap;
+//		private var _bmpD:BitmapData;
+//		private var _bmp:Bitmap;
 		private var _bgSound:Track;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
@@ -68,16 +68,30 @@ package view.prologue
 		
 		public function destroy():void
 		{
+//			
+			_bgSound = null;
+			
+			_stars.destroy();
+			_stars = null;
+			
+			_lantern = null;
+			_firefliesText = null;
+			_firefliesLamp = null;
+			
+			_monthArray = null;
+			_dateSuffixArray = null;
+//			
 			_pageInfo = null;
-
+			_bodyParts = null;
+			
 			_frame.destroy();
 			_frame = null;
 			
 			_decisions.destroy();
 			_mc.removeChild(_decisions);
 			_decisions = null;
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
@@ -93,12 +107,6 @@ package view.prologue
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
-			TweenMax.killAll();
-			
-			_bgSound = null;
-			
-			_stars.destroy();
-			_stars = null;
 		}
 		
 		public function init(e:ViewEvent) : void {
@@ -170,15 +178,6 @@ package view.prologue
 						_firefliesLamp.y = _mc.lantern_mc.y + 237;
 					}
 
-//					_bmpD = new BitmapData(_tf.width,_tf.height,true,0xff0000);
-//					_bmpD.draw(_tf);
-//					_bmp = new Bitmap(_bmpD);
-//					_bmp.smoothing = true;
-//					_bmp.x = _tf.x;
-//					_bmp.y = _tf.y;
-//					_textHolder.addChild(_bmp);
-//					_mc.addChild(_bmp);
-
 					_mc.addChild(_tf);
 					
 					_nextY += Math.round(_tf.height + part.top);
@@ -192,6 +191,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

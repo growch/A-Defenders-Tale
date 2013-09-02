@@ -5,7 +5,6 @@ package games.sunlightGame.managers
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import assets.sunlightGame.EnemyMC;
 	import assets.sunlightGame.SundropMC;
 	
 	import games.sunlightGame.core.Game;
@@ -45,18 +44,24 @@ package games.sunlightGame.managers
 			
 			_dropTimer = new Timer(_dropFrequency);
 			_dropTimer.addEventListener(TimerEvent.TIMER, addDrop);
-//			_dropTimer.start();
+			_dropTimer.start();
 			
 //			TESTING!!!!!
 //			spawn();
 		}
 		
+		public function speedUp():void
+		{
+			spawnSpeed += .01;
+			if (_dropFrequency > 500) {
+				_dropFrequency -= 500;
+				_dropTimer.delay = _dropFrequency;
+			}
+			
+		}
 		
 		public function update():void
 		{
-//			TESTING!!!!!
-//			return;
-//			trace("update EnemyManager");
 			if(Math.random() < spawnSpeed) {
 				spawn();
 				game.nero.spawn();
@@ -166,17 +171,6 @@ package games.sunlightGame.managers
 			sundrops = null;
 		}
 		
-//		public function avoidBlock(e:Enemy):void
-//		{
-//			var len:int = enemies.length;
-//			
-//			for(var i:int=0; i<len; i++)
-//			{
-//				if(e == enemies[i])
-//				{
-//					e.moveLateral = true;
-//				}
-//			}
-//		}
+		
 	}
 }
