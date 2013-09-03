@@ -9,6 +9,7 @@ package view
 	import flash.media.SoundMixer;
 	import flash.media.SoundTransform;
 	
+	import assets.FadeToBlackMC;
 	import assets.NavigationMC;
 	
 	import control.EventController;
@@ -39,14 +40,26 @@ package view
 		private var _panelOpen:Boolean;
 		private var _helpPanel:MovieClip;
 		private var _contentsMC:MovieClip;
+		private var _blocker:FadeToBlackMC;
 		
 		public function NavigationView()
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			
+			EventController.getInstance().addEventListener(ViewEvent.CLOSE_GLOBAL_NAV, closeNav);
+		}
+		
+		protected function closeNav(event:Event):void
+		{
+			hidePanel();
 		}
 		
 		private function init(event:Event) : void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			_blocker = new FadeToBlackMC();
+			TweenMax.to(_blocker, 0, {autoAlpha:0});
+			addChild(_blocker);
 			
 			_mc = new NavigationMC();
 			
@@ -102,13 +115,14 @@ package view
 			_contents.gotoAndStop("_off");
 			_restart.gotoAndStop("_off");
 			_help.gotoAndStop("_off");
-			TweenMax.to(_mc, .4, {y:OPEN_Y, ease:Quad.easeInOut});
+			TweenMax.to(_mc, .6, {y:OPEN_Y, ease:Quad.easeInOut});
 			_panelOpen = true;
 		}
 		
 		private function hidePanel():void {
-			TweenMax.to(_mc, .4, {y:CLOSED_Y, ease:Quad.easeInOut});
+			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut});
 			_panelOpen = false;
+			TweenMax.to(_blocker, 0, {autoAlpha:0});
 		}
 		
 		protected function restartClick(event:MouseEvent):void
@@ -134,6 +148,7 @@ package view
 			_contents.gotoAndStop("_off");
 			_restart.gotoAndStop("_off");
 			_help.gotoAndStop("_on");
+			TweenMax.to(_blocker, .5, {autoAlpha:.5});
 			TweenMax.to(_mc, .6, {y:HELP_Y, ease:Quad.easeInOut});
 			TweenMax.to(_helpPanel, .5, {autoAlpha:1});
 			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
@@ -153,7 +168,9 @@ package view
 		
 		protected function contentsClick(event:MouseEvent):void
 		{
+			TweenMax.to(_blocker, .5, {autoAlpha:.5});
 			_contents.gotoAndStop("_on");
+			_help.gotoAndStop("_off");
 			TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut});
 			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
 			TweenMax.to(_contentsMC, .5, {autoAlpha:1});

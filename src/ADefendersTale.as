@@ -4,10 +4,8 @@ package
 	import flash.desktop.SystemIdleMode;
 	import flash.display.MovieClip;
 	import flash.display.StageAlign;
-	import flash.display.StageOrientation;
 	import flash.display.StageQuality;
 	import flash.events.Event;
-	import flash.events.StageOrientationEvent;
 	import flash.text.AntiAliasType;
 	
 	import control.ViewController;
@@ -24,9 +22,9 @@ package
 	
 	// THINK ABOUT FRAME RATE AND CHANGING FOR PERFORMANCE
 // FOR TESTING TO FIT LAPPY SCREEN
-//	[SWF(width="1050", height="1400", frameRate="60", backgroundColor="0x000000")] 
+	[SWF(width="1050", height="1400", frameRate="60", backgroundColor="0x000000")] 
 // ++++++++++++++++++
-	[SWF(width="768", height="1024", frameRate="60", backgroundColor="0x000000")]
+//	[SWF(width="768", height="1024", frameRate="60", backgroundColor="0x000000")]
 	
 	public class ADefendersTale extends MovieClip
 	{

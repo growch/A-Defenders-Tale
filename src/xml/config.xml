@@ -8,8 +8,8 @@
 	</dictionary>	
 <!-- 			PROLOGUE 			-->
 	<prologue id="PrologueView">
-		<contents image="app:/assets/images/prologue/PrologueView_thumbnail.png">
-			<title><![CDATA[The mysterious begger]]></title>
+		<contents id="prologue.PrologueView" image="app:/assets/images/prologue/contents/PrologueView_thumbnail.jpg">
+			<title><![CDATA[The curtain of night]]></title>
 		</contents> 
 		<wardrobe1>
 			<male>
@@ -76,6 +76,9 @@ But in the meantime, [defender] had somewhere to be, and time was running out. [
 <!-- 			***PROLOGUE 			-->	
 <!-- 			COIN1 			-->
 	<coin1 id="Coin1View">
+		<contents id="prologue.coins.Coin1View" image="app:/assets/images/prologue/contents/PrologueView_thumbnail.jpg">
+			<title><![CDATA[The mysterious beggar]]></title>
+		</contents> 
 		<companion1>
 			<companion><![CDATA[The ostrich yawned. “You’re the Defender,” Oonie said, and stuck her head under her wing.]]></companion>
 			<companion><![CDATA[The lizard snored from his travel pack. There would be no help from him, as usual.]]></companion>
@@ -109,6 +112,9 @@ The man nodded. “The very same. There was a time when the prince was our champ
 <!-- 			***COIN1 			-->
 <!-- 			COIN2 			-->	
 	<coin2 id="Coin2View">
+		<contents id="prologue.coins.Coin2View" image="app:/assets/images/prologue/contents/PrologueView_thumbnail.jpg">
+			<title><![CDATA[Knock knock]]></title>
+		</contents> 
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[“A wise decision,” the old man said, snatching the coin from his cup. It disappeared into the folds of his clothing as he cleared his throat. 
@@ -266,6 +272,9 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 <!-- 			***COIN7 			-->
 <!-- 			DOCKS			-->
 	<docks id="DocksView">
+		<contents id="prologue.DocksView" image="app:/assets/images/prologue/contents/PrologueView_thumbnail.jpg">
+			<title><![CDATA[You are at the docks...]]></title>
+		</contents> 
 		<alms>
 			<alm id="no"><![CDATA[“I am sorry, sir,” [defender] said. “I wish I could help you, but I have little coin myself, and am late to meet someone. Good luck to you.”]]></alm>
 			<alm id="yes"><![CDATA[“I truly wish I could stay and listen longer, sir,” [defender] said. “Your story is one I will not forget. But time waits for no one, and I must continue on my journey. Good luck to you.”]]></alm>

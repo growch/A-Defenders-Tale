@@ -3,6 +3,13 @@ package view
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
+	import control.EventController;
+	
+	import events.ViewEvent;
+	
+	import model.DataModel;
+	import model.PageInfo;
+	
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
 	public class ContentsPanelView extends MovieClip 
@@ -10,12 +17,15 @@ package view
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _nextY:int;
 		private var _pageArray:Array;
+		private var _cpv:ContentsPageView;
 		
 		public function ContentsPanelView()
 		{
-			
+			EventController.getInstance().addEventListener(ViewEvent.ADD_CONTENTS_PAGE, addContentsPage); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
+		
 		
 		private function init(event:Event) : void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -32,19 +42,33 @@ package view
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			
-			addPage();
-			addPage();
-			addPage();
-			addPage();
-			addPage();
-			addPage();
-			addPage();
-			addPage();
 		}
 		
-		public function addPage():void {
-			var newPage:ContentsPageView = new ContentsPageView();
+		protected function addContentsPage(event:ViewEvent):void
+		{
+			var pgInf:PageInfo = event.data as PageInfo;
+			
+			if (checkForPage(pgInf)) return;
+			
+			addPage(pgInf);
+		}
+		
+		private function checkForPage(pgInf:PageInfo):Boolean {
+			var pageFound:Boolean = false;
+			
+			for (var i:int = 0; i < _pageArray.length; i++) 
+			{
+				_cpv = _pageArray[i] as ContentsPageView;
+				if (pgInf.contentPanelInfo.pageID == _cpv.pgInfo.contentPanelInfo.pageID) {
+					pageFound = true;
+				}
+			}
+			
+			return pageFound;
+		}
+		
+		public function addPage(pgInf:PageInfo):void {
+			var newPage:ContentsPageView = new ContentsPageView(pgInf);
 			
 			_dragVCont.addChild(newPage);
 			_dragVCont.refreshView(true);
@@ -53,6 +77,38 @@ package view
 			
 			_nextY += newPage.pageHeight;
 			
+		}
+		
+		protected function decisionMade(event:ViewEvent):void
+		{
+			var decisionID:String = event.data.id;
+			
+			var len:int = _pageArray.length;
+			
+			for (var i:int = 0; i < len; i++) 
+			{
+				_cpv = _pageArray[i] as ContentsPageView;
+				
+				
+				if (DataModel.CURRENT_PAGE_ID == _cpv.pgInfo.contentPanelInfo.pageID) {
+					_cpv.activate();
+					removeOldPages(i+1);
+					return;
+				}
+			}
+		}
+		
+		private function removeOldPages(startIndex:int):void {
+			for (var i:int = startIndex; i < _pageArray.length; i++) 
+			{
+				_cpv = _pageArray[i] as ContentsPageView;
+				_nextY -= _cpv.pageHeight;
+				_cpv.destroy();
+				_dragVCont.removeChild(_cpv);
+				_dragVCont.refreshView(true);
+//				trace("remove: "+_cpv.pgInfo.contentPanelInfo.pageID);
+			}
+			_pageArray.length = startIndex;
 		}
 	}
 }
