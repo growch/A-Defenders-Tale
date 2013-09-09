@@ -105,7 +105,7 @@ package view.prologue
 						} else if (compInt == 1) {
 							_mc.companion_mc.y = Math.round(_tf.y) + 60;
 							// HACK CUZ THIS ITEM HAS TEXT AFTER IT WHERE OTHERS DON'T
-							_nextY -= Math.round(_tf.height - 60 - part.top - 20);
+							_nextY -= Math.round(_tf.height - 60 - part.top - 15);
 						} else {
 							_mc.companion_mc.y = Math.round(_tf.y) + 30;
 						}
@@ -119,6 +119,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

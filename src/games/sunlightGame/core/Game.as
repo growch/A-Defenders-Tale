@@ -181,13 +181,19 @@ package games.sunlightGame.core
 			explosionManager.update();
 		}
 		
-		public function gameOver():void  {
+		public function gameOver(winOrLose:String):void  {
 			removeEventListener(Event.ENTER_FRAME, update);
 			stage.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
 			stage.removeEventListener(MouseEvent.MOUSE_UP, onUp);
 			_mc.stopAllMovieClips();
 			enemyManager.gameOver();
-			_mc.gameWon_mc.visible = true;
+			
+			if (winOrLose == "win") {
+				_mc.gameWon_mc.visible = true;
+			} else {
+				_mc.gameLost_mc.visible = true;
+			}
+			
 		}
 		
 		public function destroy():void {
@@ -207,6 +213,7 @@ package games.sunlightGame.core
 			_gameLost = null;
 			_gameWon = null;
 			
+			bulletManager.destroy();
 			explosionManager.destroy();
 			collisionManager.destroy();
 			enemyManager.destroy();

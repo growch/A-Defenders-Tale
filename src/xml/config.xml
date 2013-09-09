@@ -795,8 +795,6 @@ The orcs had arrived.]]>
 	
 	
 	
-	
-	
 One look at Rey’s horrified expression was answer enough. “Perhaps a nice egg ssssalad then. Hold the mayo.”]]></companion>
 			<companion><![CDATA[]]></companion>
 		</companion1>
@@ -831,7 +829,7 @@ The man in the apron slapped [pronoun2] on the back. “This’ll be one fer the
 
 [defender] turned to [pronoun3] companion. “Well, [companionName], what shall it be?”]]>
 			</item>	
-			<item type="text" id="companionImage" width="575" height="" top="20" left="100" size="20" align="left" leading="10" file="">
+			<item type="text" id="companionImage" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 				<![CDATA[[companion1]]]>
 			</item>	
 			<item type="text" id="" width="575" height="" top="468" left="100" size="20" align="left" leading="10" file="">
@@ -5214,7 +5212,7 @@ The [previousDefenderGender] blushed.
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="capitol.ReturnToShip"><![CDATA[CONTINUE]]></decision>
+			<decision id="capitol.ReturnToShipView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</dontDrink>
 <!-- ***			DON'T DRINK 			-->
@@ -5332,7 +5330,7 @@ That is until [previousDefender] was captured by intergalactic space pirates and
 			<gender><![CDATA[The monkeys scoffed when she suggested the title of Princess, informing her that a title had nothing to do with gender. After she thought about it, she realized the METS were absolutely right, and ran as Prince with head held high.]]></gender>
 		</gender1>
 		<body>
-			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<item type="text" id="bottomText" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[Although [previousDefender] seemed great, [defender] wasn’t ready for a committed relationship—[pronoun1] just wanted to focus on [pronoun3] career. [Pronoun1] explained the situation as well as [pronoun1] was able… after all, sometimes ‘it’s not you, it’s me’ really was the truth. [previousDefender] was disappointed, but respected [defender]’s wishes, and the two remained distant friends, sending occasional postcards from their respective interrealm Defense missions.
 
 After pouring through a flood of opportunities, [defender] found [pronoun2]self gravitating toward one in particular. The political party known as the METS (Monkeys for the Ethical Treatment of Sunlight) nominated [pronoun2] to become the next Prince of the Realm.

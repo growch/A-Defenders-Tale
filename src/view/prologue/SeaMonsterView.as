@@ -110,6 +110,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 					
 				}
@@ -139,17 +140,16 @@ package view.prologue
 		
 		private function pageOn(e:ViewEvent):void {
 			_mc.armLeft_mc.visible = true;
-//			TweenMax.from(_mc.armLeft_mc, 1, {x:"-100",scaleX:.6,rotation:-15,rotationZ:45, ease:Quad.easeOut});
 			TweenMax.from(_mc.armLeft_mc, 1, {x:"-100",scaleX:.6,rotation:-15, ease:Quad.easeOut});
 			
 			_mc.armRight_mc.visible = true;
 			TweenMax.from(_mc.armRight_mc, 1.1, {x:"+200",scaleX:.6,rotation:-12, ease:Quad.easeOut});
-//			TweenMax.from(_mc.armRight_mc, 1.1, {x:"+200",scaleX:.6,rotation:-12,rotationZ:45, ease:Quad.easeOut});
 			
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

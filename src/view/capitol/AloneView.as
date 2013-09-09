@@ -57,7 +57,6 @@ package view.capitol
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
-			
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
 		}
 		
@@ -67,6 +66,20 @@ package view.capitol
 		}
 		
 		public function destroy() : void {
+//			
+			_cloud1 = null;
+			_cloud2 = null;
+			_cloud3 = null;
+			
+			_wave1 = null;
+			_wave2 = null;
+			_wave3 = null;
+			_wave4 = null;
+			_wave5 = null;
+			_wave6 = null;
+			
+			_goViral = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -158,6 +171,7 @@ package view.capitol
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -213,12 +227,22 @@ package view.capitol
 			initWave(_wave5);
 			initWave(_wave6);
 			
-			setTimeout(waveUp, 1000, _wave1); 
-			setTimeout(waveUp, 2000, _wave2); 
-			setTimeout(waveUp, 3000, _wave3); 
-			setTimeout(waveUp, 4000, _wave4);
-			setTimeout(waveUp, 5000, _wave5);
-			setTimeout(waveUp, 6000, _wave6);
+//			setTimeout(waveUp, 1000, _wave1); 
+//			setTimeout(waveUp, 2000, _wave2); 
+//			setTimeout(waveUp, 3000, _wave3); 
+//			setTimeout(waveUp, 4000, _wave4);
+//			setTimeout(waveUp, 5000, _wave5);
+//			setTimeout(waveUp, 6000, _wave6);
+			
+//			!!!!LESSON
+//			using setTimeout above and selecting next page quickly, caused swf to not unload
+			
+			TweenMax.delayedCall(1, waveUp, [_wave1]);
+			TweenMax.delayedCall(2, waveUp, [_wave2]);
+			TweenMax.delayedCall(3, waveUp, [_wave3]);
+			TweenMax.delayedCall(4, waveUp, [_wave4]);
+			TweenMax.delayedCall(5, waveUp, [_wave5]);
+			TweenMax.delayedCall(6, waveUp, [_wave6]);
 			
 			function initWave(thisWave:MovieClip):void {
 				thisWave.initX = thisWave.x;

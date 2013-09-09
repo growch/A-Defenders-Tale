@@ -61,11 +61,10 @@ package games.sunlightGame.managers
 //				
 				if(_game.hero.hit1MC.hitTestObject(_enemHit))
 				{
-//					_enem.hitEnemy();
 //					_game.explosionManager.spawn(_game.stage.mouseX, _game.stage.mouseY);
 //					_enemHitSound.start();
-//					_game.gameOver();
-//					return;
+					_game.gameOver("loser");
+					return;
 				}
 			}
 		}

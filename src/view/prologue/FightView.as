@@ -8,9 +8,7 @@ package view.prologue
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
-	import flash.utils.Timer;
 	import flash.utils.setTimeout;
 	
 	import control.EventController;
@@ -64,8 +62,10 @@ package view.prologue
 		
 		public function destroy():void
 		{
+//			
 			_mc.instruments_mc.instrument_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
 			_notesPlayed = null;
+//			
 			
 			_pageInfo = null;
 			
@@ -195,6 +195,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += Math.round(part.height + part.top);
 				}
 			}

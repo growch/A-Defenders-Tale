@@ -107,7 +107,7 @@ package view.capitol
 			_mc.weapon_mc.visible = false;
 			
 //			TESTING!!!!!!!!
-			DataModel.STONE_SAND = true;
+//			DataModel.STONE_SAND = true;
 //			TESTING!!!!!!!!
 			
 			var hasSandstone:int = DataModel.STONE_SAND ? 0 : 1;
@@ -158,6 +158,7 @@ package view.capitol
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

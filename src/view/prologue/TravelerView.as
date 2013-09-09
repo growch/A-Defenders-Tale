@@ -106,6 +106,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -134,6 +135,7 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

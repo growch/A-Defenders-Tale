@@ -47,6 +47,9 @@ package view.prologue.coins
 		
 		public function destroy():void
 		{
+			_cup = null;
+			_coin = null;
+			//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -57,12 +60,17 @@ package view.prologue.coins
 			_decisions = null;
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			//!IMPORTANT
+			DataModel.getInstance().removeAllChildren(_mc);
+			_dragVCont.removeChild(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 			
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
-			_SAL.destroy();
-			_SAL = null;
 			_dragVCont = null; 
 		}
 		
@@ -106,6 +114,7 @@ package view.prologue.coins
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

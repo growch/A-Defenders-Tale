@@ -58,8 +58,14 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+//			
 			_sparkleTimer.stop();
 			_sparkleTimer = null;
+			
+			_sparkle1 = null;
+			_sparkle2 = null;
+			_sparkle3 = null;
+//			
 			
 			_pageInfo = null;
 			
@@ -174,6 +180,7 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

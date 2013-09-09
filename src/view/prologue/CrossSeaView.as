@@ -49,6 +49,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+//			
+			_boat = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -131,6 +134,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += Math.round(part.height + part.top);
 				}
 			}
@@ -207,6 +211,7 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

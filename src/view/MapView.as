@@ -47,16 +47,16 @@ package view
 			_capitolBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 //			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-//			_sandlands.destroy();
-//			_sandlands = null;
-//			_shipwreck.destroy();
-//			_shipwreck = null;
-//			_joyless.destroy();
-//			_joyless = null;
-//			_capitol.destroy();
-//			_capitol = null;
-//			_cattery.destroy();
-//			_cattery = null;
+			_sandlands.destroy();
+			_sandlands = null;
+			_shipwreck.destroy();
+			_shipwreck = null;
+			_joyless.destroy();
+			_joyless = null;
+			_capitol.destroy();
+			_capitol = null;
+			_cattery.destroy();
+			_cattery = null;
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -68,8 +68,6 @@ package view
 		private function init(e:Event) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
-			
-//			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_catteryBtn = _mc.cattery_btn;
 			_catteryBtn.mouseChildren = false;
@@ -91,15 +89,15 @@ package view
 			_capitolBtn.mouseChildren = false;
 			_capitolBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			
-//			_sandlands = new MapSandlandsView(_mc.sandlands_mc);
-//			_shipwreck = new MapShipwreckView(_mc.shipwreck_mc);
-//			_joyless = new MapJoylessView(_mc.joyless_mc); 
-//			_capitol = new MapCapitolView(_mc.capitol_mc);
-//			_cattery = new MapCatteryView(_mc.cattery_mc);
-//			
-//			if (DataModel.STONE_COUNT >= 4) {
-//				_capitol.showCapitol();
-//			}
+			_sandlands = new MapSandlandsView(_mc.sandlands_mc);
+			_shipwreck = new MapShipwreckView(_mc.shipwreck_mc);
+			_joyless = new MapJoylessView(_mc.joyless_mc); 
+			_capitol = new MapCapitolView(_mc.capitol_mc);
+			_cattery = new MapCatteryView(_mc.cattery_mc);
+			
+			if (DataModel.STONE_COUNT >= 4) {
+				_capitol.showCapitol();
+			}
 			
 			addChild(_mc);
 			
@@ -158,16 +156,10 @@ package view
 			if (DataModel.ISLAND_SELECTED.length <= 1) {
 				tempObj.id = "prologue.CrossSeaView";
 			}
+			
 			_mc.stopAllMovieClips();
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 		}
-		
-//		protected function decisionMade(event:ViewEvent):void
-//		{
-//			_mc.stopAllMovieClips();
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-//		}
 		
 	}
 }

@@ -21,10 +21,10 @@ package
 	import util.Text;
 	
 	// THINK ABOUT FRAME RATE AND CHANGING FOR PERFORMANCE
-// FOR TESTING TO FIT LAPPY SCREEN
-	[SWF(width="1050", height="1400", frameRate="60", backgroundColor="0x000000")] 
 // ++++++++++++++++++
-//	[SWF(width="768", height="1024", frameRate="60", backgroundColor="0x000000")]
+	[SWF(width="768", height="1024", frameRate="60", backgroundColor="0x000000")]
+// FOR TESTING TO FIT LAPPY SCREEN
+//	[SWF(width="1050", height="1400", frameRate="60", backgroundColor="0x000000")] 
 	
 	public class ADefendersTale extends MovieClip
 	{

@@ -34,7 +34,7 @@ package games.sunlightGame.managers
 					if(b.y > DataModel.APP_HEIGHT)
 						destroyBullet(b);
 					if(b.hitTestObject(game.lightSource)) {
-						game.gameOver();
+						game.gameOver("winner");
 						return;
 					}
 				} else {

@@ -55,8 +55,11 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+//			
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
+			_goViral = null;
+//			
 
 			_pageInfo = null;
 			
@@ -67,7 +70,6 @@ package view.prologue
 			_mc.removeChild(_decisions);
 			_decisions = null;
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -139,6 +141,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -212,6 +215,7 @@ package view.prologue
 				_goViral.loginFacebook();
 				return;
 			}
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

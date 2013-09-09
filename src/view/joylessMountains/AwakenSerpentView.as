@@ -239,6 +239,7 @@ package view.joylessMountains
 
 		protected function decisionMade(event:ViewEvent):void
 		{
+//			_smokeTimer.stop();
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

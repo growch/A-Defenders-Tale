@@ -37,14 +37,12 @@ package view.prologue
 		private var _decisions:DecisionsView;
 		private var _frame:FrameView;		
 		private var _stars:StarryNight;
-		private var _rotInc:Number;
 		private var _boat:MovieClip;
-		private var _posNegBoat:int;
-		private var _frameCount:int;
-		private var _posNegWave:int;
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _range:Number = 2;
+		private var _speed:Number = .025;
 		
 		public function BoatIntroView()
 		{
@@ -55,6 +53,11 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+//			
+			_boat = null;
+			_stars.destroy();
+			_stars = null;
+//			
 			_pageInfo = null;
 				
 			_frame.destroy();
@@ -78,9 +81,6 @@ package view.prologue
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			_stars.destroy();
-			_stars = null;
-			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
@@ -93,7 +93,7 @@ package view.prologue
 			_boat = _mc.boat_mc;
 			_nextY = 140;
 			
-			_boat.stop();
+//			_boat.stop();
 			
 			_boat.mask_mc.cacheAsBitmap = true;
 			_boat.waves_mc.cacheAsBitmap = true;
@@ -153,6 +153,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -181,7 +182,6 @@ package view.prologue
 		}
 		
 		private function pageOn(event:ViewEvent):void {
-			_boat.play();
 			_stars.start();
 			
 			var waveInitX:int = _boat.waves_mc.x;
@@ -201,8 +201,7 @@ package view.prologue
 				TweenMax.to(_boat.waves_mc, 1, {y:waveDownY, x:"+20", ease:Quad.easeIn, delay:0, onComplete:boatWaveUp});
 			}
 			
-			_rotInc = .07;
-			_posNegBoat = 1;
+			_boat.boat_mc.angle = 0;
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
@@ -212,36 +211,28 @@ package view.prologue
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				_stars.pause();
-				_boat.stop();
 				TweenMax.pauseAll();
 				_scrolling = true;
 			} else {
 				//boat movement
-				if(_frameCount & 1) {
-					// so it's not every frame
-				} else {
-					//boat
-					_boat.boat_mc.rotation -= _posNegBoat * _rotInc;
-					if(_boat.boat_mc.rotation >= 1) {
-						_posNegBoat = 1;
-					} 
-					if(_boat.boat_mc.rotation <= - 1) {
-						_posNegBoat = -1;
-					}
-				}
-				_frameCount++;
+				rotateItem(_boat.boat_mc);
 				
 				if (!_scrolling) return;
 				_stars.resume();
-				_boat.play();
 				TweenMax.resumeAll();
 				_scrolling = false;
 			}
 			
 		}
 		
+		private function rotateItem(thisMC:MovieClip):void {
+			thisMC.rotation = 0 +  Math.sin(thisMC.angle) * _range;
+			thisMC.angle += _speed;
+		}
+		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

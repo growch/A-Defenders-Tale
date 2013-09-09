@@ -52,6 +52,13 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+//			
+			_cloud1 = null;
+			_cloud2 = null;
+			_cloud3 = null;
+			_cloud4 = null;
+			_cloud5 = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -133,6 +140,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += Math.round(part.height + part.top);
 				}
 			}

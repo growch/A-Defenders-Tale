@@ -56,6 +56,19 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+//			
+			_smokeTimer.stop();
+			_smokeTimer = null;
+			
+			_smoke1.stop();
+			_smoke2.stop();
+			_renderer.removeEmitter( _smoke1 );
+			_renderer.removeEmitter( _smoke2 );
+			_mc.snowmonch_mc.removeChild( _renderer );
+			_renderer = null;
+			_smoke1 = null;
+			_smoke2 = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -68,20 +81,6 @@ package view.joylessMountains
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			
-			_smokeTimer.stop();
-			_smokeTimer = null;
-			
-			_smoke1.stop();
-			_smoke2.stop();
-			_renderer.removeEmitter( _smoke1 );
-			_renderer.removeEmitter( _smoke2 );
-			_mc.snowmonch_mc.removeChild( _renderer );
-			_renderer = null;
-			_smoke1 = null;
-			_smoke2 = null;
-			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
@@ -92,6 +91,8 @@ package view.joylessMountains
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
+			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		private function init(e:ViewEvent) : void {
@@ -136,6 +137,7 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -165,8 +167,6 @@ package view.joylessMountains
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			
-			
 			
 			_smoke1 = new Smoke();
 			_smoke1.x = _mc.snowmonch_mc.nostrilL_mc.x;

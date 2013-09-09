@@ -59,11 +59,22 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+//			
 			_hintBtn.removeEventListener(MouseEvent.CLICK, hintClick);
 			_retry.cta_btn.removeEventListener(MouseEvent.CLICK, retryClick);
 			_gameLost.map_btn.removeEventListener(MouseEvent.CLICK, lostClick);
 			_gameLost.restart_btn.removeEventListener(MouseEvent.CLICK, lostClick);
 			_gameWon.cta_btn.removeEventListener(MouseEvent.CLICK, wonClick);
+			
+			_couldntText = _couldText = null;
+			_submitBtn = null;
+			_start = null;
+			_retry = null;
+			_gameLost = null;
+			_gameWon = null;
+			_hints = null;
+			_hintBtn = null;
+//			
 			
 			_pageInfo = null;
 			
@@ -152,7 +163,7 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
-					
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

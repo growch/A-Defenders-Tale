@@ -7,6 +7,7 @@ package view.joylessMountains
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	import control.EventController;
 	
@@ -82,9 +83,19 @@ package view.joylessMountains
 			_nextY = 110;
 			
 			_mc.card_mc.visible = false;
-			_mc.card_mc.name_txt.text = "DEFENDER " + DataModel.defenderInfo.defender.toUpperCase();
-			if (TextField(_mc.card_mc.name_txt).numLines > 1) {
-				_mc.card_mc.name_txt.y -= 20;
+			
+//			LESSON
+//			having embedded text would cause swf to not unload
+//			
+			var cardTF:Text = new Text("DEFENDER " + DataModel.defenderInfo.defender.toUpperCase(), 
+				Formats.businessCardFormat(), 250);
+			cardTF.rotation = 4;
+			cardTF.x = -124;
+			cardTF.y = -42;
+			_mc.card_mc.addChild(cardTF);
+			
+			if (TextField(cardTF).numLines > 1) {
+				cardTF.y -= 20;
 			}
 			
 			_pageInfo = DataModel.appData.getPageInfo("METS4Eva");
@@ -122,6 +133,8 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
+					
 					_nextY += part.height + part.top;
 				}
 			}

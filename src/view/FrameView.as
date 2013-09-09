@@ -66,6 +66,12 @@ package view
 			_medium.visible = false;
 			_short.visible = false;
 			_mini.visible = false;
+			_mid.visible = false;
+			
+			//hackish?
+			var singleMid:MovieClip = _mid.getChildAt(0) as MovieClip;
+			singleMid.y = _top.height;
+			_mc.addChild(singleMid);
 			
 			_spacerArray = new Array();
 			
@@ -103,13 +109,12 @@ package view
 				return;
 			}
 			
-			var duplicate:*;
-			
 			//random order
 			var remainder:Number = _middleTargetH;
 			var i:int;
 			
 			var longCount:int = Math.floor(remainder/_mid.height);
+//			trace("longCount: "+longCount);
 			for (i = 0; i < longCount; i++) 
 			{
 				_spacerArray.push(_mid);
@@ -134,20 +139,25 @@ package view
 				remainder -= _mini.height;
 			}
 			
-			
 			DataModel.getInstance().ShuffleArray(_spacerArray);
+			
+			var duplicate:*;
+			
 			for (i = 0; i < _spacerArray.length; i++) 
 			{
-				duplicate = duplicateDisplayObject(_spacerArray[i], true);
+//				duplicate = duplicateDisplayObject(_spacerArray[i], true);
 				
 //				var ClassDefinition:Class = Class(getDefinitionByName(getQualifiedClassName(_spacerArray[i]))); 
 //				duplicate = new ClassDefinition();
 //				_mc.addChild(duplicate);
 				
+				duplicate = getFromStockpile(_spacerArray[i]);
+				_mc.addChild(duplicate);
+				
 				duplicate.y = _nextY;
 				_nextY += _spacerArray[i].height;
-//				trace(_spacerArray[i]);
-//				trace(_spacerArray[i].height);
+//				duplicate = null;
+//				trace("_nextY: "+_nextY);
 			}
 			
 			_bottom.y = _nextY;
@@ -155,6 +165,12 @@ package view
 //			trace("_mc.height: "+_mc.height);
 //			makeBitmap(_mc.height);
 			
+		}
+		
+		private function getFromStockpile(thisMC:MovieClip):DisplayObject {
+			var thisAsset:DisplayObject = thisMC.getChildAt(0);
+//			trace(thisAsset.name);
+			return thisAsset;
 		}
 		
 		private function makeBitmap(h:int):void {
@@ -189,7 +205,7 @@ package view
 			_short = null;
 			_mini = null;
 			_bottom = null;
-//			removeChild(_mc);
+			_mc.parent.removeChild(_mc);
 		}
 		
 		private function removeKids():void {

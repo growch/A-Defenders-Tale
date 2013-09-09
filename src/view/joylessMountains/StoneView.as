@@ -58,12 +58,20 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+//			
 			_stars.destroy();
 			_stars = null;
 			
 			_mc.weapon_mc.removeEventListener(MouseEvent.CLICK, weaponClick);
 			
-			//
+			_boat = null;
+			_cloud1 = null;
+			_cloud2 = null;
+			_cloud3 = null;
+			_cloud4 = null;
+			_cloud5 = null;
+			
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -183,6 +191,7 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

@@ -46,9 +46,12 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+//			
+			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
+			_goViral = null;
+//			
 			_pageInfo = null;
 			
-			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			
 			_frame.destroy();
 			_frame = null;
@@ -136,6 +139,7 @@ package view.prologue
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -211,6 +215,7 @@ package view.prologue
 				_goViral.postWallHelp();
 				return;
 			}
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

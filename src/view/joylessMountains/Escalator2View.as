@@ -65,6 +65,25 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+//			
+			_cloud1 = null;
+			_cloud2 = null;
+			_cloud3 = null;
+			_cloud4 = null;
+			_cloud5 = null;
+			_cloud6 = null;
+			_cloud7 = null;
+			_cloud8 = null;
+			_cloud9 = null;
+			_cloud10 = null;
+			_cloud11 = null;
+			_cloud12 = null;
+			
+			_feather1 = null;
+			_feather2 = null;
+			_feather3 = null;
+			_feather4 = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -156,6 +175,7 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

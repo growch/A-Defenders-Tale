@@ -52,8 +52,11 @@ package view
 		protected function mcClick(event:MouseEvent):void
 		{
 //			!!!!!!! THINGS CAUSING SWFS TO NOT UNLOAD !!!!!!!!!!!
-//				NOT HAVING THIS -> loader.autoDispose = true;
-//				NOT NULLIFYING private vars referencing mcs
+//			•	NOT HAVING THIS -> loader.autoDispose = true;
+//			•	NOT NULLIFYING private vars referencing mcs
+//			• setTimeouts that didn't fire - fixed with TM delayed calls
+//			• having fonts embedded in library
+//			• 1 stop() on any frame
 			
 			var tempObj:Object = new Object();
 			//CRASHES iPAD1
@@ -62,17 +65,23 @@ package view
 			
 			//DON'T UNLOAD
 //			tempObj.id = "ApplicationView";
-			tempObj.id = "TitleScreenView";
-//			tempObj.id = "prologue.PrologueView";
-//			tempObj.id = "prologue.coins.Coin1View";
-//			tempObj.id = "prologue.coins.Coin2View";
-//			tempObj.id = "prologue.coins.Coin3View";
+//			tempObj.id = "TitleScreenView";
+			
+//			tempObj.id = "prologue.IntroAllIslandsView";
+//			tempObj.id = "sandlands.Sand2View";
+//			tempObj.id = "sandlands.FindWizardView";
 //
-//			tempObj.id = "joylessMountains.AwakenSerpentView";
-//			tempObj.id = "joylessMountains.CaveView";
-//			tempObj.id = "joylessMountains.Climb1View";
+
+			
+//			tempObj.id = "shipwreck.CaptainView";
 //
-//			tempObj.id = "capitol.FightSmashleyView";
+//			tempObj.id = "capitol.GoWithPreviousView";
+			
+
+			
+//			?????? QUESTIONABLE IN STORY ORDER
+//			tempObj.id = "theCattery.BallView";
+//			tempObj.id = "prologue.IntroAllIslandsView";
 			
 			//THESE UNLOAD
 //			tempObj.id = "theCattery.AcceptOfferView";
@@ -92,6 +101,9 @@ package view
 //			tempObj.id = "theCattery.ReturnToBoatView";
 //			tempObj.id = "theCattery.ScratchEarsView";
 //			tempObj.id = "theCattery.ThirdDoorView";
+			
+//			tempObj.id = "sandlands.ApprenticeView";
+//			tempObj.id = "sandlands.HutView";
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			tempObj = null;

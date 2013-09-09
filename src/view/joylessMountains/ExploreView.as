@@ -59,6 +59,17 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+//			
+			_bellL1 = null;
+			_bellL2 = null;
+			_bellL3 = null;
+			_bellL4 = null;
+			
+			_bellR1 = null;
+			_bellR2 = null;
+			_bellR3 = null;
+			_bellR4 = null;
+//			
 			_mc.instrument_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
 			_notesPlayed = null;
 			
@@ -169,6 +180,7 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

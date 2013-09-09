@@ -45,6 +45,9 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+//			
+			_mugText = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -114,7 +117,6 @@ package view.prologue
 						_mc.joyless_mc.y = Math.round(_tf.y + ((_tf.height - _mc.joyless_mc.height))/2);
 					}
 					
-					
 					_mc.addChild(_tf);
 					_nextY += Math.round(_tf.height + part.top);
 					
@@ -125,11 +127,9 @@ package view.prologue
 					
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
-					
-					
-					
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += Math.round(part.height + part.top);
 				}
 			}
@@ -177,8 +177,6 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-//			TweenMax.to(_mc, 1, {alpha:0});
-//			TweenMax.to(_dragVCont, 1, {alpha:0, delay:0, onComplete:nextPage, onCompleteParams:[event.data]});
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));

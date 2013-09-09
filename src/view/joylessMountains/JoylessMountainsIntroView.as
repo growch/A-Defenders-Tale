@@ -76,6 +76,27 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+//			
+			if (_emitter) {
+				_emitter.stop();
+				_emitter.killAllParticles();
+				_renderer.removeEmitter( _emitter );
+				_mc.cloudSnow_mc.removeChild( _renderer );
+				_renderer = null;
+				_emitter = null;
+			}
+			
+			_cloud1 = null;
+			_cloud2 = null;
+			_cloud3 = null;
+			
+			_wave1 = null;
+			_wave2 = null;
+			_wave3 = null;
+			_wave4 = null;
+			_wave5 = null;
+			_wave6 = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -90,16 +111,6 @@ package view.joylessMountains
 			
 			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			
-			//EXCEPTION
-			if (_emitter) {
-				_emitter.stop();
-				_emitter.killAllParticles();
-				_renderer.removeEmitter( _emitter );
-				_mc.cloudSnow_mc.removeChild( _renderer );
-				_renderer = null;
-				_emitter = null;
-			}
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -175,6 +186,7 @@ package view.joylessMountains
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

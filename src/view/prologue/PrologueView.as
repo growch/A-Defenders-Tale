@@ -72,6 +72,7 @@ package view.prologue
 			_bgSound = null;
 			
 			_stars.destroy();
+			_mc.removeChild(_stars);
 			_stars = null;
 			
 			_lantern = null;
