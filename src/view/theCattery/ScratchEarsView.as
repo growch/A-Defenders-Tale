@@ -114,11 +114,18 @@ package view.theCattery
 					if (part.id == "last") {
 						var index0:int = copy.indexOf("a view", 0);
 						var rect0:Rectangle = _tf.getCharBoundaries(index0);
-						_mc.card_mc.y = _tf.y + rect0.y + 40;
+						_mc.card_mc.y = _tf.y + rect0.y + 50;
 						
-						_mc.card_mc.name_txt.text = DataModel.defenderInfo.defender.toUpperCase();
-						if (TextField(_mc.card_mc.name_txt).numLines > 1) {
-							_mc.card_mc.name_txt.y -= 20;
+//						_mc.card_mc.name_txt.text = DataModel.defenderInfo.defender.toUpperCase();
+						var cardTF:Text = new Text("DEFENDER " + DataModel.defenderInfo.defender.toUpperCase(), 
+							Formats.businessCardFormat(24), 300);
+						cardTF.rotation = 4;
+						cardTF.x = 42;
+						cardTF.y = 88;
+						_mc.card_mc.addChild(cardTF);
+						
+						if (cardTF.numLines > 1) {
+							cardTF.y -= 24;
 						}
 						
 						_mc.end_mc.y = Math.round(_tf.y + _tf.height + 60);

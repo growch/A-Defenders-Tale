@@ -94,7 +94,7 @@ package view.joylessMountains
 			cardTF.y = -42;
 			_mc.card_mc.addChild(cardTF);
 			
-			if (TextField(cardTF).numLines > 1) {
+			if (cardTF.numLines > 1) {
 				cardTF.y -= 20;
 			}
 			

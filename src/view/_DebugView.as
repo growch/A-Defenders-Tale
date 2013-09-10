@@ -65,7 +65,6 @@ package view
 			
 			//DON'T UNLOAD
 //			tempObj.id = "ApplicationView";
-//			tempObj.id = "TitleScreenView";
 			
 //			tempObj.id = "prologue.IntroAllIslandsView";
 //			tempObj.id = "sandlands.Sand2View";

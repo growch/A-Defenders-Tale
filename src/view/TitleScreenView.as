@@ -46,13 +46,14 @@ package view
 			
 			_beginBtn = _mc.begin_btn;
 			_beginBtn.mouseChildren = false;
-			_beginBtn.buttonMode = true;
+//			_beginBtn.buttonMode = true;
 			_beginBtn.addEventListener(MouseEvent.CLICK, beginBook);
 			
 //			_bgSound = new Track("assets/audio/intro.mp3");
 //			_bgSound.start(true);
 //			_bgSound.loop = true;
 			
+//			stage.addEventListener(MouseEvent.CLICK, beginBook);
 			
 			addChild(_mc);
 		}
@@ -60,6 +61,8 @@ package view
 		public function destroy():void
 		{
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			
+//			stage.removeEventListener(MouseEvent.CLICK, beginBook);
 			
 			_beginBtn.removeEventListener(MouseEvent.CLICK, beginBook);
 			_beginBtn = null;
@@ -90,17 +93,26 @@ package view
 		protected function beginBook(event:MouseEvent):void
 		{
 			TweenMax.to(_beginBtn, .6, {scaleX:1.2, scaleY:1.2, ease:Quad.easeOut});
-			showFog();
-		}		
-		
-		
-		private function showFog() : void {
+			
 			TweenMax.killTweensOf(_sun);
 			_fog1.visible = true;
 			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
 			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
-			TweenMax.to(_mc, .3, {alpha:0, delay:2.4, onComplete:nextScreen});
+			TweenMax.to(_mc, .2, {alpha:0, delay:2.4});
+			
+			TweenMax.delayedCall(2.0, nextScreen);
+		}		
+		
+//		WTF!!!!! for some reason this function was causing swf to not UNLOAD!!!
+//		LESSON???
+		private function showFog() : void {
+//			TweenMax.killTweensOf(_sun);
+//			_fog1.visible = true;
+//			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
+//			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
+//			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
+//			TweenMax.to(_mc, .3, {alpha:0, delay:2.4, onComplete:nextScreen});
 		}
 		
 		private function nextScreen() : void {
