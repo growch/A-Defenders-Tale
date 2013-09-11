@@ -7,7 +7,12 @@ package view.shipwreck
 	import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
+	import flash.text.AntiAliasType;
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
+	import flash.text.TextFormat;
+	
+	import assets.fonts.Caslon224BookItalic;
 	
 	import control.EventController;
 	
@@ -48,6 +53,8 @@ package view.shipwreck
 		private var _whoText:TextField;
 		private var _finalText:TextField;
 		private var _SAL:SWFAssetLoader;
+		private var _sub1Text:TextField;
+		private var _sub2Text:TextField;
 		
 		public function JokeView()
 		{
@@ -58,9 +65,22 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			_submit1.submit_txt.removeEventListener(FocusEvent.FOCUS_IN, clearText);
-			_submit2.submit_txt.removeEventListener(FocusEvent.FOCUS_IN, clearText);
+//			
+			_sub1Text.removeEventListener(FocusEvent.FOCUS_IN, clearText);
+			_sub2Text.removeEventListener(FocusEvent.FOCUS_IN, clearText);
 			
+			_sub1Text = null;
+			_sub2Text = null;
+			
+			_fish1 = null;
+			_fish2 = null;
+			_fish3 = null;
+			_fish4 = null;
+			
+			_submit1 = null;
+			_submit2 = null;
+			
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -97,7 +117,6 @@ package view.shipwreck
 			_pageInfo = DataModel.appData.getPageInfo("joke");
 			_bodyParts = _pageInfo.body;
 			
-			
 			_fish1 = _mc.fish1_mc;
 			_fish2 = _mc.fish2_mc;
 			_fish3 = _mc.fish3_mc;
@@ -106,8 +125,35 @@ package view.shipwreck
 			_submit1 = _mc.submit1_mc;
 			_submit2 = _mc.submit2_mc;
 			
-			_submit1.submit_txt.addEventListener(FocusEvent.FOCUS_IN, clearText);
-			_submit2.submit_txt.addEventListener(FocusEvent.FOCUS_IN, clearText);
+			
+			var tf:TextFormat = new TextFormat();
+			tf.size = 32;
+			tf.color = 0x8D8D8D;
+			tf.align = "center";
+			tf.font = new Caslon224BookItalic().fontName;
+			
+			_sub1Text = new TextField();
+			_sub1Text.type = TextFieldType.INPUT;
+			_sub1Text.antiAliasType = AntiAliasType.ADVANCED;
+			_sub1Text.width = 363;
+			_sub1Text.x = -44;
+			_sub1Text.y = 8;
+			_sub1Text.defaultTextFormat = tf;
+			_sub1Text.text = "enter knock knock name";
+			_submit1.addChild(_sub1Text);
+			
+			_sub2Text = new TextField();
+			_sub2Text.type = TextFieldType.INPUT;
+			_sub2Text.antiAliasType = AntiAliasType.ADVANCED;
+			_sub2Text.width = 552;
+			_sub2Text.x = 8;
+			_sub2Text.y = 8;
+			_sub2Text.defaultTextFormat = tf;
+			_sub2Text.text = "enter punchline";
+			_submit2.addChild(_sub2Text);
+			
+			_sub1Text.addEventListener(FocusEvent.FOCUS_IN, clearText);
+			_sub2Text.addEventListener(FocusEvent.FOCUS_IN, clearText);
 			
 			_submit2.visible = false;
 			
@@ -144,6 +190,7 @@ package view.shipwreck
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -199,10 +246,10 @@ package view.shipwreck
 		}
 		
 		private function knockQuestion(e:MouseEvent):void {
-			if (_submit1.submit_txt.text == "") return;
+			if (_sub1Text.text == "") return;
 			_submit1.submit_btn.removeEventListener(MouseEvent.CLICK, knockQuestion);
 			
-			_whoText.text = "“" + _submit1.submit_txt.text + _whoText.text;
+			_whoText.text = "“" + _sub1Text.text + _whoText.text;
 			//otherwise text wasn't showing up
 			_whoText.height += 100;
 			_submit2.y = _whoText.y + _whoText.textHeight + 40;
@@ -213,10 +260,10 @@ package view.shipwreck
 		}
 		
 		private function knockAnswer(e:MouseEvent):void {
-			if (_submit2.submit_txt.text == "") return;
+			if (_sub2Text.text == "") return;
 			_submit2.submit_btn.removeEventListener(MouseEvent.CLICK, knockAnswer);
 			
-			_whoText.text = _whoText.text +  "“" + _submit2.submit_txt.text + "”";
+			_whoText.text = _whoText.text +  "“" + _sub2Text.text + "”";
 			//otherwise text wasn't showing up
 			_whoText.height += 100;
 			_finalText.y = _whoText.y + _whoText.textHeight + 40;

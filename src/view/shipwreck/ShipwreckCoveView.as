@@ -66,6 +66,26 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
+//			
+			_cloud1 = null;
+			_cloud2 = null;
+			_cloud3 = null;
+			
+			_wave1 = null;
+			_wave2 = null;
+			_wave3 = null;
+			_wave4 = null;
+			
+			_wreckShip = null;
+			_wreckMast = null;
+			
+			_bird1 = null;
+			_bird2 = null;
+			_bird3 = null;
+			_bird4 = null;
+			_bird5 = null;
+			_bird6 = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -170,6 +190,7 @@ package view.shipwreck
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -231,17 +252,19 @@ package view.shipwreck
 				TweenMax.to(thisWave, 1, {y:thisWave.downY, x:"+20", ease:Quad.easeIn, delay:0, onComplete:waveUp, onCompleteParams:[thisWave]});
 			}
 			
-			setTimeout(waveUp, 1000, _wave1); 
-			setTimeout(waveUp, 1500, _wave2); 
-			setTimeout(waveUp, 2000, _wave3); 
-			setTimeout(waveUp, 2500, _wave4); 
 			
-			setTimeout(birdOn, 200, _bird1);
-			setTimeout(birdOn, 400, _bird2);
-			setTimeout(birdOn, 600, _bird3);
-			setTimeout(birdOn, 800, _bird4);
-			setTimeout(birdOn, 1000, _bird5);
-			setTimeout(birdOn, 1200, _bird6);
+			TweenMax.delayedCall(1, waveUp, [_wave1]);
+			TweenMax.delayedCall(1.5, waveUp, [_wave2]);
+			TweenMax.delayedCall(2, waveUp, [_wave3]);
+			TweenMax.delayedCall(2.5, waveUp, [_wave4]);
+
+			TweenMax.delayedCall(.2, birdOn, [_bird1]);
+			TweenMax.delayedCall(.4, birdOn, [_bird2]);
+			TweenMax.delayedCall(.5, birdOn, [_bird3]);
+			TweenMax.delayedCall(.8, birdOn, [_bird4]);
+			TweenMax.delayedCall(1.0, birdOn, [_bird5]);
+			TweenMax.delayedCall(1.2, birdOn, [_bird6]);
+				
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			

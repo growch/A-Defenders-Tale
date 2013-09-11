@@ -70,8 +70,8 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			_SAL.destroy();
-			_SAL = null;
+			clearTimeout(_hitTimeout);
+			_hitTimeout = null;
 			
 			_jellyTimer.removeEventListener(TimerEvent.TIMER, animateJelly); 
 			_jellyTimer = null;
@@ -81,9 +81,20 @@ package view.shipwreck
 			_loseMC.map_btn.removeEventListener(MouseEvent.CLICK, gameLostDecision);
 			_loseMC.restart_btn.removeEventListener(MouseEvent.CLICK, gameLostDecision);
 			
+			_startMC = null;
+			_winMC = null;
+			_loseMC = null;
+			thisJ = null;
+			thisRef = null;
+			_starfish = null;
+			_glowHit = null;
+			_bg = null;
+			_glow = null;
+			
 			_frame.destroy();
 			_frame = null;
 			
+			_collisions = null;
 			_collisionList.dispose();
 			_collisionList = null;
 			
@@ -95,6 +106,10 @@ package view.shipwreck
 			_jellyfishArray = null;
 			
 			DataModel.getInstance().removeAllChildren(_mc);
+			
+			_SAL.destroy();
+			_SAL = null;
+			_mc = null;
 		}
 		
 		private function init (event:Event) : void {
@@ -115,7 +130,7 @@ package view.shipwreck
 //			_glow = _mc.glow_mc;
 			_glow = new JellyfishGameGlowMC();
 			_glow.x = _mc.glow_mc.x;
-			_glow.y = _mc.glow_mc.y;
+			_glow.y = 20;
 			_mc.addChild(_glow);
 			_mc.removeChild(_mc.glow_mc);
 			_glowHit = _glow.hit_mc;

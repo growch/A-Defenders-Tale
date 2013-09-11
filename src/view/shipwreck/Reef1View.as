@@ -66,12 +66,7 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			_bubbles1.stop();
-			_bubbles2.stop();
-			_bubbles3.stop();
-			_bubbles4.stop();
-			_bubblesDung.stop();
-			
+//			
 			_renderer1.removeEmitter(_bubbles1);
 			_renderer2.removeEmitter(_bubbles2);
 			_renderer3.removeEmitter(_bubbles3);
@@ -85,6 +80,24 @@ package view.shipwreck
 			_renderer3 = null;
 			_renderer4 = null;
 			_rendererDung = null;
+			
+			_dungeonFish = null;
+			_clownFish = null;
+			_fish2 = null;
+			_fish3 = null;
+			_fish4 = null;
+			
+			_bubbles1.stop();
+			_bubbles2.stop();
+			_bubbles3.stop();
+			_bubbles4.stop();
+			_bubblesDung.stop();
+			
+			_bubbles1 = null;
+			_bubbles2 = null;
+			_bubbles3 = null;
+			_bubbles4 = null;
+			_bubblesDung = null;
 //			
 			_pageInfo = null;
 			
@@ -177,6 +190,7 @@ package view.shipwreck
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

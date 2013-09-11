@@ -58,6 +58,8 @@ package view.shipwreck
 		public function destroy() : void {
 			_jellyTimer.stop();
 			_jellyTimer = null;
+			
+//			_jellyArray = null;
 //			
 			_pageInfo = null;
 			
@@ -151,6 +153,7 @@ package view.shipwreck
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					
 					//EXCEPTION
 //					_jelly1.y = _nextY + 20;

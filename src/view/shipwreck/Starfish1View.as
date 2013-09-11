@@ -1,21 +1,16 @@
 package view.shipwreck
 {
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.text.TextField;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
 	
 	import model.DataModel;
-	import model.DecisionInfo;
 	import model.PageInfo;
 	import model.StoryPart;
 	
@@ -26,13 +21,10 @@ package view.shipwreck
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
-	import view.ApplicationView;
 	import view.Bubbles;
-	import view.Bubbles2;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.MapView;
 	
 	public class Starfish1View extends MovieClip implements IPageView
 	{
@@ -82,6 +74,15 @@ package view.shipwreck
 			_renderer3 = null;
 			_renderer4 = null;
 			
+			_bubbles1 = null;
+			_bubbles2 = null;
+			_bubbles3 = null;
+			_bubbles4 = null;
+			
+			_fish2 = null;
+			_fish3 = null;
+			
+			_morrisey = null;
 //			
 			_pageInfo = null;
 			
@@ -169,6 +170,7 @@ package view.shipwreck
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

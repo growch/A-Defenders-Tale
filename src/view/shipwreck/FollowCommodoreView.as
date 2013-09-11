@@ -67,17 +67,20 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
+//			
 			_bubbles1.stop();
 			_bubbles2.stop();
 			_bubbles3.stop();
 			_bubbles4.stop();
-			_bubblesMo.stop();
 			
 			_renderer1.removeEmitter(_bubbles1);
 			_renderer2.removeEmitter(_bubbles2);
 			_renderer3.removeEmitter(_bubbles3);
 			_renderer4.removeEmitter(_bubbles4);
-			_rendererMo.removeEmitter(_bubblesMo);
+			if (_bubblesMo) {
+				_bubblesMo.stop();
+				_rendererMo.removeEmitter(_bubblesMo);
+			}
 			
 			_morrisey.removeChild(_rendererMo);
 
@@ -87,6 +90,18 @@ package view.shipwreck
 			_renderer4 = null;
 			_rendererMo = null;
 			
+			_bubbles1 = null;
+			_bubbles2 = null;
+			_bubbles3 = null;
+			_bubbles4 = null;
+			_bubblesMo = null;
+			
+			_morrisey = null;
+			
+			_fish2 = null;
+			_fish3 = null;
+			_fish4 = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -177,6 +192,7 @@ package view.shipwreck
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true; 
 					_nextY += part.height + part.top;
 				}
 			}

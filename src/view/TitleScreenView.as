@@ -53,16 +53,12 @@ package view
 //			_bgSound.start(true);
 //			_bgSound.loop = true;
 			
-//			stage.addEventListener(MouseEvent.CLICK, beginBook);
-			
 			addChild(_mc);
 		}
 		
 		public function destroy():void
 		{
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
-			
-//			stage.removeEventListener(MouseEvent.CLICK, beginBook);
 			
 			_beginBtn.removeEventListener(MouseEvent.CLICK, beginBook);
 			_beginBtn = null;
