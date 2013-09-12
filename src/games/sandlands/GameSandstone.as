@@ -26,7 +26,6 @@ package games.sandlands
 	public class GameSandstone extends MovieClip
 	{
 		
-		public static const FPS:int = DataModel.BOP_MICE_FPS; 
 //		public static const DURATION:int = 15; // in seconds
 		public var DURATION:int = 15; // in seconds
 		
@@ -36,8 +35,8 @@ package games.sandlands
 		private var _timer:int;
 		private var _gameTimer:Timer;
 		private var _bgMusic:Track;
-		private var _startGame:MovieClip;
-		private var _tryAgain:MovieClip;
+		private var _startGame:StartGame;
+		private var _tryAgain:RetryGame;
 		private var _gameWon:GameWon;
 		private var _gameLost:GameLost;
 		private var _SAL:SWFAssetLoader;
@@ -58,6 +57,41 @@ package games.sandlands
 		{
 			stopGame();
 			setTimeout(function():void {_mc.gameWon_mc.visible = true;}, 500);
+		}
+		
+		public function destroy():void {
+			//TODO!!!!!! clean everything UP!!!!!!!!
+			EventController.getInstance().removeEventListener(ViewEvent.SAND_GAME_STONE_FOUND, stoneFound);
+			
+			enemyManager.destroy();
+			enemyManager = null;
+			
+			_gameWon.destroy();
+			_tryAgain.destroy();
+			_startGame.destroy();
+			_gameLost.destroy();
+			
+			_gameWon = null;
+			_tryAgain = null;
+			_startGame = null;
+			_gameLost = null;
+			
+			_gameTimer = null;
+			
+			_timer = null;
+			
+			_bgMusic.stop(true);
+			_bgMusic = null;
+			
+			_countdownClock.destroy();
+			_countdownClock = null;
+			
+			DataModel.getInstance().removeAllChildren(_mc);
+			
+			_SAL.destroy();
+			_SAL = null;
+			removeChild(_mc);
+			_mc = null;
 		}
 		
 		private function init(event:Event):void
@@ -82,7 +116,6 @@ package games.sandlands
 //			
 			_countdownClock = new CountdownClock(_mc.countdown_mc, this);
 //			
-//			_timer = GameSandlands.DURATION;
 			_timer = DURATION;
 //			
 			_gameTimer = new Timer(1000);
@@ -90,7 +123,6 @@ package games.sandlands
 			
 			addChild(_mc);
 			
-//			startGame();
 		}
 		
 		public function startGame():void {
@@ -102,11 +134,10 @@ package games.sandlands
 //			
 			_countdownClock.startClock();
 			_gameTimer.start();
-//			addEventListener(Event.ENTER_FRAME, update);
 //			// audio
 			_bgMusic = new Track("assets/audio/games/bopMice/bg.mp3");
 //			_bgMusic.start(true);
-			_bgMusic.loop = true;
+//			_bgMusic.loop = true;
 			
 		}
 		
@@ -124,8 +155,6 @@ package games.sandlands
 			
 			if (_timer <= 0)
 			{
-//				removeEventListener(Event.ENTER_FRAME, update);
-//				enemyManager.killAll();
 				stopGame();
 					
 				if (_attempts < _allowedAttempts) {
@@ -147,26 +176,6 @@ package games.sandlands
 //			enemyManager.update();
 //		}
 		
-		public function destroy():void {
-			//TODO!!!!!! clean everything UP!!!!!!!!
-//			removeEventListener(Event.ENTER_FRAME, update);
-			EventController.getInstance().removeEventListener(ViewEvent.SAND_GAME_STONE_FOUND, stoneFound);
-			
-			enemyManager.destroy();
-			
-			_gameWon.destroy();
-			_tryAgain.destroy();
-			
-			_gameTimer = null;
-			
-			_bgMusic.stop(true);
-			_bgMusic = null;
-			
-			DataModel.getInstance().removeAllChildren(_mc);
-			
-			_SAL.destroy();
-			_SAL = null;
-		}
 		
 		public function restartGame():void
 		{
@@ -175,9 +184,7 @@ package games.sandlands
 			enemyManager.reset();
 			
 			hideStone();
-//			addEventListener(Event.ENTER_FRAME, update);
 			
-//			_timer = GameSandlands.DURATION;
 			_timer = DURATION;
 				
 			_gameTimer.reset();

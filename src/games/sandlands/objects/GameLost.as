@@ -33,6 +33,8 @@ package games.sandlands.objects
 		public function destroy():void {
 			MovieClip(_mc.map_btn).removeEventListener(MouseEvent.CLICK, ctaClick);
 			MovieClip(_mc.restart_btn).removeEventListener(MouseEvent.CLICK, ctaClick);
+			_game = null;
+			_mc = null;
 		}
 	}
 }

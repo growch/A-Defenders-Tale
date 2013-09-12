@@ -6,7 +6,13 @@ package view.joylessMountains
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.text.AntiAliasType;
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
+	import flash.text.TextFormat;
+	
+	import assets.fonts.Caslon224;
+	import assets.fonts.Caslon224BookItalic;
 	
 	import control.EventController;
 	
@@ -65,8 +71,10 @@ package view.joylessMountains
 			_gameLost.map_btn.removeEventListener(MouseEvent.CLICK, lostClick);
 			_gameLost.restart_btn.removeEventListener(MouseEvent.CLICK, lostClick);
 			_gameWon.cta_btn.removeEventListener(MouseEvent.CLICK, wonClick);
+			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
 			
-			_couldntText = _couldText = null;
+			_couldntText = null;
+			_couldText = null;
 			_submitBtn = null;
 			_start = null;
 			_retry = null;
@@ -75,7 +83,6 @@ package view.joylessMountains
 			_hints = null;
 			_hintBtn = null;
 //			
-			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -110,8 +117,32 @@ package view.joylessMountains
 			
 			_nextY = 110;
 			
-			_couldText = _mc.could_txt;
-			_couldntText = _mc.couldnt_txt;
+			var tf:TextFormat = new TextFormat();
+			tf.size = 38;
+			tf.color = 0x000000;
+//			tf.align = "center";
+			tf.font = new Caslon224().fontName;
+			
+//			_couldText = _mc.could_txt;
+			_couldText = new TextField();
+			_couldText.type = TextFieldType.INPUT;
+			_couldText.antiAliasType = AntiAliasType.ADVANCED;
+			_couldText.width = 363;
+			_couldText.x = 291;
+			_couldText.y = 171;
+			_couldText.defaultTextFormat = tf;
+			_mc.addChild(_couldText);
+			
+			
+//			_couldntText = _mc.couldnt_txt;
+			_couldntText = new TextField();
+			_couldntText.type = TextFieldType.INPUT;
+			_couldntText.antiAliasType = AntiAliasType.ADVANCED;
+			_couldntText.width = 363;
+			_couldntText.x = 444;
+			_couldntText.y = 259;
+			_couldntText.defaultTextFormat = tf;
+			_mc.addChild(_couldntText);
 			
 			_submitBtn = _mc.submit_btn;
 			
@@ -196,9 +227,9 @@ package view.joylessMountains
 		protected function hintClick(event:MouseEvent):void
 		{
 			_hintCount++;
-			if (_hintCount > _hints.totalFrames) {
+			if (_hintCount > _hints.totalFrames-1) {
 				_hintBtn.visible = false;
-				return;
+//				return;
 			}
 			TweenMax.to(_hints, .5, {alpha:0, onComplete:
 				function():void{
@@ -261,8 +292,6 @@ package view.joylessMountains
 			} else {
 				_gameLost.visible = true;
 			}
-//			trace("couldGood : "+couldGood);
-//			trace("couldntGood : "+couldntGood);
 		}
 		
 		protected function enterFrameLoop(event:Event):void

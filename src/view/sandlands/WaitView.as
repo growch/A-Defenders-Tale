@@ -104,7 +104,6 @@ package view.sandlands
 						_mc.ravens_mc.y = _nextY;
 					}
 					
-					
 					if (part.id == "end") {
 						_mc.end_mc.y = _nextY + 60;
 						_nextY += _mc.end_mc.height + 60;
@@ -114,6 +113,7 @@ package view.sandlands
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

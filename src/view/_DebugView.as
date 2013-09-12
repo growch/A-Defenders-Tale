@@ -57,6 +57,7 @@ package view
 //			• setTimeouts that didn't fire - fixed with TM delayed calls
 //			• having fonts embedded in library
 //			• 1 stop() on any frame
+//			• having text (input only?) field with embedded text i.e. PlayRiddles
 			
 			var tempObj:Object = new Object();
 			//CRASHES iPAD1
@@ -65,44 +66,19 @@ package view
 			
 			//DON'T UNLOAD
 //			tempObj.id = "ApplicationView";
-			
+//			tempObj.id = "MapView";
 //			tempObj.id = "prologue.IntroAllIslandsView";
-//			tempObj.id = "sandlands.Sand2View";
-//			tempObj.id = "sandlands.FindWizardView";
-//
+//			tempObj.id = "sandlands.SandstoneGameView";
+//			tempObj.id = "shipwreck.JellyfishGameView";
+//			tempObj.id = "joyless.PlayRiddlesView";
+//			tempObj.id = "capitol.SunlightGameView";
 
 			
-//			tempObj.id = "shipwreck.CaptainView";
-//
-//			tempObj.id = "capitol.GoWithPreviousView";
-			
-
 			
 //			?????? QUESTIONABLE IN STORY ORDER
 //			tempObj.id = "theCattery.BallView";
 //			tempObj.id = "prologue.IntroAllIslandsView";
 			
-			//THESE UNLOAD
-//			tempObj.id = "theCattery.AcceptOfferView";
-//			tempObj.id = "theCattery.BallView";
-//			tempObj.id = "theCattery.CatlingAffairsView";
-//			tempObj.id = "theCattery.CatRanchShoreView";
-//			tempObj.id = "theCattery.FollowView";
-//			tempObj.id = "theCattery.FourthDoorView";
-//			tempObj.id = "theCattery.GameWonView";
-//			tempObj.id = "theCattery.Island1View";
-//			tempObj.id = "theCattery.LingerView";
-//			tempObj.id = "theCattery.MouseConsultationView";
-//			tempObj.id = "theCattery.NoTrespassingView";
-//			tempObj.id = "theCattery.PrivateAudienceView";
-//			tempObj.id = "theCattery.RefuseOfferView";
-//			tempObj.id = "theCattery.RendezvousView";
-//			tempObj.id = "theCattery.ReturnToBoatView";
-//			tempObj.id = "theCattery.ScratchEarsView";
-//			tempObj.id = "theCattery.ThirdDoorView";
-			
-//			tempObj.id = "sandlands.ApprenticeView";
-//			tempObj.id = "sandlands.HutView";
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			tempObj = null;

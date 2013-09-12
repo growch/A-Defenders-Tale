@@ -129,7 +129,6 @@ package view.sandlands
 						
 					}
 					
-					
 					if (part.id == "beaker") {
 						_mc.beaker_mc.y = _tf.y + 20;
 					}
@@ -138,6 +137,7 @@ package view.sandlands
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}

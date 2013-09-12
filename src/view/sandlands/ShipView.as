@@ -53,6 +53,12 @@ package view.sandlands
 		}
 		
 		public function destroy() : void {
+//			
+			_cloud1 = null;
+			_cloud2 = null;
+			_cloud3 = null;
+			_boat = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -131,6 +137,7 @@ package view.sandlands
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top});
 					//begin loading
 					loader.load();
+					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 				}
 			}
@@ -226,6 +233,7 @@ package view.sandlands
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

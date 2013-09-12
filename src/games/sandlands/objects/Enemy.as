@@ -13,7 +13,7 @@ package games.sandlands.objects
 	public class Enemy extends flash.display.MovieClip 
 	{
 		private var enemy:MovieClip;
-		public var hit:Boolean;
+//		public var hit:Boolean;
 		private var _enemMC:MovieClip;
 		private var _hitMC:MovieClip;
 		private var _ogX:Number;
@@ -44,6 +44,11 @@ package games.sandlands.objects
 		public function destroy():void
 		{
 			_hitMC.removeEventListener(MouseEvent.CLICK, moveObject);
+			_hitMC = null;
+			_enemMC = null;
+			_stone = null;
+			_object = null;
+			_hitMC = null;
 		}
 		
 		protected function moveObject(event:MouseEvent):void
