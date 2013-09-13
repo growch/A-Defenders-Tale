@@ -46,6 +46,19 @@ package games.bopMice.objects
 			resetSand();
 		}
 		
+		public function destroy():void
+		{
+			_game = null;	
+			_mc = null;	
+			_num1 = null;	
+			_num2 = null;
+			
+			_hourglass = null;
+			_topMask = null;
+			_bottomSand = null;
+			_columnMask = null;
+		}
+		
 		public function startClock():void {
 			setTime(_game.DURATION.toString());
 			
@@ -79,5 +92,6 @@ package games.bopMice.objects
 			_num2.x  = Math.round(_num1.x + _num1.mask_mc.width+1);
 			_num2.gotoAndStop(int(_countdownTime.charAt(1)) +1);
 		}
+		
 	}
 }

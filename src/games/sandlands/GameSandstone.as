@@ -26,7 +26,6 @@ package games.sandlands
 	public class GameSandstone extends MovieClip
 	{
 		
-//		public static const DURATION:int = 15; // in seconds
 		public var DURATION:int = 15; // in seconds
 		
 		private var _mc:MovieClip;
@@ -47,7 +46,7 @@ package games.sandlands
 		
 		public function GameSandstone()
 		{
-			_SAL = new SWFAssetLoader("sandlands.SandlandsGameMC", this);
+			_SAL = new SWFAssetLoader("sandlands.SandstoneGameMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.SAND_GAME_STONE_FOUND, stoneFound);
@@ -60,15 +59,14 @@ package games.sandlands
 		}
 		
 		public function destroy():void {
-			//TODO!!!!!! clean everything UP!!!!!!!!
 			EventController.getInstance().removeEventListener(ViewEvent.SAND_GAME_STONE_FOUND, stoneFound);
 			
 			enemyManager.destroy();
 			enemyManager = null;
 			
-			_gameWon.destroy();
-			_tryAgain.destroy();
 			_startGame.destroy();
+			_tryAgain.destroy();
+			_gameWon.destroy();
 			_gameLost.destroy();
 			
 			_gameWon = null;
@@ -76,9 +74,15 @@ package games.sandlands
 			_startGame = null;
 			_gameLost = null;
 			
+			_gameTimer.stop();
+			_gameTimer.removeEventListener(TimerEvent.TIMER, timerTick);
 			_gameTimer = null;
 			
-			_timer = null;
+//			_timer = null;
+//			
+//			_objIndex = null;
+//			_allowedAttempts = null;
+//			_objIndex = null;
 			
 			_bgMusic.stop(true);
 			_bgMusic = null;
@@ -103,7 +107,6 @@ package games.sandlands
 			_mc.frame_mc.mouseChildren = false;
 			
 			_startGame = new StartGame(this, _mc.startGame_mc);
-//			_mc.startGame_mc.visible = false;
 //			
 			_tryAgain = new RetryGame(this, _mc.tryAgain_mc);
 			_mc.tryAgain_mc.visible = false;
@@ -127,7 +130,7 @@ package games.sandlands
 		
 		public function startGame():void {
 			_mc.startGame_mc.visible = false;
-//			
+			
 			enemyManager = new EnemyManager(_mc.enemies_mc);
 			
 			hideStone();
@@ -169,12 +172,6 @@ package games.sandlands
 			_gameTimer.stop();
 			_bgMusic.stop(true);
 		}
-		
-		
-//		private function update(event:Event):void
-//		{
-//			enemyManager.update();
-//		}
 		
 		
 		public function restartGame():void

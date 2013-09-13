@@ -33,5 +33,12 @@ package games.bopMice.objects
 			_player.x += (_player.stage.mouseX - _player.x) * 0.8;
 			_player.y += (_player.stage.mouseY - _player.y) * 0.8;
 		}
+		
+		public function destroy():void
+		{
+			_game = null;
+			_player = null;
+			hitMC = null;
+		}
 	}
 }

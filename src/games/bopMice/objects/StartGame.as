@@ -23,5 +23,11 @@ package games.bopMice.objects
 			MovieClip(_mc.cta_btn).removeEventListener(MouseEvent.CLICK, startClick);
 			_game.startGame();
 		}
+		
+		public function destroy():void
+		{
+			_game = null;
+			_mc = null;
+		}
 	}
 }

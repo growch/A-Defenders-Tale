@@ -27,6 +27,7 @@ package view.sandlands
 			removeChild(_game);
 			_game = null;
 			
+			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 		}
 		

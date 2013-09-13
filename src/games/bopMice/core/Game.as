@@ -1,5 +1,6 @@
 package games.bopMice.core
 {
+	import com.greensock.TweenMax;
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
@@ -35,8 +36,7 @@ package games.bopMice.core
 	{
 		
 		public static const FPS:int = DataModel.BOP_MICE_FPS; 
-//		public static const DURATION:int = 60; // in seconds
-		public var DURATION:int = 60; // in seconds
+		public var DURATION:int = 30; // in seconds
 		public static const MINIMUM_SCORE:int = 30;	
 		
 		public var userScore:int;
@@ -64,6 +64,54 @@ package games.bopMice.core
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 		}
 		
+		public function destroy():void {
+			removeEventListener(Event.ENTER_FRAME, update);
+			
+			_gameWon.destroy();
+			_tryAgain.destroy();
+			_startGame.destroy();
+			
+			_gameWon = null;
+			_tryAgain = null;
+			_startGame = null;
+			
+			hero.destroy();
+			hero = null;
+			
+			_countdownClock.destroy();
+			_countdownClock = null;
+			
+			score.destroy();
+			score = null;
+			
+			_mallet = null;
+			
+			_clouds.destroy();
+			_clouds = null;
+			
+			explosionManager.destroy();
+			collisionManager.destroy();
+			enemyManager.destroy();
+			
+			explosionManager = null;
+			collisionManager = null;
+			enemyManager = null;
+			
+			_bgMusic.stop(true);
+			_bgMusic = null;
+			
+			_gameTimer.removeEventListener(TimerEvent.TIMER, timerTick);
+			_gameTimer = null;
+			
+			DataModel.getInstance().removeAllChildren(_mc);
+			
+			_SAL.destroy();
+			_SAL = null;
+			
+			removeChild(_mc);
+			_mc = null;
+		}
+		
 		private function init(event:Event):void
 		{
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
@@ -86,7 +134,6 @@ package games.bopMice.core
 			
 			score = new Score(_mc.counter_mc);
 			
-//			_timer = Game.DURATION;
 			_timer = DURATION;
 			
 			_gameTimer = new Timer(1000);
@@ -201,28 +248,6 @@ package games.bopMice.core
 			_clouds.update();
 		}
 		
-		public function destroy():void {
-			//TODO!!!!!! clean everything UP!!!!!!!!
-			removeEventListener(Event.ENTER_FRAME, update);
-			
-			_gameWon.destroy();
-			_tryAgain.destroy();
-			
-			explosionManager.destroy();
-			collisionManager.destroy();
-			enemyManager.destroy();
-			
-			_bgMusic.stop(true);
-			_bgMusic = null;
-			
-			_gameTimer = null;
-			
-			DataModel.getInstance().removeAllChildren(_mc);
-			
-			_SAL.destroy();
-			_SAL = null;
-		}
-		
 		public function restartGame():void
 		{
 			_mc.tryAgain_mc.visible = false;
@@ -243,6 +268,9 @@ package games.bopMice.core
 		
 		public function gameCompleted():void
 		{
+			_mc.stopAllMovieClips();
+			TweenMax.killAll();
+			
 			var tempObj:Object = new Object();
 			tempObj.id = "theCattery.GameWonView";
 			_mc.stopAllMovieClips();

@@ -33,5 +33,12 @@ package games.bopMice.objects
 			if(_cloud3.x <= -_cloud3.width)
 				_cloud3.x = DataModel.APP_WIDTH;
 		}
+		
+		public function destroy():void {
+			_mc = null;
+			_cloud1 = null;
+			_cloud2 = null;
+			_cloud3 = null;
+		}
 	}
 }

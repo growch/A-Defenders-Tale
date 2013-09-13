@@ -68,13 +68,9 @@ package view
 //			tempObj.id = "ApplicationView";
 //			tempObj.id = "MapView";
 //			tempObj.id = "prologue.IntroAllIslandsView";
-//			tempObj.id = "sandlands.SandstoneGameView";
 //			tempObj.id = "shipwreck.JellyfishGameView";
-//			tempObj.id = "joyless.PlayRiddlesView";
 //			tempObj.id = "capitol.SunlightGameView";
 
-			
-			
 //			?????? QUESTIONABLE IN STORY ORDER
 //			tempObj.id = "theCattery.BallView";
 //			tempObj.id = "prologue.IntroAllIslandsView";
