@@ -127,9 +127,14 @@ package view.joylessMountains
 					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[companion4]", _pageInfo.companion4[DataModel.defenderInfo.companion]);
 					
-					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
+					
+					//set the contents panel
+					if (!_tf) {
+						_pageInfo.contentPanelInfo.body = copy;
+						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+					}
 					
 					if (part.id == "notDagger" && _weaponInt == 0) break;
 					

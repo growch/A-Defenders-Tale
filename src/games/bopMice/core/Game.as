@@ -81,6 +81,7 @@ package games.bopMice.core
 			_countdownClock.destroy();
 			_countdownClock = null;
 			
+//			not doing this was breaking it
 			score.destroy();
 			score = null;
 			

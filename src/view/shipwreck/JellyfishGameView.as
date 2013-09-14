@@ -1,6 +1,7 @@
 package view.shipwreck
 {
 	import com.coreyoneil.collision.CollisionList;
+	import com.greensock.TweenMax;
 	
 	import flash.display.MovieClip;
 	import flash.events.AccelerometerEvent;
@@ -49,19 +50,22 @@ package view.shipwreck
 		private var _timerSpeed:Number = 800;
 		private var _jellyTimer:Timer;
 		private var _counter:int = 0;
+		private var _hitCounter:int = 0;
+		private var _hitDelay:int = 180;
 		private var i:int;
 		private var thisJ:MovieClip;
 		private var thisRef:Class;
 		private var _glowHit:MovieClip;
 		private var _collisionList:CollisionList;
 		private var _collisions:Array;
-		private var _hitTimeout:uint;
+//		private var _hitTimeout:uint;
 		private var _startMC:MovieClip;
 		private var _winMC:MovieClip;
 		private var _loseMC:MovieClip;
 		private var _hitCount:int = 0;
 		private var _starfish:MovieClip;
 		private var _SAL:SWFAssetLoader;
+		private var _zapped:Boolean;
 		
 		public function JellyfishGameView()
 		{
@@ -70,8 +74,8 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-			clearTimeout(_hitTimeout);
-			_hitTimeout = null;
+//			clearTimeout(_hitTimeout);
+//			_hitTimeout = null;
 			
 			_jellyTimer.removeEventListener(TimerEvent.TIMER, animateJelly); 
 			_jellyTimer = null;
@@ -103,13 +107,22 @@ package view.shipwreck
 				_accel = null;
 			}
 			
+			for (var j:int = 0; j < _jellyfishArray.length; j++) 
+			{
+				var thisJelly:Jellyfish = _jellyfishArray[j] as Jellyfish;
+				thisJelly.destroy();
+			}
+			
+			
 			_jellyfishArray = null;
 			
 			DataModel.getInstance().removeAllChildren(_mc);
 			
 			_SAL.destroy();
 			_SAL = null;
+			removeChild(_mc);
 			_mc = null;
+//			trace("destroy jelly game");
 		}
 		
 		private function init (event:Event) : void {
@@ -231,8 +244,12 @@ package view.shipwreck
 		}
 		
 		private function stopGame():void {
+			resetHero();
 			stage.removeEventListener(Event.ENTER_FRAME, accelLoop);
 			_jellyTimer.stop();
+			_mc.stopAllMovieClips();
+			TweenMax.killAll();
+//			trace("stopGame");
 		}
 		
 		private function gameLose():void
@@ -253,7 +270,6 @@ package view.shipwreck
 		{
 			var tempObj:Object = new Object();
 			tempObj.id = "shipwreck.Starfish3View";
-			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 		}
 		
@@ -292,14 +308,19 @@ package view.shipwreck
 		}
 		
 		private function resetHero():void {
-			clearTimeout(_hitTimeout);
-			_hitTimeout = null;
-			_glow.gotoAndStop(1);
+			_hitCounter = 0;
+//			trace("resetHero");
+			if (_glow) {
+				_zapped = false;
+				_glow.gotoAndStop(1);
+			}
+			
 		}
 		
 		// Loop to run on ENTER FRAME
 		private function accelLoop(e:Event):void
 		{
+//			trace("accelLoop");
 //			 Move items based on the accelerometer data
 			_mc.y -= _accelY * .02;
 			if (_mc.y <= -_bottomBGY) _mc.y = -_bottomBGY;
@@ -336,24 +357,24 @@ package view.shipwreck
 			_collisions = _collisionList.checkCollisions();
 			if (_collisions.length >= 1) {
 //				trace("hittttt!");
-				if (!_hitTimeout) {
+				_hitCounter++;
+				if (_hitCounter == _hitDelay) {
+					resetHero();
+				}
+				if (!_zapped) {
 					_hitCount++;
 					if (_hitCount == 3) {
 						gameLose();
 					}
-					
-					_hitTimeout = setTimeout(resetHero, 2000);
+					_zapped = true;
 					_glow.gotoAndPlay("hit");
 				}
 			} else {
-				if (_hitTimeout) {
+				if (_zapped) {
 					resetHero();
 				}
 			}
 			
 		}
-		
-		
-		
 	}
 }

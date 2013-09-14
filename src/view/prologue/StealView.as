@@ -108,9 +108,14 @@ package view.prologue
 					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
 					
-					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
+					
+					//set the contents panel
+					if (!_tf) {
+						_pageInfo.contentPanelInfo.body = copy;
+						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+					}
 					
 					// HACKY CUZ DARCI MADE ONE GRAPHIC THAT OTHER OPTIONS DON'T HAVE
 					if (weaponInt == 1  && copy.indexOf("[exceptionalGraphic]") != -1) {

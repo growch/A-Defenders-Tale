@@ -47,5 +47,9 @@ package view.shipwreck
 			angleX += xspeed;
 			angleY += yspeed;
 		}
+		
+		public function destroy():void {
+			_mc = null;
+		}
 	}
 }

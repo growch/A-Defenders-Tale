@@ -68,7 +68,7 @@ package view
 		}
 		
 		public function addPage(pgInf:PageInfo):void {
-			var newPage:ContentsPageView = new ContentsPageView(pgInf);
+			var newPage:ContentsPageView = new ContentsPageView(pgInf,_dragVCont);
 			
 			_dragVCont.addChild(newPage);
 			_dragVCont.refreshView(true);

@@ -67,7 +67,7 @@ package view.theCattery
 			_comb = null;
 			
 			_scissorsComb = null;
-			_compAlongIndex = null;
+//			_compAlongIndex = null;
 //			
 			_pageInfo = null;
 			_bodyParts = null;
@@ -155,6 +155,12 @@ package view.theCattery
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
+					
+					//set the contents panel
+					if (!_tf) {
+						_pageInfo.contentPanelInfo.body = copy;
+						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+					}
 					
 					//unique hack due to 2 diff size pages
 					if (part.id == "narrowText" && _compAlongIndex == 1) {

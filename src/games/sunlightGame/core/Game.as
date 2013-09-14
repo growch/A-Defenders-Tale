@@ -3,7 +3,6 @@ package games.sunlightGame.core
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
-	import flash.display.Sprite;
 	import flash.display.StageAspectRatio;
 	import flash.display.StageOrientation;
 	import flash.events.Event;
@@ -11,7 +10,6 @@ package games.sunlightGame.core
 	import flash.events.StageOrientationEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -25,7 +23,6 @@ package games.sunlightGame.core
 	import games.sunlightGame.objects.GameWon;
 	import games.sunlightGame.objects.Hero;
 	import games.sunlightGame.objects.Nero;
-	import games.sunlightGame.objects.RetryGame;
 	import games.sunlightGame.objects.StartGame;
 	
 	import model.DataModel;

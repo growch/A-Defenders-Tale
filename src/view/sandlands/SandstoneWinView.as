@@ -115,9 +115,14 @@ package view.sandlands
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
+					
+					//set the contents panel
+					if (!_tf) {
+						_pageInfo.contentPanelInfo.body = copy;
+						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+					}
 					
 					// set the respective text
 					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading, 0x331a0f), part.width, true, true, true); 

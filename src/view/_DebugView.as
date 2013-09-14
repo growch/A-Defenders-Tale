@@ -54,10 +54,10 @@ package view
 //			!!!!!!! THINGS CAUSING SWFS TO NOT UNLOAD !!!!!!!!!!!
 //			•	NOT HAVING THIS -> loader.autoDispose = true;
 //			•	NOT NULLIFYING private vars referencing mcs
-//			• setTimeouts that didn't fire - fixed with TM delayed calls
-//			• having fonts embedded in library
-//			• 1 stop() on any frame
-//			• having text (input only?) field with embedded text i.e. PlayRiddles
+//			• 	setTimeouts that didn't fire - fixed with TM delayed calls
+//			• 	having fonts embedded in library
+//			• 	1 stop() on any frame
+//			• 	having text (input only?) field with embedded text i.e. PlayRiddles
 			
 			var tempObj:Object = new Object();
 			//CRASHES iPAD1
@@ -66,15 +66,11 @@ package view
 			
 			//DON'T UNLOAD
 //			tempObj.id = "ApplicationView";
-//			tempObj.id = "MapView";
-//			tempObj.id = "prologue.IntroAllIslandsView";
 //			tempObj.id = "shipwreck.JellyfishGameView";
 //			tempObj.id = "capitol.SunlightGameView";
 
 //			?????? QUESTIONABLE IN STORY ORDER
 //			tempObj.id = "theCattery.BallView";
-//			tempObj.id = "prologue.IntroAllIslandsView";
-			
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			tempObj = null;

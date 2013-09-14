@@ -151,6 +151,12 @@ package view.prologue
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
 					
+					//set the contents panel
+					if (!_tf) {
+						_pageInfo.contentPanelInfo.body = copy;
+						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+					}
+					
 					// set the respective text
 					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading), part.width, true, true, true); 
 					_tf.x = part.left; 
@@ -219,7 +225,7 @@ package view.prologue
 			var wave2DownY:int = wave2InitY + _boat.waves_mc.waves2_mc.height+2;
 			_boat.waves_mc.waves2_mc.y = wave2DownY;
 			
-			setTimeout(boatWave2Up, 1600);
+			TweenMax.delayedCall(1.6, boatWave2Up);
 			
 			function boatWave2Up():void {
 				_boat.waves_mc.waves2_mc.x = wave2InitX -10;
@@ -235,11 +241,11 @@ package view.prologue
 			initWave(_wave4);
 			initWave(_wave5);
 			
-			setTimeout(waveUp, 1000, _wave1); 
-			setTimeout(waveUp, 2000, _wave2); 
-			setTimeout(waveUp, 3000, _wave3); 
-			setTimeout(waveUp, 4000, _wave4);
-			setTimeout(waveUp, 5000, _wave5);
+			TweenMax.delayedCall(1, waveUp, [_wave1]);
+			TweenMax.delayedCall(2, waveUp, [_wave2]);
+			TweenMax.delayedCall(3, waveUp, [_wave3]);
+			TweenMax.delayedCall(4, waveUp, [_wave4]);
+			TweenMax.delayedCall(5, waveUp, [_wave5]);
 			
 			function initWave(thisWave:MovieClip):void {
 				thisWave.initX = thisWave.x;

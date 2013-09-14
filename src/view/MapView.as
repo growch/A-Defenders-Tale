@@ -1,5 +1,7 @@
 package view
 {
+	import com.greensock.TweenMax;
+	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -44,8 +46,10 @@ package view
 			_sandlandsBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_joylessBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_shipwreckBtn.removeEventListener(MouseEvent.CLICK, islandClick);
-			_capitolBtn.removeEventListener(MouseEvent.CLICK, islandClick);
-//			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			if (_capitolBtn) {
+				_capitolBtn.removeEventListener(MouseEvent.CLICK, islandClick);
+			}
+			
 			
 			_sandlands.destroy();
 			_sandlands = null;
@@ -62,6 +66,7 @@ package view
 			DataModel.getInstance().removeAllChildren(_mc);
 			_SAL.destroy();
 			_SAL = null;
+			removeChild(_mc);
 			_mc = null;
 		}
 		
@@ -85,10 +90,6 @@ package view
 			_shipwreckBtn.mouseChildren = false;
 			_shipwreckBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			
-			_capitolBtn = _mc.capitol_btn;
-			_capitolBtn.mouseChildren = false;
-			_capitolBtn.addEventListener(MouseEvent.CLICK, islandClick);
-			
 			_sandlands = new MapSandlandsView(_mc.sandlands_mc);
 			_shipwreck = new MapShipwreckView(_mc.shipwreck_mc);
 			_joyless = new MapJoylessView(_mc.joyless_mc); 
@@ -97,7 +98,10 @@ package view
 			
 			if (DataModel.STONE_COUNT >= 4) {
 				_capitol.showCapitol();
-			}
+				_capitolBtn = _mc.capitol_btn;
+				_capitolBtn.mouseChildren = false;
+				_capitolBtn.addEventListener(MouseEvent.CLICK, islandClick);
+			} 
 			
 			addChild(_mc);
 			
@@ -157,6 +161,7 @@ package view
 				tempObj.id = "prologue.CrossSeaView";
 			}
 			
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 		}

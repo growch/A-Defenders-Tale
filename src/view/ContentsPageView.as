@@ -13,6 +13,8 @@ package view
 	import events.ViewEvent;
 	
 	import model.PageInfo;
+	
+	import util.fpmobile.controls.DraggableVerticalContainer;
 
 	public class ContentsPageView extends MovieClip
 	{
@@ -23,12 +25,14 @@ package view
 		private static const INACTIVE_COLOR:uint = 0x040404;
 		private var _active:Boolean;
 		private var _loader:ImageLoader;
+		private var _dv:DraggableVerticalContainer;
 		
-		public function ContentsPageView(info:PageInfo) 
+		public function ContentsPageView(info:PageInfo, dv:DraggableVerticalContainer) 
 		{
 			pgInfo = info;
 			
 			_mc = new ContentsPageMC();
+			_dv = dv;
 			
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			
@@ -50,7 +54,7 @@ package view
 			_mc.body_txt.text = bodyText;
 			
 			_loader = new ImageLoader(pgInfo.contentPanelInfo.image, {container:_mc.imageHolder_mc, x:0, y:0, scaleX:.5, scaleY:.5});
-			_loader.load();
+//			_loader.load();
 			_loader.autoDispose = true;
 			
 			activate();
@@ -63,6 +67,7 @@ package view
 		
 		public function destroy():void
 		{
+			_dv = null;
 			_loader.dispose(true);
 			_loader = null;
 			pgInfo = null;
@@ -76,6 +81,8 @@ package view
 		protected function pageClick(event:MouseEvent):void
 		{
 			if (_active) return;
+			
+			if (_dv.isDragging || _dv.isTweening) return;
 			
 			activate();
 			

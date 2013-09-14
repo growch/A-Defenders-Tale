@@ -7,7 +7,6 @@ package view.capitol
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	import control.GoViralService;
@@ -153,6 +152,12 @@ package view.capitol
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
+					
+					//set the contents panel
+					if (!_tf) {
+						_pageInfo.contentPanelInfo.body = copy;
+						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+					}
 					
 					// set the respective text
 					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading), part.width, true, true, true); 
