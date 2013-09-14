@@ -21,6 +21,13 @@ package games.sunlightGame.objects
 			
 		}
 		
+		public function destroy():void
+		{
+			_game = null;
+			_mc = null;
+			_head = null;
+		}
+		
 		public function get neroMC():MovieClip {
 			return _mc;
 		}
@@ -47,12 +54,9 @@ package games.sunlightGame.objects
 			if (counter > faceTime) {
 				_head.gotoAndStop(1);
 			}
-//			if (_game.fire) {
-//
-//			} else {
-//
-//			}
 
 		}
+		
+		
 	}
 }

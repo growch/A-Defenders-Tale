@@ -20,6 +20,14 @@ package games.sunlightGame.managers
 			pool = new StarlingPool(Bullet, 50);
 		}
 		
+		public function destroy():void
+		{
+			pool.destroy();
+			pool = null;
+			bullets = null;
+			game = null;
+		}
+		
 		public function update():void
 		{
 			var b:Bullet;
@@ -49,7 +57,6 @@ package games.sunlightGame.managers
 		
 		public function fire():void
 		{
-//			trace("fire");
 			var b:Bullet = pool.getSprite() as Bullet;
 			game.bulletHolder.addChild(b);
 			b.x = game.hero.player.x;
@@ -58,7 +65,6 @@ package games.sunlightGame.managers
 			} else {
 				b.y = game.hero.player.y - 75;
 			}
-			
 			bullets.push(b);
 		}
 		
@@ -80,11 +86,5 @@ package games.sunlightGame.managers
 
 		}
 		
-		public function destroy():void
-		{
-			pool.destroy();
-			pool = null;
-			bullets = null;
-		}
 	}
 }

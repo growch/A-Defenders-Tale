@@ -97,7 +97,6 @@
 		}
 		
 //		CUSTOM !!!!
-		
 		private function togMute(ApplicationEvent:Event):void
 		{
 			toggleMute(true);

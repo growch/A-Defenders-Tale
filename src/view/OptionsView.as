@@ -2,25 +2,22 @@ package view
 {
 	
 	import flash.display.MovieClip;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
+	
+	import model.DataModel;
 	
 	public class OptionsView extends MovieClip
 	{
 		private var _optionCount:int;
 		private var _mc:MovieClip;
-		
 		private var _error:MovieClip;
-		
 		public var _selected:Boolean;
-		
 		public var optionNumSelected:int;
 		
 		public function OptionsView(mc:MovieClip, optionCount:int)
 		{
 			_mc = mc;
 			_optionCount = optionCount;
-//			super();
 			init();
 		}
 		
@@ -32,13 +29,17 @@ package view
 				thisOption = _mc.getChildByName("option"+i+"_mc") as MovieClip;
 				thisOption.ID = null;
 				thisOption.removeEventListener(MouseEvent.CLICK, optionClick);
+//				trace(thisOption.name);
 			}
 			thisOption = null;
+			
+			DataModel.getInstance().removeAllChildren(_mc);
+//			_selected = null;
 			_error = null;
 			_mc = null;
 		}
 		
-		public function init() : void {
+		private function init() : void {
 			var thisOption: MovieClip;
 			for (var i:int = 0; i < _optionCount; i++) 
 			{
@@ -48,9 +49,9 @@ package view
 				thisOption.mouseChildren = false;
 				thisOption.addEventListener(MouseEvent.CLICK, optionClick);
 			}
-			thisOption = null
+			thisOption = null;
 			_error = _mc.getChildByName("error_mc") as MovieClip;
-			_error.visible = false;
+			_error.alpha = 0;
 		}
 		
 		private function optionClick(e:MouseEvent) : void {
@@ -69,11 +70,15 @@ package view
 		
 		public function isSelected(): Boolean
 		{
+//			LESSON???
+//			for some reason setting these to visible/not-visible was 
+//			causing them to not unload? WTF?
+			
 			if (!_selected) {
-				_error.visible = true;
+				_error.alpha = 1;
 				return false;
 			} else {
-				_error.visible = false;
+				_error.alpha = 0;
 				return true;
 			}
 		}

@@ -15,7 +15,6 @@ package games.sunlightGame.objects
 	{
 		private var _game:Game;
 		public var player:MovieClip;
-//		public var malletDown:Boolean;
 		public var hit1MC:MovieClip;
 		public var hit2MC:MovieClip;
 		private var _smoke:MovieClip;
@@ -24,7 +23,6 @@ package games.sunlightGame.objects
 		private var _accelY:Number;
 		private var _leftEdge:Number;
 		private var _rightEdge:Number;
-//		private var _thisMC:Hero;
 		private var orientationConst:Number = Math.sin(Math.PI/4);
 
 		
@@ -52,6 +50,20 @@ package games.sunlightGame.objects
 			{
 				// If there is no access to the Accelerometer
 				trace("Accelerometer Not Supported");
+			}
+			
+		}
+		
+		public function destroy():void
+		{
+			_game = null;
+			player = null;
+			hit1MC = null;
+			hit2MC = null;
+			_smoke = null;
+			if (_accel) {
+				_accel.removeEventListener(AccelerometerEvent.UPDATE, accelUpdate);
+				_accel = null;
 			}
 			
 		}
@@ -90,21 +102,13 @@ package games.sunlightGame.objects
 				player.x -= _accelX * .2;
 			}
 			
-			
-			
 			// Constrain the _glow to the X width boundries of the stage 
 			if(player.x <= _leftEdge) player.x = _leftEdge;
 			if(player.x >= _rightEdge)	player.x = _rightEdge;
 			
 			if (_game.fire ) {
-//				if (!malletDown) {
-////					player.gotoAndPlay("hit");
-//					malletDown = true;
-//				}
 				_smoke.visible = true;
 			} else {
-//				player.gotoAndStop("idle");
-//				malletDown = false;
 				_smoke.visible = false;
 			}
 		}

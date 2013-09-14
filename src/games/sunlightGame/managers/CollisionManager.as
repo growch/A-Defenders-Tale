@@ -48,6 +48,16 @@ package games.sunlightGame.managers
 			count++;
 		}
 		
+		public function destroy():void
+		{
+			_game = null;
+			_enemHitSound.destroy();
+			_enemHitSound = null;
+			_ea = null;
+			_enemHit = null;
+			_enem = null;
+		}
+		
 		private function heroAndEnemies():void
 		{
 			_ea = _game.enemyManager.enemies;
@@ -193,11 +203,5 @@ package games.sunlightGame.managers
 			}
 		}
 		
-		public function destroy():void
-		{
-			_game = null;
-			_enemHitSound = null;
-			_ea = null;
-		}
 	}
 }

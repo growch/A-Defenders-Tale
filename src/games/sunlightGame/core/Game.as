@@ -39,20 +39,20 @@ package games.sunlightGame.core
 		
 		public var userScore:int;
 		private var _mc:MovieClip;
-		public var enemyManager:EnemyManager;
 		public var hero:Hero;
-		public var collisionManager:CollisionManager;
+		public var nero:Nero;
 		public var fire:Boolean;
 		private var _timer:int;
 		private var _gameTimer:Timer;
-		public var explosionManager:ExplosionManager;
 		private var _bgMusic:Track;
 		private var _startGame:StartGame;
 		private var _gameLost:GameLost;
 		private var _gameWon:GameWon;
 		private var _SAL:SWFAssetLoader;
-		public var nero:Nero;
+		public var enemyManager:EnemyManager;
 		public var bulletManager:BulletManager;
+		public var collisionManager:CollisionManager;
+		public var explosionManager:ExplosionManager;
 		public var bulletHolder:MovieClip;
 		public var enemyHolder:MovieClip;
 		public var dropHolder:MovieClip;
@@ -66,6 +66,50 @@ package games.sunlightGame.core
 		{
 			_SAL = new SWFAssetLoader("capitol.SunlightGameMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
+		}
+		
+		public function destroy():void {
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, update);
+			}
+			
+			stage.removeEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
+			stage.setOrientation( StageOrientation.DEFAULT );
+			stage.autoOrients = false;
+			
+			hero.destroy();
+			hero = null;
+			nero.destroy();
+			nero = null;
+			
+			_gameWon.destroy();
+			_gameLost.destroy();
+			
+			_startGame = null;
+			_gameLost = null;
+			_gameWon = null;
+			
+			bulletManager.destroy();
+			explosionManager.destroy();
+			collisionManager.destroy();
+			enemyManager.destroy();
+			
+			bulletManager = null;
+			explosionManager = null;
+			collisionManager = null;
+			enemyManager = null;
+			
+			_bgMusic.stop(true);
+			_bgMusic = null;
+			
+			_gameTimer.stop();
+			_gameTimer = null;
+			
+			DataModel.getInstance().removeAllChildren(_mc);
+			_SAL.destroy();
+			_SAL = null;
+			removeChild(_mc);
+			_mc = null;
 		}
 		
 		private function init(event:Event):void
@@ -193,51 +237,16 @@ package games.sunlightGame.core
 			
 		}
 		
-		public function destroy():void {
-			//TODO!!!!!! clean everything UP!!!!!!!!
-			if (hasEventListener(Event.ENTER_FRAME)) {
-				removeEventListener(Event.ENTER_FRAME, update);
-			}
-			
-			stage.removeEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
-			stage.setOrientation( StageOrientation.DEFAULT );
-			stage.autoOrients = false;
-			
-			_gameWon.destroy();
-			_gameLost.destroy();
-			
-			_startGame = null;
-			_gameLost = null;
-			_gameWon = null;
-			
-			bulletManager.destroy();
-			explosionManager.destroy();
-			collisionManager.destroy();
-			enemyManager.destroy();
-			
-			_bgMusic.stop(true);
-			_bgMusic = null;
-			
-			_gameTimer.stop();
-			_gameTimer = null;
-			
-			DataModel.getInstance().removeAllChildren(_mc);
-			
-			_SAL.destroy();
-			_SAL = null;
-		}
-		
-		
 		public function gameCompleted():void
 		{
 			var tempObj:Object = new Object();
 			tempObj.id = "capitol.WinView";
-			_mc.stopAllMovieClips();
+//			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 		}
 		
 		public function gameLost(thisPageObj:Object):void {
-			_mc.stopAllMovieClips();
+//			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
 		}
 	}

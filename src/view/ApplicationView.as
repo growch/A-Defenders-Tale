@@ -7,7 +7,13 @@ package view
 	import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
+	import flash.text.AntiAliasType;
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
+	import flash.text.TextFormat;
+	
+	import assets.fonts.Caslon224;
+	import assets.fonts.Caslon224BookItalic;
 	
 	import control.EventController;
 	
@@ -28,12 +34,12 @@ package view
 		private var _hairTF:TextField;
 		private var _beverageTF:TextField;
 		private var _contactTF:TextField;
+		private var _gender:OptionsView;
 		private var _romantic:OptionsView;
 		private var _sidekick:OptionsView;
 		private var _weapon:OptionsView;
 		private var _instrument:OptionsView;
 		private var _wardrobe:OptionsView;
-		private var _gender:OptionsView;
 		private var _contactGender:OptionsView;
 		private var _submitBtn:MovieClip;
 		
@@ -46,6 +52,7 @@ package view
 		private var _months:Array = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		private var _emergencyOverlay:EmergencyContactView;
 		private var _SAL:SWFAssetLoader;
+		private var _tfm:TextFormat;
 		
 		public function ApplicationView()
 		{
@@ -81,25 +88,27 @@ package view
 			
 			_today = null;
 			_months = null;
+			_tfm = null;
+//			errorCount = null;
 			
 			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_EMERGENCY_OVERLAY, removeEmergencyOverlay);
 			EventController.getInstance().removeEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
 			
 			_gender.destroy();
-			_contactGender.destroy();
 			_romantic.destroy();
 			_sidekick.destroy();
 			_weapon.destroy();
 			_instrument.destroy();
 			_wardrobe.destroy();
-			
+			_contactGender.destroy();
+//			
 			_gender = null;
-			_contactGender = null;
 			_romantic = null;
 			_sidekick = null;
 			_weapon = null;
 			_instrument = null;
 			_wardrobe = null;
+			_contactGender = null;			
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -124,31 +133,36 @@ package view
 			_error5 = _mc.getChildByName("error5_mc") as MovieClip;
 			_error5.visible = false;
 			
-			_nameTF = _mc.getChildByName("name_txt") as TextField;
+			_tfm = new TextFormat();
+			_tfm.size = 16;
+			_tfm.color = 0x621414;
+			_tfm.font = new Caslon224().fontName;
+			
+			_nameTF = makeTextRemoveText(_mc.name_txt);
 			_nameTF.maxChars = 23;
 			_nameTF.addEventListener(FocusEvent.FOCUS_OUT, nameFocusOut);
 			
-			_ageTF = _mc.getChildByName("age_txt") as TextField;
+			_ageTF = makeTextRemoveText(_mc.age_txt);
 			_ageTF.restrict = "0123456789";
 			_ageTF.maxChars = 4;
 			
-			_hairTF = _mc.getChildByName("hairColor_txt") as TextField;
-			_hairTF.maxChars = 100;
+			_hairTF = makeTextRemoveText(_mc.hairColor_txt);
+			_hairTF.maxChars = 20;
 			
-			_beverageTF = _mc.getChildByName("beverage_txt") as TextField;
-			_beverageTF.maxChars = 100;
+			_beverageTF = makeTextRemoveText(_mc.beverage_txt);
+			_beverageTF.maxChars = 25;
 			
-			_contactTF = _mc.getChildByName("contact_txt") as TextField;
+			_contactTF = makeTextRemoveText(_mc.contact_txt);
 			_contactTF.addEventListener(FocusEvent.FOCUS_IN, showEmergencyContactOverlay);
-			_contactTF.maxChars = 100;
+			_contactTF.maxChars = 40;
 			
 			_gender = new OptionsView(_mc.gender_mc, 3);
-			_contactGender = new OptionsView(_mc.contactGender_mc, 2);
 			_romantic = new OptionsView(_mc.romantic_mc, 3);
 			_sidekick = new OptionsView(_mc.sidekick_mc, 3);
 			_weapon = new OptionsView(_mc.weapon_mc, 3);
 			_instrument = new OptionsView(_mc.instrument_mc, 3);
 			_wardrobe = new OptionsView(_mc.attire_mc, 3);
+			_contactGender = new OptionsView(_mc.contactGender_mc, 2);
 			
 			_submitBtn = _mc.getChildByName("submit_btn") as MovieClip;
 			_submitBtn.buttonMode = true;
@@ -159,6 +173,23 @@ package view
 			addChild(_mc);
 			
 			TweenMax.from(_mc, 1.6, {y:DataModel.APP_HEIGHT, ease:Quad.easeInOut});
+		}
+		
+		private function makeTextRemoveText(thisTF:TextField) : TextField {
+			var tf:TextField = new TextField();
+			tf.type = TextFieldType.INPUT; 
+			tf.antiAliasType = AntiAliasType.ADVANCED;
+			tf.x = thisTF.x;
+			tf.y = thisTF.y + 4;
+			tf.width = thisTF.width;
+			tf.height = 45;
+			tf.defaultTextFormat = _tfm;
+//			tf.background = true;
+			
+			_mc.removeChild(thisTF);
+			_mc.addChild(tf);
+			
+			return tf;
 		}
 		
 		private function showEmergencyContactOverlay(event:FocusEvent) : void 
@@ -218,13 +249,13 @@ package view
 		private function errorsFound() : Boolean {
 			var errorCount: int;
 			
+			if (!_gender.isSelected()) errorCount++;
 			if (!_romantic.isSelected()) errorCount++;
 			if (!_sidekick.isSelected()) errorCount++;
 			if (!_weapon.isSelected()) errorCount++;
 			if (!_instrument.isSelected()) errorCount++;
 			if (!_wardrobe.isSelected()) errorCount++;
-			if (!_gender.isSelected()) errorCount++;
-			if (!_contactGender.isSelected()) errorCount++;
+			if (!_contactGender.isSelected()) errorCount++;	
 			
 			if (_nameTF.text == "") {
 				_error1.visible = true;

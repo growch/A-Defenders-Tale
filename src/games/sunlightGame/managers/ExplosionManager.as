@@ -26,6 +26,29 @@ package games.sunlightGame.managers
 			pool = new StarlingPool(Explosion, 10);
 		}
 		
+		public function destroy():void
+		{
+			//			_game.explosionHolder.removeChild(explosion);
+			//			explosion.destroy();
+			//			explosion = null;
+			//			_game = null;
+			
+			var len:int = explosions.length;
+			var exp:Explosion;
+			
+			for(var i:int=0; i<len; i++)
+			{
+				exp = explosions[i] as Explosion;
+				exp.destroy();
+			}
+			
+			pool.destroy();
+			pool = null;
+			explosions = null;
+			explosion = null;
+			_game = null;
+		}
+		
 		public function update():void {
 			var exp:Explosion;
 			var len:int = explosions.length;
@@ -69,26 +92,5 @@ package games.sunlightGame.managers
 			explosions.push(exp);
 		}
 		
-		public function destroy():void
-		{
-//			_game.explosionHolder.removeChild(explosion);
-//			explosion.destroy();
-//			explosion = null;
-//			_game = null;
-			
-			var len:int = explosions.length;
-			var exp:Explosion;
-			
-			for(var i:int=0; i<len; i++)
-			{
-				exp = explosions[i] as Explosion;
-				exp.destroy();
-			}
-			
-			pool.destroy();
-			pool = null;
-			explosions = null;
-			
-		}
 	}
 }

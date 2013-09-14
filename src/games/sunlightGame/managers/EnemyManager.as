@@ -50,6 +50,20 @@ package games.sunlightGame.managers
 //			spawn();
 		}
 		
+		public function destroy():void
+		{
+			_dropTimer.stop();
+			_dropTimer = null;
+			
+			pool.destroy();
+			pool = null;
+			enemies = null;
+			sunpool.destroy();
+			sunpool = null;
+			sundrops = null;
+			game = null;
+		}
+		
 		public function speedUp():void
 		{
 			spawnSpeed += .01;
@@ -157,20 +171,6 @@ package games.sunlightGame.managers
 		public function gameOver():void {
 			_dropTimer.stop();
 		}
-		
-		public function destroy():void
-		{
-			_dropTimer.stop();
-			_dropTimer = null;
-			
-			pool.destroy();
-			pool = null;
-			enemies = null;
-			sunpool.destroy();
-			sunpool = null;
-			sundrops = null;
-		}
-		
 		
 	}
 }

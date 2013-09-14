@@ -58,6 +58,7 @@ package view
 //			• 	having fonts embedded in library
 //			• 	1 stop() on any frame
 //			• 	having text (input only?) field with embedded text i.e. PlayRiddles
+//			•	OptionsView setting _error visible caused Application not unload. switched to alpha
 			
 			var tempObj:Object = new Object();
 			//CRASHES iPAD1
@@ -66,7 +67,6 @@ package view
 			
 			//DON'T UNLOAD
 //			tempObj.id = "ApplicationView";
-//			tempObj.id = "MapView";
 //			tempObj.id = "capitol.SunlightGameView";
 
 //			?????? QUESTIONABLE IN STORY ORDER
