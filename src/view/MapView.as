@@ -50,6 +50,11 @@ package view
 				_capitolBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			}
 			
+			_catteryBtn = null;
+			_sandlandsBtn = null;
+			_joylessBtn = null;
+			_shipwreckBtn = null;
+			_capitolBtn = null;
 			
 			_sandlands.destroy();
 			_sandlands = null;

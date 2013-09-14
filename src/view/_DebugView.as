@@ -66,7 +66,7 @@ package view
 			
 			//DON'T UNLOAD
 //			tempObj.id = "ApplicationView";
-//			tempObj.id = "shipwreck.JellyfishGameView";
+//			tempObj.id = "MapView";
 //			tempObj.id = "capitol.SunlightGameView";
 
 //			?????? QUESTIONABLE IN STORY ORDER
