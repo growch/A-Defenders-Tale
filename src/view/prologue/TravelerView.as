@@ -2,6 +2,7 @@ package view.prologue
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -34,6 +35,10 @@ package view.prologue
 		private var _frame:FrameView; 
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _booSound:Track;
+		private var _booPlayed:Boolean;
+		private var _scrolling:Boolean;
 		
 		public function TravelerView()
 		{
@@ -42,6 +47,8 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -137,6 +144,33 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// load sound
+			_bgSound = new Track("assets/audio/prologue/prologue_reys.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_booSound = new Track("assets/audio/prologue/prologue_boo.mp3");
+			
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY > 200 && !_booPlayed) {
+				_booSound.start();
+				_booPlayed = true;
+			}
+			
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				TweenMax.pauseAll();
+				_scrolling = true;
+				
+			} else {
+				if (!_scrolling) return;
+				
+				TweenMax.resumeAll();
+				_scrolling = false;
+			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

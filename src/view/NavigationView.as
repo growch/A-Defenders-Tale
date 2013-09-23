@@ -17,6 +17,8 @@ package view
 	import events.ApplicationEvent;
 	import events.ViewEvent;
 	
+	import model.DataModel;
+	
 	public class NavigationView extends MovieClip
 	{
 		private var _mc:NavigationMC;
@@ -104,6 +106,8 @@ package view
 		
 		protected function panelToggle(event:MouseEvent):void
 		{
+			DataModel.getInstance().buttonTap();
+			
 			if (!_panelOpen) {
 				showPanel();
 			} else {
@@ -120,6 +124,10 @@ package view
 		}
 		
 		private function hidePanel():void {
+			TweenMax.to(_helpPanel, .2, {autoAlpha:0});
+			TweenMax.to(_contentsMC, .2, {autoAlpha:0});
+
+
 			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut});
 			_panelOpen = false;
 			TweenMax.to(_blocker, 0, {autoAlpha:0});
@@ -127,6 +135,8 @@ package view
 		
 		protected function restartClick(event:MouseEvent):void
 		{
+			DataModel.getInstance().buttonTap();
+			
 			_contents.gotoAndStop("_off");
 			_restart.gotoAndStop("_on");
 			_help.gotoAndStop("_off");
@@ -141,6 +151,7 @@ package view
 		
 		protected function helpClick(event:MouseEvent):void
 		{
+			DataModel.getInstance().buttonTap();
 			showHelp();
 		}
 		
@@ -156,6 +167,8 @@ package view
 		
 		protected function soundClick(event:MouseEvent):void
 		{
+			DataModel.getInstance().buttonTap();
+			
 			if (_soundOn) {
 				_sound.gotoAndStop("_off");
 			} else {
@@ -168,6 +181,8 @@ package view
 		
 		protected function contentsClick(event:MouseEvent):void
 		{
+			DataModel.getInstance().buttonTap();
+			
 			TweenMax.to(_blocker, .5, {autoAlpha:.5});
 			_contents.gotoAndStop("_on");
 			_help.gotoAndStop("_off");

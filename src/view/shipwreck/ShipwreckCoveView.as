@@ -3,6 +3,7 @@ package view.shipwreck
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -56,6 +57,7 @@ package view.shipwreck
 		private var _bird4:MovieClip;
 		private var _bird5:MovieClip;
 		private var _bird6:MovieClip;
+		private var _bgSound:Track;
 		
 		public function ShipwreckCoveView()
 		{
@@ -225,6 +227,10 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// load sound
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_01.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

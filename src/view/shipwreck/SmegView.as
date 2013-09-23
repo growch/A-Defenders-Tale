@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -35,6 +36,7 @@ package view.shipwreck
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:Object;
+		private var _bgSound:Track;
 		
 		public function SmegView()
 		{
@@ -137,6 +139,10 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// load sound
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_01.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

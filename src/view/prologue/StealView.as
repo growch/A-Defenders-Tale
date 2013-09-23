@@ -3,8 +3,10 @@ package view.prologue
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	
 	import control.EventController;
@@ -37,6 +39,8 @@ package view.prologue
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _weaponInt:int;
 		
 		public function StealView()
 		{
@@ -51,6 +55,9 @@ package view.prologue
 		
 		public function destroy():void
 		{
+//			
+			_mc.weapon_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -94,7 +101,7 @@ package view.prologue
 			_pageInfo = DataModel.appData.getPageInfo("steal");
 			_bodyParts = _pageInfo.body;
 			
-			var weaponInt:int = int(DataModel.defenderInfo.weapon);
+			_weaponInt = int(DataModel.defenderInfo.weapon);
 			
 			for each (var part:StoryPart in _bodyParts) 
 			{
@@ -118,7 +125,7 @@ package view.prologue
 					}
 					
 					// HACKY CUZ DARCI MADE ONE GRAPHIC THAT OTHER OPTIONS DON'T HAVE
-					if (weaponInt == 1  && copy.indexOf("[exceptionalGraphic]") != -1) {
+					if (_weaponInt == 1  && copy.indexOf("[exceptionalGraphic]") != -1) {
 						_mc.tornado_mc.visible = true;
 						_mc.tornado_mc.y = _nextY + part.top + 200;
 						copy = StringUtil.replace(copy, "[exceptionalGraphic]", "");
@@ -147,7 +154,7 @@ package view.prologue
 			
 			// decision
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			if (weaponInt == 0 || weaponInt == 2) {
+			if (_weaponInt == 0 || _weaponInt == 2) {
 				dv.push(_pageInfo.decisions[0]);
 			} else {
 				dv.push(_pageInfo.decisions[1]);
@@ -172,6 +179,11 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// load sound
+			_bgSound = new Track("assets/audio/prologue/prologue_docks.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
 			
 //			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 
 			//HACK cuz mask was going off top of frame screwing up height
@@ -189,7 +201,19 @@ package view.prologue
 			_mc.weapon_mc.glows_mc.visible = true;
 			_mc.weapon_mc.shine_mc.visible = true;
 			
-			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn});
+			_mc.weapon_mc.addEventListener(MouseEvent.CLICK, clickToShine);
+			
+			TweenMax.delayedCall(2, showShine, [_mc.weapon_mc]);
+			
+		}
+		
+		private function clickToShine(e:MouseEvent):void {
+			showShine(_mc.weapon_mc);
+		}
+		
+		private function showShine(thisMC:MovieClip):void {
+			DataModel.getInstance().weaponSound();
+			TweenMax.to(thisMC.shine_mc, 1, {y:thisMC.glows_mc.height+20, ease:Quad.easeInOut, onComplete:function():void {thisMC.shine_mc.y = -thisMC.glows_mc.height}});
 		}
 		
 		protected function clipMC(thisMC:MovieClip, thisHeight:int):void

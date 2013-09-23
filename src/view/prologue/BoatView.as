@@ -2,6 +2,7 @@ package view.prologue
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -39,6 +40,7 @@ package view.prologue
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
 		
 		public function BoatView()
 		{
@@ -153,6 +155,10 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// load sound
+			_bgSound = new Track("assets/audio/prologue/prologue_docks.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(event:ViewEvent):void {

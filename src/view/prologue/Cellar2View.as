@@ -2,8 +2,11 @@ package view.prologue
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	import control.GoViralService;
@@ -38,20 +41,28 @@ package view.prologue
 		private var _magicSpacer:int = 210;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _compInt:int;
+		private var _endPlayed:Boolean;
+		private var _scrolling:Boolean;
 		
 		public function Cellar2View()
 		{
 			_SAL = new SWFAssetLoader("prologue.Cellar2MC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
+			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
 		}
 		
 		public function destroy() : void {
 //			
+			_mc.companion_mc.removeEventListener(MouseEvent.CLICK, clickForSound);
+
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			_goViral = null;
 //			
-			_pageInfo = null;
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
+			_pageInfo = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -60,6 +71,8 @@ package view.prologue
 			_mc.removeChild(_decisions);
 			_decisions = null;
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -80,8 +93,8 @@ package view.prologue
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			
-			var compInt:int = DataModel.defenderInfo.companion;
-			_mc.companion_mc.gotoAndStop(compInt+1);
+			_compInt = DataModel.defenderInfo.companion;
+			_mc.companion_mc.gotoAndStop(_compInt+1);
 			_mc.end_mc.visible = false;
 			
 			_nextY = 110;
@@ -95,7 +108,7 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[compInt]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[_compInt]);
 					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
 					
 					// only add copy for no FB contact
@@ -122,9 +135,9 @@ package view.prologue
 					
 					if (part.id == "companionImage") {
 						
-						if (compInt == 0) {
+						if (_compInt == 0) {
 							_mc.companion_mc.y = Math.round(_tf.y);
-						} else if (compInt ==1) {
+						} else if (_compInt ==1) {
 							_mc.companion_mc.y = Math.round(_tf.y) + 170;
 						} else {
 							_mc.companion_mc.y = Math.round(_tf.y) + 50;
@@ -196,6 +209,36 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// load sound
+			_bgSound = new Track("assets/audio/prologue/prologue_cellar.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+		}
+		
+		private function pageOn(event:ViewEvent):void {
+			
+			_mc.companion_mc.addEventListener(MouseEvent.CLICK, clickForSound);
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+		}
+		
+		private function clickForSound(e:MouseEvent):void {
+			DataModel.getInstance().companionSound();
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_endPlayed) {
+				DataModel.getInstance().endSound();
+				_endPlayed = true;
+			}
+			
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				_scrolling = true;
+			} else {
+				if (!_scrolling) return;
+				_scrolling = false;
+			}
 		}
 		
 		protected function facebookContactResponded(event:ViewEvent):void

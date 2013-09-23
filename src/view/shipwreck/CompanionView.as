@@ -3,6 +3,7 @@ package view.shipwreck
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -47,6 +48,9 @@ package view.shipwreck
 		private var _fish2:MovieClip;
 		private var _fish3:MovieClip;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _surfaceSound:Track;
+		private var nextSoundPlayed:Boolean;
 		
 		public function CompanionView()
 		{
@@ -212,6 +216,14 @@ package view.shipwreck
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
+			
+			// bg sound
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_surfaceSound = new Track("assets/audio/shipwreck/shipwreck_01.mp3");
+			_surfaceSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -238,6 +250,7 @@ package view.shipwreck
 		}
 		
 		private function shineWeapon():void {
+			DataModel.getInstance().weaponSound();
 			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn, delay:0, onComplete:resetShine}); 
 		}
 		
@@ -249,7 +262,14 @@ package view.shipwreck
 			_bubblesDung = new Bubbles2();
 			_rendererDung.addEmitter(_bubblesDung);
 			_bubblesDung.start();
-			setTimeout(_bubblesDung.stopBubbles, 3000);
+//			setTimeout(_bubblesDung.stopBubbles, 3000);
+			TweenMax.delayedCall(3, _bubblesDung.stopBubbles);
+		}
+		
+		private function nextSound():void
+		{
+			_bgSound.stop(true);
+			_surfaceSound.start(true);
 		}
 		
 		protected function enterFrameLoop(event:Event):void
@@ -259,6 +279,12 @@ package view.shipwreck
 				_dungeonFish.visible = true;
 				TweenMax.from(_dungeonFish, 1.5, {x:-_dungeonFish.width, ease:Quad, onComplete:showDungBubbles});
 				TweenMax.from(_dungeonFish, .5, {rotation:-5, ease:Quad, repeat:2, yoyo:true});
+			}
+			
+//			trace(_dragVCont.scrollY);
+			if (_dragVCont.scrollY > 1800 && !nextSoundPlayed) {
+				nextSound();
+				nextSoundPlayed = true;
 			}
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {

@@ -263,7 +263,8 @@ package view.theCattery
 		protected function shineTime():void
 		{
 			showShine(_scissors);
-			setTimeout(showShine, 800, _comb);
+//			setTimeout(showShine, 800, _comb);
+			TweenMax.delayedCall(.8, showShine, [_comb]);
 		}		
 		
 		

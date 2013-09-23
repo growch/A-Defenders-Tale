@@ -4,6 +4,7 @@ package view.prologue
 	import com.greensock.easing.Elastic;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -48,6 +49,11 @@ package view.prologue
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		private var _notesPlayed:Object;
+		private var _squidSound:Track;
+		private var _balladSound:Track;
+		private var balladPlayed:Boolean;
+		private var _applauseSound:Track;
+		private var applausePlayed:Boolean;
 		
 		public function FightView()
 		{
@@ -65,10 +71,12 @@ package view.prologue
 //			
 			_mc.instruments_mc.instrument_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
 			_notesPlayed = null;
+			
+			if (_squidSound) _squidSound.removeEventListener(Event.SOUND_COMPLETE, squidSoundComplete);
+			if (_balladSound) _balladSound.removeEventListener(Event.SOUND_COMPLETE, balladSoundComplete);
 //			
 			
 			_pageInfo = null;
-			
 			
 			_frame.destroy();
 			_frame = null;
@@ -117,6 +125,9 @@ package view.prologue
 				_supplyInt = 1;
 			}
 			
+//			TESTING!!!!
+//			_supplyInt = 0;
+			
 			if (_weaponInt != 2 && _supplyInt == 0) {
 				_mc.textSupplies_mc.visible = true;
 			}
@@ -150,7 +161,7 @@ package view.prologue
 						copy = StringUtil.replace(copy, "[supplies]", _pageInfo.supplies[_supplyInt]);
 					}
 					
-					copy = StringUtil.replace(copy, "[instrument1]", _pageInfo.instrument1[DataModel.defenderInfo.instrument]);
+					copy = StringUtil.replace(copy, "[instrument1]", _pageInfo.instrument1[_instrumentInt]);
 					copy = StringUtil.replace(copy, "[island1]", DataModel.ISLAND_SELECTED[0]);
 					
 					// set this last cuz some of these may be in the options above
@@ -184,7 +195,7 @@ package view.prologue
 						//big callout text in mc
 						var index3:int = copy.indexOf("inspection.", 0);
 						var rect3:Rectangle = _tf.getCharBoundaries(index3);
-						_mc.instruments_mc.y = rect3.y - 300;
+						_mc.instruments_mc.y = rect3.y - 330;
 					}
 					if (_weaponInt == 2) {
 						var index:int = copy.indexOf("[spacer]", 0);
@@ -225,14 +236,28 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			if (_weaponInt == 2) {
+				DataModel.getInstance().oceanSound();
+			} else {
+				_squidSound = new Track("assets/audio/prologue/prologue_squid.mp3");
+				_squidSound.start();
+				_squidSound.fadeAtEnd = true;
+				_squidSound.addEventListener(Event.SOUND_COMPLETE, squidSoundComplete);
+				
+				_balladSound = new Track(DataModel.BALLAD_SOUND_ARRAY[_instrumentInt]);
+				_balladSound.fadeAtEnd = true;
+				_balladSound.addEventListener(Event.SOUND_COMPLETE, balladSoundComplete);
+			}
+			_applauseSound = new Track("assets/audio/prologue/prologue_applause.mp3");
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			//!TESTING
-//			_supplyInt = 0;
+			DataModel.getInstance().weaponSound();
+			
 			if (_weaponInt == 2) {
 				_mc.squidSmall_mc.visible = true;
 				TweenMax.from(_mc.squidSmall_mc, 1.6, {scaleX:4, scaleY:4, ease:Elastic.easeOut});
+				
 			}
 			
 			if (_weaponInt != 2 && _supplyInt == 0) {
@@ -249,18 +274,31 @@ package view.prologue
 				_mc.armRight_mc.scaleX = -1;
 				_mc.armRight_mc.x = 250;
 				
-				
 				_mc.instruments_mc.instrument_mc.glows_mc.cacheAsBitmap = true;
 				_mc.instruments_mc.instrument_mc.shine_mc.cacheAsBitmap = true;
 				_mc.instruments_mc.instrument_mc.glows_mc.mask = _mc.instruments_mc.instrument_mc.shine_mc;
-//				_mc.instruments_mc.instrument_mc.glows_mc.visible = true;
-//				_mc.instruments_mc.instrument_mc.shine_mc.visible = true;
+				
+				TweenMax.delayedCall(1.2, showNotes);
 			}
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			_mc.instruments_mc.instrument_mc.addEventListener(MouseEvent.CLICK, clickToShine);
 			
-			setTimeout(showNotes, 1200);
+		}
+		
+		protected function squidSoundComplete(event:Event):void
+		{
+			DataModel.getInstance().oceanSound();
+		}
+		
+		private function playBallad():void {
+			_squidSound.stop(true);
+			_balladSound.start();
+		}
+		
+		protected function balladSoundComplete(event:Event):void
+		{
+			DataModel.getInstance().oceanSound();
 		}
 		
 		private function clickToShine(e:MouseEvent):void {
@@ -292,6 +330,16 @@ package view.prologue
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY > 200 && !balladPlayed && _weaponInt != 2 && _supplyInt == 1) {
+				playBallad();
+				balladPlayed = true;
+			}
+			
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !applausePlayed) {
+				_applauseSound.start();
+				applausePlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				

@@ -2,6 +2,7 @@ package view
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -53,6 +54,7 @@ package view
 		private var _emergencyOverlay:EmergencyContactView;
 		private var _SAL:SWFAssetLoader;
 		private var _tfm:TextFormat;
+		private var _bgSound:Track;
 		
 		public function ApplicationView()
 		{
@@ -63,6 +65,7 @@ package view
 			EventController.getInstance().addEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
 			
 //			!!!IMPORTANT
+			DataModel.resetBookData();
 			DataModel.defenderInfo = new DefenderApplicationInfo();
 		}
 		
@@ -90,6 +93,7 @@ package view
 			_months = null;
 			_tfm = null;
 //			errorCount = null;
+			_bgSound = null;
 			
 			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_EMERGENCY_OVERLAY, removeEmergencyOverlay);
 			EventController.getInstance().removeEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
@@ -173,6 +177,10 @@ package view
 			addChild(_mc);
 			
 			TweenMax.from(_mc, 1.6, {y:DataModel.APP_HEIGHT, ease:Quad.easeInOut});
+			
+			_bgSound = new Track("assets/audio/global/DefenderTheme.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function makeTextRemoveText(thisTF:TextField) : TextField {
@@ -229,6 +237,8 @@ package view
 //				return;
 			}
 			
+			DataModel.getInstance().buttonTap();
+			
 			var infoObject:Object = new Object();
 			infoObject.defender = _nameTF.text;
 			infoObject.age = _ageTF.text;
@@ -242,6 +252,9 @@ package view
 			infoObject.wardrobe = _wardrobe.optionNumSelected;
 			infoObject.contact = _contactTF.text;
 			infoObject.contactGender = _contactGender.optionNumSelected;
+			
+			_bgSound.stop(true);
+			_bgSound.destroy();
 			
 			EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.APPLICATION_SUBMITTED, infoObject));
 		}

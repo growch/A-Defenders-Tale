@@ -6,7 +6,6 @@ package view.prologue
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -200,6 +199,8 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			//bg sound
+			DataModel.getInstance().oceanSound();
 		}
 		
 		private function pageOn(e:ViewEvent):void {

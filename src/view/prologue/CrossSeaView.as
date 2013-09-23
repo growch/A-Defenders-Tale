@@ -164,6 +164,9 @@ package view.prologue
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
+			
+			//bg sound
+			DataModel.getInstance().oceanSound();
 		}
 		
 		private function pageOn(event:ViewEvent):void {
@@ -189,7 +192,7 @@ package view.prologue
 			var wave2DownY:int = wave2InitY + _boat.waves_mc.waves2_mc.height+2;
 			_boat.waves_mc.waves2_mc.y = wave2DownY;
 			
-			setTimeout(boatWave2Up, 1800);
+			TweenMax.delayedCall(1.8, boatWave2Up);
 			
 			function boatWave2Up():void {
 				_boat.waves_mc.waves2_mc.x = wave2InitX -10;
@@ -198,7 +201,9 @@ package view.prologue
 			function boatWave2Down(): void {
 				TweenMax.to(_boat.waves_mc.waves2_mc, 1, {y:wave2DownY, x:"+20", ease:Quad.easeIn, delay:0, onComplete:boatWave2Up});
 			}
+			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 		}
 		
 		protected function enterFrameLoop(event:Event):void

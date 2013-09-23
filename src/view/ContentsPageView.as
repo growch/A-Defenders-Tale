@@ -54,7 +54,7 @@ package view
 			_mc.body_txt.text = bodyText;
 			
 			_loader = new ImageLoader(pgInfo.contentPanelInfo.image, {container:_mc.imageHolder_mc, x:0, y:0, scaleX:.5, scaleY:.5});
-//			_loader.load();
+			_loader.load();
 			_loader.autoDispose = true;
 			
 			activate();

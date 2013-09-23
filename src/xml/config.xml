@@ -446,10 +446,9 @@ Captain Cleapeezious crossed one arm in front of the other. “Perhaps you shoul
 		</companion2>
 		<body>
 			<item type="text" id="" width="250" height="" top="0" left="100" size="40" align="left" leading="20" file="">
-			<![CDATA[In [defender]’s experience, offers of kindness often ended badly—for [pronoun2], anyway. 
-			]]>
+			<![CDATA[In [defender]’s experience, offers of kindness often ended badly—for [pronoun2], anyway.]]>
 			</item>	
-			<item type="text" id="" width="575" height="" top="60" left="100" size="20" align="left" leading="10" file="">
+			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[Particularly when that kindness began with someone saying they meant [pronoun2] no harm. Which is why [pronoun1] kept [pronoun3] [weapon] firmly in hand while [pronoun1] considered [pronoun3] next move. The sensible decision would be to steal the boat and cast off alone. It was a large craft, but [pronoun1]’d done some sailing in [pronoun3] youth. How difficult could it be? Besides, everyone knew that sea captains were only a step away from pirates, and pirates were not to be trusted.
 
 [defender] rose to [pronoun3] full height, giving Captain Cleapeezious Sandowskly a menacing look. “As Defender of the Realm,” [pronoun1] announced, “I shall be commandeering your boat.” 
@@ -1354,7 +1353,8 @@ This time, when [defender] closed [pronoun3] eyes, it was to the sound of applau
 		</instrument1>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[[weapon1]]]> 			
+			<![CDATA[[weapon1]
+			]]> 			
 			</item>
 		</body>
 		<decisions top="100">

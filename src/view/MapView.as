@@ -110,10 +110,13 @@ package view
 			
 			addChild(_mc);
 			
+			DataModel.getInstance().oceanSound();
 		}
 		
 		protected function islandClick(event:MouseEvent):void
 		{
+			DataModel.getInstance().buttonTap();
+			
 			var thisButton:String = event.target.name;
 			var tempObj:Object = new Object();
 			

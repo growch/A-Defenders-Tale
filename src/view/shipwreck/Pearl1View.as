@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -46,6 +47,10 @@ package view.shipwreck
 		private var _jellyTimer:Timer;
 		private var _timerSpeed:int = 800;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _ariaSound:Track;
+		private var ariaPlayed:Boolean;
+		private var _endPlayed:Boolean;
 		
 		public function Pearl1View()
 		{
@@ -203,6 +208,13 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// bg sound
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_ariaSound = new Track("assets/audio/shipwreck/shipwreck_07.mp3");
+			_ariaSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -224,8 +236,23 @@ package view.shipwreck
 			}
 		}
 		
+		private function playAria():void
+		{
+			_bgSound.stop(true);
+			_ariaSound.start(true);
+		}
+		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY > 300 && !ariaPlayed) {
+				playAria();
+				ariaPlayed = true;
+			}
+			
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_endPlayed) {
+				DataModel.getInstance().endSound();
+				_endPlayed = true;
+			}
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();

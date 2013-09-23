@@ -94,6 +94,7 @@
 			
 			//		CUSTOM !!!!
 			EventController.getInstance().addEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
+			EventController.getInstance().addEventListener(ViewEvent.SHOW_PAGE, nextPage);
 		}
 		
 //		CUSTOM !!!!
@@ -101,8 +102,15 @@
 		{
 			toggleMute(true);
 		}
+		
+		protected function nextPage(event:Event):void
+		{
+			stop(true);
+			destroy();
+		}
 		public function destroy():void {
 			EventController.getInstance().removeEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
+			EventController.getInstance().removeEventListener(ViewEvent.SHOW_PAGE, nextPage);
 		}
 		
 		

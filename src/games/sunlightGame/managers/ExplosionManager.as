@@ -23,7 +23,7 @@ package games.sunlightGame.managers
 //			_game.explosionHolder.addChild(explosion);
 			
 			explosions = new Array();
-			pool = new StarlingPool(Explosion, 10);
+			pool = new StarlingPool(Explosion, 25);
 		}
 		
 		public function destroy():void
@@ -58,7 +58,8 @@ package games.sunlightGame.managers
 			for(var i:int=len-1; i>=0; i--)
 			{
 				exp = explosions[i];
-				if (exp.mc.currentFrame >= 20) {
+//				not great to tie to frame #
+				if (exp.mc.currentFrameLabel == "complete") {
 					destroyExplosion(exp);
 				}
 			}	

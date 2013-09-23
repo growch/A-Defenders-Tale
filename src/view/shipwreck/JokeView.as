@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -55,6 +56,7 @@ package view.shipwreck
 		private var _SAL:SWFAssetLoader;
 		private var _sub1Text:TextField;
 		private var _sub2Text:TextField;
+		private var _bgSound:Track;
 		
 		public function JokeView()
 		{
@@ -230,6 +232,9 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function clearText(e:FocusEvent):void {

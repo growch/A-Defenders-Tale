@@ -2,13 +2,9 @@ package view.prologue
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Bounce;
-	import com.greensock.events.LoaderEvent;
 	import com.greensock.loading.ImageLoader;
-	import com.greensock.loading.SWFLoader;
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.ColorTransform;
@@ -221,8 +217,8 @@ package view.prologue
 			addChild(_dragVCont);
 			
 			// load sound
-			_bgSound = new Track("assets/audio/prologue/prologue.mp3");
-//			_bgSound.start(true);
+			_bgSound = new Track("assets/audio/prologue/prologue_outside.mp3");
+			_bgSound.start(true);
 			_bgSound.loop = true;
 		}
 		
@@ -263,9 +259,6 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			// fade down sound
-			_bgSound.stop(true);
-			_bgSound.destroy();
 			// coin/alms count
 			if (event.data.decisionNumber == 1) {
 				DataModel.coinCount++;

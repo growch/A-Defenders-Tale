@@ -2,7 +2,9 @@ package view.prologue
 {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
+	import com.greensock.events.LoaderEvent;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -43,6 +45,8 @@ package view.prologue
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		private var _notesPlayed:Object;
+		private var _bgSound:Track;
+		private var _instrumentInt:int;
 		
 		public function NegotiateView()
 		{
@@ -94,8 +98,10 @@ package view.prologue
 				_almsGiven = 1;
 			}
 			
-			_mc.instrument_mc.gotoAndStop(int(DataModel.defenderInfo.instrument)+1);
-			_mc.instrument_mc.glows_mc.gotoAndStop(int(DataModel.defenderInfo.instrument)+1);
+			_instrumentInt = DataModel.defenderInfo.instrument;
+			
+			_mc.instrument_mc.gotoAndStop(_instrumentInt+1);
+			_mc.instrument_mc.glows_mc.gotoAndStop(_instrumentInt+1);
 			_mc.instrument_mc.glows_mc.visible = false;
 			_mc.instrument_mc.shine_mc.visible = false;
 			
@@ -111,7 +117,7 @@ package view.prologue
 					var copy:String = part.copyText;
 					
 					copy = StringUtil.replace(copy, "[coins]", _pageInfo.coins[_almsGiven]);
-					copy = StringUtil.replace(copy, "[instrument1]", _pageInfo.instrument1[DataModel.defenderInfo.instrument]);
+					copy = StringUtil.replace(copy, "[instrument1]", _pageInfo.instrument1[_instrumentInt]);
 					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
 					
@@ -128,6 +134,7 @@ package view.prologue
 					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading), part.width, true, true, true); 
 					_tf.x = part.left; 
 					_tf.y = _nextY + part.top;
+					_tf.mouseEnabled = false;
 					
 					_mc.addChild(_tf);
 					_nextY += Math.round(_tf.height + part.top);
@@ -142,13 +149,17 @@ package view.prologue
 						_mc.instrument_mc.y = Math.round(_nextY+part.top)-130;
 					}
 					
-					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
+					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5, onComplete:onImageLoad});
 					//begin loading
 					loader.load();
 					loader.autoDispose = true;
 					_nextY += part.height + part.top;
 					
 				}
+			}
+			
+			function onImageLoad(event:LoaderEvent):void { 
+				event.target.content.mouseEnabled = false;
 			}
 			
 			// decision
@@ -181,6 +192,12 @@ package view.prologue
 			_mc.instrument_mc.glows_mc.mask = _mc.instrument_mc.shine_mc;
 			_mc.instrument_mc.glows_mc.visible = true;
 			_mc.instrument_mc.shine_mc.visible = true;
+			
+			// load sound
+			_bgSound = new Track("assets/audio/prologue/prologue_docks.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -214,6 +231,8 @@ package view.prologue
 					_mc.instrument_mc.noteDouble_mc.y = _doubleStart[1];
 				}}); 
 			TweenMax.to(_mc.instrument_mc.noteDouble_mc, .4, {alpha:0, delay:1.8});
+			
+			DataModel.getInstance().instrumentSound();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

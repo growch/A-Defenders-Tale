@@ -2,9 +2,11 @@ package view.prologue
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	import control.GoViralService;
@@ -39,11 +41,16 @@ package view.prologue
 		private var _magicSpacer:int = 210;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _compInt:int;
+		private var _scrolling:Boolean;
+		private var _endPlayed:Boolean;
 		
 		public function Cellar1View()
 		{
 			_SAL = new SWFAssetLoader("prologue.Cellar1MC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
+			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
 		}
@@ -56,11 +63,13 @@ package view.prologue
 		
 		public function destroy() : void {
 //			
+			_mc.companion_mc.removeEventListener(MouseEvent.CLICK, clickForSound);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
 			_goViral = null;
 //			
-
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -70,6 +79,8 @@ package view.prologue
 			_mc.removeChild(_decisions);
 			_decisions = null;
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -89,7 +100,9 @@ package view.prologue
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			_mc.companion_mc.gotoAndStop(DataModel.defenderInfo.companion+1);
+			_compInt = DataModel.defenderInfo.companion;
+			
+			_mc.companion_mc.gotoAndStop(_compInt+1);
 			_mc.end_mc.visible = false;
 			
 			_nextY = 110;
@@ -103,9 +116,9 @@ package view.prologue
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[_compInt]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[_compInt]);
+					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[_compInt]);
 					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
 					
 					// only add copy for no FB contact
@@ -196,6 +209,38 @@ package view.prologue
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
+			
+			// load sound
+			_bgSound = new Track("assets/audio/prologue/prologue_cellar.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+		}
+		
+		private function pageOn(event:ViewEvent):void {
+			
+			_mc.companion_mc.addEventListener(MouseEvent.CLICK, clickForSound);
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+		}
+		
+		private function clickForSound(e:MouseEvent):void {
+			DataModel.getInstance().companionSound();
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_endPlayed) {
+				DataModel.getInstance().endSound();
+				_endPlayed = true;
+			}
+			
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+//				TweenMax.pauseAll();
+				_scrolling = true;
+			} else {
+				if (!_scrolling) return;
+				_scrolling = false;
+			}
 		}
 		
 		protected function facebookContactResponded(event:ViewEvent):void

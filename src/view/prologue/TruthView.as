@@ -1,8 +1,12 @@
 package view.prologue
 {
+	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
@@ -33,15 +37,24 @@ package view.prologue
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _scrolling:Boolean;
+		private var _applauseSound:Track;
+		private var _applausePlayed:Boolean;
 		
 		public function TruthView()
 		{
 			_SAL = new SWFAssetLoader("prologue.TruthMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
-			
+			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
 		}
 		
 		public function destroy() : void {
+//			
+			_mc.companion_mc.removeEventListener(MouseEvent.CLICK, clickForSound);
+//			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -51,6 +64,8 @@ package view.prologue
 			_mc.removeChild(_decisions);
 			_decisions = null;
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -150,6 +165,42 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// load sound
+			_bgSound = new Track("assets/audio/prologue/prologue_reys.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_applauseSound = new Track("assets/audio/prologue/prologue_applause.mp3");
+			
+		}
+		
+		private function pageOn(event:ViewEvent):void {
+			_mc.companion_mc.addEventListener(MouseEvent.CLICK, clickForSound);
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+		}
+		
+		private function clickForSound(e:MouseEvent):void {
+			DataModel.getInstance().companionSound();
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY > 200 && !_applausePlayed) {
+				_applauseSound.start();
+				_applausePlayed = true;
+			}
+			
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				TweenMax.pauseAll();
+				_scrolling = true;
+				
+			} else {
+				if (!_scrolling) return;
+				
+				TweenMax.resumeAll();
+				_scrolling = false;
+			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

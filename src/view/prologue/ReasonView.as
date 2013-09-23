@@ -3,8 +3,10 @@ package view.prologue
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	
 	import control.EventController;
 	
@@ -34,6 +36,8 @@ package view.prologue
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _squidSound:Track;
+		private var _scrolling:Boolean;
 		
 		public function ReasonView()
 		{
@@ -44,6 +48,11 @@ package view.prologue
 		}
 		
 		public function destroy() : void {
+//			
+			_squidSound.removeEventListener(Event.SOUND_COMPLETE, squidSoundComplete);
+//			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -138,16 +147,39 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_squidSound = new Track("assets/audio/prologue/prologue_squid.mp3");
+			_squidSound.start();
+			_squidSound.fadeAtEnd = true;
+			_squidSound.addEventListener(Event.SOUND_COMPLETE, squidSoundComplete);
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			_mc.armLeft_mc.visible = true;
 			TweenMax.from(_mc.armLeft_mc, .7, {x:"-50",scaleX:.6,rotation:-15, ease:Quad.easeOut});
-//			TweenMax.from(_mc.armLeft_mc, .7, {x:"-50",scaleX:.6,rotation:-15,rotationZ:45, ease:Quad.easeOut});
 			
 			_mc.armRight_mc.visible = true;
 			TweenMax.from(_mc.armRight_mc, .8, {x:"+120",scaleX:.6,rotation:-12, ease:Quad.easeOut});
-//			TweenMax.from(_mc.armRight_mc, .8, {x:"+120",scaleX:.6,rotation:-12,rotationZ:45, ease:Quad.easeOut});
+			
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+		}
+		
+		protected function squidSoundComplete(event:Event):void
+		{
+			DataModel.getInstance().oceanSound();
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				TweenMax.pauseAll();
+				_scrolling = true;
+				
+			} else {
+				if (!_scrolling) return;
+				
+				TweenMax.resumeAll();
+				_scrolling = false;
+			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

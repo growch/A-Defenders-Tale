@@ -40,9 +40,13 @@ package view.map
 		{
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
+			_mc.snow_mc.visible = false;
+			_mc.snow_mc.stop();
+			
 			//!IMPORTANT otherwise chugs on iPad1
 			if (DataModel.ipad1) { 
-//				trace("ipad1 BEYOTCH!!!!");
+				_mc.snow_mc.visible = true;
+				_mc.snow_mc.play();
 				return;
 			}
 			
@@ -70,7 +74,6 @@ package view.map
 			_emitter.runAhead( 10 );
 			
 		}
-		
 		
 		protected function enterFrameLoop(event:Event):void
 		{

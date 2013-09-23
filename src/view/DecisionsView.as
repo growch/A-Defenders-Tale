@@ -111,6 +111,8 @@ package view
 		
 		protected function decisionClick(event:MouseEvent):void
 		{
+			DataModel.getInstance().buttonTap();
+			
 			var thisID:Number = MovieClip(event.target).ID;
 			var tempObj:Object = new Object();
 			tempObj.decisionNumber = thisID;

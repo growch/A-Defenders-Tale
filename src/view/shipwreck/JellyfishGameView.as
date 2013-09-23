@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.coreyoneil.collision.CollisionList;
 	import com.greensock.TweenMax;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.AccelerometerEvent;
@@ -66,6 +67,8 @@ package view.shipwreck
 		private var _starfish:MovieClip;
 		private var _SAL:SWFAssetLoader;
 		private var _zapped:Boolean;
+		private var _bgSound:Track;
+		private var _hitSound:Track;
 		
 		public function JellyfishGameView()
 		{
@@ -220,6 +223,12 @@ package view.shipwreck
 			_mc.addChild(_loseMC);
 			
 			addChild(_mc);
+			
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_jellyGame.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true; 
+			
+			_hitSound = new Track("assets/audio/shipwreck/shipwreck_jellyGame_zaps.mp3");
 		}
 		
 		private function startClick(e:MouseEvent):void {
@@ -368,6 +377,7 @@ package view.shipwreck
 					}
 					_zapped = true;
 					_glow.gotoAndPlay("hit");
+					_hitSound.start();
 				}
 			} else {
 				if (_zapped) {

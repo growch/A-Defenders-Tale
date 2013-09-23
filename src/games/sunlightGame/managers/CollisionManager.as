@@ -71,8 +71,6 @@ package games.sunlightGame.managers
 //				
 				if(_game.hero.hit1MC.hitTestObject(_enemHit))
 				{
-//					_game.explosionManager.spawn(_game.stage.mouseX, _game.stage.mouseY);
-//					_enemHitSound.start();
 					_game.gameOver("loser");
 					return;
 				}
@@ -94,37 +92,23 @@ package games.sunlightGame.managers
 //				trace("_enem i: "+i);
 				
 				var leng:int = bla.length-1;
-//				TESTIN!!!!
+//				TESTING!!!!
 //				leng = 0;	
 				
 				for(var j:int=leng; j>=0; j--)
 				{
 					block = bla[j];
-//					TESTING!!!!!!
-//					block = bla[bla.length-1];
-					
-//					if (_enemHit.hitTestObject(block)) {
-////						_game.enemyManager.avoidBlock(_enem);
-//						_enem.moveLateral = true;
-//					}
+
 					p1.x = _enem.x;
 					p1.y = _enem.y;
 					p2.x = 92 + block.x;
 					p2.y = 426 + block.y;
-//					block.localToGlobal(p2);
-//					trace(block.y);
-					
-//					trace(block.name);
-//					trace(Point.distance(p1, p2));
+
 					yDistance = Math.abs(p2.y - p1.y);
 					xDistance = (p2.x - p1.x);
 					
 					rightBlockDistance = p2.x + block.width - p1.x;
-//					trace("xDistance: "+xDistance);
-//					trace("yDistance: "+yDistance);
-//					trace("rightBlockDistance: "+rightBlockDistance);
-//					trace("enem: "+p1);
-//					trace("block: "+p2);
+
 					if(yDistance < yThresh && xDistance < leftBlockDistance && rightBlockDistance > -leftBlockDistance)
 					{
 						
@@ -136,19 +120,7 @@ package games.sunlightGame.managers
 //						trace("hiTTTTT");
 						_enem.moveLateral = true;
 						
-						
-//						if (xDistance < leftBlockDistance) {
-////							trace("bounce left");
-//						} else if (rightBlockDistance > -leftBlockDistance) {
-////							trace("bounce right");
-//						} else {
-//							trace("hiTTTTT");
-////							_enem.moveLateral = true;
-//						}
-						
 					}
-					
-//					_enem.moveLateral = false;
 				}
 
 			}

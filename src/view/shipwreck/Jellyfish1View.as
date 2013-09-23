@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -46,6 +47,8 @@ package view.shipwreck
 		private var _jellyTimer:Timer;
 		private var _timerSpeed:int = 800;
 		private var _SAL:SWFAssetLoader;
+		private var _endPlayed:Boolean;
+		private var _bgSound:Track;
 		
 		public function Jellyfish1View()
 		{
@@ -183,6 +186,10 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// bg sound
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_07.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -206,6 +213,11 @@ package view.shipwreck
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_endPlayed) {
+				DataModel.getInstance().endSound();
+				_endPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_jellyTimer.stop();

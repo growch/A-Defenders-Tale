@@ -46,12 +46,11 @@ package view
 			
 			_beginBtn = _mc.begin_btn;
 			_beginBtn.mouseChildren = false;
-//			_beginBtn.buttonMode = true;
 			_beginBtn.addEventListener(MouseEvent.CLICK, beginBook);
 			
-//			_bgSound = new Track("assets/audio/intro.mp3");
-//			_bgSound.start(true);
-//			_bgSound.loop = true;
+			_bgSound = new Track("assets/audio/global/DefenderTheme.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 			
 			addChild(_mc);
 		}
@@ -65,7 +64,7 @@ package view
 			
 			_fog1 = null;
 			_sun = null;
-//			_bgSound = null;
+			_bgSound = null;
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -88,6 +87,8 @@ package view
 		
 		protected function beginBook(event:MouseEvent):void
 		{
+			DataModel.getInstance().buttonTap();
+			
 			TweenMax.to(_beginBtn, .6, {scaleX:1.2, scaleY:1.2, ease:Quad.easeOut});
 			
 			TweenMax.killTweensOf(_sun);
@@ -114,9 +115,6 @@ package view
 		private function nextScreen() : void {
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
-			
-//			_bgSound.destroy();
-//			_bgSound.stop(true);
 			
 			var tempObj:Object = new Object();
 			tempObj.id = "ApplicationView";

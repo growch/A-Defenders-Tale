@@ -3,8 +3,10 @@ package view.prologue.coins
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	
 	import control.EventController;
@@ -38,6 +40,9 @@ package view.prologue.coins
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _coinSound:Track;
+		private var _cupSound:Track;
+		private var _bgSound:Track;
 		
 		public function Coin1View()
 		{
@@ -50,6 +55,10 @@ package view.prologue.coins
 		public function destroy():void
 		{
 //		
+			_cup.removeEventListener(MouseEvent.CLICK, cupRattle);
+			_coinSound = null;
+			_cupSound = null;
+			
 			_cup = null;
 			_coin = null;
 //			
@@ -150,9 +159,19 @@ package view.prologue.coins
 			_dragVCont.addChild(_mc);
 			addChild(_dragVCont);
 			_dragVCont.refreshView(true);
+			
+			// load sound
+			_bgSound = new Track("assets/audio/prologue/prologue_outside.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(event:ViewEvent):void {
+			_coinSound = new Track("assets/audio/prologue/prologue_coin_drop.mp3");
+			_cupSound = new Track("assets/audio/prologue/prologue_coin_shake.mp3");
+			
+			_cup.addEventListener(MouseEvent.CLICK, cupRattle);
+			
 			coinAnimation();
 		}
 		
@@ -161,8 +180,18 @@ package view.prologue.coins
 			
 			_coin.y = -_cup.y + 50;
 			
-			TweenMax.to(_coin, 2, {y:170, ease:Quad.easeIn, onComplete:function():void{_coin.visible = false;}});
+			TweenMax.to(_coin, 2, {y:170, ease:Quad.easeIn, onComplete:coinDropped});
 			_coin.visible = true;
+		}
+		
+		protected function cupRattle(event:MouseEvent):void
+		{
+			_cupSound.start();
+		}
+		
+		private function coinDropped():void {
+			_coin.visible = false;
+			_coinSound.start();
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

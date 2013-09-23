@@ -135,6 +135,9 @@ package view.joylessMountains
 			_mc.waves_mc.cacheAsBitmap = true;
 			_mc.waves_mc.mask = _mc.mask_mc;
 			
+			_mc.snow_mc.visible = false;
+			_mc.snow_mc.stop();
+			
 			_nextY = 110;
 			
 			_cloud1 = _mc.cloud1_mc;
@@ -256,11 +259,12 @@ package view.joylessMountains
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
-			//!IMPORTANT otherwise crashes on iPad1
-//			if (DataModel.ipad1) {
-//				trace("ipad1 BEYOTCH!!!!");
-//				return;
-//			}
+			//!IMPORTANT otherwise chugs on iPad1
+			if (DataModel.ipad1) { 
+				_mc.snow_mc.visible = true;
+				_mc.snow_mc.play();
+				return;
+			}
 			
 			//snowfall
 			_emitter = new Emitter2D();
@@ -269,18 +273,21 @@ package view.joylessMountains
 			
 			_emitter.addInitializer( new ImageClass( RadialDot, [2] ) );
 			_emitter.addInitializer(new ColorInit(4288043961,4294967295));
-			_emitter.addInitializer( new Position( new LineZone( new Point( -5, -5 ), new Point( 140, -5 ) ) ) );
+			_emitter.addInitializer( new Position( new LineZone( new Point( 0, -5 ), new Point( 130, -5 ) ) ) );
 			_emitter.addInitializer( new Velocity( new PointZone( new Point( 0, 45 ) ) ) );
 			_emitter.addInitializer( new ScaleImageInit( 0.75, 2 ) );
 			
 			_emitter.addAction( new Move() );
 			_emitter.addAction( new DeathZone( new RectangleZone( -20, -10, 180, 400 ), true ) );
-			_emitter.addAction( new RandomDrift( 60, 40 ) );
+			_emitter.addAction( new RandomDrift( 50, 20 ) );
 			
 			_renderer = new DisplayObjectRenderer();
 			_renderer.addEmitter( _emitter );
 			_mc.cloudSnow_mc.addChild( _renderer );
-			_renderer.y = _mc.cloudSnow_mc.height;
+			_renderer.y = _mc.cloudSnow_mc.height+4;
+			
+			//put cloud back on top
+			_mc.cloudSnow_mc.addChild(_mc.cloudSnow_mc.cloud_mc);
 			
 			_emitter.start();
 			_emitter.runAhead( 10 );

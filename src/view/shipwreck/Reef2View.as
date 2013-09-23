@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -25,12 +26,10 @@ package view.shipwreck
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
-	import view.ApplicationView;
 	import view.Bubbles;
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import view.MapView;
 	
 	public class Reef2View extends MovieClip implements IPageView
 	{
@@ -61,6 +60,7 @@ package view.shipwreck
 		private var _passwordArray:Array = ["barnacle", "conch", "surf", "clam", "shell"];
 		private var _SAL:SWFAssetLoader;
 		private var _clawAnimating:Boolean;
+		private var _bgSound:Track;
 		
 		public function Reef2View()
 		{
@@ -242,6 +242,11 @@ package view.shipwreck
 			addChild(_dragVCont);
 			
 			_mc.password_mc.submit_btn.addEventListener(MouseEvent.CLICK, submitClick);
+			
+			// bg sound
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function submitClick(e:MouseEvent):void  {
@@ -266,6 +271,7 @@ package view.shipwreck
 				TweenMax.from(_mc.end_mc, .5, {autoAlpha:0});
 				_dv.push(_pageInfo.decisions[1]);
 				_dv.push(_pageInfo.decisions[2]);
+				DataModel.getInstance().endSound();
 			}
 			addDecision();
 		}

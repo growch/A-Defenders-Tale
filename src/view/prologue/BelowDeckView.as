@@ -3,8 +3,10 @@ package view.prologue
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	
 	import control.EventController;
 	
@@ -35,6 +37,10 @@ package view.prologue
 		private var _mugText:MovieClip;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _belowDecksSound:Track;
+		private var _bgSound:Track;
+		private var _scrolling:Boolean;
+		private var _introPlayed:Boolean;
 		
 		public function BelowDeckView()
 		{
@@ -48,6 +54,8 @@ package view.prologue
 //			
 			_mugText = null;
 //			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -160,10 +168,18 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// load sound
+			_belowDecksSound = new Track("assets/audio/prologue/prologue_below_deck.mp3");
+			_belowDecksSound.start(true);
+			
+			_bgSound = new Track("assets/audio/prologue/prologue_docks.mp3");
+			_bgSound.loop = true;
+			
 		}
 		
 		private function pageOn(event:ViewEvent):void {
 			pageAnimation();
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		private function pageAnimation(): void {
@@ -179,6 +195,26 @@ package view.prologue
 			TweenMax.from(_mugText, .8, {alpha:0, delay:.8});
 			
 			_mc.mugs_mc.visible = true;
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY > 900 && !_introPlayed) {
+				_belowDecksSound.stop(true);
+				_bgSound.start(true);
+				_introPlayed = true;
+			}
+			
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				TweenMax.pauseAll();
+				_scrolling = true;
+				
+			} else {
+				if (!_scrolling) return;
+				
+				TweenMax.resumeAll();
+				_scrolling = false;
+			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

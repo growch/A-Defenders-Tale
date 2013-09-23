@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -41,6 +42,7 @@ package view.shipwreck
 		private var _fish4:MovieClip;
 		private var _dv:Vector.<DecisionInfo>;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
 
 		public function Starfish3View()
 		{
@@ -162,6 +164,10 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// bg sound
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

@@ -1,5 +1,7 @@
 package view.map
 {
+	import com.greensock.TweenMax;
+	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.utils.setTimeout;
@@ -44,12 +46,13 @@ package view.map
 			
 			_ripples = _mc.ripples_mc;
 			_ripples.stop();
-			setTimeout(playMC, 400, _ripples);
 			
-			setTimeout(birdOn, 200, _bird1);
-			setTimeout(birdOn, 600, _bird2);
-			setTimeout(birdOn, 1000, _bird3);
-			setTimeout(birdOn, 1200, _bird4);
+			TweenMax.delayedCall(.4, playMC, [_ripples]);
+
+			TweenMax.delayedCall(.2, birdOn, [_bird1]);
+			TweenMax.delayedCall(.5, birdOn, [_bird2]);
+			TweenMax.delayedCall(.8, birdOn, [_bird3]);
+			TweenMax.delayedCall(1.1, birdOn, [_bird4]);
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}

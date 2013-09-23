@@ -233,6 +233,7 @@ package games.sunlightGame.core
 				_mc.gameWon_mc.visible = true;
 			} else {
 				_mc.gameLost_mc.visible = true;
+				DataModel.getInstance().endSound();
 			}
 			
 		}

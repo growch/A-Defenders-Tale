@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -41,6 +42,8 @@ package view.shipwreck
 		private var _fish4:MovieClip;
 		private var _dv:Vector.<DecisionInfo>;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _ariaSound:Track;
 
 		public function Starfish2View()
 		{
@@ -159,6 +162,12 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_ariaSound = new Track("assets/audio/shipwreck/shipwreck_07.mp3");
+			_ariaSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -173,6 +182,10 @@ package view.shipwreck
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
+		private function playAria():void
+		{
+			_ariaSound.start();
+		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{

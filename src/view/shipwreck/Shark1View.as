@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -48,6 +49,9 @@ package view.shipwreck
 		private var _fish4:MovieClip;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var ariaPlayed:Boolean;
+		private var _ariaSound:Track;
 		
 		public function Shark1View()
 		{
@@ -205,6 +209,13 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// bg sound
+			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_ariaSound = new Track("assets/audio/shipwreck/shipwreck_07.mp3");
+			_ariaSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -238,6 +249,12 @@ package view.shipwreck
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+//			trace(_dragVCont.scrollY);
+			if (_dragVCont.scrollY > 1800 && !ariaPlayed) {
+				playAria();
+				ariaPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				
@@ -259,6 +276,12 @@ package view.shipwreck
 				_bubbles3.resume();
 				_scrolling = false;
 			}
+		}
+		
+		private function playAria():void
+		{
+			_bgSound.stop(true);
+			_ariaSound.start();
 		}
 		
 		private function moveFish(thisMC:MovieClip, thisAmt:Number):void {

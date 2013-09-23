@@ -37,6 +37,8 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _introInt:int;
+		private var _bubblingCauldron:MovieClip;
 		
 		public function HutView()
 		{
@@ -47,6 +49,9 @@ package view.sandlands
 		}
 		
 		public function destroy() : void {
+//			
+			_bubblingCauldron = null;
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -84,17 +89,32 @@ package view.sandlands
 			_pageInfo = DataModel.appData.getPageInfo("hut");
 			_bodyParts = _pageInfo.body;
 			
-			var introInt:int;
-			
 			if (DataModel.sand5Ft && DataModel.dropsCorrect) {
-				introInt = 2;
+				_introInt = 2;
 			} else if (!DataModel.sand5Ft) {
-				introInt = 0;
+				_introInt = 0;
 			} else {
-				introInt = 1;
+				_introInt = 1;
 			}
 			
+//			TESTING!!!!
+//			_introInt = 2;
+			
 			_mc.end_mc.visible = false; 
+			
+			_mc.cauldron_mc.correct_mc.stop();
+			_mc.cauldron_mc.incorrect_mc.stop();
+			
+			_mc.cauldron_mc.correct_mc.visible = false;
+			_mc.cauldron_mc.incorrect_mc.visible = false;
+			
+			if (_introInt == 2) {
+				_bubblingCauldron =	_mc.cauldron_mc.correct_mc;
+			} else {
+				_bubblingCauldron =	_mc.cauldron_mc.incorrect_mc;
+			}
+			
+			_bubblingCauldron.visible = true;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -102,8 +122,8 @@ package view.sandlands
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[introInt]);
-					copy = StringUtil.replace(copy, "[intro2]", _pageInfo.intro2[introInt]);
+					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[_introInt]);
+					copy = StringUtil.replace(copy, "[intro2]", _pageInfo.intro2[_introInt]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -128,7 +148,7 @@ package view.sandlands
 					
 				} else if (part.type == "image") {
 					//!IMPORTANT
-					if (introInt != 2) {
+					if (_introInt != 2) {
 						
 						_mc.end_mc.y = _nextY + 50;
 						_nextY += 80;
@@ -149,7 +169,7 @@ package view.sandlands
 //			_decisions = new DecisionsView(_pageInfo.decisions,0x040404,true); //tint it, showBG
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			if (introInt == 2) {
+			if (_introInt == 2) {
 				dv.push(_pageInfo.decisions[2]);
 			} else {
 				dv.push(_pageInfo.decisions[0]);
@@ -180,16 +200,20 @@ package view.sandlands
 		private function pageOn(e:ViewEvent):void {
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			_bubblingCauldron.play();
 		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				_bubblingCauldron.stop();
+				
 				TweenMax.pauseAll();
 				_scrolling = true;
 			} else {
-				
 				if (!_scrolling) return;
+				_bubblingCauldron.play();
+				
 				TweenMax.resumeAll();
 				_scrolling = false;
 			}
