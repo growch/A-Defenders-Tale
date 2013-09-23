@@ -137,6 +137,7 @@ package view.shipwreck
 			_sub1Text = new TextField();
 			_sub1Text.type = TextFieldType.INPUT;
 			_sub1Text.antiAliasType = AntiAliasType.ADVANCED;
+			_sub1Text.embedFonts = true;
 			_sub1Text.width = 363;
 			_sub1Text.x = -44;
 			_sub1Text.y = 8;
@@ -147,6 +148,7 @@ package view.shipwreck
 			_sub2Text = new TextField();
 			_sub2Text.type = TextFieldType.INPUT;
 			_sub2Text.antiAliasType = AntiAliasType.ADVANCED;
+			_sub2Text.embedFonts = true;
 			_sub2Text.width = 552;
 			_sub2Text.x = 8;
 			_sub2Text.y = 8;

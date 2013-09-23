@@ -125,6 +125,7 @@ package view.joylessMountains
 			_couldText = new TextField();
 			_couldText.type = TextFieldType.INPUT;
 			_couldText.antiAliasType = AntiAliasType.ADVANCED;
+			_couldText.embedFonts = true;
 			_couldText.width = 363;
 			_couldText.x = 291;
 			_couldText.y = 171;
@@ -136,6 +137,7 @@ package view.joylessMountains
 			_couldntText = new TextField();
 			_couldntText.type = TextFieldType.INPUT;
 			_couldntText.antiAliasType = AntiAliasType.ADVANCED;
+			_couldntText.embedFonts = true;
 			_couldntText.width = 363;
 			_couldntText.x = 444;
 			_couldntText.y = 259;

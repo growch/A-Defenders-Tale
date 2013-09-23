@@ -13,6 +13,7 @@ package view
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	
+	import assets.FacebookContactMC;
 	import assets.fonts.Caslon224;
 	import assets.fonts.Caslon224BookItalic;
 	
@@ -65,7 +66,7 @@ package view
 			EventController.getInstance().addEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
 			
 //			!!!IMPORTANT
-			DataModel.resetBookData();
+			DataModel.getInstance().resetBookData();
 			DataModel.defenderInfo = new DefenderApplicationInfo();
 		}
 		
@@ -181,12 +182,21 @@ package view
 			_bgSound = new Track("assets/audio/global/DefenderTheme.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			
+//			TESTING!!!!
+			var thisContact:FacebookContactMC = new FacebookContactMC();
+			thisContact.name_txt.text = "XXXX";
+			thisContact.x = 200;
+			thisContact.y = 100;
+			_mc.addChild(thisContact);
+			
 		}
 		
 		private function makeTextRemoveText(thisTF:TextField) : TextField {
 			var tf:TextField = new TextField();
 			tf.type = TextFieldType.INPUT; 
 			tf.antiAliasType = AntiAliasType.ADVANCED;
+			tf.embedFonts = true;
 			tf.x = thisTF.x;
 			tf.y = thisTF.y + 4;
 			tf.width = thisTF.width;
