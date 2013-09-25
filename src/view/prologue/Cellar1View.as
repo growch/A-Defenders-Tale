@@ -210,7 +210,7 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			// load sound
+			// bg sound
 			_bgSound = new Track("assets/audio/prologue/prologue_cellar.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
