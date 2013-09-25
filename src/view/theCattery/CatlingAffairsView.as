@@ -2,6 +2,7 @@ package view.theCattery
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	
@@ -35,6 +36,7 @@ package view.theCattery
 		private var _smokes:MovieClip;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
 		
 		public function CatlingAffairsView()
 		{
@@ -167,6 +169,10 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// bg sound
+			_bgSound = new Track("assets/audio/cattery/cattery_03.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

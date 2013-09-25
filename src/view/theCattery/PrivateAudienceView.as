@@ -3,8 +3,10 @@ package view.theCattery
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
 	import control.EventController;
@@ -36,6 +38,8 @@ package view.theCattery
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _endSound:Boolean;
 		
 		public function PrivateAudienceView()
 		{
@@ -49,6 +53,8 @@ package view.theCattery
 //			!!!
 			_mc.vizier_mc.removeEventListener(MouseEvent.CLICK, clickToShine);
 //			
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -159,6 +165,9 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/cattery/cattery_03.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;	
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -173,6 +182,17 @@ package view.theCattery
 			shineOn();
 			
 			_mc.vizier_mc.addEventListener(MouseEvent.CLICK, clickToShine);
+			
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY > _dragVCont.maxScroll && !_endSound) {
+				DataModel.getInstance().endSound();
+				_endSound = true;
+			}
+			
 		}
 		
 		private function clickToShine(e:MouseEvent):void {

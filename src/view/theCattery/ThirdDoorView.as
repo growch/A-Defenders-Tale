@@ -2,6 +2,7 @@ package view.theCattery
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -37,6 +38,8 @@ package view.theCattery
 		private var _SAL:SWFAssetLoader;
 		private var _scrolling:Boolean;
 		private var _ballAnimating:Boolean;
+		private var _bgSound:Track;
+		private var _endSound:Boolean;
 		
 		public function ThirdDoorView()
 		{
@@ -155,7 +158,9 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			
+			_bgSound = new Track("assets/audio/cattery/cattery_13.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -169,6 +174,10 @@ package view.theCattery
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY > _dragVCont.maxScroll && !_endSound) {
+				DataModel.getInstance().endSound();
+				_endSound = true;
+			}
 			
 			if (_ballAnimating) {
 				if (_mc.ball_mc.currentFrame == _mc.ball_mc.totalFrames) {

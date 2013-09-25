@@ -183,13 +183,6 @@ package view
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			
-//			TESTING!!!!
-			var thisContact:FacebookContactMC = new FacebookContactMC();
-			thisContact.name_txt.text = "XXXX";
-			thisContact.x = 200;
-			thisContact.y = 100;
-			_mc.addChild(thisContact);
-			
 		}
 		
 		private function makeTextRemoveText(thisTF:TextField) : TextField {
@@ -202,7 +195,6 @@ package view
 			tf.width = thisTF.width;
 			tf.height = 45;
 			tf.defaultTextFormat = _tfm;
-//			tf.background = true;
 			
 			_mc.removeChild(thisTF);
 			_mc.addChild(tf);

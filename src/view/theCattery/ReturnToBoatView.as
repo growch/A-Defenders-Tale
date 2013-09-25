@@ -2,6 +2,7 @@ package view.theCattery
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -46,6 +47,7 @@ package view.theCattery
 		private var _cloud5:MovieClip;		
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
 		
 		public function ReturnToBoatView()
 		{
@@ -193,6 +195,9 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/prologue/prologue_docks.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;	
 		}
 		
 		private function pageOn(e:ViewEvent):void {

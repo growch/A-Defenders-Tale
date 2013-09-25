@@ -2,8 +2,10 @@ package view.theCattery
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	
 	import control.EventController;
 	
@@ -34,6 +36,10 @@ package view.theCattery
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _secondSound:Track;
+		private var _scrolling:Boolean;
+		private var _secondSoundPlayed:Boolean;
 		
 		public function BallView()
 		{
@@ -44,6 +50,8 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -161,11 +169,44 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// bg sound
+			_bgSound = new Track("assets/audio/cattery/cattery_03.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_secondSound = new Track("assets/audio/cattery/cattery_04.mp3");
+			_secondSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			//!!hack cuz decision is a different width!!
 			_decisions.ballException();
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+		}
+		
+		private function secondSound():void
+		{
+			_bgSound.stop(true);
+			_secondSound.start(true);
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY > 400 && !_secondSoundPlayed) {
+				secondSound();
+				_secondSoundPlayed = true;
+			}
+			
+			
+			if (_dragVCont.isDragging || _dragVCont.isTweening) {
+				TweenMax.pauseAll();
+				_scrolling = true;
+			} else {
+				
+				if (!_scrolling) return;
+				TweenMax.resumeAll();
+				_scrolling = false;
+			}
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

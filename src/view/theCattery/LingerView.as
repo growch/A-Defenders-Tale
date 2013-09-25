@@ -2,6 +2,7 @@ package view.theCattery
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -39,6 +40,8 @@ package view.theCattery
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _endSound:Boolean;
 		
 		public function LingerView()
 		{
@@ -53,6 +56,8 @@ package view.theCattery
 			_stars.destroy();
 			_stars = null;
 //			
+			addEventListener(Event.ENTER_FRAME, removeEventListener);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -161,9 +166,22 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/prologue/prologue_docks.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY > _dragVCont.maxScroll && !_endSound) {
+				DataModel.getInstance().endSound();
+				_endSound = true;
+			}
+			
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

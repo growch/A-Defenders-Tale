@@ -2,8 +2,10 @@ package view.theCattery
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	
 	import control.EventController;
 	
@@ -33,6 +35,8 @@ package view.theCattery
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _endSound:Boolean;
+		private var _bgSound:Track;
 		
 		
 		public function AcceptOfferView()
@@ -44,6 +48,8 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -137,9 +143,22 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/cattery/cattery_13.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+		}
+		
+		protected function enterFrameLoop(event:Event):void
+		{
+			if (_dragVCont.scrollY > _dragVCont.maxScroll && !_endSound) {
+				DataModel.getInstance().endSound();
+				_endSound = true;
+			}
+			
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

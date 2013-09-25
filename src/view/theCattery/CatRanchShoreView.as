@@ -2,6 +2,7 @@ package view.theCattery
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -40,6 +41,11 @@ package view.theCattery
 		private var _n:Number;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var nextSoundPlayed:Boolean;
+		private var _nextSound:Track;
+		private var _finalSound:Track;
+		private var finalSoundPlayed:Boolean;
 		
 		public function CatRanchShoreView()
 		{
@@ -174,6 +180,15 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// bg sound
+			_bgSound = new Track("assets/audio/cattery/cattery_01.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_nextSound = new Track("assets/audio/cattery/cattery_02.mp3");
+
+			_finalSound = new Track("assets/audio/cattery/cattery_03.mp3");
+			_finalSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -199,8 +214,30 @@ package view.theCattery
 			_force = 20;
 		}
 		
+		private function nextSound():void
+		{
+			_bgSound.stop(true);
+			_nextSound.start(true);
+		}
+		
+		private function finalSound():void
+		{
+			_nextSound.stop(true);
+			_finalSound.start(true);
+		}
+		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY > 675 && !nextSoundPlayed) {
+				nextSound();
+				nextSoundPlayed = true;
+			}
+			
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !finalSoundPlayed) {
+				finalSound();
+				finalSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

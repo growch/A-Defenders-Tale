@@ -3,6 +3,7 @@ package view.theCattery
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -41,6 +42,7 @@ package view.theCattery
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		private var _notesPlayed:Object;
+		private var _bgSound:Track;
 		
 		public function MouseConsultationView()
 		{
@@ -155,7 +157,6 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-//			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn});
 			
 			_mc.instrument_mc.noteSingle_mc.alpha = 0;
 			_singleStart = [_mc.instrument_mc.noteSingle_mc.x, _mc.instrument_mc.noteSingle_mc.y];
@@ -167,6 +168,10 @@ package view.theCattery
 			_mc.instrument_mc.glows_mc.mask = _mc.instrument_mc.shine_mc;
 			_mc.instrument_mc.glows_mc.visible = true;
 			_mc.instrument_mc.shine_mc.visible = true;
+			
+			_bgSound = new Track("assets/audio/cattery/cattery_02.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -199,6 +204,7 @@ package view.theCattery
 					_mc.instrument_mc.noteDouble_mc.y = _doubleStart[1];
 				}}); 
 			TweenMax.to(_mc.instrument_mc.noteDouble_mc, .4, {alpha:0, delay:1.8});
+			DataModel.getInstance().instrumentSound();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

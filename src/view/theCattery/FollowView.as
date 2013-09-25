@@ -2,6 +2,7 @@ package view.theCattery
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -45,6 +46,9 @@ package view.theCattery
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		private var _ballAnimating:Boolean;
+		private var _bgSound:Track;
+		private var _finalSound:Boolean;
+		private var _compTakenIndex:int;
 		
 		public function FollowView()
 		{
@@ -61,6 +65,10 @@ package view.theCattery
 			
 			_vizier = null;
 			_ball = null;
+			
+			if (_compTakenIndex == 0) { 
+				_mc.companions_mc.removeEventListener(MouseEvent.CLICK, companionClick);
+			}
 //			
 			_pageInfo = null;
 			_bodyParts = null;
@@ -96,7 +104,7 @@ package view.theCattery
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			// companion take or not
-			var compTakenIndex:int = DataModel.COMPANION_TAKEN ? 0 : 1;
+			_compTakenIndex = DataModel.COMPANION_TAKEN ? 0 : 1;
 			
 			_nextY = 110;
 			
@@ -118,7 +126,7 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[compTakenIndex]);
+					copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[_compTakenIndex]);
 					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 
 					// set this last cuz some of these may be in the options above
@@ -141,7 +149,7 @@ package view.theCattery
 					}
 					
 					if (part.id == "last") {
-						if (compTakenIndex == 0) {
+						if (_compTakenIndex == 0) {
 							_mc.companions_mc.gotoAndStop(DataModel.defenderInfo.companion+1);
 							_mc.companions_mc.y = _tf.y + _tf.height + 20;
 							_nextY += Math.round(_mc.companions_mc.height);
@@ -172,7 +180,7 @@ package view.theCattery
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			
-			if (compTakenIndex == 0) {
+			if (_compTakenIndex == 0) {
 				dv.push(_pageInfo.decisions[0]);
 				dv.push(_pageInfo.decisions[1]);
 			} else {
@@ -187,7 +195,7 @@ package view.theCattery
 			_frame = new FrameView(_mc.frame_mc); 
 			var frameSize:int = _decisions.y + 210;
 			//unique hack due to 2 diff size pages
-			if(compTakenIndex == 0) {
+			if(_compTakenIndex == 0) {
 				// size bg
 				_mc.bg_mc.height = _decisions.y + 207;
 				_frame.sizeFrame(_decisions.y + 207);
@@ -205,6 +213,10 @@ package view.theCattery
 			addChild(_dragVCont);
 			
 			_ball.gotoAndStop(1);
+			
+			_bgSound = new Track("assets/audio/cattery/cattery_08_waltz.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 //		protected function clipMC(thisMC:MovieClip, thisHeight:int):void
@@ -220,6 +232,19 @@ package view.theCattery
 			_mouse.addEventListener(MouseEvent.CLICK, swingThis);
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			if (_compTakenIndex == 0) { 
+				_mc.companions_mc.addEventListener(MouseEvent.CLICK, companionClick);
+			}
+		}
+		
+		private function companionClick(e:MouseEvent):void {
+			DataModel.getInstance().companionSound();
+		}
+		
+		private function finalSound():void
+		{
+			
 		}
 		
 		protected function enterFrameLoop(event:Event):void
@@ -229,6 +254,11 @@ package view.theCattery
 				_ball.visible = true;
 				_ballAnimating = true;
 				
+			}
+			
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSound) {
+				finalSound();
+				_finalSound = true;
 			}
 			
 			if (_ballAnimating) {
@@ -251,6 +281,8 @@ package view.theCattery
 				_scrolling = false;
 			}
 		}
+		
+		
 		
 		private function swing():void {
 			if (_force <= 0) {
