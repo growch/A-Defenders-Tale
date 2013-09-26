@@ -3,6 +3,7 @@ package view.joylessMountains
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Elastic;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -47,6 +48,8 @@ package view.joylessMountains
 		private var _smokeTimer:Timer;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _secondSound:Track;
 		
 		public function AwakenSerpentView()
 		{
@@ -171,13 +174,18 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/joyless/joyless_18.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_secondSound = new Track("assets/audio/joyless/joyless_02.mp3");
+			_secondSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			
 			TweenMax.to(_mc.snowmonch_mc.serpent_mc.eyelid_mc, 2.5, {x:"-5",y:"-15",ease:Elastic.easeInOut, onComplete:startSmoke});
 				
-			
 			_smoke1 = new Smoke();
 			_smoke1.x = _mc.snowmonch_mc.nostrilL_mc.x;
 			_smoke1.y = _mc.snowmonch_mc.nostrilL_mc.y;
@@ -191,11 +199,19 @@ package view.joylessMountains
 			_renderer.addEmitter( _smoke2 );
 			_mc.snowmonch_mc.addChild( _renderer );
 			
-			_smokeTimer = new Timer(7000);
+			_smokeTimer = new Timer(6000);
 			_smokeTimer.addEventListener(TimerEvent.TIMER, smokeEvent);
 			
 //			startSmoke();
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			TweenMax.delayedCall(5, secondSound);
+		}
+		
+		private function secondSound():void
+		{
+			_bgSound.stop(true);
+			_secondSound.start(true);
 		}
 		
 		private function startSmoke():void {

@@ -2,6 +2,7 @@ package view.joylessMountains
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -53,6 +54,7 @@ package view.joylessMountains
 		private var _hintBtn:MovieClip;
 		private var _hintCount:int = 1;
 		private var _retryCount:int = 0;
+		private var _bgSound:Track;
 		
 		public function PlayRiddlesView()
 		{
@@ -172,6 +174,9 @@ package view.joylessMountains
 			_pageInfo = DataModel.appData.getPageInfo("playRiddles");
 			_bodyParts = _pageInfo.body;
 			
+			_pageInfo.contentPanelInfo.body = "The Play Riddles Game copy TBD";
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
@@ -182,10 +187,10 @@ package view.joylessMountains
 					copy = DataModel.getInstance().replaceVariableText(copy);
 					
 					//set the contents panel
-					if (!_tf) {
-						_pageInfo.contentPanelInfo.body = copy;
-						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
-					}
+//					if (!_tf) {
+//						_pageInfo.contentPanelInfo.body = copy;
+//						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+//					}
 					
 					// set the respective text
 					_tf = new Text(copy, Formats.storyTextFormat(part.size, part.alignment, part.leading), part.width, true, true, true); 
@@ -227,7 +232,10 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
+			_bgSound = new Track("assets/audio/joyless/joyless_game.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
 		}
 		
 		protected function hintClick(event:MouseEvent):void
@@ -246,7 +254,7 @@ package view.joylessMountains
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			
+			_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		

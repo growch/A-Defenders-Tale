@@ -2,9 +2,11 @@ package view.joylessMountains
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
@@ -35,6 +37,8 @@ package view.joylessMountains
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _finalSoundPlayed:Boolean;
 		
 		public function StealStoneView()
 		{
@@ -45,6 +49,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+//			
+			_mc.companions_mc.removeEventListener(MouseEvent.CLICK, companionClick);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -149,14 +156,28 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/joyless/joyless_18.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
+			_mc.companions_mc.addEventListener(MouseEvent.CLICK, companionClick);
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
+		
+		private function companionClick(e:MouseEvent):void {
+			DataModel.getInstance().companionSound();
+		}
+		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSoundPlayed) {
+				DataModel.getInstance().endSound();
+				_finalSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

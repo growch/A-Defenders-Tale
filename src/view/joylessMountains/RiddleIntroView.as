@@ -17,6 +17,7 @@ package view.joylessMountains
 	
 	import util.Formats;
 	import util.SWFAssetLoader;
+	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -24,7 +25,7 @@ package view.joylessMountains
 	import view.FrameView;
 	import view.IPageView;
 	
-	public class Climb4View extends MovieClip implements IPageView
+	public class RiddleIntroView extends MovieClip implements IPageView
 	{
 		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
@@ -38,9 +39,9 @@ package view.joylessMountains
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
 		
-		public function Climb4View()
+		public function RiddleIntroView()
 		{
-			_SAL = new SWFAssetLoader("joyless.Climb4MC", this);
+			_SAL = new SWFAssetLoader("joyless.RiddleIntroMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
@@ -81,7 +82,7 @@ package view.joylessMountains
 			
 			_nextY = 125;
 			
-			_pageInfo = DataModel.appData.getPageInfo("climb4");
+			_pageInfo = DataModel.appData.getPageInfo("riddleIntro");
 			_bodyParts = _pageInfo.body;
 			
 			// set the text
@@ -107,12 +108,6 @@ package view.joylessMountains
 					_mc.addChild(_tf);
 					
 					_nextY += _tf.height + part.top;
-					
-					if (part.id == "final") {
-						_mc.end_mc.y = _nextY + 60;
-						_nextY += _mc.end_mc.height + 40;
-					}
-					
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
 					//begin loading
@@ -128,10 +123,10 @@ package view.joylessMountains
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
+			_mc.tail_mc.y = _decisions.y - 120;
+			
 			_frame = new FrameView(_mc.frame_mc); 
-			//			var frameSize:int = _decisions.y + 210;
-			//EXCEPTION fixed size
-			var frameSize:int = DataModel.APP_HEIGHT;
+			var frameSize:int = _mc.tail_mc.y + _mc.tail_mc.height + 100;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
@@ -144,20 +139,14 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_bgSound = new Track("assets/audio/joyless/joyless_02.mp3");
+			_bgSound = new Track("assets/audio/joyless/joyless_05.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
-			
-		}
-		
-		private function secondSound():void
-		{
-			DataModel.getInstance().endSound();
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			TweenMax.delayedCall(.5, secondSound);
+			
 		}
 		
 		protected function enterFrameLoop(event:Event):void

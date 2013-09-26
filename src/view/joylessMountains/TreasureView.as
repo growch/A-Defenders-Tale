@@ -3,9 +3,11 @@ package view.joylessMountains
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
 	import flash.utils.Timer;
@@ -48,6 +50,8 @@ package view.joylessMountains
 		private var _sparkle2:SparkleMotionMC;
 		private var _sparkle3:SparkleMotionMC;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _finalSoundPlayed:Boolean;
 		
 		public function TreasureView()
 		{
@@ -65,6 +69,8 @@ package view.joylessMountains
 			_sparkle1 = null;
 			_sparkle2 = null;
 			_sparkle3 = null;
+			
+			_mc.weapon_mc.removeEventListener(MouseEvent.CLICK, weaponClick);
 //			
 			
 			_pageInfo = null;
@@ -242,6 +248,9 @@ package view.joylessMountains
 			_mc.treasure_mc.removeChild(_mc.treasure_mc.sparkle3_mc);
 			_mc.treasure_mc.addChild(_sparkle3);
 			
+			_bgSound = new Track("assets/audio/joyless/joyless_05.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -254,20 +263,24 @@ package view.joylessMountains
 			_mc.weapon_mc.glows_mc.visible = true;
 			_mc.weapon_mc.shine_mc.visible = true;
 			
-			shineWeapon();
-			
 			_sparkleTimer = new Timer(5000);
 			_sparkleTimer.addEventListener(TimerEvent.TIMER, sparkleMotion);
 			_sparkleTimer.start();
+			
+			_mc.weapon_mc.addEventListener(MouseEvent.CLICK, weaponClick);
+		}
+		
+		private function weaponClick(e:MouseEvent):void {
+			shineWeapon();
 		}
 		
 		private function shineWeapon():void {
-			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn, delay:4, onComplete:resetReplay}); 
+			DataModel.getInstance().weaponSound();
+			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn, onComplete:reset}); 
 		}
 		
-		private function resetReplay():void {
+		private function reset():void {
 			_mc.weapon_mc.shine_mc.y = -250;
-			shineWeapon();
 		}
 		
 		private function sparkleMotion(e:TimerEvent) : void {
@@ -282,6 +295,11 @@ package view.joylessMountains
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_weaponInt == 0 && _dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSoundPlayed) {
+				DataModel.getInstance().endSound();
+				_finalSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

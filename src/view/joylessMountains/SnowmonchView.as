@@ -2,6 +2,7 @@ package view.joylessMountains
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -46,6 +47,7 @@ package view.joylessMountains
 		private var _smokeTimer:Timer;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
 		
 		public function SnowmonchView()
 		{
@@ -170,6 +172,9 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/joyless/joyless_18.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -194,7 +199,7 @@ package view.joylessMountains
 		
 		private function startSmoke():void {
 			showSmoke();
-			_smokeTimer = new Timer(7000);
+			_smokeTimer = new Timer(6000);
 			_smokeTimer.addEventListener(TimerEvent.TIMER, smokeEvent);
 			_smokeTimer.start();
 		}

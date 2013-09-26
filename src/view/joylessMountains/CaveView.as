@@ -2,6 +2,7 @@ package view.joylessMountains
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -44,6 +45,8 @@ package view.joylessMountains
 		private var _sparkle1:SparkleMotionMC;
 		private var _sparkle2:SparkleMotionMC;
 		private var _sparkle3:SparkleMotionMC;
+		private var _bgSound:Track;
+		private var _secondSound:Track;
 		
 		public function CaveView()
 		{
@@ -172,6 +175,12 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/joyless/joyless_02.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_secondSound = new Track("assets/audio/joyless/joyless_05.mp3");
+			_secondSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -199,6 +208,14 @@ package view.joylessMountains
 			_sparkleTimer = new Timer(5000);
 			_sparkleTimer.addEventListener(TimerEvent.TIMER, sparkleMotion);
 			_sparkleTimer.start();
+			
+			TweenMax.delayedCall(4, secondSound);
+		}
+		
+		private function secondSound():void
+		{
+			_bgSound.stop(true);
+			_secondSound.start(true);
 		}
 		
 		private function sparkleMotion(e:TimerEvent) : void {

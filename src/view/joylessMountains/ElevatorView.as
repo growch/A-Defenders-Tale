@@ -3,6 +3,7 @@ package view.joylessMountains
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -37,6 +38,9 @@ package view.joylessMountains
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _secondSound:Track;
+		private var _secondSoundPlayed:Boolean;
 		
 		public function ElevatorView()
 		{
@@ -144,6 +148,12 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/joyless/joyless_05.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_secondSound = new Track("assets/audio/joyless/joyless_02.mp3");
+			_secondSound.loop = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -153,8 +163,18 @@ package view.joylessMountains
 			_mc.buttons_mc.lit_mc.visible = true;
 		}
 		
+		private function secondSound():void
+		{
+			_bgSound.stop(true);
+			_secondSound.start(true);
+		}
+		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY > 900 && !_secondSoundPlayed) {
+				secondSound();
+				_secondSoundPlayed = true;
+			}
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

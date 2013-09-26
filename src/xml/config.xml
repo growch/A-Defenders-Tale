@@ -3605,14 +3605,42 @@ As the song crescendoed into its final reprise, Snowmonch’s eyes welled with g
 			</item>
 		</body>
 		<decisions top="60">
-			<decision id="joylessMountains.PlayRiddlesView"><![CDATA[CONTINUE]]></decision>
+			<decision id="joylessMountains.RiddleIntroView"><![CDATA[CONTINUE]]></decision>
 		</decisions>
 	</playSong>
 <!-- ***			PLAY SONG			-->
 
+<!-- 			RIDDLE INTRO			-->
+	<riddleIntro id="RiddleIntroView">
+		<contents id="joylessMountains.RiddleIntroView" image="app:/assets/images/joyless/contents/PlayRiddlesView_thumbnail.jpg">
+			<title><![CDATA[RiddleIntroView]]></title>
+		</contents>
+		<body>
+			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[“Listen carefully,” Snowmonch said, “for I’ll only tell you once. This is one of my favorite riddles. It’s called]]> 				
+			</item>
+			<item type="image" id="" width="" height="62" top="40" left="" size="" align="" leading="" file="app:/assets/images/joyless/playRiddles_imageText1.png"/>
+			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
+			<![CDATA[The serpent leaned back, stretching out her tail across the cave. “It could be coffee, but not tea; a moon, but not the stars; a hill, but not a mountain; a dizzy, but not a daisy.” The serpent giggled loudly. The giggles shook her whole body, and she paused to adjust her tiny hat. “A dizzy, but not a daisy,” she repeated. “That’s funny, right? Because it could be. Funny, that is.” 
+
+When she had gotten herself under control, she continued. “It could be an apple, but not an orange; the grass, but not the dirt, though,” she amended, “either one could be green. And it could assuredly be a pretty little rattlesnake egg. Oh I do love a rattlesnake egg, don’t you?”
+
+[defender] was unsure of how to answer this question, and wisely kept [pronoun3] mouth shut.
+
+“Now it’s your turn,” Snowmonch said.” “Tell me what it could be, and what it couldn’t, and the stone is yours.”
+
+]]> 				
+			</item>
+		</body>
+		<decisions top="60">
+			<decision id="joylessMountains.PlayRiddlesView"><![CDATA[PLAY]]></decision>
+		</decisions>
+	</riddleIntro>
+<!-- ***			RIDDLE INTRO			-->
+
 <!-- 			PLAY RIDDLES			-->
 	<playRiddles id="PlayRiddlesView">
-		<contents id="joylessMountains.PlayRiddlesView" image="app:/assets/images/joyless/contents/PlayRiddlesView_thumbnail.jpg">
+		<contents id="joylessMountains.PlayRiddlesView" image="app:/assets/images/joyless/contents/DeepButNotProfoundGame_thumbnail.jpg">
 			<title><![CDATA[PlayRiddlesView]]></title>
 		</contents>
 		<body>
