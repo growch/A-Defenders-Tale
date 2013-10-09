@@ -124,13 +124,14 @@ package view
 		}
 		
 		private function hidePanel():void {
-			TweenMax.to(_helpPanel, .2, {autoAlpha:0});
-			TweenMax.to(_contentsMC, .2, {autoAlpha:0});
-
-
-			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut});
+			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut, onComplete:panelsOff});
 			_panelOpen = false;
 			TweenMax.to(_blocker, 0, {autoAlpha:0});
+		}
+		
+		private function panelsOff():void {
+			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
+			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
 		}
 		
 		protected function restartClick(event:MouseEvent):void

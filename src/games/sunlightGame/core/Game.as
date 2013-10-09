@@ -229,7 +229,7 @@ package games.sunlightGame.core
 			_mc.stopAllMovieClips();
 			enemyManager.gameOver();
 			
-			if (winOrLose == "win") {
+			if (winOrLose == "winner") {
 				_mc.gameWon_mc.visible = true;
 			} else {
 				_mc.gameLost_mc.visible = true;

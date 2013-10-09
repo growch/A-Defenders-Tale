@@ -1,10 +1,13 @@
 package view
 {
+	import com.adobe.utils.StringUtil;
+	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
 	import control.EventController;
 	
+	import events.ApplicationEvent;
 	import events.ViewEvent;
 	
 	import model.DataModel;
@@ -18,14 +21,22 @@ package view
 		private var _nextY:int;
 		private var _pageArray:Array;
 		private var _cpv:ContentsPageView;
+		private var _selectedNamespace:String;
+		private var _tempArray:Array;
 		
 		public function ContentsPanelView()
 		{
 			EventController.getInstance().addEventListener(ViewEvent.ADD_CONTENTS_PAGE, addContentsPage); 
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().addEventListener(ViewEvent.MAP_SELECT_ISLAND, resetSelectedIsland);
+			EventController.getInstance().addEventListener(ApplicationEvent.RESTART_BOOK, resetPanel);
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
+		protected function resetPanel(event:ApplicationEvent):void
+		{
+			removeOldPages();
+		}		
 		
 		private function init(event:Event) : void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -67,6 +78,10 @@ package view
 			return pageFound;
 		}
 		
+		public function scrollToBottom():void {
+			_dragVCont.scrollY = _dragVCont.maxScroll;
+		}
+		
 		public function addPage(pgInf:PageInfo):void {
 			var newPage:ContentsPageView = new ContentsPageView(pgInf,_dragVCont);
 			
@@ -76,7 +91,8 @@ package view
 			_pageArray.push(newPage);
 			
 			_nextY += newPage.pageHeight;
-			
+//			trace("++++addPage: "+ pgInf.contentPanelInfo.pageID);
+			scrollToBottom();
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
@@ -98,7 +114,7 @@ package view
 			}
 		}
 		
-		private function removeOldPages(startIndex:int):void {
+		private function removeOldPages(startIndex:int = 0):void {
 			for (var i:int = startIndex; i < _pageArray.length; i++) 
 			{
 				_cpv = _pageArray[i] as ContentsPageView;
@@ -110,5 +126,35 @@ package view
 			}
 			_pageArray.length = startIndex;
 		}
+		
+		protected function resetSelectedIsland(event:ViewEvent):void
+		{
+			_selectedNamespace = DataModel.ISLAND_NAMESPACE[DataModel.CURRENT_ISLAND_INT];
+			
+			var len:int = _pageArray.length;
+			var i:int;
+			_tempArray = [];
+			
+			for (i = 0; i < len; i++) 
+			{
+				_cpv = _pageArray[i] as ContentsPageView;
+//				trace("pageID++: "+_cpv.pgInfo.contentPanelInfo.pageID);
+				if (StringUtil.beginsWith(_cpv.pgInfo.contentPanelInfo.pageID, _selectedNamespace)) {
+					trace("remove: "+_cpv.pgInfo.contentPanelInfo.pageID);
+					_nextY -= _cpv.pageHeight;
+					_cpv.destroy();
+//					_pageArray.splice(i, 1);
+					_tempArray.push(i);
+					
+					_dragVCont.removeChild(_cpv);
+					_dragVCont.refreshView(true);
+				}
+			}
+//			removeIslandFromPages(_tempArray);
+			_pageArray.splice(_tempArray[0], _tempArray.length);
+			trace("_pageArray: "+_pageArray);
+		}
+		
+		
 	}
 }

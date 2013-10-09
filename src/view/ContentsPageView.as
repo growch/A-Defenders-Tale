@@ -62,6 +62,7 @@ package view
 			addChild(_mc);
 			
 			_mc.mouseChildren = false;
+			_mc.cacheAsBitmap = true;
 			_mc.addEventListener(MouseEvent.CLICK, pageClick);
 		}
 		

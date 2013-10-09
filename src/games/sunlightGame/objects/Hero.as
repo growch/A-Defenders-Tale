@@ -21,9 +21,13 @@ package games.sunlightGame.objects
 		private var _accel:Accelerometer;
 		private var _accelX:Number;
 		private var _accelY:Number;
+		private var _accelZ:Number;
 		private var _leftEdge:Number;
 		private var _rightEdge:Number;
 		private var orientationConst:Number = Math.sin(Math.PI/4);
+		private var _mag:Number;
+		private var _angle:Number;
+		
 
 		
 		public function Hero(game:Game, mc:MovieClip)
@@ -77,18 +81,30 @@ package games.sunlightGame.objects
 			//				+ "\n");
 			
 			// Set our Accelerometer movement numbers
-			_accelX = e.accelerationX * 100;
-			_accelY = e.accelerationY * 100;
+//			_accelX = e.accelerationX * 100;
+//			_accelY = e.accelerationY * 100;
+			_accelX = e.accelerationX;
+			_accelY = e.accelerationY;
+			_accelZ = e.accelerationZ;
 			
-//			trace("orientationConst: "+orientationConst);
-//			trace("e.accelerationY: "+e.accelerationY);
+			/* These numbers can creep outside of the interval -1 to 1 if the phone is even moving very slightly, 
+			so we use the following lines to keep the values between -1 and 1.*/
+			if (_accelX < -1) _accelX = -1;
+			if (_accelX > 1) _accelX = 1;
+			if (_accelY < -1) _accelY = -1;
+			if (_accelY > 1) _accelY = 1;
+			if (_accelZ < -1) _accelZ = -1;
+			if (_accelZ > 1) _accelZ = 1;
 			
-//			trace("_accelY: "+_accelY);
+			/* 
+			We calculate the angle by using the vectory identity u.v = |u| |v| cos(angle), 
+			where u is the vector (aX,aY,aZ) and v is the vector (0,aY,0) which points vertically. 
+			We have to subract 90 because arccos essentially returns values between 0 and 180, and we would like to interpret these between -90 and 90.
+			*/
+			_mag = Math.sqrt(_accelX*_accelX+_accelY*_accelY+_accelZ*_accelZ);
+			_angle = Math.round((180/Math.PI)*Math.acos(_accelY/_mag)) - 90;
 			
-			if(e.accelerationY <= orientationConst){
-//				trace("upside down");
-//				flipUpsideDown();
-			}      
+//			trace("_angle: "+_angle);
 		}
 		
 		public function update():void
@@ -100,9 +116,13 @@ package games.sunlightGame.objects
 				player.x += (player.stage.mouseX - player.x) * 0.8;
 			} else {
 				player.x -= _accelX * .2;
+				player.x -= _accelX * 20;
+				
+//				player.rotation = _angle;
+				
 			}
 			
-			// Constrain the _glow to the X width boundries of the stage 
+			// Constrain to the X width boundries of the stage 
 			if(player.x <= _leftEdge) player.x = _leftEdge;
 			if(player.x >= _rightEdge)	player.x = _rightEdge;
 			
