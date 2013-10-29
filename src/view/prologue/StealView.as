@@ -183,6 +183,7 @@ package view.prologue
 			_bgSound = new Track("assets/audio/prologue/prologue_docks.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 			
 			
 //			TweenMax.from(_mc, 2, {alpha:0, delay:0, onComplete:pageOn}); 

@@ -8,11 +8,15 @@ package view.theCattery
 	
 	import games.bopMice.core.Game;
 	
+	import model.DataModel;
+	
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class BopMiceView extends MovieClip implements IPageView
 	{
 		private var _game:Game;
+		private var _pageInfo:PageInfo;
 		
 		public function BopMiceView()
 		{
@@ -20,6 +24,9 @@ package view.theCattery
 			addChild(_game);
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
+			_pageInfo = DataModel.appData.getPageInfo("bopMice");
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 		}
 		
 		public function destroy() : void {

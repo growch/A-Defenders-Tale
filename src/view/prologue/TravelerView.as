@@ -148,6 +148,7 @@ package view.prologue
 			_bgSound = new Track("assets/audio/prologue/prologue_reys.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 			
 			_booSound = new Track("assets/audio/prologue/prologue_boo.mp3");
 			

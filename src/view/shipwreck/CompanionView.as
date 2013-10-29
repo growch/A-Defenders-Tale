@@ -221,9 +221,11 @@ package view.shipwreck
 			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 			
 			_surfaceSound = new Track("assets/audio/shipwreck/shipwreck_01.mp3");
 			_surfaceSound.loop = true;
+			_surfaceSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

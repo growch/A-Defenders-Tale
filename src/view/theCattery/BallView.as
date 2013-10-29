@@ -173,9 +173,11 @@ package view.theCattery
 			_bgSound = new Track("assets/audio/cattery/cattery_03.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 			
 			_secondSound = new Track("assets/audio/cattery/cattery_04.mp3");
 			_secondSound.loop = true;
+			_secondSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

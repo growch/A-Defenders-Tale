@@ -6,6 +6,7 @@ package view.joylessMountains
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.utils.flash_proxy;
 	
 	import control.EventController;
 	
@@ -150,6 +151,7 @@ package view.joylessMountains
 			_bgSound = new Track("assets/audio/joyless/joyless_02.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

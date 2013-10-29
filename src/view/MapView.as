@@ -113,7 +113,7 @@ package view
 			addChild(_mc);
 			
 			_pageInfo = DataModel.appData.getPageInfo("map");
-			_pageInfo.contentPanelInfo.body = "What should this copy be if anything?";
+//			_pageInfo.contentPanelInfo.body = "What should this copy be if anything?";
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 			
 			DataModel.getInstance().oceanSound();

@@ -181,6 +181,7 @@ package view.joylessMountains
 			_bgSound = new Track("assets/audio/joyless/joyless_10.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

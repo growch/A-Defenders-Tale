@@ -26,6 +26,8 @@ package view
 		private var _beginBtn:MovieClip;
 		private var _bgSound:Track;
 		private var _SAL:SWFAssetLoader;
+		private var _helpWanted:MovieClip;
+		private var _continueBtn:MovieClip;
 		
 		public function TitleScreenView()
 		{
@@ -51,6 +53,14 @@ package view
 			_bgSound = new Track("assets/audio/global/DefenderTheme.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			
+			_helpWanted = _mc.helpWanted_mc;
+			TweenMax.to(_helpWanted, 0, {autoAlpha:0});
+			
+			_continueBtn = _helpWanted.cta_btn;
+			_continueBtn.addEventListener(MouseEvent.CLICK, continueClick);
+			
 			
 			addChild(_mc);
 		}
@@ -61,6 +71,11 @@ package view
 			
 			_beginBtn.removeEventListener(MouseEvent.CLICK, beginBook);
 			_beginBtn = null;
+			
+			_continueBtn.removeEventListener(MouseEvent.CLICK, continueClick);
+			_continueBtn = null;
+			
+			_helpWanted = null;
 			
 			_fog1 = null;
 			_sun = null;
@@ -94,15 +109,15 @@ package view
 			TweenMax.killTweensOf(_sun);
 			_fog1.visible = true;
 			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
-			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
-			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
-			TweenMax.to(_mc, .2, {alpha:0, delay:2.4});
+//			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
+//			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
+//			TweenMax.to(_mc, .2, {alpha:0, delay:2.4});
 			
-			TweenMax.delayedCall(2.0, nextScreen);
+			TweenMax.delayedCall(2.0, showHelp);
 		}		
 		
 //		WTF!!!!! for some reason this function was causing swf to not UNLOAD!!!
-//		LESSON???
+//		LESSON??? IT'S THE onComplete (i think?)
 		private function showFog() : void {
 //			TweenMax.killTweensOf(_sun);
 //			_fog1.visible = true;
@@ -110,6 +125,20 @@ package view
 //			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_mc, .3, {alpha:0, delay:2.4, onComplete:nextScreen});
+		}
+		
+		
+		private function showHelp():void {
+			TweenMax.to(_helpWanted, 1, {autoAlpha:1});
+		}
+		
+		private function continueClick(e:MouseEvent):void {
+			
+			TweenMax.to(_mc.bg_mc, .6, {alpha:0}); 
+			TweenMax.to(_sun, .6, {alpha:0}); 
+			TweenMax.to(_mc, .6, {alpha:0});
+			
+			TweenMax.delayedCall(.6, nextScreen);
 		}
 		
 		private function nextScreen() : void {

@@ -52,6 +52,8 @@
 				
 		//----------- Params --------------
 		private var _fadeAtEnd:Boolean;	
+//		CUSTOM !!!
+		private var _fadeAtStart:Boolean;	
 		
 		//----------- Navigation --------------	
 		private var _loop:Boolean;		
@@ -329,11 +331,22 @@
 			//_soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
 			//_soundChannel.soundTransform = _refTransform;			
 			
-			setVolume(_refTransform.volume);
-			setPan(_refTransform.pan);
+//			CUSTOM
+			_fadeAtStart = _fadeIn;
+			if (_muted) {
+				setVolume(0)
+			} else {
+				setVolume(_refTransform.volume);
+			}
+//			setVolume(_refTransform.volume);
+//			setPan(_refTransform.pan);
 			
+//			trace("STARTING SOUND _muted: "+_muted);
+//			trace("_fadeAtStart: "+_fadeAtStart);
 			
-			if (_fadeIn) volumeTo(Mixer.DURATION_PLAYBACK_FADE, _facadeVolume, 0, false);
+//			if (_fadeIn) volumeTo(Mixer.DURATION_PLAYBACK_FADE, _facadeVolume, 0, false);
+//			CUSTOM !!!
+			if (_fadeAtStart) volumeTo(Mixer.DURATION_PLAYBACK_FADE, _facadeVolume, 0, false);
 			
 			dispatchEvent(new Event(AudioEvents.START));
 
@@ -835,7 +848,14 @@
 			
 			if (_loop) 
 			{
-				start();
+//				trace("looping sound");
+//				CUSTOM !!!
+				if (_fadeAtStart) {
+					start(true);
+				} else {
+					start();
+				}
+//				start();
 			}
 			else
 			{

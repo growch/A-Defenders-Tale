@@ -217,6 +217,7 @@ package view.theCattery
 			_bgSound = new Track("assets/audio/cattery/cattery_08_waltz.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 		}
 		
 //		protected function clipMC(thisMC:MovieClip, thisHeight:int):void

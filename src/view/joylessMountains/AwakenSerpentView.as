@@ -60,6 +60,11 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+			TweenMax.killAll();
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
+			
 			//			if (!DataModel.ipad1) {
 			_smokeTimer.stop();
 			_smokeTimer = null;
@@ -98,7 +103,7 @@ package view.joylessMountains
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
 			
 		}
 		
@@ -177,9 +182,11 @@ package view.joylessMountains
 			_bgSound = new Track("assets/audio/joyless/joyless_18.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 			
 			_secondSound = new Track("assets/audio/joyless/joyless_02.mp3");
 			_secondSound.loop = true;
+			_secondSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -261,7 +268,7 @@ package view.joylessMountains
 
 		protected function decisionMade(event:ViewEvent):void
 		{
-//			_smokeTimer.stop();
+			_smokeTimer.stop();
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

@@ -165,9 +165,11 @@ package view.shipwreck
 			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 			
 			_ariaSound = new Track("assets/audio/shipwreck/shipwreck_07.mp3");
 			_ariaSound.loop = true;
+			_ariaSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

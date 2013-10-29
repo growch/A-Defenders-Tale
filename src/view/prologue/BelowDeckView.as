@@ -174,7 +174,7 @@ package view.prologue
 			
 			_bgSound = new Track("assets/audio/prologue/prologue_docks.mp3");
 			_bgSound.loop = true;
-			
+			_bgSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(event:ViewEvent):void {

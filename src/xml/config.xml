@@ -679,7 +679,7 @@ The orcs had arrived.]]>
 			</item>
 		</body>
 		<decisions top="60">
-			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT ON FACEBOOK]]></decision>
+			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="prologue.PrologueView"><![CDATA[TRY AGAIN]]></decision>
 			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
@@ -792,7 +792,7 @@ The orcs had arrived.]]>
 			</item>
 		</body>
 		<decisions top="60">
-			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT ON FACEBOOK]]></decision>
+			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="prologue.PrologueView"><![CDATA[TRY AGAIN]]></decision>
 			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
@@ -1030,13 +1030,6 @@ Smeg picked up a mug and filled it with the frothy beverage.]]>
 	</belowDeck>	
 	
 <!--		***BELOW DECK 			-->	
-<!-- 			MAP 			-->
-	<map id="MapView">	
-		<decisions top="100">
-			<decision id="prologue.CrossSeaView"><![CDATA[Tap one of the islands »]]></decision>
-		</decisions>
-	</map>
-
 <!-- 			CROSS SEA 			-->
 	<crossSea id="CrossSeaView">
 		<contents id="prologue.CrossSeaView" image="assets/images/prologue/contents/CrossSeaView_thumbnail.jpg">
@@ -1425,7 +1418,8 @@ The [companion2]
 <!-- 			MAP 			-->
 	<map id="MapView">
 		<contents id="MapView" image="assets/images/common/contents/MapView_thumbnail.jpg">
-			<title><![CDATA[Map of the Islands]]></title>
+			<title><![CDATA[Map of All the Islands]]></title>
+			<body><![CDATA[What should this copy be if anything?]]></body>
 		</contents>
 	</map>
 <!-- ***		MAP 			-->		
@@ -2019,6 +2013,15 @@ The vizier narrowed his eyes, no doubt attempting to deduce if [defender] was pl
 		</decisions>	
 	</mouseConsultation>
 <!-- ***			MOUSE CONSULTATION 			-->
+
+<!-- 			BOP MICE 			-->
+	<bopMice id="theCattery.BopMiceView">
+		<contents id="theCattery.BopMiceView" image="assets/images/cattery/contents/BopMiceView_thumbnail.jpg">
+			<title><![CDATA[Bop Mice!]]></title>
+			<body><![CDATA[What should this copy be if anything?]]></body>
+		</contents>
+	</bopMice>
+<!-- ***		BOP MICE 			-->		
 
 <!-- 			GAME WON			-->
 	<gameWon id="GameWonView">
@@ -3650,6 +3653,7 @@ When she had gotten herself under control, she continued. “It could be an appl
 	<playRiddles id="PlayRiddlesView">
 		<contents id="joylessMountains.PlayRiddlesView" image="assets/images/joyless/contents/DeepButNotProfoundGame_thumbnail.jpg">
 			<title><![CDATA[PlayRiddlesView]]></title>
+			<body><![CDATA[The body copy is TBD]]></body>
 		</contents>
 		<body>
 <!-- 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -5055,6 +5059,15 @@ Maysel adjusted his wizard’s hat in concentration. “If you can find it, it�
 	</hut>
 <!-- ***			HUT 			-->
 
+<!-- 			SANDSTONE GAME 			-->
+	<sandstoneGame id="sandlands.SandstoneGameView">
+		<contents id="sandlands.SandstoneGameView" image="assets/images/sandlands/contents/SandstoneGameView_thumbnail.jpg">
+			<title><![CDATA[Sandstone Game]]></title>
+			<body><![CDATA[What should this copy be if anything?]]></body>
+		</contents>
+	</sandstoneGame>
+<!-- ***		SANDSTONE GAME 			-->		
+
 <!-- 			SANDSTONE WIN			-->
 	<sandstoneWin id="SandstoneWinView">
 		<contents id="sandlands.SandstoneWinView" image="assets/images/sandlands/contents/SandstoneWinView_thumbnail.jpg">
@@ -5420,9 +5433,9 @@ The dwarf obliged, and [defender] rubbed the stones on [pronoun3] [weapon] for l
 <!-- ***			CASTLE 			-->
 
 <!-- 			CONFRONT NERO			-->
-	<confrontNero id="ConfrontView">
-		<contents id="capitol.ConfrontView" image="assets/images/capitol/contents/ConfrontView_thumbnail.jpg">
-			<title><![CDATA[ConfrontView]]></title>
+	<confrontNero id="ConfrontNeroView">
+		<contents id="capitol.ConfrontNeroView" image="assets/images/capitol/contents/ConfrontView_thumbnail.jpg">
+			<title><![CDATA[ConfrontNeroView]]></title>
 		</contents>	
 		<weapon1>
 			<weapon><![CDATA[With the power of the four stones on [pronoun3] side, [pronoun1] might be able to defeat Nero at his own game. [Pronoun1] pointed [pronoun3] dagger toward the approaching hoard, pressing the stones as [pronoun1] did so. A surge of power coursed through the blade before it shimmered brightly, suddenly transforming, inexplicably, into a small canon. [Pronoun1] aimed and shot. Several of the advancing creatures exploded in front of [pronoun2].]]></weapon>
@@ -5452,6 +5465,15 @@ But it wasn’t enough. More and more light creatures swarmed toward [pronoun2].
 		</decisions>	
 	</confrontNero>
 <!-- ***			CONFRONT NERO 			-->
+
+<!-- 			SUNLIGHT GAME 			-->
+	<sunlightGame id="capitol.SunlightGameView">
+		<contents id="capitol.SunlightGameView" image="assets/images/capitol/contents/SunlightGameView_thumbnail.jpg">
+			<title><![CDATA[Sunlight Game]]></title>
+			<body><![CDATA[What should this copy be if anything?]]></body>
+		</contents>
+	</sunlightGame>
+<!-- ***		SUNLIGHT GAME 			-->		
 
 <!-- 			WIN			-->
 	<win id="WinView">

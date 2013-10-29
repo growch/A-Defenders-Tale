@@ -60,11 +60,29 @@ package view.prologue
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			EventController.getInstance().addEventListener(ViewEvent.SHOW_PAGE, showPage);
+		}
+		
+		protected function showPage(event:Event):void
+		{
+//			TweenMax.killAll();
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
+			_mc.stopAllMovieClips();
 		}
 		
 		public function destroy():void
 		{
+			trace("destroy PROLOGUE");
 //			
+			TweenMax.killAll();
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
+			_mc.stopAllMovieClips();
+			
 			_bgSound = null;
 			
 			_stars.destroy();
@@ -101,8 +119,6 @@ package view.prologue
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
-			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 		}
 		
@@ -220,6 +236,7 @@ package view.prologue
 			_bgSound = new Track("assets/audio/prologue/prologue_outside.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(event:ViewEvent):void {
@@ -264,6 +281,9 @@ package view.prologue
 				DataModel.coinCount++;
 			}
 			TweenMax.killAll();
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

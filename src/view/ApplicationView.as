@@ -14,6 +14,7 @@ package view
 	import flash.text.TextFormat;
 	
 	import assets.FacebookContactMC;
+	import assets.SmokePuffMC;
 	import assets.fonts.Caslon224;
 	import assets.fonts.Caslon224BookItalic;
 	
@@ -56,6 +57,12 @@ package view
 		private var _SAL:SWFAssetLoader;
 		private var _tfm:TextFormat;
 		private var _bgSound:Track;
+		private var _nameHit:MovieClip;
+		private var _hairHit:MovieClip;
+		private var _ageHit:MovieClip;
+		private var _beverageHit:MovieClip;
+		private var _contactHit:MovieClip;
+		private var _smokePuff:SmokePuffMC;
 		
 		public function ApplicationView()
 		{
@@ -64,6 +71,7 @@ package view
 
 			EventController.getInstance().addEventListener(ViewEvent.CLOSE_EMERGENCY_OVERLAY, removeEmergencyOverlay);
 			EventController.getInstance().addEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
+			EventController.getInstance().addEventListener(ViewEvent.APPLICATION_OPTION_CLICK, showSmoke);
 			
 //			!!!IMPORTANT
 			DataModel.getInstance().resetBookData();
@@ -72,8 +80,25 @@ package view
 		
 		public function destroy():void
 		{
+			_smokePuff = null;
+			
 			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
 			_submitBtn = null;
+			
+			_nameHit.removeEventListener(MouseEvent.CLICK, setHitForText);
+			_nameHit = null;
+			
+			_hairHit.removeEventListener(MouseEvent.CLICK, setHitForText);
+			_hairHit = null;
+			
+			_ageHit.removeEventListener(MouseEvent.CLICK, setHitForText);
+			_ageHit = null;
+			
+			_beverageHit.removeEventListener(MouseEvent.CLICK, setHitForText);
+			_beverageHit = null;
+			
+			_contactHit.removeEventListener(MouseEvent.CLICK, setHitForText);
+			_contactHit = null;
 			
 			_error1 = null;
 			_error2 = null;
@@ -98,6 +123,7 @@ package view
 			
 			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_EMERGENCY_OVERLAY, removeEmergencyOverlay);
 			EventController.getInstance().removeEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
+			EventController.getInstance().removeEventListener(ViewEvent.APPLICATION_OPTION_CLICK, showSmoke);
 			
 			_gender.destroy();
 			_romantic.destroy();
@@ -139,7 +165,7 @@ package view
 			_error5.visible = false;
 			
 			_tfm = new TextFormat();
-			_tfm.size = 16;
+			_tfm.size = 20;
 			_tfm.color = 0x621414;
 			_tfm.font = new Caslon224().fontName;
 			
@@ -147,19 +173,34 @@ package view
 			_nameTF.maxChars = 23;
 			_nameTF.addEventListener(FocusEvent.FOCUS_OUT, nameFocusOut);
 			
+			_nameHit = _mc.nameHit_mc;
+			setHitForText(_nameTF, _nameHit);
+//			
+			_hairTF = makeTextRemoveText(_mc.hairColor_txt);
+			_hairTF.maxChars = 20;
+			
+			_hairHit = _mc.hairHit_mc;
+			setHitForText(_hairTF, _hairHit);
+//			
 			_ageTF = makeTextRemoveText(_mc.age_txt);
 			_ageTF.restrict = "0123456789";
 			_ageTF.maxChars = 4;
 			
-			_hairTF = makeTextRemoveText(_mc.hairColor_txt);
-			_hairTF.maxChars = 20;
-			
+			_ageHit = _mc.ageHit_mc;
+			setHitForText(_ageTF, _ageHit);
+//			
 			_beverageTF = makeTextRemoveText(_mc.beverage_txt);
 			_beverageTF.maxChars = 25;
 			
+			_beverageHit = _mc.beverageHit_mc;
+			setHitForText(_beverageTF, _beverageHit);
+//			
 			_contactTF = makeTextRemoveText(_mc.contact_txt);
 			_contactTF.addEventListener(FocusEvent.FOCUS_IN, showEmergencyContactOverlay);
 			_contactTF.maxChars = 40;
+			
+			_contactHit = _mc.contactHit_mc;
+			setHitForText(_contactTF, _contactHit);
 			
 			_gender = new OptionsView(_mc.gender_mc, 3);
 			_romantic = new OptionsView(_mc.romantic_mc, 3);
@@ -182,8 +223,31 @@ package view
 			_bgSound = new Track("assets/audio/global/DefenderTheme.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
-			
+			_bgSound.fadeAtEnd = true;
 		}
+		
+		protected function showSmoke(event:ViewEvent):void
+		{
+			_smokePuff = new SmokePuffMC();
+			_smokePuff.x = event.data.x;
+			_smokePuff.y = event.data.y;
+			_mc.addChild(_smokePuff);
+		}
+		
+		private function setHitForText(thisTF:TextField, thisMC:MovieClip) : void {
+			thisMC.thisTF = thisTF;
+			thisMC.addEventListener(MouseEvent.CLICK, focusText);
+		}
+		
+		protected function focusText(e:MouseEvent):void
+		{
+			var thisMC:MovieClip = e.target as MovieClip;
+//			trace(thisMC.thisTF.name);
+			var theTF:TextField = thisMC.thisTF;
+			stage.focus = theTF;
+			theTF.requestSoftKeyboard();
+		}		
+		
 		
 		private function makeTextRemoveText(thisTF:TextField) : TextField {
 			var tf:TextField = new TextField();
@@ -195,6 +259,8 @@ package view
 			tf.width = thisTF.width;
 			tf.height = 45;
 			tf.defaultTextFormat = _tfm;
+			
+			tf.name = thisTF.name;
 			
 			_mc.removeChild(thisTF);
 			_mc.addChild(tf);

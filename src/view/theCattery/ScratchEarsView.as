@@ -176,6 +176,7 @@ package view.theCattery
 			addChild(_dragVCont);
 			
 			_bgSound = new Track("assets/audio/cattery/cattery_08_waltz.mp3");
+			_bgSound.fadeAtEnd = true;
 //			_bgSound.start(true);
 //			_bgSound.loop = true;
 		}

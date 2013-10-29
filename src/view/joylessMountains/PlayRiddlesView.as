@@ -174,7 +174,7 @@ package view.joylessMountains
 			_pageInfo = DataModel.appData.getPageInfo("playRiddles");
 			_bodyParts = _pageInfo.body;
 			
-			_pageInfo.contentPanelInfo.body = "The Play Riddles Game copy TBD";
+//			_pageInfo.contentPanelInfo.body = "The Play Riddles Game copy TBD";
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 			
 			// set the text
@@ -235,7 +235,7 @@ package view.joylessMountains
 			_bgSound = new Track("assets/audio/joyless/joyless_game.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
-			
+			_bgSound.fadeAtEnd = true;
 		}
 		
 		protected function hintClick(event:MouseEvent):void

@@ -10,6 +10,7 @@ package view
 	import events.ApplicationEvent;
 	import events.ViewEvent;
 	
+	import model.ContentPanelInfo;
 	import model.DataModel;
 	import model.PageInfo;
 	
@@ -30,13 +31,9 @@ package view
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().addEventListener(ViewEvent.MAP_SELECT_ISLAND, resetSelectedIsland);
 			EventController.getInstance().addEventListener(ApplicationEvent.RESTART_BOOK, resetPanel);
+			EventController.getInstance().addEventListener(ApplicationEvent.GOD_MODE_ON, godModeOn);
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
-		
-		protected function resetPanel(event:ApplicationEvent):void
-		{
-			removeOldPages();
-		}		
 		
 		private function init(event:Event) : void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -49,14 +46,33 @@ package view
 			_dragVCont.SCROLL_INDICATOR_RIGHT_PADDING = 0;
 			_dragVCont.width = Math.floor(this.parent.parent.width) - 2;
 			_dragVCont.height = Math.floor(this.parent.parent.height) - 2; 
-//			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
 		}
 		
+		protected function resetPanel(event:ApplicationEvent):void
+		{
+			removeOldPages();
+		}
+		
+		protected function godModeOn(event:Event):void
+		{
+			var cpiVect:Vector.<ContentPanelInfo> = DataModel.appData.parseContentsForGod();
+			
+			for (var i:int = 0; i < cpiVect.length; i++) 
+			{
+				var pgInf:PageInfo = new PageInfo();
+				pgInf.contentPanelInfo = cpiVect[i];
+				addPage(pgInf);
+			}
+			
+		}
+		
 		protected function addContentsPage(event:ViewEvent):void
 		{
+			if (DataModel.GOD_MODE) return;
+			
 			var pgInf:PageInfo = event.data as PageInfo;
 			
 			if (checkForPage(pgInf)) return;
@@ -97,6 +113,8 @@ package view
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (DataModel.GOD_MODE) return;
+			
 			var decisionID:String = event.data.id;
 			
 			var len:int = _pageArray.length;
@@ -115,6 +133,8 @@ package view
 		}
 		
 		private function removeOldPages(startIndex:int = 0):void {
+			if (DataModel.GOD_MODE) return;
+			
 			for (var i:int = startIndex; i < _pageArray.length; i++) 
 			{
 				_cpv = _pageArray[i] as ContentsPageView;
@@ -122,7 +142,6 @@ package view
 				_cpv.destroy();
 				_dragVCont.removeChild(_cpv);
 				_dragVCont.refreshView(true);
-//				trace("remove: "+_cpv.pgInfo.contentPanelInfo.pageID);
 			}
 			_pageArray.length = startIndex;
 		}
@@ -138,21 +157,16 @@ package view
 			for (i = 0; i < len; i++) 
 			{
 				_cpv = _pageArray[i] as ContentsPageView;
-//				trace("pageID++: "+_cpv.pgInfo.contentPanelInfo.pageID);
 				if (StringUtil.beginsWith(_cpv.pgInfo.contentPanelInfo.pageID, _selectedNamespace)) {
-					trace("remove: "+_cpv.pgInfo.contentPanelInfo.pageID);
 					_nextY -= _cpv.pageHeight;
 					_cpv.destroy();
-//					_pageArray.splice(i, 1);
 					_tempArray.push(i);
 					
 					_dragVCont.removeChild(_cpv);
 					_dragVCont.refreshView(true);
 				}
 			}
-//			removeIslandFromPages(_tempArray);
 			_pageArray.splice(_tempArray[0], _tempArray.length);
-			trace("_pageArray: "+_pageArray);
 		}
 		
 		

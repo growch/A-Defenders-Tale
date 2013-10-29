@@ -227,6 +227,7 @@ package view.shipwreck
 			_bgSound = new Track("assets/audio/shipwreck/shipwreck_jellyGame.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true; 
+			_bgSound.fadeAtEnd = true; 
 			
 			_hitSound = new Track("assets/audio/shipwreck/shipwreck_jellyGame_zaps.mp3");
 		}

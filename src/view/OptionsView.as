@@ -4,6 +4,10 @@ package view
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
+	import control.EventController;
+	
+	import events.ViewEvent;
+	
 	import model.DataModel;
 	
 	public class OptionsView extends MovieClip
@@ -62,6 +66,12 @@ package view
 				thisOption.alpha = 0;
 			}
 			thisBtn.alpha = 1;
+			
+			var tempObj:Object = new Object();
+			tempObj.x = _mc.x + thisBtn.x - 2;
+			tempObj.y = _mc.y + thisBtn.y - 4;
+			
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.APPLICATION_OPTION_CLICK, tempObj));
 			
 			optionNumSelected = thisBtn.ID;
 			_selected = true;
