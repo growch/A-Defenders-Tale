@@ -8,7 +8,6 @@ package view
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.system.System;
 	
 	import control.EventController;
 	
@@ -61,12 +60,19 @@ package view
 			_continueBtn = _helpWanted.cta_btn;
 			_continueBtn.addEventListener(MouseEvent.CLICK, continueClick);
 			
+			_helpWanted.mask_mc.cacheAsBitmap = true;
+			_helpWanted.text_mc.cacheAsBitmap = true;
+			_helpWanted.text_mc.mask = _helpWanted.mask_mc;
+			
 			
 			addChild(_mc);
 		}
 		
 		public function destroy():void
 		{
+			TweenMax.killAll();
+			_mc.stopAllMovieClips();
+			
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
 			
 			_beginBtn.removeEventListener(MouseEvent.CLICK, beginBook);
@@ -104,7 +110,7 @@ package view
 		{
 			DataModel.getInstance().buttonTap();
 			
-			TweenMax.to(_beginBtn, .6, {scaleX:1.2, scaleY:1.2, ease:Quad.easeOut});
+			TweenMax.to(_beginBtn, .5, {scaleX:1.1, scaleY:1.1, ease:Quad.easeOut});
 			
 			TweenMax.killTweensOf(_sun);
 			_fog1.visible = true;
@@ -129,7 +135,19 @@ package view
 		
 		
 		private function showHelp():void {
+			_helpWanted.mask_mc.alpha = 1;
+			
 			TweenMax.to(_helpWanted, 1, {autoAlpha:1});
+			
+			var offX:int = _helpWanted.mask_mc.line1_mc.x - _helpWanted.mask_mc.line1_mc.width;
+			
+			TweenMax.from(_helpWanted.mask_mc.line1_mc, 2, {x:offX, delay:1.2});
+			TweenMax.from(_helpWanted.mask_mc.line2_mc, 2, {x:offX, delay:3.0});
+			TweenMax.from(_helpWanted.mask_mc.line3_mc, 2.4, {x:offX, delay:4.6});
+			TweenMax.from(_helpWanted.mask_mc.line4_mc, 2.5, {x:offX, delay:6.5});
+			TweenMax.from(_helpWanted.mask_mc.line5_mc, 2, {x:offX, delay:8.4});
+			
+			
 		}
 		
 		private function continueClick(e:MouseEvent):void {

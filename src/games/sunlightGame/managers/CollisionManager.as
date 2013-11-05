@@ -71,7 +71,8 @@ package games.sunlightGame.managers
 //				
 				if(_game.hero.hit1MC.hitTestObject(_enemHit))
 				{
-					_game.gameOver("loser");
+//					_game.gameOver("loser");
+					_game.heroHit();
 					return;
 				}
 			}

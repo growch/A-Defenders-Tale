@@ -61,22 +61,11 @@ package view.prologue
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
-			EventController.getInstance().addEventListener(ViewEvent.SHOW_PAGE, showPage);
-		}
-		
-		protected function showPage(event:Event):void
-		{
-//			TweenMax.killAll();
-			if (hasEventListener(Event.ENTER_FRAME)) {
-				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			}
-			_mc.stopAllMovieClips();
 		}
 		
 		public function destroy():void
 		{
-			trace("destroy PROLOGUE");
-//			
+			
 			TweenMax.killAll();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);

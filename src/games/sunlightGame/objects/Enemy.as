@@ -23,7 +23,7 @@ package games.sunlightGame.objects
 		public var moveLateral:Boolean;
 		private var _direction:Number;
 		private var count:int;
-		private var lateralDistance:Number = 4;
+		private var lateralDistance:Number = 3;
 		
 		public function Enemy()
 		{
@@ -38,11 +38,13 @@ package games.sunlightGame.objects
 			_direction = _direction * 2 - 1;
 //			trace("_direction: "+ _direction);
 			
-			ySpeed = DataModel.getInstance().randomRange(5,7);
+			ySpeed = DataModel.getInstance().randomRange(2,3);
+			
+			
 //			TESTING!!!!
 //			ySpeed = .5;
 //			trace(ySpeed);
-			_stepX = Math.PI*(DataModel.getInstance().randomRange(.02, .03));
+			_stepX = Math.PI*(DataModel.getInstance().randomRange(.01, .02));
 			
 			_enemMC = new EnemyMC();
 			_hitMC = _enemMC.getChildByName("hitSmall_mc") as MovieClip;
@@ -81,8 +83,8 @@ package games.sunlightGame.objects
 		public function bounceOff():void
 		{
 			_direction = -_direction;
-			x += lateralDistance * 2 * _direction;
-			y += ySpeed;
+			x += lateralDistance * 5 * _direction;
+			y += ySpeed * 5;
 			
 		}
 		
@@ -96,7 +98,7 @@ package games.sunlightGame.objects
 			y += ySpeed;
 			
 			_angleX += _stepX;
-			x += _direction * (_amplitudeX * Math.sin(_angleX));
+			x += (_direction/2) * (_amplitudeX * Math.sin(_angleX));
 		}
 		
 		public function reset():void

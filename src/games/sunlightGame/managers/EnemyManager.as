@@ -12,7 +12,6 @@ package games.sunlightGame.managers
 	
 	import model.DataModel;
 	
-	
 	public class EnemyManager
 	{
 		private var game:Game;
@@ -25,14 +24,14 @@ package games.sunlightGame.managers
 		private var _spawnX:Number;
 		private var _spawnY:Number;
 		private var _dropTimer:Timer;
-		private var _dropFrequency:int = 1500;
-		private var spawnSpeed:Number = .02;
+		private var _dropFrequency:int = 2000;
+		private var spawnSpeed:Number = .008;
 		
 		public function EnemyManager(game:Game)
 		{
 			this.game = game;
 			enemies = new Array();
-			pool = new StarlingPool(Enemy, 50);
+			pool = new StarlingPool(Enemy, 80);
 //			TESTING!!!!
 //			pool = new StarlingPool(Enemy, 1);
 			
@@ -66,7 +65,8 @@ package games.sunlightGame.managers
 		
 		public function speedUp():void
 		{
-			spawnSpeed += .01;
+//			trace("SPEED UPPPP!");
+			spawnSpeed += .004;
 			if (_dropFrequency > 500) {
 				_dropFrequency -= 500;
 				_dropTimer.delay = _dropFrequency;

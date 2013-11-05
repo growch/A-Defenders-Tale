@@ -45,7 +45,7 @@ package view
 			_dragVCont = new DraggableVerticalContainer(0, 0x000000, 0);
 			_dragVCont.SCROLL_INDICATOR_RIGHT_PADDING = 0;
 			_dragVCont.width = Math.floor(this.parent.parent.width) - 2;
-			_dragVCont.height = Math.floor(this.parent.parent.height) - 2; 
+			_dragVCont.height = Math.floor(this.parent.parent.height) - 13; 
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			

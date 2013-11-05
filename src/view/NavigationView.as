@@ -6,8 +6,6 @@ package view
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.media.SoundMixer;
-	import flash.media.SoundTransform;
 	
 	import assets.FadeToBlackMC;
 	import assets.NavigationMC;
@@ -26,7 +24,11 @@ package view
 		private var _sound:MovieClip;
 		private var _help:MovieClip;
 		private var _restart:MovieClip;
+		private var _about:MovieClip;
 		private var _contentsPanel:ContentsPanelView;
+		private var _aboutPanel:AboutPanelView;
+		
+		private var _navBtnArray:Array;
 		
 		private var _soundOn:Boolean = true;
 //		private var _contentsShowing:Boolean;
@@ -36,13 +38,17 @@ package view
 		private static const CLOSED_Y:int = -910;
 		private static const OPEN_Y:int = -735;
 		private static const HELP_Y:int = -140;
+		private static const RESTART_Y:int = -70;
 		private static const CONTENTS_Y:int = 0;
 		
 		private var _gear:MovieClip;
 		private var _panelOpen:Boolean;
 		private var _helpPanel:MovieClip;
+		private var _restartPanel:MovieClip;
 		private var _contentsMC:MovieClip;
+		private var _aboutMC:MovieClip;
 		private var _blocker:FadeToBlackMC;
+		
 		
 		public function NavigationView()
 		{
@@ -91,15 +97,35 @@ package view
 			_helpPanel = _mc.help_mc;
 			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
 			
+			_restartPanel = _mc.restart_mc;
+			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
+			_restartPanel.restart_btn.addEventListener(MouseEvent.CLICK, restartPanelClick);
+			_restartPanel.map_btn.addEventListener(MouseEvent.CLICK, restartPanelClick);
+			
 			_restart = _mc.getChildByName("restart_btn") as MovieClip;
 			_restart.addEventListener(MouseEvent.CLICK, restartClick);
 			_restart.stop();
+			
+			_about = _mc.getChildByName("about_btn") as MovieClip;
+			_about.addEventListener(MouseEvent.CLICK, aboutClick);
+			_about.stop();
 //			
 			_contentsMC = _mc.contents_mc;
 			_contentsPanel = new ContentsPanelView();
 			_contentsMC.holder_mc.addChild(_contentsPanel);
 			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
 			
+			_aboutMC = _mc.about_mc;
+			_aboutPanel = new AboutPanelView(_aboutMC.text_mc);
+			_aboutMC.mask_mc.cacheAsBitmap = true;
+			_aboutMC.mask_mc.alpha = 1;
+			_aboutMC.holder_mc.cacheAsBitmap = true;
+			_aboutMC.holder_mc.mask = _aboutMC.mask_mc;
+			_aboutMC.holder_mc.addChild(_aboutPanel);
+			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
+			
+			
+			_navBtnArray = [_contents, _restart, _help, _about];
 			
 			addChild(_mc);
 		}
@@ -138,16 +164,67 @@ package view
 		{
 			DataModel.getInstance().buttonTap();
 			
-			_contents.gotoAndStop("_off");
-			_restart.gotoAndStop("_on");
-			_help.gotoAndStop("_off");
+			showRestart();
+			
+//			hidePanel();
+			
+//			var tempObj:Object = new Object();
+//			tempObj.id = "TitleScreenView";
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
+//			EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.RESTART_BOOK));
+		}
+		
+		protected function restartPanelClick(event:MouseEvent):void
+		{
+			DataModel.getInstance().buttonTap();
 			
 			hidePanel();
-			
+
 			var tempObj:Object = new Object();
-			tempObj.id = "TitleScreenView";
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
-			EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.RESTART_BOOK));
+			
+			if (MovieClip(event.currentTarget).name == "restart_btn") {
+				tempObj.id = "TitleScreenView";
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
+				EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.RESTART_BOOK));
+			} else {
+				tempObj.id = "MapView";
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
+			}
+			
+			
+		}
+		
+		
+		private function showRestart():void {
+			buttonOnOffOthers(_restart);
+			
+			TweenMax.to(_blocker, .5, {autoAlpha:.5});
+			TweenMax.to(_mc, .6, {y:RESTART_Y, ease:Quad.easeInOut});
+			TweenMax.to(_restartPanel, 1, {autoAlpha:1});
+			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
+			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
+			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
+		}
+		
+		protected function aboutClick(event:MouseEvent):void
+		{
+			DataModel.getInstance().buttonTap();
+			
+			showAbout();
+		}
+		
+		private function showAbout():void {
+			
+			trace("showAbout");
+			
+			buttonOnOffOthers(_about);
+			
+			TweenMax.to(_blocker, .5, {autoAlpha:.5});
+			TweenMax.to(_mc, .6, {y:CONTENTS_Y, ease:Quad.easeInOut});
+			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
+			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
+			TweenMax.to(_aboutMC, 1, {autoAlpha:1});
+			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
 		}
 		
 		protected function helpClick(event:MouseEvent):void
@@ -157,13 +234,14 @@ package view
 		}
 		
 		private function showHelp():void {
-			_contents.gotoAndStop("_off");
-			_restart.gotoAndStop("_off");
-			_help.gotoAndStop("_on");
+			buttonOnOffOthers(_help);
+			
 			TweenMax.to(_blocker, .5, {autoAlpha:.5});
 			TweenMax.to(_mc, .6, {y:HELP_Y, ease:Quad.easeInOut});
-			TweenMax.to(_helpPanel, .5, {autoAlpha:1});
+			TweenMax.to(_helpPanel, 1, {autoAlpha:1});
 			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
+			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
+			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
 		}
 		
 		protected function soundClick(event:MouseEvent):void
@@ -185,11 +263,27 @@ package view
 			DataModel.getInstance().buttonTap();
 			
 			TweenMax.to(_blocker, .5, {autoAlpha:.5});
-			_contents.gotoAndStop("_on");
-			_help.gotoAndStop("_off");
+			
+			buttonOnOffOthers(_contents);
+			
 			TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut});
+			TweenMax.to(_contentsMC, 1, {autoAlpha:1});
+			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
+			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
 			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
-			TweenMax.to(_contentsMC, .5, {autoAlpha:1});
+		}
+		
+		private function buttonOnOffOthers(thisBtn:MovieClip):void {
+			for (var i:int = 0; i < _navBtnArray.length; i++) 
+			{
+				if (thisBtn == _navBtnArray[i]) {
+					thisBtn.gotoAndStop("_on");
+					
+				} else {
+					_navBtnArray[i].gotoAndStop("_off");
+				}
+			}
+			
 		}
 	}
 }

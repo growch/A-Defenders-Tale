@@ -1,5 +1,6 @@
 package games.sunlightGame.core
 {
+	import com.greensock.TweenMax;
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
@@ -60,7 +61,14 @@ package games.sunlightGame.core
 		public var gameFlipped:Boolean;
 		public var lightSource:MovieClip;
 		public var explosionHolder:MovieClip;
-		private var _speedTimer:int = 15000;
+		private var _speedTimer:int = 20000;
+		private var _glowingLight:MovieClip;
+		private var _underGlow:MovieClip;
+		private var _energyBar:MovieClip;
+		private var _energyBarWidth:int;
+		
+		private var _hitCount:int = 0;
+		private var _allowedHits:int = 3;
 		
 		public function Game()
 		{
@@ -81,6 +89,10 @@ package games.sunlightGame.core
 			hero = null;
 			nero.destroy();
 			nero = null;
+			
+			_glowingLight = null;
+			_underGlow = null;
+			_energyBar = null;
 			
 			_gameWon.destroy();
 			_gameLost.destroy();
@@ -144,6 +156,15 @@ package games.sunlightGame.core
 				blockArray.push(thisBlock);
 			}
 			
+			_energyBar = _mc.energy_mc;
+			_energyBarWidth = _energyBar.bar_mc.width;
+			
+			_glowingLight = _mc.machine_mc.glow_mc;
+			_glowingLight.alpha = 0;
+			
+			_underGlow = _mc.machine_mc.underglow_mc;
+			_underGlow.alpha = 0;
+			
 			addChild(_mc);
 			
 			stage.autoOrients = true;
@@ -193,7 +214,10 @@ package games.sunlightGame.core
 //			_bgMusic.start(true);
 //			_bgMusic.loop = true;
 			
+			
 			_gameTimer.start();
+			
+			TweenMax.allTo([_glowingLight, _underGlow], 1.5, {alpha:1, yoyo:true, repeat:-1, delay:1}); 
 		}
 		
 		private function heroOn():void  {
@@ -249,6 +273,18 @@ package games.sunlightGame.core
 		public function gameLost(thisPageObj:Object):void {
 //			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
+		}
+		
+		public function heroHit():void
+		{
+			_hitCount++;
+			// update energy bar
+			
+//			_energyBar.bar_mc.width = _energyBarWidth * (1 - _hitCount/_allowedHits);
+//			
+//			if (_hitCount > _allowedHits) {
+				gameOver("LOSER");
+//			}
 		}
 	}
 }
