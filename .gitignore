@@ -1,6 +1,7 @@
 bin-debug/
 _experiments/
 _swfs/
+_old/
 src/assets/
 release/
 src/ADefendersTale.swf
