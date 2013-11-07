@@ -152,9 +152,9 @@ package de.danielyan.twitterAppOnly
 					}
 					else
 					{
-//						var response:TwitterSocketEvent = new TwitterSocketEvent();					
-//						response.response = JSON.parse(_output);
-//						dispatchEvent(response);
+						var response:TwitterSocketEvent = new TwitterSocketEvent();					
+						response.response = JSON.parse(_output);
+						dispatchEvent(response);
 					}
 					_isResponseValid=false;
 					_output = "";
