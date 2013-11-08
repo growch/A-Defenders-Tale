@@ -32,6 +32,7 @@ package view
 			EventController.getInstance().addEventListener(ViewEvent.MAP_SELECT_ISLAND, resetSelectedIsland);
 			EventController.getInstance().addEventListener(ApplicationEvent.RESTART_BOOK, resetPanel);
 			EventController.getInstance().addEventListener(ApplicationEvent.GOD_MODE_ON, godModeOn);
+			
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 		
@@ -113,7 +114,7 @@ package view
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (DataModel.GOD_MODE) return;
+//			if (DataModel.GOD_MODE) return;
 			
 			var decisionID:String = event.data.id;
 			
@@ -126,6 +127,9 @@ package view
 				
 				if (DataModel.CURRENT_PAGE_ID == _cpv.pgInfo.contentPanelInfo.pageID) {
 					_cpv.activate();
+					
+					if (DataModel.GOD_MODE) return;
+					
 					removeOldPages(i+1);
 					return;
 				}

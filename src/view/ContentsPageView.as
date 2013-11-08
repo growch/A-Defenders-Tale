@@ -91,9 +91,10 @@ package view
 			tempObj.id = pgInfo.contentPanelInfo.pageID;
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DEACTIVATE_OTHER_PAGES, tempObj));
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_GLOBAL_NAV));
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_GLOBAL_NAV));
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
-			
 		}
 		
 		protected function deactivateNonSelected(event:ViewEvent):void

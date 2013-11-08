@@ -48,7 +48,7 @@ package de.danielyan.twitterAppOnly
 			}
 			catch(e:Error)
 			{
-				trace(e.toString());
+				trace("TwitterSocket ERROR: "+e.toString());
 			}
 		}
 		
