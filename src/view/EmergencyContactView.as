@@ -1,18 +1,22 @@
 package view
 {
-	import assets.EmergencyContactMC;
-	
 	import com.greensock.TweenMax;
 	import com.milkmangames.nativeextensions.GVFacebookFriend;
-	
-	import control.EventController;
-	import control.GoViralService;
-	
-	import events.ViewEvent;
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	
+	import assets.EmergencyContactMC;
+	
+	import control.EventController;
+	import control.GoViralService;
+	import control.TwitterAccess;
+	
+	import events.ViewEvent;
+	
+	import model.TwitterFollowerInfo;
+
 	
 	import model.DataModel;
 	
@@ -24,6 +28,7 @@ package view
 		private var _contactSelect:EmergencyContactSelectView;
 		private var _contactMC:MovieClip;
 		private var _signInMC:MovieClip;
+		private var _twitter:TwitterAccess;
 		
 		public function EmergencyContactView()
 		{
@@ -32,8 +37,10 @@ package view
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.LOGIN_FACEBOOK, loginFacebook);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, showFriends);
+			EventController.getInstance().addEventListener(ViewEvent.LOGIN_TWITTER, showFriends);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DEFENDER_INFO, addFBName);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DEFENDER_FRIENDS, addFBFriends);
+			EventController.getInstance().addEventListener(ViewEvent.TWITTER_FOLLOWERS_LOAD, addTwitterFollowers);
 		}
 		
 		
@@ -66,8 +73,14 @@ package view
 		protected function showFriends(event:ViewEvent):void
 		{
 			_signInMC.visible = false;
-			_goViral.getMeFacebook();
-			_goViral.getFriendsFacebook();
+			if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+				_goViral.getMeFacebook();
+				_goViral.getFriendsFacebook();
+			} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+				//TODO show Twitter login info
+				_twitter = new TwitterAccess("bob_schneider");
+			}
+			
 			_contactMC.visible = true;
 		}
 		
@@ -82,6 +95,15 @@ package view
 			var friendsVector:Vector.<GVFacebookFriend> = event.data as Vector.<GVFacebookFriend>;
 			var sortedVector:Vector.<GVFacebookFriend> = friendsVector.sort(sortPeople);
 			_contactSelect.populateFacebookFriends(sortedVector);
+		}
+		
+		protected function addTwitterFollowers(event:ViewEvent):void
+		{
+			var followersVector:Vector.<TwitterFollowerInfo> = event.data.followers as Vector.<TwitterFollowerInfo>;
+//			var sortedVector:Vector.<GVFacebookFriend> = friendsVector.sort(sortPeople);
+			trace("!!!!!! followersVector: "+followersVector);
+//			return;
+			_contactSelect.populateTwitterFollowers(followersVector);
 		}
 		
 		private function sortPeople(x:GVFacebookFriend, y:GVFacebookFriend):Number
@@ -123,7 +145,7 @@ package view
 			_contactSelect.destroy();
 			
 //			_goViral.dispose();
-			
+			EventController.getInstance().removeEventListener(ViewEvent.LOGIN_TWITTER, showFriends);
 			EventController.getInstance().removeEventListener(ViewEvent.LOGIN_FACEBOOK, loginFacebook);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, showFriends);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DEFENDER_INFO, addFBName);

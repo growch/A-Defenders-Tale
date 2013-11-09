@@ -1,24 +1,21 @@
 package view
 {
 	
-	import assets.FacebookContactMC;
-	
 	import com.milkmangames.nativeextensions.GVFacebookFriend;
 	
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	
+	import assets.SocialContactMC;
+	
 	import control.EventController;
-//	import control.GoViralService;
 	
 	import events.ViewEvent;
 	
-	import flash.display.DisplayObject;
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	
 	import model.DataModel;
+	import model.TwitterFollowerInfo;
 	
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -34,12 +31,16 @@ package view
 		private var _questionMarkTxt:TextField;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _friendsVector:Vector.<GVFacebookFriend>
+		private var _followersVector:Vector.<TwitterFollowerInfo>;
 		
 		private static const VERT_SPACER:int = 113;
 		private static const HORIZ_SPACER:int = 75;
 		private static const COLUMN_COUNT:int = 5;
 		private var _holder:Sprite; 
 		private var _friendsMCArray:Array;
+		private var _nextY:int;
+		private var _nextX:int;
+		
 		
 		
 		public function EmergencyContactSelectView(mc:MovieClip)
@@ -65,6 +66,11 @@ package view
 //			_contactTxt.autoSize = TextFieldAutoSize.LEFT;
 //			_questionMarkTxt = _confirm.getChildByName("questionMark_txt") as TextField;
 			
+			_nextX = 0;
+			_nextY = 0;
+			
+			_friendsMCArray = new Array();
+			
 			_dragVCont = new DraggableVerticalContainer(0, 0x000000, 0, true); 
 			_dragVCont.width = 380;
 			_dragVCont.height = 380;
@@ -75,7 +81,7 @@ package view
 //			_dragVCont.refreshView(true);
 			
 			_holder = new Sprite();
-			
+			_dragVCont.addChild(_holder);
 			_mc.addChild(_dragVCont);
 		}
 		
@@ -110,29 +116,59 @@ package view
 		public function populateFacebookFriends(friendsVector:Vector.<GVFacebookFriend>):void 
 		{
 			_friendsVector = friendsVector;
-			_friendsMCArray = new Array();
-			var nextY:int = 0;
-			var nextX:int = 0;
+//			_friendsMCArray = new Array();
+//			var nextY:int = 0;
+//			var nextX:int = 0;
 			for (var i:int = 0; i < friendsVector.length; i++) 
 			{
 				if (i != 0 && (i % COLUMN_COUNT) == 0) {
-					nextY += VERT_SPACER;
-					nextX = 0;
+					_nextY += VERT_SPACER;
+					_nextX = 0;
 				}
-				var thisContact:FacebookContactMC = new FacebookContactMC();
+				var thisContact:SocialContactMC = new SocialContactMC();
 				thisContact.mouseChildren = false;
 				thisContact.ID = i;
 				thisContact.FBID = friendsVector[i].id;
 				thisContact.name_txt.text = friendsVector[i].name;
-				thisContact.x = nextX*HORIZ_SPACER;
-				thisContact.y = nextY;
+				thisContact.x = _nextX*HORIZ_SPACER;
+				thisContact.y = _nextY;
 				thisContact.addEventListener(MouseEvent.CLICK, friendClick);
 				
 				_holder.addChild(thisContact);
 				
 				_friendsMCArray.push(thisContact);
 				
-				nextX++;
+				_nextX++;
+			}
+//			_dragVCont.addChild(_holder);
+			_dragVCont.refreshView(true);
+		}
+		
+		public function populateTwitterFollowers(followersVector:Vector.<TwitterFollowerInfo>):void 
+		{
+			_followersVector = followersVector;
+//			_friendsMCArray = new Array();
+			
+			for (var i:int = 0; i < followersVector.length; i++) 
+			{
+				if (i != 0 && (i % COLUMN_COUNT) == 0) {
+					_nextY += VERT_SPACER;
+					_nextX = 0;
+				}
+				var thisContact:SocialContactMC = new SocialContactMC();
+				thisContact.mouseChildren = false;
+				thisContact.ID = i;
+				thisContact.screenName = _followersVector[i].screenName;
+				thisContact.name_txt.text = _followersVector[i].name;
+				thisContact.x = _nextX*HORIZ_SPACER;
+				thisContact.y = _nextY;
+				thisContact.addEventListener(MouseEvent.CLICK, friendClick);
+				
+				_holder.addChild(thisContact);
+				
+				_friendsMCArray.push(thisContact);
+				
+				_nextX++;
 			}
 			_dragVCont.addChild(_holder);
 			_dragVCont.refreshView(true);
@@ -160,12 +196,18 @@ package view
 			if (!_submitBtn.hasEventListener(MouseEvent.CLICK)) {
 				_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
 			}
-			var fullName:Array = _friendsVector[thisID].name.split(" ");
-			var firstName:String = fullName[0];
 			
-			DataModel.defenderInfo.contact = firstName;
-			DataModel.defenderInfo.contactFullName = _friendsVector[thisID].name;
-			DataModel.defenderInfo.contactFBID = thisFriend.FBID;
+			if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+				var fullName:Array = _friendsVector[thisID].name.split(" ");
+				var firstName:String = fullName[0];
+				
+				DataModel.defenderInfo.contact = firstName;
+				DataModel.defenderInfo.contactFullName = _friendsVector[thisID].name;
+				DataModel.defenderInfo.contactFBID = thisFriend.FBID;
+			} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+				
+			}
+			
 		}
 		
 		private function submitClick(e:MouseEvent) : void {

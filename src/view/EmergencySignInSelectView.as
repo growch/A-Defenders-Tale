@@ -17,6 +17,7 @@ package view
 		private var _mc:MovieClip;
 		private var _closeBtn:MovieClip;
 		private var _facebookBtn:MovieClip;
+		private var _twitterBtn:MovieClip;
 		private var _submitBtn:MovieClip;
 		private var _nameTF:TextField; 
 		
@@ -33,6 +34,9 @@ package view
 			
 			_facebookBtn = _mc.getChildByName("facebook_btn") as MovieClip;
 			_facebookBtn.addEventListener(MouseEvent.CLICK, facebookClick);
+
+			_twitterBtn = _mc.getChildByName("twitter_btn") as MovieClip;
+			_twitterBtn.addEventListener(MouseEvent.CLICK, twitterClick);
 			
 			_nameTF = _mc.getChildByName("name_txt") as TextField;
 			_nameTF.maxChars = 100;
@@ -64,7 +68,14 @@ package view
 		
 		protected function facebookClick(event:MouseEvent):void
 		{
+			DataModel.SOCIAL_PLATFROM = DataModel.SOCIAL_FACEBOOK;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.LOGIN_FACEBOOK));	
+		}
+		
+		protected function twitterClick(event:MouseEvent):void
+		{
+			DataModel.SOCIAL_PLATFROM = DataModel.SOCIAL_TWITTER;
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.LOGIN_TWITTER));	
 		}
 		
 		private function closeClick(e:MouseEvent) : void {
@@ -75,6 +86,7 @@ package view
 		{
 			_closeBtn.removeEventListener(MouseEvent.CLICK, closeClick);
 			_facebookBtn.removeEventListener(MouseEvent.CLICK, facebookClick);
+			_twitterBtn.removeEventListener(MouseEvent.CLICK, twitterClick);
 			_nameTF.removeEventListener(FocusEvent.FOCUS_OUT, capFirst); 
 			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
 		}
