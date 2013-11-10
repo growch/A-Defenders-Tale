@@ -55,11 +55,17 @@ package control
 		
 		protected function twitterResponse(event:TwitterSocketEvent):void
 		{
+			// USER REQUEST  event.response[0].screen_name
+			if (event.response[0]) {
+				trace("twitterResponse: "+event.response[0].name);
+				_tempObj.userName = event.response[0].name;
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.TWITTER_USER_LOAD, _tempObj));
+				return;
+			}
+			
+			//FOLLOWERS REQUEST
 			trace("twitterResponse followers count: "+event.response.users.length);
 			_followerCount += event.response.users.length;
-			
-//			_followers.length = 0;
-			
 			
 			for (var i:int = 0; i < event.response.users.length; i++) 
 			{
@@ -85,8 +91,15 @@ package control
 		protected function twitterReady(event:Event):void
 		{
 			trace("TwitterAccess twitterReady");
+			getUserName(); 
 			getFollowers();
 		}
+		
+		private function getUserName():void {
+			trace("TwitterAccess getUserName: "+_screenName);
+			_twitter.request("/1.1/users/lookup.json?screen_name="+_screenName);
+		}
+		
 		
 		private function getFollowers():void {
 			trace("TwitterAccess getFollowers");

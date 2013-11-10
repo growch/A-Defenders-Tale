@@ -10,7 +10,6 @@ package view
 	
 	import control.EventController;
 	import control.GoViralService;
-	import control.TwitterAccess;
 	
 	import events.ViewEvent;
 	
@@ -38,9 +37,11 @@ package view
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DEFENDER_INFO, addFBName);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DEFENDER_FRIENDS, addFBFriends);
 			EventController.getInstance().addEventListener(ViewEvent.TWITTER_FOLLOWERS_LOAD, addTwitterFollowers);
+			EventController.getInstance().addEventListener(ViewEvent.TWITTER_USER_LOAD, addTwitterName);
 			EventController.getInstance().addEventListener(ViewEvent.LOGIN_TWITTER, loginTwitter);
 			EventController.getInstance().addEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
 			EventController.getInstance().addEventListener(ViewEvent.TWITTER_DONE, twitterDone);
+			EventController.getInstance().addEventListener(ViewEvent.CLOSE_TWITTER_OVERLAY, removeTwitterOverlay);
 		}
 		
 		
@@ -75,11 +76,15 @@ package view
 		
 		protected function contactSelected(event:ViewEvent):void
 		{
-			if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
-				//				_goViral.getMeFacebook();
-				//				_goViral.getFriendsFacebook();
-			} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
-				_goViral.postTwitter("Hey, I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side.");
+			if (_goViral.isSupported) {
+				if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+					//				_goViral.getMeFacebook();
+					//				_goViral.getFriendsFacebook();
+				} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+					_goViral.postTwitter("Hey, I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side.");
+				}
+			} else {
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));
 			}
 		}
 		
@@ -119,7 +124,12 @@ package view
 		protected function addFBName(event:ViewEvent):void
 		{
 			var thisName:GVFacebookFriend = event.data as GVFacebookFriend;
-			_contactSelect.populateFacebookName(thisName.name);
+			_contactSelect.populateSocialName(thisName.name);
+		}
+		
+		protected function addTwitterName(event:ViewEvent):void
+		{
+			_contactSelect.populateSocialName(event.data.userName);
 		}
 		
 		protected function addFBFriends(event:ViewEvent):void
@@ -145,6 +155,12 @@ package view
 		{
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));
 		}	
+		
+		protected function removeTwitterOverlay(event:Event):void
+		{
+			_twitterMC.visible = false;
+			_signInMC.visible = true;
+		}
 		
 		private function sortPeople(x:GVFacebookFriend, y:GVFacebookFriend):Number
 		{
@@ -199,9 +215,11 @@ package view
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DEFENDER_INFO, addFBName);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DEFENDER_FRIENDS, addFBFriends);
 			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_FOLLOWERS_LOAD, addTwitterFollowers);
+			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_USER_LOAD, addTwitterName);
 			EventController.getInstance().removeEventListener(ViewEvent.LOGIN_TWITTER, loginTwitter);
 			EventController.getInstance().removeEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
 			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_DONE, twitterDone);
+			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_TWITTER_OVERLAY, removeTwitterOverlay);
 			
 			removeChild(_mc);
 		}

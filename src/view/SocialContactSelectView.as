@@ -26,7 +26,7 @@ package view
 		private var _facebookBtn:MovieClip;
 		private var _submitBtn:MovieClip;
 //		private var _confirm:MovieClip;
-		private var _fbName:TextField;
+		private var _socialName:TextField;
 //		private var _contactTxt:TextField;
 		private var _questionMarkTxt:TextField;
 		private var _dragVCont:DraggableVerticalContainer;
@@ -55,7 +55,7 @@ package view
 			_submitBtn = _mc.getChildByName("submit_btn") as MovieClip;
 			_submitBtn.alpha = .5;
 			
-			_fbName = _mc.getChildByName("name_txt") as TextField;
+			_socialName = _mc.getChildByName("name_txt") as TextField;
 			
 			_nextX = 0;
 			_nextY = 0;
@@ -70,9 +70,6 @@ package view
 			_dragVCont.y = 163;
 //			_dragVCont.addChild(_mc);
 //			_dragVCont.refreshView(true);
-			
-			//		!!!!!!!!! TESTING !!!!!!
-			_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
 			
 			_holder = new Sprite();
 			_dragVCont.addChild(_holder);
@@ -103,8 +100,8 @@ package view
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_EMERGENCY_OVERLAY));
 		}
 		
-		public function populateFacebookName(ns:String) : void {
-			_fbName.text = ns.toUpperCase();
+		public function populateSocialName(ns:String) : void {
+			_socialName.text = ns.toUpperCase();
 		}
 		
 		public function populateFacebookFriends(friendsVector:Vector.<GVFacebookFriend>):void 
@@ -155,6 +152,7 @@ package view
 				thisContact.ID = i;
 				thisContact.screenName = _followersVector[i].screenName;
 				thisContact.name_txt.text = _followersVector[i].name;
+				thisContact.fullName = _followersVector[i].name;
 				thisContact.x = _nextX*HORIZ_SPACER;
 				thisContact.y = _nextY;
 				thisContact.addEventListener(MouseEvent.CLICK, friendClick);
@@ -202,7 +200,11 @@ package view
 				DataModel.defenderInfo.contactFullName = _friendsVector[thisID].name;
 				DataModel.defenderInfo.contactFBID = thisFriend.FBID;
 			} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+				fullName = thisFriend.fullName.split(" ");
+				firstName = fullName[0];
 				
+				DataModel.defenderInfo.contact = firstName;
+				DataModel.defenderInfo.contactFullName = thisFriend.fullName;
 			}
 			
 		}

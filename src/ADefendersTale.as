@@ -55,6 +55,8 @@ package
 			
 			// Detects a general change in network status
 			NativeApplication.nativeApplication.addEventListener(Event.NETWORK_CHANGE,onNetworkChange);
+			//check for initial connection
+			NativeApplication.nativeApplication.dispatchEvent(new Event(Event.NETWORK_CHANGE));
 			
 			_dm = DataModel.getInstance(); 
 			
