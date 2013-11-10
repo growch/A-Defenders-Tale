@@ -12,7 +12,7 @@ package view
 	
 	import model.DataModel;
 	
-	public class EmergencySignInSelectView extends MovieClip
+	public class SocialSignInSelectView extends MovieClip
 	{
 		private var _mc:MovieClip;
 		private var _closeBtn:MovieClip;
@@ -21,7 +21,7 @@ package view
 		private var _submitBtn:MovieClip;
 		private var _nameTF:TextField; 
 		
-		public function EmergencySignInSelectView(mc:MovieClip)
+		public function SocialSignInSelectView(mc:MovieClip)
 		{
 			_mc = mc;
 //			super();

@@ -52,6 +52,19 @@ package de.danielyan.twitterAppOnly
 			}
 		}
 		
+		public function destroy():void
+		{
+			if (_socket) {
+//				_socket.close();
+				_socket.removeEventListener(Event.CONNECT,onConnect);
+				_socket.removeEventListener(ProgressEvent.SOCKET_DATA,onData);
+				_socket.removeEventListener(IOErrorEvent.IO_ERROR, onError);
+				_socket.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onError);
+				_socket.removeEventListener(Event.CLOSE, onClose);
+				_socket = null;
+			}
+		}
+		
 		/**
 		 * Twitter Request url
 		 * supply the url without the domain name:
@@ -161,5 +174,6 @@ package de.danielyan.twitterAppOnly
 				}
 			}			
 		}
+		
 	}
 }

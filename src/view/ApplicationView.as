@@ -13,10 +13,8 @@ package view
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	
-	import assets.FacebookContactMC;
 	import assets.SmokePuffMC;
 	import assets.fonts.Caslon224;
-	import assets.fonts.Caslon224BookItalic;
 	
 	import control.EventController;
 	
@@ -70,7 +68,7 @@ package view
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 
 			EventController.getInstance().addEventListener(ViewEvent.CLOSE_EMERGENCY_OVERLAY, removeEmergencyOverlay);
-			EventController.getInstance().addEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
+			EventController.getInstance().addEventListener(ViewEvent.SOCIAL_MESSAGE, socialMessageComplete);
 			EventController.getInstance().addEventListener(ViewEvent.APPLICATION_OPTION_CLICK, showSmoke);
 			
 //			!!!IMPORTANT
@@ -97,8 +95,8 @@ package view
 			_beverageHit.removeEventListener(MouseEvent.CLICK, setHitForText);
 			_beverageHit = null;
 			
-			_contactHit.removeEventListener(MouseEvent.CLICK, setHitForText);
-			_contactHit = null;
+			_contactHit.removeEventListener(MouseEvent.CLICK, showEmergencyContactOverlay);
+//			_contactHit = null;
 			
 			_error1 = null;
 			_error2 = null;
@@ -107,7 +105,7 @@ package view
 			_error5 = null;
 			
 			_nameTF.removeEventListener(FocusEvent.FOCUS_OUT, nameFocusOut);
-			_contactTF.removeEventListener(FocusEvent.FOCUS_IN, showEmergencyContactOverlay);
+//			_contactTF.removeEventListener(FocusEvent.FOCUS_IN, showEmergencyContactOverlay);
 			
 			_nameTF = null;
 			_ageTF = null;
@@ -122,7 +120,7 @@ package view
 			_bgSound = null;
 			
 			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_EMERGENCY_OVERLAY, removeEmergencyOverlay);
-			EventController.getInstance().removeEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
+			EventController.getInstance().removeEventListener(ViewEvent.SOCIAL_MESSAGE, socialMessageComplete);
 			EventController.getInstance().removeEventListener(ViewEvent.APPLICATION_OPTION_CLICK, showSmoke);
 			
 			_gender.destroy();
@@ -195,12 +193,14 @@ package view
 			_beverageHit = _mc.beverageHit_mc;
 			setHitForText(_beverageTF, _beverageHit);
 //			
-			_contactTF = makeTextRemoveText(_mc.contact_txt);
-			_contactTF.addEventListener(FocusEvent.FOCUS_IN, showEmergencyContactOverlay);
+			_contactTF = makeTextRemoveText(_mc.contact_txt, TextFieldType.DYNAMIC);
+//			_contactTF.addEventListener(FocusEvent.FOCUS_IN, showEmergencyContactOverlay);
 			_contactTF.maxChars = 40;
 			
 			_contactHit = _mc.contactHit_mc;
-			setHitForText(_contactTF, _contactHit);
+			_contactHit.addEventListener(MouseEvent.CLICK, showEmergencyContactOverlay);
+			//put this back on top
+			_mc.addChild(_contactHit);
 			
 			_gender = new OptionsView(_mc.gender_mc, 3);
 			_romantic = new OptionsView(_mc.romantic_mc, 3);
@@ -249,9 +249,9 @@ package view
 		}		
 		
 		
-		private function makeTextRemoveText(thisTF:TextField) : TextField {
+		private function makeTextRemoveText(thisTF:TextField, thisType:String = TextFieldType.INPUT) : TextField {
 			var tf:TextField = new TextField();
-			tf.type = TextFieldType.INPUT; 
+			tf.type = thisType; 
 			tf.antiAliasType = AntiAliasType.ADVANCED;
 			tf.embedFonts = true;
 			tf.x = thisTF.x;
@@ -265,10 +265,12 @@ package view
 			_mc.removeChild(thisTF);
 			_mc.addChild(tf);
 			
+//			trace("makeTextRemoveText type: "+tf.type);
+			
 			return tf;
 		}
 		
-		private function showEmergencyContactOverlay(event:FocusEvent) : void 
+		private function showEmergencyContactOverlay(event:MouseEvent) : void 
 		{
 			_emergencyOverlay = new EmergencyContactView();
 			addChild(_emergencyOverlay);
@@ -281,7 +283,7 @@ package view
 			_emergencyOverlay = null;
 		}
 		
-		protected function contactSelected(event:ViewEvent):void
+		protected function socialMessageComplete(event:ViewEvent):void
 		{
 			_emergencyOverlay.destroy();
 			removeChild(_emergencyOverlay);

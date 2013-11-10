@@ -19,7 +19,7 @@ package view
 	
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
-	public class EmergencyContactSelectView extends MovieClip
+	public class SocialContactSelectView extends MovieClip
 	{
 		private var _mc:MovieClip;
 		private var _closeBtn:MovieClip;
@@ -41,9 +41,7 @@ package view
 		private var _nextY:int;
 		private var _nextX:int;
 		
-		
-		
-		public function EmergencyContactSelectView(mc:MovieClip)
+		public function SocialContactSelectView(mc:MovieClip)
 		{
 			_mc = mc;
 			super();
@@ -59,13 +57,6 @@ package view
 			
 			_fbName = _mc.getChildByName("name_txt") as TextField;
 			
-//			_confirm = _mc.getChildByName("confirm_mc") as MovieClip;
-//			_confirm.visible = false;
-			
-//			_contactTxt = _confirm.getChildByName("contact_txt") as TextField;
-//			_contactTxt.autoSize = TextFieldAutoSize.LEFT;
-//			_questionMarkTxt = _confirm.getChildByName("questionMark_txt") as TextField;
-			
 			_nextX = 0;
 			_nextY = 0;
 			
@@ -79,6 +70,9 @@ package view
 			_dragVCont.y = 163;
 //			_dragVCont.addChild(_mc);
 //			_dragVCont.refreshView(true);
+			
+			//		!!!!!!!!! TESTING !!!!!!
+			_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
 			
 			_holder = new Sprite();
 			_dragVCont.addChild(_holder);
@@ -133,6 +127,7 @@ package view
 				thisContact.x = _nextX*HORIZ_SPACER;
 				thisContact.y = _nextY;
 				thisContact.addEventListener(MouseEvent.CLICK, friendClick);
+				thisContact.cacheAsBitmap = true;
 				
 				_holder.addChild(thisContact);
 				
@@ -163,6 +158,7 @@ package view
 				thisContact.x = _nextX*HORIZ_SPACER;
 				thisContact.y = _nextY;
 				thisContact.addEventListener(MouseEvent.CLICK, friendClick);
+				thisContact.cacheAsBitmap = true;
 				
 				_holder.addChild(thisContact);
 				
@@ -170,9 +166,10 @@ package view
 				
 				_nextX++;
 			}
-			_dragVCont.addChild(_holder);
+//			_dragVCont.addChild(_holder);
 			_dragVCont.refreshView(true);
 		}
+		
 		
 		protected function friendClick(event:MouseEvent):void
 		{

@@ -261,6 +261,8 @@
     <iPhone>
         <InfoAdditions> 
 			<![CDATA[ 
+				<key>MinimumOSVersion</key>
+				<string>5.1</string>
 				<key>FacebookAppID</key>
 				<string>351887674885054</string>
 				<key>UIDeviceFamily</key> 

@@ -34,7 +34,6 @@ package control
 		}
 		
 		private function init():void {
-			
 			_twitter = new TwitterSocket(CONSUMER_KEY, CONSUMER_SECRET);
 			_twitter.addEventListener(TwitterSocket.EVENT_TWITTER_READY, twitterReady);
 			_twitter.addEventListener(TwitterSocket.EVENT_TWITTER_RESPONSE, twitterResponse);
@@ -42,12 +41,16 @@ package control
 			_followers = new Vector.<TwitterFollowerInfo>;
 			_follower = new TwitterFollowerInfo();
 			
+			trace("init TwitterAccess _twitter: "+_twitter);
+			
 			_tempObj = new Object();
 		}
 		
 		public function destroy():void {
+			_twitter.destroy();
 			_twitter.removeEventListener(TwitterSocket.EVENT_TWITTER_READY, twitterReady);
 			_twitter.removeEventListener(TwitterSocket.EVENT_TWITTER_RESPONSE, twitterResponse);
+			_twitter = null;
 		}
 		
 		protected function twitterResponse(event:TwitterSocketEvent):void
@@ -66,7 +69,7 @@ package control
 				_follower.screenName = event.response.users[i].screen_name;
 				_followers.push(_follower);
 			}
-			trace("!!!! next_cursor_str: "+event.response.next_cursor_str);
+//			trace("!!!! next_cursor_str: "+event.response.next_cursor_str);
 			
 			_tempObj.followers = _followers;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.TWITTER_FOLLOWERS_LOAD, _tempObj));
@@ -81,6 +84,7 @@ package control
 		
 		protected function twitterReady(event:Event):void
 		{
+			trace("TwitterAccess twitterReady");
 			getFollowers();
 		}
 		

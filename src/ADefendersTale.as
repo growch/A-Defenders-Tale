@@ -6,7 +6,13 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageQuality;
 	import flash.events.Event;
+	import flash.events.StatusEvent;
+	import flash.net.URLRequest;
 	import flash.text.AntiAliasType;
+	
+	import mx.controls.Alert;
+	
+	import air.net.URLMonitor;
 	
 	import control.ViewController;
 	
@@ -14,22 +20,21 @@ package
 	
 	import model.DataModel;
 	
-	import net.hires.debug.Stats;
-	
 	import util.Formats;
 	import util.Logger;
 	import util.Text;
 	
 	// THINK ABOUT FRAME RATE AND CHANGING FOR PERFORMANCE
 // ++++++++++++++++++
-//	[SWF(width="768", height="1024", frameRate="60", backgroundColor="0x000000")]
+	[SWF(width="768", height="1024", frameRate="60", backgroundColor="0x000000")]
 // FOR TESTING TO FIT LAPPY SCREEN
-	[SWF(width="1050", height="1400", frameRate="60", backgroundColor="0x000000")] 
+//	[SWF(width="1050", height="1400", frameRate="60", backgroundColor="0x000000")] 
 	
 	public class ADefendersTale extends MovieClip
 	{
 		private var _dm:DataModel;
 		private var _vc:ViewController; 
+		private var monitor:URLMonitor;
 		
 		public function ADefendersTale()
 		{
@@ -48,6 +53,9 @@ package
 			// This will keep the device from "sleeping"
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE; 
 			
+			// Detects a general change in network status
+			NativeApplication.nativeApplication.addEventListener(Event.NETWORK_CHANGE,onNetworkChange);
+			
 			_dm = DataModel.getInstance(); 
 			
 			_dm.addEventListener( ApplicationEvent.APP_DATA_LOADED, onApplicationDataLoaded ); 
@@ -59,6 +67,27 @@ package
 			
 		}
 		
+		//Checking for network connectivity
+		protected function onNetworkChange(e:Event):void
+		{
+			monitor = new URLMonitor(new URLRequest('http://www.adobe.com'));
+			monitor.addEventListener(StatusEvent.STATUS, netConnectivity);
+			monitor.start();
+		}
+		
+		protected function netConnectivity(e:StatusEvent):void 
+		{
+			if(monitor.available)
+			{
+				DataModel.getInstance().networkConnected = true;
+			}
+			else
+			{
+				DataModel.getInstance().networkConnected = false;
+			}
+			monitor.stop();
+		}
+				
 		
 		private function onLoadingError(e : ApplicationEvent) : void 
 		{

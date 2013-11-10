@@ -3,7 +3,6 @@ package view
 	import com.greensock.TweenMax;
 	import com.milkmangames.nativeextensions.GVFacebookFriend;
 	
-	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
@@ -15,32 +14,33 @@ package view
 	
 	import events.ViewEvent;
 	
-	import model.TwitterFollowerInfo;
-
-	
 	import model.DataModel;
+	import model.TwitterFollowerInfo;
 	
 	public class EmergencyContactView extends MovieClip
 	{
 		private var _mc:EmergencyContactMC;
-		private var _signInSelect:EmergencySignInSelectView;
+		private var _signInSelect:SocialSignInSelectView;
 		private var _goViral:GoViralService;
-		private var _contactSelect:EmergencyContactSelectView;
+		private var _contactSelect:SocialContactSelectView;
+		private var _twitterSelect:SocialTwitterView;
 		private var _contactMC:MovieClip;
+		private var _twitterMC:MovieClip;
 		private var _signInMC:MovieClip;
-		private var _twitter:TwitterAccess;
 		
 		public function EmergencyContactView()
 		{
-			super();
+//			super();
 			
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.LOGIN_FACEBOOK, loginFacebook);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, showFriends);
-			EventController.getInstance().addEventListener(ViewEvent.LOGIN_TWITTER, showFriends);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DEFENDER_INFO, addFBName);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DEFENDER_FRIENDS, addFBFriends);
 			EventController.getInstance().addEventListener(ViewEvent.TWITTER_FOLLOWERS_LOAD, addTwitterFollowers);
+			EventController.getInstance().addEventListener(ViewEvent.LOGIN_TWITTER, loginTwitter);
+			EventController.getInstance().addEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
+			EventController.getInstance().addEventListener(ViewEvent.TWITTER_DONE, twitterDone);
 		}
 		
 		
@@ -50,36 +50,68 @@ package view
 			_mc = new EmergencyContactMC();
 			
 			_signInMC = _mc.getChildByName("singIn_mc") as MovieClip;
-			_signInSelect = new EmergencySignInSelectView(_signInMC);
+			_signInSelect = new SocialSignInSelectView(_signInMC);
 			
 			_contactMC = _mc.getChildByName("contactSelect_mc") as MovieClip;
-			_contactSelect = new EmergencyContactSelectView(_contactMC);
+			_contactSelect = new SocialContactSelectView(_contactMC);
 			_contactMC.visible = false;
+			
+			_twitterMC = _mc.getChildByName("twitter_mc") as MovieClip;
+			_twitterSelect = new SocialTwitterView(_twitterMC);
+			_twitterMC.visible = false;
 			
 			TweenMax.from(_mc, 1, {alpha:0, onComplete:initGV}); 
 			addChild(_mc);
-			
 		}
 		
 		private function initGV():void {
 			_goViral = DataModel.getGoViral(); 
+			trace("initGV _goViral: "+_goViral);
+			if (_goViral.isSupported) {
+				trace("IS TWITTER AVAILABLE? : "+_goViral.twitterAvailable());
+			}
+			
+		}
+		
+		protected function contactSelected(event:ViewEvent):void
+		{
+			if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+				//				_goViral.getMeFacebook();
+				//				_goViral.getFriendsFacebook();
+			} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+				_goViral.postTwitter("Hey, I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side.");
+			}
 		}
 		
 		protected function loginFacebook(event:ViewEvent):void
 		{
 			_goViral.loginFacebook();	
+		} 
+		
+		protected function loginTwitter(event:ViewEvent):void
+		{
+			_signInMC.visible = false;
+			
+			if (_goViral.isSupported) {
+				if (_goViral.twitterAvailable()) {
+					//				_twitterAccess = new TwitterAccess("bob_schneider");
+					//				trace("_twitterAccess: "+_twitterAccess);
+					_twitterSelect.loginTwitter();
+				} else {
+					_twitterSelect.twitterDisabled();
+				}
+			}
+			
+			_twitterMC.visible = true;
 		}
 		
 		protected function showFriends(event:ViewEvent):void
 		{
+			trace("showFriends");
 			_signInMC.visible = false;
-			if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
-				_goViral.getMeFacebook();
-				_goViral.getFriendsFacebook();
-			} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
-				//TODO show Twitter login info
-				_twitter = new TwitterAccess("bob_schneider");
-			}
+				
+			_goViral.getMeFacebook();
+			_goViral.getFriendsFacebook();
 			
 			_contactMC.visible = true;
 		}
@@ -104,7 +136,15 @@ package view
 			trace("!!!!!! followersVector: "+followersVector);
 //			return;
 			_contactSelect.populateTwitterFollowers(followersVector);
+			
+			_twitterMC.visible = false;
+			_contactMC.visible = true;
 		}
+		
+		protected function twitterDone(event:ViewEvent):void
+		{
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));
+		}	
 		
 		private function sortPeople(x:GVFacebookFriend, y:GVFacebookFriend):Number
 		{
@@ -141,15 +181,27 @@ package view
 		
 		public function destroy():void
 		{
+			_contactMC = null;
+			_signInMC = null;
+			_twitterMC = null;
+			
 			_signInSelect.destroy();
 			_contactSelect.destroy();
+			_twitterSelect.destroy();
+			
+			_signInSelect = null;
+			_contactSelect = null;
+			_twitterSelect = null;
 			
 //			_goViral.dispose();
-			EventController.getInstance().removeEventListener(ViewEvent.LOGIN_TWITTER, showFriends);
 			EventController.getInstance().removeEventListener(ViewEvent.LOGIN_FACEBOOK, loginFacebook);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, showFriends);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DEFENDER_INFO, addFBName);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DEFENDER_FRIENDS, addFBFriends);
+			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_FOLLOWERS_LOAD, addTwitterFollowers);
+			EventController.getInstance().removeEventListener(ViewEvent.LOGIN_TWITTER, loginTwitter);
+			EventController.getInstance().removeEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
+			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_DONE, twitterDone);
 			
 			removeChild(_mc);
 		}
