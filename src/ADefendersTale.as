@@ -10,8 +10,6 @@ package
 	import flash.net.URLRequest;
 	import flash.text.AntiAliasType;
 	
-	import mx.controls.Alert;
-	
 	import air.net.URLMonitor;
 	
 	import control.ViewController;

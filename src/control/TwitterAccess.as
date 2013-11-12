@@ -7,7 +7,6 @@ package control
 	
 	import events.ViewEvent;
 	
-	import model.StoryPart;
 	import model.TwitterFollowerInfo;
 	
 	public class TwitterAccess

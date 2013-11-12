@@ -96,7 +96,7 @@ package view
 			_beverageHit = null;
 			
 			_contactHit.removeEventListener(MouseEvent.CLICK, showEmergencyContactOverlay);
-//			_contactHit = null;
+			_contactHit = null;
 			
 			_error1 = null;
 			_error2 = null;

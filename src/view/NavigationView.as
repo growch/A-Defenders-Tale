@@ -66,10 +66,12 @@ package view
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			_blocker = new FadeToBlackMC();
+			_blocker.cacheAsBitmap = true;
 			TweenMax.to(_blocker, 0, {autoAlpha:0});
 			addChild(_blocker);
 			
 			_mc = new NavigationMC();
+			_mc.cacheAsBitmap = true;
 			
 			_mc.x = 30;
 			_mc.y = CLOSED_Y;
@@ -199,8 +201,8 @@ package view
 			buttonOnOffOthers(_restart);
 			
 			TweenMax.to(_blocker, .5, {autoAlpha:.5});
-			TweenMax.to(_mc, .6, {y:RESTART_Y, ease:Quad.easeInOut});
-			TweenMax.to(_restartPanel, 1, {autoAlpha:1});
+			TweenMax.to(_mc, .6, {y:RESTART_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_restartPanel]});
+//			TweenMax.to(_restartPanel, 1, {autoAlpha:1});
 			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
 			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
 			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
@@ -219,11 +221,11 @@ package view
 			
 			buttonOnOffOthers(_about);
 			
-			TweenMax.to(_blocker, .5, {autoAlpha:.5});
-			TweenMax.to(_mc, .6, {y:CONTENTS_Y, ease:Quad.easeInOut});
+			TweenMax.to(_blocker, .5, {autoAlpha:.5});  
+			TweenMax.to(_mc, .6, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_aboutMC]});
 			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
 			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
-			TweenMax.to(_aboutMC, 1, {autoAlpha:1});
+//			TweenMax.to(_aboutMC, 1, {autoAlpha:1});
 			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
 		}
 		
@@ -237,8 +239,8 @@ package view
 			buttonOnOffOthers(_help);
 			
 			TweenMax.to(_blocker, .5, {autoAlpha:.5});
-			TweenMax.to(_mc, .6, {y:HELP_Y, ease:Quad.easeInOut});
-			TweenMax.to(_helpPanel, 1, {autoAlpha:1});
+			TweenMax.to(_mc, .6, {y:HELP_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_helpPanel]});
+//			TweenMax.to(_helpPanel, 1, {autoAlpha:1});
 			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
 			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
 			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
@@ -266,11 +268,15 @@ package view
 			
 			buttonOnOffOthers(_contents);
 			
-			TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut});
-			TweenMax.to(_contentsMC, 1, {autoAlpha:1});
+			TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_contentsMC]});
+//			TweenMax.to(_contentsMC, 1, {autoAlpha:1});
 			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
 			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
 			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
+		}
+		
+		private function fadeInMC(thisMC:MovieClip):void {
+			TweenMax.to(thisMC, 1, {autoAlpha:1});
 		}
 		
 		private function buttonOnOffOthers(thisBtn:MovieClip):void {
