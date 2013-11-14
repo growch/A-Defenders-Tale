@@ -172,7 +172,7 @@ package games.sunlightGame.core
 			stage.addEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
 //			stage.addEventListener(	StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging );
 			// didn't have to bother with the above, the below locks it in portrait mode
-			stage.setAspectRatio(StageAspectRatio.PORTRAIT); 
+//			stage.setAspectRatio(StageAspectRatio.PORTRAIT); 
 			
 			
 			//restack screens

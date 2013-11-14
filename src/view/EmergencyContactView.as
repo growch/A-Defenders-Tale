@@ -81,7 +81,7 @@ package view
 					//				_goViral.getMeFacebook();
 					//				_goViral.getFriendsFacebook();
 				} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
-					_goViral.postTwitter("Hey, I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side.");
+					DataModel.getTwitter().postTweet("Hey, I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side.");
 				}
 			} else {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));
@@ -97,14 +97,11 @@ package view
 		{
 			_signInMC.visible = false;
 			
-			if (_goViral.isSupported) {
-				if (_goViral.twitterAvailable()) {
-					//				_twitterAccess = new TwitterAccess("bob_schneider");
-					//				trace("_twitterAccess: "+_twitterAccess);
-					_twitterSelect.loginTwitter();
-				} else {
-					_twitterSelect.twitterDisabled();
-				}
+			if (DataModel.getTwitter().twitterAvailable()) {
+				DataModel.getTwitter().getUserName();
+				DataModel.getTwitter().getFollowers();
+			} else {
+				_twitterSelect.twitterDisabled();
 			}
 			
 			_twitterMC.visible = true;
