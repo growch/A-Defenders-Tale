@@ -4,6 +4,7 @@ package
 	import flash.desktop.SystemIdleMode;
 	import flash.display.MovieClip;
 	import flash.display.StageAlign;
+	import flash.display.StageAspectRatio;
 	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.events.StatusEvent;
@@ -46,6 +47,7 @@ package
 			stage.quality = StageQuality.LOW; //HUGE PERFOMANCE BOOST!!!!!!!!
 			
 			//SunlightGame turns this on temporarily
+			stage.setAspectRatio(StageAspectRatio.PORTRAIT); 
 			stage.autoOrients = false;
 			
 			// This will keep the device from "sleeping"
