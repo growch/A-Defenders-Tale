@@ -82,7 +82,6 @@ package view
 			_gear.mouseChildren = false;
 			_gear.addEventListener(MouseEvent.CLICK, panelToggle);
 			
-			
 			_contents = _mc.getChildByName("contents_btn") as MovieClip;
 			_contents.addEventListener(MouseEvent.CLICK, contentsClick);
 			_contents.stop();
@@ -90,7 +89,6 @@ package view
 			_sound = _mc.getChildByName("sound_btn") as MovieClip;
 			_sound.addEventListener(MouseEvent.CLICK, soundClick);
 			_sound.stop();
-			
 			
 			_help = _mc.getChildByName("help_btn") as MovieClip;
 			_help.addEventListener(MouseEvent.CLICK, helpClick);
@@ -118,14 +116,9 @@ package view
 			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
 			
 			_aboutMC = _mc.about_mc;
-			_aboutPanel = new AboutPanelView(_aboutMC.text_mc);
-			_aboutMC.mask_mc.cacheAsBitmap = true;
-			_aboutMC.mask_mc.alpha = 1;
-			_aboutMC.holder_mc.cacheAsBitmap = true;
-			_aboutMC.holder_mc.mask = _aboutMC.mask_mc;
+			_aboutPanel = new AboutPanelView(_aboutMC);
 			_aboutMC.holder_mc.addChild(_aboutPanel);
 			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
-			
 			
 			_navBtnArray = [_contents, _restart, _help, _about];
 			
@@ -144,6 +137,8 @@ package view
 		}
 		
 		private function showPanel():void {
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.OPEN_GLOBAL_NAV));
+			
 			_contents.gotoAndStop("_off");
 			_restart.gotoAndStop("_off");
 			_help.gotoAndStop("_off");
@@ -160,6 +155,10 @@ package view
 		private function panelsOff():void {
 			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
 			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
+			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
+			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
+			
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.GLOBAL_NAV_CLOSED));
 		}
 		
 		protected function restartClick(event:MouseEvent):void
@@ -192,7 +191,6 @@ package view
 				tempObj.id = "MapView";
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 			}
-			
 			
 		}
 		

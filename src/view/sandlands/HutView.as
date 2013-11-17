@@ -2,6 +2,7 @@ package view.sandlands
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -39,6 +40,9 @@ package view.sandlands
 		private var _SAL:SWFAssetLoader;
 		private var _introInt:int;
 		private var _bubblingCauldron:MovieClip;
+		private var _bgSound:Track;
+		private var _secondSound:Track;
+		private var _finalSoundPlayed:Boolean;
 		
 		public function HutView()
 		{
@@ -149,7 +153,6 @@ package view.sandlands
 				} else if (part.type == "image") {
 					//!IMPORTANT
 					if (_introInt != 2) {
-						
 						_mc.end_mc.y = _nextY + 50;
 						_nextY += 80;
 						_mc.end_mc.visible = true;
@@ -195,16 +198,35 @@ package view.sandlands
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/sandlands/sandlands_SL_02.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			
+			_secondSound = new Track("assets/audio/sandlands/sandlands_SL_15.mp3");
+			_secondSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			_bubblingCauldron.play();
+			
+			TweenMax.delayedCall(5, secondSound);
+		}
+		
+		private function secondSound():void {
+			_bgSound.stop(true);
+			_secondSound.start(true);
 		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSoundPlayed && _introInt != 2) {
+				DataModel.getInstance().endSound();
+				_finalSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				_bubblingCauldron.stop();
 				

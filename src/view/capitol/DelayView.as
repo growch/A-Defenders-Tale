@@ -2,6 +2,7 @@ package view.capitol
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -35,6 +36,7 @@ package view.capitol
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
 		
 		public function DelayView()
 		{
@@ -140,6 +142,10 @@ package view.capitol
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/cattery/cattery_09.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

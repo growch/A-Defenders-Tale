@@ -2,6 +2,7 @@ package view.capitol
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -44,6 +45,7 @@ package view.capitol
 		private var _cloud5:MovieClip;		
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
 		
 		public function ReturnToShipView()
 		{
@@ -181,6 +183,7 @@ package view.capitol
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			DataModel.getInstance().oceanLoop();
 		}
 		
 		private function pageOn(e:ViewEvent):void {

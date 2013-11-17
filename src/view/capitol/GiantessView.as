@@ -2,9 +2,11 @@ package view.capitol
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
@@ -16,7 +18,6 @@ package view.capitol
 	
 	import util.Formats;
 	import util.SWFAssetLoader;
-	import util.StringUtil;
 	import util.Text;
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -36,6 +37,9 @@ package view.capitol
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _secondSound:Track;
+		private var _tapSound:Track;
 		
 		public function GiantessView()
 		{
@@ -46,6 +50,9 @@ package view.capitol
 		}
 		
 		public function destroy() : void {
+//			
+			_mc.giantess_mc.removeEventListener(MouseEvent.CLICK, graphicClick);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -145,10 +152,36 @@ package view.capitol
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/capitol/capitol_OutdoorSounds.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			
+			_secondSound = new Track("assets/audio/capitol/capitol_02_MALLET.mp3");
+			_secondSound.fadeAtEnd = true;
+			
+			_tapSound = new Track("assets/audio/capitol/capitol_GiantRoar.mp3");
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			TweenMax.delayedCall(5, graphicSound);
+			TweenMax.delayedCall(7, secondSound);
+			
+			_mc.giantess_mc.addEventListener(MouseEvent.CLICK, graphicClick);
+		}
+		
+		private function graphicClick(e:MouseEvent):void {
+			graphicSound();
+		}
+		
+		private function secondSound():void {
+			_secondSound.start();
+		}
+		
+		private function graphicSound():void {
+			_tapSound.start();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

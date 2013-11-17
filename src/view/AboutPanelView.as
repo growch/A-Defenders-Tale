@@ -3,17 +3,29 @@ package view
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
+	import model.DataModel;
+	
 	import util.fpmobile.controls.DraggableVerticalContainer;
 
 	public class AboutPanelView extends MovieClip 
 	{
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _textMC:MovieClip;
+		private var _mc:MovieClip;
 		
-		public function AboutPanelView(contentObject:MovieClip)
+		public function AboutPanelView(thisMC:MovieClip)
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
-			_textMC = contentObject;
+			_mc = thisMC;
+			_textMC = _mc.text_mc;
+			
+			_mc.mask_mc.visible = false;
+			if (!DataModel.ipad1) {
+				_mc.mask_mc.cacheAsBitmap = true;
+				_mc.mask_mc.alpha = 1;
+				_mc.holder_mc.cacheAsBitmap = true;
+				_mc.holder_mc.mask = _mc.mask_mc;
+			}
 		}
 		
 		private function init(event:Event) : void {
@@ -28,7 +40,6 @@ package view
 			
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
-			
 		}
 		
 	}

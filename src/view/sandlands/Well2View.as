@@ -2,9 +2,11 @@ package view.sandlands
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
@@ -35,6 +37,10 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _secondSound:Track;
+		private var _tapSound:Track;
+		private var _graphicSoundPlayed:Boolean;
 		
 		public function Well2View()
 		{
@@ -45,6 +51,9 @@ package view.sandlands
 		}
 		
 		public function destroy() : void {
+//			
+			_mc.ravens_mc.removeEventListener(MouseEvent.CLICK, graphicClick);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -139,15 +148,46 @@ package view.sandlands
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/sandlands/sandlands_SL_02.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			
+			_secondSound = new Track("assets/audio/sandlands/sandlands_SL_07_DRIPS.mp3");
+			_secondSound.fadeAtEnd = true;
+			
+			_tapSound = new Track("assets/audio/sandlands/sandlands_SL_02_RAVEN_TAP.mp3");
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_mc.ravens_mc.addEventListener(MouseEvent.CLICK, graphicClick);
+			
+			TweenMax.delayedCall(.5, secondSound);
+		}
+		
+		private function graphicClick(e:MouseEvent):void {
+			graphicSound();
+		}
+		
+		private function secondSound():void {
+			_secondSound.start();
+		}
+		
+		private function graphicSound():void {
+			_tapSound.start();
 		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+//			trace(_dragVCont.scrollY);
+			if (_dragVCont.scrollY >= 900 && !_graphicSoundPlayed) {
+				graphicSound();
+				_graphicSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

@@ -2,9 +2,11 @@ package view.sandlands
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
@@ -35,6 +37,8 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _tapSound:Track;
 		
 		public function ApprenticeView()
 		{
@@ -45,6 +49,9 @@ package view.sandlands
 		}
 		
 		public function destroy() : void {
+//			
+			_mc.list_mc.removeEventListener(MouseEvent.CLICK, graphicClick);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -138,11 +145,29 @@ package view.sandlands
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
+			
+			_bgSound = new Track("assets/audio/sandlands/sandlands_SL_02.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			
+			_tapSound = new Track("assets/audio/sandlands/sandlands_SL_06_PAPER_TAP.mp3");
 		}
 		
 		private function pageOn(e:ViewEvent):void {
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop); 
 			
-			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			_mc.list_mc.addEventListener(MouseEvent.CLICK, graphicClick);
+			
+			TweenMax.delayedCall(3, graphicSound);
+		}
+		
+		private function graphicClick(e:MouseEvent):void {
+			graphicSound();
+		}
+		
+		private function graphicSound():void {
+			_tapSound.start();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

@@ -2,6 +2,7 @@ package view.capitol
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -37,6 +38,10 @@ package view.capitol
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _secondSound:Track;
+		private var _finalSoundPlayed:Boolean;
+		private var _deadEnd:Boolean;
 		
 		public function ReasonSmashleyView()
 		{
@@ -86,13 +91,16 @@ package view.capitol
 			_mc.end_mc.visible = false;
 			_mc.winPuddle_mc.visible = false;
 			
-			//used later in Escalator1View
-			DataModel.climbDone = true;
-			
 			_pageInfo = DataModel.appData.getPageInfo("reasonSmashley");
 			_bodyParts = _pageInfo.body;
 			
+//			TESTING!!!!!
+//			DataModel.STONE_SERPENT = true;
+//			TESTING!!!!!!!
+			
 			var hasSerpentine:int = DataModel.STONE_SERPENT? 0 : 1;
+			// 1 = false !!!
+			_deadEnd = !DataModel.STONE_SERPENT;
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -184,14 +192,32 @@ package view.capitol
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/capitol/capitol_OutdoorSounds.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			
+			_secondSound = new Track("assets/audio/capitol/capitol_02_MALLET.mp3");
+			_secondSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			TweenMax.delayedCall(2, secondSound);
+		}
+		
+		private function secondSound():void {
+			_secondSound.start();
 		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSoundPlayed && _deadEnd) {
+				DataModel.getInstance().endSound();
+				_finalSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

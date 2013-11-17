@@ -2,6 +2,7 @@ package view.sandlands
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -37,6 +38,8 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _secondSound:Track;
 		
 		public function Well4View()
 		{
@@ -156,12 +159,23 @@ package view.sandlands
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/sandlands/sandlands_SL_02.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 			
+			_secondSound = new Track("assets/audio/sandlands/sandlands_SL_07_DRIPS.mp3");
+			_secondSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			TweenMax.delayedCall(5, secondSound);
+		}
+		
+		private function secondSound():void {
+			_secondSound.start();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

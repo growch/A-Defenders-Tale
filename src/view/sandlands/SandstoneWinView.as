@@ -3,6 +3,7 @@ package view.sandlands
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -37,6 +38,7 @@ package view.sandlands
 		private var _frame:FrameView;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
 		
 		public function SandstoneWinView()
 		{
@@ -165,6 +167,12 @@ package view.sandlands
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/sandlands/sandlands_SL_15.mp3");
+			_bgSound.volume = .3;
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -180,6 +188,7 @@ package view.sandlands
 		
 		private function shineWeapon():void {
 			TweenMax.to(_mc.weapon_mc.shine_mc, .8, {y:420, ease:Quad.easeIn, onComplete:resetReplay}); 
+			DataModel.getInstance().weaponSound();
 		}
 		
 		private function resetReplay():void {

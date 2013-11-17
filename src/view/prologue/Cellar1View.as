@@ -57,8 +57,8 @@ package view.prologue
 		
 		protected function loggedInFacebook(event:ViewEvent):void
 		{
-//			_goViral.postWallHelp();
-			_goViral.postHelpFacebook();
+			_goViral.postWallHelp();
+//			_goViral.postHelpFacebook();
 		}
 		
 		public function destroy() : void {

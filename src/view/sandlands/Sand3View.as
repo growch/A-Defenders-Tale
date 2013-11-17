@@ -2,6 +2,7 @@ package view.sandlands
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -36,6 +37,7 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:Object;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
 		
 		public function Sand3View()
 		{
@@ -154,6 +156,10 @@ package view.sandlands
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/sandlands/sandlands_SL_02.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

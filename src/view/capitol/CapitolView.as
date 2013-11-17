@@ -214,6 +214,7 @@ package view.capitol
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			DataModel.getInstance().oceanLoop();
 		}
 		
 		private function pageOn(e:ViewEvent):void {

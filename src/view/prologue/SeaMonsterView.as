@@ -168,7 +168,7 @@ package view.prologue
 		
 		protected function squidSoundComplete(event:Event):void
 		{
-			DataModel.getInstance().oceanSound();
+			DataModel.getInstance().oceanLoop();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

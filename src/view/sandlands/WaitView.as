@@ -2,6 +2,7 @@ package view.sandlands
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -35,6 +36,8 @@ package view.sandlands
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _finalSoundPlayed:Boolean;
 		
 		
 		public function WaitView()
@@ -146,6 +149,11 @@ package view.sandlands
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/sandlands/sandlands_SL_02.mp3");
+			_bgSound.volume = .3;
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -155,6 +163,11 @@ package view.sandlands
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSoundPlayed) {
+				DataModel.getInstance().endSound();
+				_finalSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

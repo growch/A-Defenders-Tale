@@ -116,7 +116,7 @@ package view
 //			_pageInfo.contentPanelInfo.body = "What should this copy be if anything?";
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 			
-			DataModel.getInstance().oceanSound();
+			DataModel.getInstance().oceanLoop();
 		}
 		
 		protected function islandClick(event:MouseEvent):void

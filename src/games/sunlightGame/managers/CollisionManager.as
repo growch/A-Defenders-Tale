@@ -29,7 +29,7 @@ package games.sunlightGame.managers
 		public function CollisionManager(game:Game)
 		{
 			_game = game;
-			_enemHitSound = new Track("assets/audio/games/sunlightGame/hitEnemy.mp3");
+			_enemHitSound = new Track("assets/audio/games/sunlightGame/capitol_LightPop.mp3");
 			_ea = _game.enemyManager.enemies;
 		}
 		
@@ -148,7 +148,7 @@ package games.sunlightGame.managers
 						_game.enemyManager.destroyEnemy(_enem);
 						_game.bulletManager.destroyBullet(b);
 						_game.nero.enemyHit();
-//						_enemHitSound.start();
+						_enemHitSound.start();
 					}
 				}
 			}

@@ -2,9 +2,11 @@ package view.capitol
 {
 	import com.greensock.TweenMax;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	import control.EventController;
 	
@@ -36,6 +38,8 @@ package view.capitol
 		private var _scrolling:Boolean;
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _weaponSoundPlayed:Boolean;
 		
 		public function DontDrinkView()
 		{
@@ -162,15 +166,30 @@ package view.capitol
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			_bgSound = new Track("assets/audio/capitol/capitol_OutdoorSounds.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_mc.companionsDont_mc.addEventListener(MouseEvent.CLICK,graphicClick);
+		}
+		
+		private function graphicClick(e:MouseEvent):void {
+			DataModel.getInstance().companionSound();
 		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY >= 100 && !_weaponSoundPlayed) {
+				DataModel.getInstance().weaponSound();
+				TweenMax.delayedCall(1, DataModel.getInstance().weaponSound);
+				_weaponSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

@@ -200,7 +200,7 @@ package view.prologue
 			addChild(_dragVCont);
 			
 			//bg sound
-			DataModel.getInstance().oceanSound();
+			DataModel.getInstance().oceanLoop();
 		}
 		
 		private function pageOn(e:ViewEvent):void {

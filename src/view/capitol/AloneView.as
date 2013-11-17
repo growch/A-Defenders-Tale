@@ -50,6 +50,7 @@ package view.capitol
 		private var _wave5:MovieClip;
 		private var _wave6:MovieClip;
 		private var _goViral:GoViralService;
+		private var _finalSoundPlayed:Boolean;
 		
 		public function AloneView()
 		{
@@ -222,6 +223,7 @@ package view.capitol
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			DataModel.getInstance().oceanLoop();
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -271,6 +273,11 @@ package view.capitol
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSoundPlayed) {
+				DataModel.getInstance().happilyEverAfterSound();
+				_finalSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

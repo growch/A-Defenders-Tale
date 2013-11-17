@@ -42,6 +42,9 @@ package games.sandlands
 		private var _objIndex:Number;
 		private var _allowedAttempts:int = 5;
 		private var _attempts:int = 0;
+		private var _bgSound:Track;
+		private var _tapSound:Track;
+		private var _owlSound:Track;
 		
 		
 		public function GameSandstone()
@@ -50,6 +53,8 @@ package games.sandlands
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.SAND_GAME_STONE_FOUND, stoneFound);
+			EventController.getInstance().addEventListener(ViewEvent.SAND_GAME_OWL_SOUND, owlSound);
+			EventController.getInstance().addEventListener(ViewEvent.SAND_GAME_CLICK_SOUND, tapSound);
 		}
 		
 		protected function stoneFound(event:ViewEvent):void
@@ -60,6 +65,8 @@ package games.sandlands
 		
 		public function destroy():void {
 			EventController.getInstance().removeEventListener(ViewEvent.SAND_GAME_STONE_FOUND, stoneFound);
+			EventController.getInstance().removeEventListener(ViewEvent.SAND_GAME_OWL_SOUND, owlSound);
+			EventController.getInstance().removeEventListener(ViewEvent.SAND_GAME_CLICK_SOUND, tapSound);
 			
 			enemyManager.destroy();
 			enemyManager = null;
@@ -138,10 +145,28 @@ package games.sandlands
 			_countdownClock.startClock();
 			_gameTimer.start();
 //			// audio
-			_bgMusic = new Track("assets/audio/games/bopMice/bg.mp3");
-//			_bgMusic.start(true);
-//			_bgMusic.loop = true;
+			_bgMusic = new Track("assets/audio/games/sandlands/sandlands_game.mp3");
+			_bgMusic.start(true);
+			_bgMusic.loop = true;
+			_bgMusic.fadeAtEnd = true;
+			_bgMusic.volumeMultiplier = 2;
 			
+			_bgSound = new Track("assets/audio/sandlands/sandlands_SL_15.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			_bgSound.volume = .5;
+			
+			_tapSound = new Track("assets/audio/sandlands/sandlands_WizardObjectTap.mp3");
+			_owlSound = new Track("assets/audio/sandlands/sandlands_SL_16_OWL.mp3");
+		}
+		
+		private function tapSound(e:ViewEvent):void {
+			_tapSound.start();
+		}
+		
+		private function owlSound(e:ViewEvent):void {
+			_owlSound.start();
 		}
 		
 		private function hideStone():void {
@@ -171,6 +196,7 @@ package games.sandlands
 		private function stopGame():void {
 			_gameTimer.stop();
 			_bgMusic.stop(true);
+			_bgSound.stop(true);
 		}
 		
 		

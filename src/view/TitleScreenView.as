@@ -5,6 +5,8 @@ package view
 	import com.greensock.easing.Quad;
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -27,6 +29,8 @@ package view
 		private var _SAL:SWFAssetLoader;
 		private var _helpWanted:MovieClip;
 		private var _continueBtn:MovieClip;
+		private var _screenshotBMD:BitmapData;
+		private var _screenshotBMP:Bitmap;
 		
 		public function TitleScreenView()
 		{
@@ -61,15 +65,21 @@ package view
 			_continueBtn.addEventListener(MouseEvent.CLICK, continueClick);
 			
 			_helpWanted.mask_mc.cacheAsBitmap = true;
-			_helpWanted.text_mc.cacheAsBitmap = true;
-			_helpWanted.text_mc.mask = _helpWanted.mask_mc;
-			
+			_helpWanted.description_mc.cacheAsBitmap = true;
+			_helpWanted.description_mc.mask = _helpWanted.mask_mc;
+			_helpWanted.mask_mc.alpha = 1;
+			_helpWanted.description_mc.visible = false;
 			
 			addChild(_mc);
 		}
 		
 		public function destroy():void
 		{
+			_screenshotBMD.dispose();
+			_screenshotBMD = null;
+			
+			_screenshotBMP = null;
+			
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			
@@ -114,12 +124,13 @@ package view
 			
 			TweenMax.killTweensOf(_sun);
 			_fog1.visible = true;
-			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
+//			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:fadeDownParts});
+			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:takeScreenshot});
 //			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_mc, .2, {alpha:0, delay:2.4});
 			
-			TweenMax.delayedCall(2.0, showHelp);
+//			TweenMax.delayedCall(2.0, showHelp);
 		}		
 		
 //		WTF!!!!! for some reason this function was causing swf to not UNLOAD!!!
@@ -134,29 +145,53 @@ package view
 		}
 		
 		
+		private function takeScreenshot():void {
+			_screenshotBMD = new BitmapData(stage.stageWidth, stage.stageHeight, false, 0);
+			_screenshotBMP = new Bitmap(_screenshotBMD);
+			_screenshotBMD.draw(_mc);
+			
+			_mc.addChild(_screenshotBMP);
+			
+			_mc.removeChild(_mc.bg_mc);
+			_mc.removeChild(_sun);
+			_mc.removeChild(_fog1);
+			_mc.removeChild(_beginBtn);
+			
+			//put this back on top
+			_mc.addChild(_helpWanted);
+			
+			showHelp();
+		}
+		
 		private function showHelp():void {
-			_helpWanted.mask_mc.alpha = 1;
-			
-			TweenMax.to(_helpWanted, 1, {autoAlpha:1});
-			
+			TweenMax.to(_helpWanted, .6, {autoAlpha:1, onComplete:animateLines});
+		}
+		
+		private function animateLines():void {
 			var offX:int = _helpWanted.mask_mc.line1_mc.x - _helpWanted.mask_mc.line1_mc.width;
 			
-			TweenMax.from(_helpWanted.mask_mc.line1_mc, 2, {x:offX, delay:1.2});
+			TweenMax.from(_helpWanted.mask_mc.line1_mc, 2, {x:offX, delay:1});
 			TweenMax.from(_helpWanted.mask_mc.line2_mc, 2, {x:offX, delay:3.0});
 			TweenMax.from(_helpWanted.mask_mc.line3_mc, 2.4, {x:offX, delay:4.6});
 			TweenMax.from(_helpWanted.mask_mc.line4_mc, 2.5, {x:offX, delay:6.5});
 			TweenMax.from(_helpWanted.mask_mc.line5_mc, 2, {x:offX, delay:8.4});
 			
-			
+			_helpWanted.description_mc.visible = true;
+		}
+		
+		private function fadeDownParts():void {
+//			TweenMax.allTo([_mc.bg_mc, _sun], .6, {autoAlpha:0, onComplete:nextScreen});
+			TweenMax.allTo([_mc.bg_mc, _sun, _fog1, _beginBtn], .4, {autoAlpha:0}, 0, showHelp);
 		}
 		
 		private function continueClick(e:MouseEvent):void {
+			TweenMax.killAll();
+//			TweenMax.to(_mc.bg_mc, .6, {alpha:0}); 
+//			TweenMax.to(_sun, .6, {alpha:0}); 
+//			TweenMax.to(_mc, .6, {autoAlpha:0, onComplete:nextScreen}); THIS WOULD CAUSE THE SWF TO NOT UNLOAD
+			TweenMax.to(_mc, .6, {autoAlpha:0});
 			
-			TweenMax.to(_mc.bg_mc, .6, {alpha:0}); 
-			TweenMax.to(_sun, .6, {alpha:0}); 
-			TweenMax.to(_mc, .6, {alpha:0});
-			
-			TweenMax.delayedCall(.6, nextScreen);
+			TweenMax.delayedCall(.5, nextScreen);
 		}
 		
 		private function nextScreen() : void {

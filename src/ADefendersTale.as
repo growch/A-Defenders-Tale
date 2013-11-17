@@ -19,6 +19,8 @@ package
 	
 	import model.DataModel;
 	
+	import net.hires.debug.Stats;
+	
 	import util.Formats;
 	import util.Logger;
 	import util.Text;
@@ -108,8 +110,8 @@ package
 		{
 			_vc = new ViewController( MovieClip(this) );
 			
-//			var stats:Stats = new Stats();
-//			addChild(stats);
+			var stats:Stats = new Stats();
+			addChild(stats);
 			
 			_dm.removeEventListener( ApplicationEvent.APP_DATA_LOADED, onApplicationDataLoaded );
 		}

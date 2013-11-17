@@ -67,6 +67,7 @@ package games.sandlands.objects
 						TweenMax.to(_object, .2, {x:_ogX, ease:Quad.easeInOut, delay:.5});
 					}
 					});
+					EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SAND_GAME_OWL_SOUND));
 					break;
 				}
 				
@@ -81,6 +82,7 @@ package games.sandlands.objects
 						TweenMax.to(_object, .3, {rotation:_ogR, ease:Quad.easeInOut, delay:.5});
 					}
 					});
+					EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SAND_GAME_CLICK_SOUND));
 					break;
 				}
 					
@@ -95,6 +97,7 @@ package games.sandlands.objects
 						TweenMax.to(_object, .2, {y:_ogY, ease:Quad.easeInOut, delay:.5});
 					}
 					});
+					EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SAND_GAME_CLICK_SOUND));
 					break;
 				}	
 					
@@ -109,6 +112,7 @@ package games.sandlands.objects
 						TweenMax.to(_object, .2, {rotation:_ogR, ease:Quad.easeInOut, delay:.5});
 					}
 					});
+					EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SAND_GAME_CLICK_SOUND));
 					break;
 				}	
 					
@@ -123,6 +127,7 @@ package games.sandlands.objects
 						TweenMax.to(_object, .2, {y:_ogY, ease:Quad.easeInOut, delay:.5});
 					}
 					});
+					EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SAND_GAME_CLICK_SOUND));
 					break;
 				}
 					
@@ -137,6 +142,7 @@ package games.sandlands.objects
 						TweenMax.to(_object, .25, {y:_ogY, ease:Quad.easeInOut, delay:.5});
 					}
 					});
+					EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SAND_GAME_CLICK_SOUND));
 					break;
 				}	
 					

@@ -237,7 +237,7 @@ package view.prologue
 			addChild(_dragVCont);
 			
 			if (_weaponInt == 2) {
-				DataModel.getInstance().oceanSound();
+				DataModel.getInstance().oceanLoop();
 			} else {
 				_squidSound = new Track("assets/audio/prologue/prologue_squid.mp3");
 				_squidSound.start();
@@ -288,7 +288,7 @@ package view.prologue
 		
 		protected function squidSoundComplete(event:Event):void
 		{
-			DataModel.getInstance().oceanSound();
+			DataModel.getInstance().oceanLoop();
 		}
 		
 		private function playBallad():void {
@@ -298,7 +298,7 @@ package view.prologue
 		
 		protected function balladSoundComplete(event:Event):void
 		{
-			DataModel.getInstance().oceanSound();
+			DataModel.getInstance().oceanLoop();
 		}
 		
 		private function clickToShine(e:MouseEvent):void {

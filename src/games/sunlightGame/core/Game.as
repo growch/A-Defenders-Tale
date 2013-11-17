@@ -69,6 +69,7 @@ package games.sunlightGame.core
 		
 		private var _hitCount:int = 0;
 		private var _allowedHits:int = 3;
+		private var _cannonSound:Track;
 		
 		public function Game()
 		{
@@ -80,6 +81,9 @@ package games.sunlightGame.core
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, update);
 			}
+			
+			_mc.stopAllMovieClips();
+			TweenMax.killAll();
 			
 			stage.removeEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
 			stage.setOrientation( StageOrientation.DEFAULT );
@@ -172,8 +176,7 @@ package games.sunlightGame.core
 			stage.addEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
 //			stage.addEventListener(	StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging );
 			// didn't have to bother with the above, the below locks it in portrait mode
-//			stage.setAspectRatio(StageAspectRatio.PORTRAIT); 
-			
+//			stage.setAspectRatio(StageAspectRatio.PORTRAIT); SET IN default class
 			
 			//restack screens
 //			_mc.addChild(_mc.startGame_mc);
@@ -210,10 +213,12 @@ package games.sunlightGame.core
 			heroOn();
 			addEventListener(Event.ENTER_FRAME, update);
 			// audio
-			_bgMusic = new Track("assets/audio/games/sunlightGame/bg.mp3");
-//			_bgMusic.start(true);
-//			_bgMusic.loop = true;
+			_bgMusic = new Track("assets/audio/games/sunlightGame/capitol_GAME_MUSIC.mp3");
+			_bgMusic.start(true);
+			_bgMusic.loop = true;
+			_bgMusic.fadeAtEnd = true;
 			
+			_cannonSound = new Track("assets/audio/games/sunlightGame/capitol_CanonShoot.mp3");
 			
 			_gameTimer.start();
 			
@@ -229,6 +234,7 @@ package games.sunlightGame.core
 		{
 			fire = true;
 			bulletManager.fire();
+			_cannonSound.start();
 		}
 		
 		private function onUp(event:MouseEvent):void
@@ -253,6 +259,8 @@ package games.sunlightGame.core
 			_mc.stopAllMovieClips();
 			enemyManager.gameOver();
 			
+			_bgMusic.stop(true);
+			
 			if (winOrLose == "winner") {
 				_mc.gameWon_mc.visible = true;
 			} else {
@@ -260,6 +268,9 @@ package games.sunlightGame.core
 				DataModel.getInstance().endSound();
 			}
 			
+			
+			_mc.stopAllMovieClips();
+			TweenMax.killAll();
 		}
 		
 		public function gameCompleted():void
