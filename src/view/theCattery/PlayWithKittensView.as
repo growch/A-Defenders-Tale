@@ -26,7 +26,7 @@ package view.theCattery
 	import view.FrameView;
 	import view.IPageView;
 	
-	public class ThirdDoorView extends MovieClip implements IPageView
+	public class PlayWithKittensView extends MovieClip implements IPageView
 	{
 		private var _mc:MovieClip;
 		private var _dragVCont:DraggableVerticalContainer;
@@ -38,14 +38,14 @@ package view.theCattery
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		private var _scrolling:Boolean;
-		private var _ballAnimating:Boolean;
 		private var _bgSound:Track;
 		private var _endSound:Boolean;
-		private var _socialConnectInt:int;
+		private var _compTakenInt:int;
+		private var _endPlayed:Boolean;
 		
-		public function ThirdDoorView()
+		public function PlayWithKittensView()
 		{
-			_SAL = new SWFAssetLoader("theCattery.ThirdDoorMC", this);
+			_SAL = new SWFAssetLoader("theCattery.RefuseOfferMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
@@ -86,28 +86,16 @@ package view.theCattery
 			
 			_nextY = 110;
 			
-			_pageInfo = DataModel.appData.getPageInfo("thirdDoor");
+			_pageInfo = DataModel.appData.getPageInfo("playWithKittens");
 			_bodyParts = _pageInfo.body;
 			
-			_mc.ball_mc.visible = false;
-			_mc.end_mc.visible = false;
 			
-			//!!!! used later in FourthDoor
-			DataModel.thirdDoor = true;
+//			TESTING!!!!
+//			DataModel.COMPANION_TAKEN = true;
 			
 			// companion take or not
-			var compTakenInt:int = DataModel.COMPANION_TAKEN ? 0 : 1;
-//			1 = TRUE
-			
-//			TESTING!!!!
-//			compTakenInt = 0;
-//			
-			
-//			TESTING!!!!
-			DataModel.SOCIAL_CONNECTED = true;
-//			
-			_socialConnectInt = DataModel.SOCIAL_CONNECTED ? 1 : 0;
-			// 0 = TRUE
+			_compTakenInt = DataModel.COMPANION_TAKEN ? 0 : 1;
+//			0 = TRUE
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -115,8 +103,7 @@ package view.theCattery
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[compTakenInt][_socialConnectInt]);
-					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[_compTakenInt]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -135,10 +122,9 @@ package view.theCattery
 					
 					_nextY += _tf.height + part.top;
 					
-					if (part.id == "final" && _socialConnectInt == 0) {
+					if (part.id == "final") {
 						_mc.end_mc.y = _nextY + 40;
 						_nextY += _mc.end_mc.height + 20;
-						_mc.end_mc.visible = true;
 					}
 						
 				} else if (part.type == "image") {
@@ -156,17 +142,7 @@ package view.theCattery
 			
 			// decision
 			_nextY += _pageInfo.decisionsMarginTop
-//			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
-			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			
-			if (_socialConnectInt == 1) {
-				dv.push(_pageInfo.decisions[0]);
-				dv.push(_pageInfo.decisions[1]);
-			} else {
-				dv.push(_pageInfo.decisions[2]);
-				dv.push(_pageInfo.decisions[3]);
-			}
-			_decisions = new DecisionsView(dv,0x000000,true);
+			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
@@ -193,27 +169,15 @@ package view.theCattery
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			_mc.ball_mc.gotoAndStop(1);
-			_mc.ball_mc.visible = true;
-			_mc.ball_mc.play();
-			_ballAnimating = true;
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
-			if (_dragVCont.scrollY > _dragVCont.maxScroll && !_endSound && _socialConnectInt == 0) {
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_endPlayed) {
 				DataModel.getInstance().endSound();
-				_endSound = true;
-			}
-			
-			if (_ballAnimating) {
-				if (_mc.ball_mc.currentFrame == _mc.ball_mc.totalFrames) {
-					_mc.ball_mc.stop();
-					_mc.ball_mc.shadow_mc.stop();
-					_ballAnimating = false;
-				}
+				_endPlayed = true;
 			}
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {

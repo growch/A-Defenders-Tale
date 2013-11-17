@@ -85,6 +85,9 @@ package view.theCattery
 			_pageInfo = DataModel.appData.getPageInfo("refuseOffer");
 			_bodyParts = _pageInfo.body;
 			
+			//reusing the asset swf, this mc used in PlayWithKittens
+			_mc.paws_mc.visible = false;
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

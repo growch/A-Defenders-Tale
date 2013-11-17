@@ -53,6 +53,7 @@ package view
 				var firstName:String = fullName[0];
 				
 				DataModel.defenderInfo.contact = firstName; 
+				DataModel.SOCIAL_CONNECTED = false;
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CONTACT_SELECTED));
 			}
 		}
@@ -68,12 +69,14 @@ package view
 		
 		protected function facebookClick(event:MouseEvent):void
 		{
+			DataModel.SOCIAL_CONNECTED = true;
 			DataModel.SOCIAL_PLATFROM = DataModel.SOCIAL_FACEBOOK;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.LOGIN_FACEBOOK));	
 		}
 		
 		protected function twitterClick(event:MouseEvent):void
 		{
+			DataModel.SOCIAL_CONNECTED = true;
 			DataModel.SOCIAL_PLATFROM = DataModel.SOCIAL_TWITTER;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.LOGIN_TWITTER));	
 		}

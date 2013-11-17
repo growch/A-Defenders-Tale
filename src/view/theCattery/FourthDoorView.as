@@ -16,6 +16,7 @@ package view.theCattery
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.DecisionInfo;
 	import model.PageInfo;
 	import model.StoryPart;
 	
@@ -49,6 +50,7 @@ package view.theCattery
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
+		private var _thirdDoor:Boolean;
 		
 		public function FourthDoorView()
 		{
@@ -104,9 +106,8 @@ package view.theCattery
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
-			// companion take or not
-			var compTakenInt:int = DataModel.COMPANION_TAKEN ? 0 : 1;
-			
+			// IMPORTANT! used in KittenContact
+			DataModel.bleujeanna = true;
 			
 			_nextY = 110;
 			
@@ -130,6 +131,12 @@ package view.theCattery
 			//TESTING!!!
 //			_compAlongIndex = 0;
 			
+//			TESTING!!!
+//			DataModel.thirdDoor = true;
+//			
+			
+			_thirdDoor = DataModel.thirdDoor;
+			
 			var supplyIndex:int;
 			if (DataModel.supplies) {
 				supplyIndex = 0;
@@ -150,7 +157,11 @@ package view.theCattery
 					copy = StringUtil.replace(copy, "[companionComing2]", _pageInfo.companionComing2[_compAlongIndex]);
 					copy = StringUtil.replace(copy, "[companionComing3]", _pageInfo.companionComing3[_compAlongIndex]);
 					copy = StringUtil.replace(copy, "[companionComing4]", _pageInfo.companionComing4[_compAlongIndex]);
-					copy = StringUtil.replace(copy, "[companionComing5]", _pageInfo.companionComing5[_compAlongIndex]);
+					if (_thirdDoor) {
+						copy = StringUtil.replace(copy, "[companionComing5]", "");
+					} else {
+						copy = StringUtil.replace(copy, "[companionComing5]", _pageInfo.companionComing5[_compAlongIndex]);
+					}
 					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
@@ -202,7 +213,16 @@ package view.theCattery
 			
 			// decision
 			_nextY += _pageInfo.decisionsMarginTop
-			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
+//			_decisions = new DecisionsView(_pageInfo.decisions,0x000000,true); //tint it black, showBG
+			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
+			
+			if (_thirdDoor) {
+				dv.push(_pageInfo.decisions[0]);
+			} else {
+				dv.push(_pageInfo.decisions[1]);
+				dv.push(_pageInfo.decisions[2]);
+			}
+			_decisions = new DecisionsView(dv,0x000000,true);
 			_decisions.y = _nextY;
 			_mc.addChild(_decisions);
 			
@@ -253,7 +273,6 @@ package view.theCattery
 			_scissors.addEventListener(MouseEvent.CLICK, scissorClick);
 			_comb.addEventListener(MouseEvent.CLICK, combClick);
 			
-//			setTimeout(shineTime, 5000);
 		} 
 		
 		protected function scissorClick(event:MouseEvent):void
@@ -269,10 +288,8 @@ package view.theCattery
 		protected function shineTime():void
 		{
 			showShine(_scissors);
-//			setTimeout(showShine, 800, _comb);
 			TweenMax.delayedCall(.8, showShine, [_comb]);
 		}		
-		
 		
 		private function showShine(thisMC:MovieClip):void {
 			TweenMax.to(thisMC.shine_mc, 1, {y:thisMC.glow_mc.height+20, ease:Quad.easeIn, onComplete:function():void {thisMC.shine_mc.y = -240}});
@@ -309,11 +326,11 @@ package view.theCattery
 			}
 		}
 		
-		protected function clipMC(thisMC:MovieClip, thisHeight:int):void
-		{
-			thisMC.scrollRect = new Rectangle(0, 0, 768, thisHeight);
-			_dragVCont.refreshView(true);
-		}
+//		protected function clipMC(thisMC:MovieClip, thisHeight:int):void
+//		{
+//			thisMC.scrollRect = new Rectangle(0, 0, 768, thisHeight);
+//			_dragVCont.refreshView(true);
+//		}
 		
 		protected function decisionMade(event:ViewEvent):void
 		{

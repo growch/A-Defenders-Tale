@@ -57,6 +57,7 @@ package view.prologue
 		
 		protected function loggedInFacebook(event:ViewEvent):void
 		{
+//			_goViral.sendFacebookContactMessage("Help " + DataModel.defenderInfo.contact + "! I'm stuck in the Cellar!");
 			_goViral.postWallHelp();
 //			_goViral.postHelpFacebook();
 		}
