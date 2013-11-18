@@ -68,7 +68,7 @@ package games.sunlightGame.core
 		private var _energy:Energy;
 		
 		private var _hitCount:int = 0;
-		private var _allowedHits:int = 1;
+		private var _allowedHits:int = 5;
 		private var _cannonSound:Track;
 		
 		public function Game()

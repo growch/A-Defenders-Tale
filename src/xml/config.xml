@@ -2168,7 +2168,7 @@ The [companion] blinked as if waking from a deep sleep. “You’re right,” [c
 		</body>
 		<decisions top="100">
 			<decision id="theCattery.FourthDoorView"><![CDATA[CONTINUE]]></decision>
-			<decision id="theCattery.Rendezvous"><![CDATA[CONTINUE]]></decision>
+			<decision id="theCattery.RendezvousView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</kittenContact>
 <!-- ***			KITTEN CONTACT 			-->
