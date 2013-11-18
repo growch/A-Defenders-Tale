@@ -34,6 +34,9 @@ package view
 //			super();
 			
 //			addEventListener(Event.ADDED_TO_STAGE, init);
+			EventController.getInstance().addEventListener(ViewEvent.TAKE_SCREENSHOT, navOpen);
+			EventController.getInstance().addEventListener(ViewEvent.REMOVE_SCREENSHOT, navClosed);
+			
 			init();
 		}
 		
@@ -129,6 +132,16 @@ package view
 			butt.alpha = .5;
 		}
 		
+		protected function navOpen(event:Event):void
+		{
+			_mc.cacheAsBitmap = false;
+		}
+		
+		protected function navClosed(event:Event):void
+		{
+			_mc.cacheAsBitmap = true;
+		}
+		
 		public function destroy():void
 		{
 			for (var i:int = 0; i<_buttonArray.length; i++) {
@@ -139,6 +152,9 @@ package view
 				_mc.removeChild(butt);
 			}
 			removeChild(_mc);
+			
+			EventController.getInstance().removeEventListener(ViewEvent.TAKE_SCREENSHOT, navOpen);
+			EventController.getInstance().removeEventListener(ViewEvent.REMOVE_SCREENSHOT, navClosed);
 		}
 	}
 }
