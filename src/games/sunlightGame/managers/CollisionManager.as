@@ -3,6 +3,7 @@ package games.sunlightGame.managers
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.geom.Point;
 	
 	import games.sunlightGame.core.Game;
@@ -25,12 +26,23 @@ package games.sunlightGame.managers
 		private var yThresh:int = 25;
 		private var leftBlockDistance:int = 33;
 		private var rightBlockDistance:int;
+		private var _heroHitSound:Track;
+		private var _heroHeartSound:Track;
 		
 		public function CollisionManager(game:Game)
 		{
 			_game = game;
 			_enemHitSound = new Track("assets/audio/games/sunlightGame/capitol_LightPop.mp3");
+			_heroHitSound = new Track("assets/audio/games/sunlightGame/heroHit_laser.mp3");
+			_heroHeartSound = new Track("assets/audio/games/sunlightGame/heartbeat.mp3");
+			
+			_heroHitSound.addEventListener(Event.COMPLETE, heroHitComplete);
+			
 			_ea = _game.enemyManager.enemies;
+		}
+		
+		private function heroHitComplete(e:Event):void {
+			_heroHeartSound.start();
 		}
 		
 		public function update():void
@@ -56,6 +68,7 @@ package games.sunlightGame.managers
 			_ea = null;
 			_enemHit = null;
 			_enem = null;
+			_heroHitSound.removeEventListener(Event.COMPLETE, heroHitComplete);
 		}
 		
 		private function heroAndEnemies():void
@@ -66,15 +79,19 @@ package games.sunlightGame.managers
 			for(var i:int=len; i>=0; i--)
 			{
 				_enem = _ea[i];
-//				
 				_enemHit = _enem.hitMC;
-//				
-				if(_game.hero.hit1MC.hitTestObject(_enemHit))
-				{
-//					_game.gameOver("loser");
-					_game.heroHit();
-					return;
+				
+				if (!_enem.heroCollision) {
+					if(_game.hero.hit1MC.hitTestObject(_enemHit))
+					{
+						_enem.heroCollision = true;
+						_game.heroHit();
+						_heroHitSound.start();
+						return;
+					}
 				}
+//				
+				
 			}
 		}
 		

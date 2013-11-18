@@ -20,6 +20,7 @@ package games.sunlightGame.core
 	import games.sunlightGame.managers.CollisionManager;
 	import games.sunlightGame.managers.EnemyManager;
 	import games.sunlightGame.managers.ExplosionManager;
+	import games.sunlightGame.objects.Energy;
 	import games.sunlightGame.objects.GameLost;
 	import games.sunlightGame.objects.GameWon;
 	import games.sunlightGame.objects.Hero;
@@ -64,11 +65,10 @@ package games.sunlightGame.core
 		private var _speedTimer:int = 20000;
 		private var _glowingLight:MovieClip;
 		private var _underGlow:MovieClip;
-		private var _energyBar:MovieClip;
-		private var _energyBarWidth:int;
+		private var _energy:Energy;
 		
 		private var _hitCount:int = 0;
-		private var _allowedHits:int = 3;
+		private var _allowedHits:int = 1;
 		private var _cannonSound:Track;
 		
 		public function Game()
@@ -96,7 +96,7 @@ package games.sunlightGame.core
 			
 			_glowingLight = null;
 			_underGlow = null;
-			_energyBar = null;
+			_energy = null;
 			
 			_gameWon.destroy();
 			_gameLost.destroy();
@@ -160,8 +160,7 @@ package games.sunlightGame.core
 				blockArray.push(thisBlock);
 			}
 			
-			_energyBar = _mc.energy_mc;
-			_energyBarWidth = _energyBar.bar_mc.width;
+			_energy = new Energy(this, _mc.energy_mc);
 			
 			_glowingLight = _mc.machine_mc.glow_mc;
 			_glowingLight.alpha = 0;
@@ -290,12 +289,11 @@ package games.sunlightGame.core
 		{
 			_hitCount++;
 			// update energy bar
+			_energy.heroHit();
 			
-//			_energyBar.bar_mc.width = _energyBarWidth * (1 - _hitCount/_allowedHits);
-//			
-//			if (_hitCount > _allowedHits) {
+			if (_hitCount > _allowedHits-1) {
 				gameOver("LOSER");
-//			}
+			}
 		}
 	}
 }

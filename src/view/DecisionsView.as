@@ -42,6 +42,7 @@ package view
 //			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			_mc = new DecisionsMC();
+//			text would dissappear when taking screenshots
 			_mc.cacheAsBitmap = true;
 			_mc.stop();
 			

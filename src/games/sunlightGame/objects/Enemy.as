@@ -24,6 +24,7 @@ package games.sunlightGame.objects
 		private var _direction:Number;
 		private var count:int;
 		private var lateralDistance:Number = 3;
+		public var heroCollision:Boolean;
 		
 		public function Enemy()
 		{

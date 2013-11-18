@@ -165,6 +165,9 @@ package view
 //			trace("_mc.height: "+_mc.height);
 //			makeBitmap(_mc.height);
 			
+//			this was causing some frame pieces to not render on device?
+			
+//			_mc.cacheAsBitmap = true;
 		}
 		
 		private function getFromStockpile(thisMC:MovieClip):DisplayObject {
@@ -177,7 +180,6 @@ package view
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			//not doing this anymore cuz iPad1 top/bottom looked bad
 			//performance not an issue now that individually loading swfs
-			_mc.cacheAsBitmap = true;
 			return;
 			_mc.stage.quality = StageQuality.HIGH;
 //			trace("makeBitmap: h"+h);
