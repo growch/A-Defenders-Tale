@@ -2147,8 +2147,7 @@ The [companion] looked up from [companionPronoun3] game of string.
 
 The [companion] blinked as if waking from a deep sleep. “You’re right,” [companionPronoun1] said. “Let’s go.”
 ]]></true>
-			<false><![CDATA[“Goodbye kittens,” [defender] said. [Pronoun1] stopped to scratch a particularly fluffy black and white kitten behind the ears before leaving the room. 
-]]></false>
+			<false><![CDATA[“Goodbye kittens,” [defender] said. [Pronoun1] stopped to scratch a particularly fluffy black and white kitten behind the ears before leaving the room. ]]></false>
 		</companionComing1>
 		<companion1>
 			<companion><![CDATA[“But they really are so charming,” she clucked. ]]></companion>
@@ -2159,8 +2158,8 @@ The [companion] blinked as if waking from a deep sleep. “You’re right,” [c
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] sent a happy message to [contact], detailing out the many adorable traits of the kittens. [contact]’s response was immediate and to the point:]]>		</item>
 
-			<item type="image" id="message" width="" height="241" top="50" left="" size="" align="" leading="" file="assets/images/cattery/kittenContact_imageText1.png"/>
-			<item type="text" id="" width="575" height="" top="70" left="100" size="20" align="left" leading="10" file="">
+			<item type="image" id="" width="" height="241" top="50" left="" size="" align="" leading="" file="assets/images/cattery/kittenContact_imageText1.png"/>
+			<item type="text" id="" width="575" height="" top="50" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] realized [pronoun3] friend was right. [Pronoun1] couldn’t get distracted now. Besides, there were always kittens to admire on [socialNetwork] when [pronoun1] returned to [pronoun3] own realm.
 
 [companionComing1]

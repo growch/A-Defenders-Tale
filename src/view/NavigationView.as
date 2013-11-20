@@ -25,7 +25,8 @@ package view
 		private var _help:MovieClip;
 		private var _restart:MovieClip;
 		private var _about:MovieClip;
-		private var _contentsPanel:ContentsPanelView;
+//		private var _contentsPanel:ContentsPanelView;
+		public var contentsPanel:ContentsPanelView;
 		private var _aboutPanel:AboutPanelView;
 		
 		private var _navBtnArray:Array;
@@ -111,8 +112,8 @@ package view
 			_about.stop();
 //			
 			_contentsMC = _mc.contents_mc;
-			_contentsPanel = new ContentsPanelView();
-			_contentsMC.holder_mc.addChild(_contentsPanel);
+			contentsPanel = new ContentsPanelView();
+			_contentsMC.holder_mc.addChild(contentsPanel);
 			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
 			
 			_aboutMC = _mc.about_mc;

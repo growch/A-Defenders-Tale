@@ -199,7 +199,6 @@ package view.theCattery
 			
 		}
 		
-		
 		protected function decisionMade(event:ViewEvent):void
 		{
 			TweenMax.killAll();

@@ -47,11 +47,16 @@ package view.theCattery
 		{
 			_SAL = new SWFAssetLoader("theCattery.ThirdDoorMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
-			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
+			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DONE, messageDone);
+			EventController.getInstance().addEventListener(ViewEvent.TWITTER_DONE, messageDone);
 		}
 		
 		public function destroy() : void {
+//			
+			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DONE, messageDone);
+			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_DONE, messageDone);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -231,8 +236,29 @@ package view.theCattery
 		}
 		
 		
+		protected function messageDone(event:ViewEvent):void
+		{
+			var tempObj:Object = new Object();
+			tempObj.id = _pageInfo.decisions[0].id;
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+		}
+		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (event.data.id == "theCattery.KittenContactView") {
+				trace("I'm playing with kitens on A Defender's Tale!");
+				if (DataModel.getGoViral().isSupported) {
+					if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+						var msg:String = "Hey " + DataModel.defenderInfo.contactFullName + 
+							", I'm playing with kitens on A Defender's Tale!"
+						DataModel.getGoViral().postFacebookWall("I'm starting a great adventure!", msg);
+					} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+						DataModel.getTwitter().postTweet("Hey @" + DataModel.defenderInfo.twitterHandle + 
+							", I'm playing with kitens on A Defender's Tale!");
+					}
+				}
+				return;
+			}
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));

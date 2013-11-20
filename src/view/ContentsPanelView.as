@@ -95,6 +95,21 @@ package view
 			return pageFound;
 		}
 		
+		
+		public function pageVisited(pageID:String):Boolean {
+			var pageFound:Boolean = false;
+			
+			for (var i:int = 0; i < _pageArray.length; i++) 
+			{
+				_cpv = _pageArray[i] as ContentsPageView;
+				if (pageID == _cpv.pgInfo.contentPanelInfo.pageID) {
+					pageFound = true;
+				}
+			}
+			
+			return pageFound;
+		}
+		
 		public function scrollToBottom():void {
 			_dragVCont.scrollY = _dragVCont.maxScroll;
 		}
@@ -129,6 +144,9 @@ package view
 					_cpv.activate();
 					
 					if (DataModel.GOD_MODE) return;
+					
+					//
+					if (DataModel.getInstance().contentsPageSelected) return;
 					
 					removeOldPages(i+1);
 					return;

@@ -36,7 +36,6 @@ package view.prologue
 		private var _nextY:int;
 		private var _tf:Text;
 		private var _decisions:DecisionsView;
-		private var _goViral:GoViralService;
 		private var _frame:FrameView;
 		private var _magicSpacer:int = 210;
 		private var _pageInfo:PageInfo;
@@ -51,23 +50,15 @@ package view.prologue
 			_SAL = new SWFAssetLoader("prologue.Cellar1MC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
-			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
-			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
-		}
-		
-		protected function loggedInFacebook(event:ViewEvent):void
-		{
-//			_goViral.sendFacebookContactMessage("Help " + DataModel.defenderInfo.contact + "! I'm stuck in the Cellar!");
-			_goViral.postWallHelp();
-//			_goViral.postHelpFacebook();
+			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DONE, messageDone);
+			EventController.getInstance().addEventListener(ViewEvent.TWITTER_DONE, messageDone);
 		}
 		
 		public function destroy() : void {
 //			
 			_mc.companion_mc.removeEventListener(MouseEvent.CLICK, clickForSound);
-			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_CONTACT_RESPONSE, facebookContactResponded);
-			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
-			_goViral = null;
+			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DONE, messageDone);
+			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_DONE, messageDone);
 //			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
@@ -245,27 +236,41 @@ package view.prologue
 			}
 		}
 		
-		protected function facebookContactResponded(event:ViewEvent):void
+//		protected function facebookContactResponded(event:ViewEvent):void
+//		{
+//			var decY:int = _decisions.y;
+//			_decisions.destroy();
+//			_mc.removeChild(_decisions);
+//			
+//			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
+//			dv.push(_pageInfo.decisions[3]);
+//			_decisions = new DecisionsView(dv);
+//			_decisions.y = decY;
+//			_mc.addChild(_decisions);
+//			
+//			TweenMax.from(_decisions, 1, {alpha:0, delay:0});
+//		}
+		
+		protected function messageDone(event:ViewEvent):void
 		{
-			var decY:int = _decisions.y;
-			_decisions.destroy();
-			_mc.removeChild(_decisions);
-			
-			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			dv.push(_pageInfo.decisions[3]);
-			_decisions = new DecisionsView(dv);
-			_decisions.y = decY;
-			_mc.addChild(_decisions);
-			
-			TweenMax.from(_decisions, 1, {alpha:0, delay:0});
+			var tempObj:Object = new Object();
+			tempObj.id = _pageInfo.decisions[3].id;
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 		}
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
 			if (event.data.id == "FacebookNotifyView") {
-				_decisions.deactivateButton(0);
-				_goViral = DataModel.getGoViral();
-				_goViral.loginFacebook();
+				if (DataModel.getGoViral().isSupported) {
+					if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+						var msg:String = "Hey " + DataModel.defenderInfo.contactFullName + 
+							", I'm stuck in the Cellar of A Defender's Tale."
+						DataModel.getGoViral().postFacebookWall("I'm starting a great adventure!", msg);
+					} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+						DataModel.getTwitter().postTweet("Hey @" + DataModel.defenderInfo.twitterHandle + 
+							", I'm stuck in the Cellar of A Defender's Tale.");
+					}
+				}
 				return;
 			}
 			TweenMax.killAll();

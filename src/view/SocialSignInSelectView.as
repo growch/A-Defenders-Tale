@@ -69,6 +69,8 @@ package view
 		
 		protected function facebookClick(event:MouseEvent):void
 		{
+			if (!DataModel.getInstance().networkConnection()) return;
+			
 			DataModel.SOCIAL_CONNECTED = true;
 			DataModel.SOCIAL_PLATFROM = DataModel.SOCIAL_FACEBOOK;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.LOGIN_FACEBOOK));	
@@ -76,6 +78,8 @@ package view
 		
 		protected function twitterClick(event:MouseEvent):void
 		{
+			if (!DataModel.getInstance().networkConnection()) return;
+			
 			DataModel.SOCIAL_CONNECTED = true;
 			DataModel.SOCIAL_PLATFROM = DataModel.SOCIAL_TWITTER;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.LOGIN_TWITTER));	

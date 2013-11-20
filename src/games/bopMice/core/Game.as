@@ -144,6 +144,15 @@ package games.bopMice.core
 			
 			addAssets();
 			
+			enemyManager = new EnemyManager(_mc.mice_mc);
+			collisionManager = new CollisionManager(this);
+			explosionManager = new ExplosionManager(this);
+			
+			hero = new Hero(this, _mallet);
+			
+			// audio
+			_bgMusic = new Track("assets/audio/games/bopMice/bg.mp3");
+			
 			//restack screens
 			_mc.addChild(_mc.startGame_mc);
 			_mc.addChild(_mc.tryAgain_mc);
@@ -179,18 +188,11 @@ package games.bopMice.core
 		public function startGame():void {
 			_mc.startGame_mc.visible = false;
 			
-			enemyManager = new EnemyManager(_mc.mice_mc);
-			collisionManager = new CollisionManager(this);
-			explosionManager = new ExplosionManager(this);
-			
-			hero = new Hero(this, _mallet);
-			
 			_countdownClock.startClock();
 			_gameTimer.start();
 			malletOn();
 			addEventListener(Event.ENTER_FRAME, update);
-			// audio
-			_bgMusic = new Track("assets/audio/games/bopMice/bg.mp3");
+			
 			_bgMusic.start(true);
 			_bgMusic.loop = true;
 			

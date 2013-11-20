@@ -41,6 +41,7 @@ package view
 			EventController.getInstance().addEventListener(ViewEvent.LOGIN_TWITTER, loginTwitter);
 			EventController.getInstance().addEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
 			EventController.getInstance().addEventListener(ViewEvent.TWITTER_DONE, twitterDone);
+			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DONE, facebookDone);
 			EventController.getInstance().addEventListener(ViewEvent.CLOSE_TWITTER_OVERLAY, removeTwitterOverlay);
 		}
 		
@@ -61,7 +62,7 @@ package view
 			_twitterSelect = new SocialTwitterView(_twitterMC);
 			_twitterMC.visible = false;
 			
-			TweenMax.from(_mc, 1, {alpha:0, onComplete:initGV}); 
+			TweenMax.from(_mc, .5, {alpha:0, onComplete:initGV}); 
 			addChild(_mc);
 		}
 		
@@ -78,10 +79,12 @@ package view
 		{
 			if (_goViral.isSupported) {
 				if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
-					//				_goViral.getMeFacebook();
-					//				_goViral.getFriendsFacebook();
+					var msg:String = "Hey " + DataModel.defenderInfo.contactFullName + 
+						", I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side."
+					_goViral.postFacebookWall("I'm starting a great adventure!", msg);
 				} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
-					DataModel.getTwitter().postTweet("Hey, I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side.");
+					DataModel.getTwitter().postTweet("Hey @" + DataModel.defenderInfo.twitterHandle + 
+						", I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side.");
 				}
 			} else {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));
@@ -152,6 +155,11 @@ package view
 		{
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));
 		}	
+
+		protected function facebookDone(event:ViewEvent):void
+		{
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));
+		}	
 		
 		protected function removeTwitterOverlay(event:Event):void
 		{
@@ -206,7 +214,6 @@ package view
 			_contactSelect = null;
 			_twitterSelect = null;
 			
-//			_goViral.dispose();
 			EventController.getInstance().removeEventListener(ViewEvent.LOGIN_FACEBOOK, loginFacebook);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, showFriends);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DEFENDER_INFO, addFBName);
@@ -216,6 +223,7 @@ package view
 			EventController.getInstance().removeEventListener(ViewEvent.LOGIN_TWITTER, loginTwitter);
 			EventController.getInstance().removeEventListener(ViewEvent.CONTACT_SELECTED, contactSelected);
 			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_DONE, twitterDone);
+			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DONE, facebookDone);
 			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_TWITTER_OVERLAY, removeTwitterOverlay);
 			
 			removeChild(_mc);

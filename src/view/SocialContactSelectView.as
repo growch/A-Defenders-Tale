@@ -205,6 +205,7 @@ package view
 				
 				DataModel.defenderInfo.contact = firstName;
 				DataModel.defenderInfo.contactFullName = thisFriend.fullName;
+				DataModel.defenderInfo.twitterHandle = thisFriend.screenName;
 			}
 			
 		}

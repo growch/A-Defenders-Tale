@@ -176,7 +176,7 @@ package view
 			
 			if (DataModel.ISLAND_SELECTED.length <= 1) {
 //				TESTING!!!!
-//				tempObj.id = "prologue.CrossSeaView";
+				tempObj.id = "prologue.CrossSeaView";
 			}
 			
 			TweenMax.killAll();
