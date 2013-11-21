@@ -97,6 +97,7 @@
 			//		CUSTOM !!!!
 			EventController.getInstance().addEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, nextPage);
+			EventController.getInstance().addEventListener(ViewEvent.SHOW_PAGE, nextPage);
 		}
 		
 //		CUSTOM !!!!
@@ -113,6 +114,7 @@
 		public function destroy():void {
 			EventController.getInstance().removeEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, nextPage);
+			EventController.getInstance().removeEventListener(ViewEvent.SHOW_PAGE, nextPage);
 		}
 		
 		
