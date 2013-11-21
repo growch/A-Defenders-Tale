@@ -44,6 +44,8 @@ package view
 		}
 		
 		public function destroy() : void {
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
 			_catteryBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_sandlandsBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_joylessBtn.removeEventListener(MouseEvent.CLICK, islandClick);
@@ -80,6 +82,8 @@ package view
 		private function init(e:Event) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
+			
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_catteryBtn = _mc.cattery_btn;
 			_catteryBtn.mouseChildren = false;
@@ -184,9 +188,15 @@ package view
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MAP_SELECT_ISLAND));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
-			
-			
 		}
+		
+		protected function decisionMade(event:ViewEvent):void
+		{
+			TweenMax.killAll();
+			_mc.stopAllMovieClips();
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
+		}
+		
 		
 	}
 }

@@ -37,7 +37,8 @@ package view
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.ADD_CONTENTS_PAGE, onNewPageAdd); 
-			EventController.getInstance().addEventListener(ViewEvent.DEACTIVATE_OTHER_PAGES, deactivateNonSelected); 
+//			EventController.getInstance().addEventListener(ViewEvent.DEACTIVATE_OTHER_PAGES, deactivateNonSelected); 
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, deactivateNonSelected); 
 		}
 		
 		protected function init(event:Event):void
@@ -73,7 +74,8 @@ package view
 			_loader = null;
 			pgInfo = null;
 			EventController.getInstance().removeEventListener(ViewEvent.ADD_CONTENTS_PAGE, onNewPageAdd); 
-			EventController.getInstance().removeEventListener(ViewEvent.DEACTIVATE_OTHER_PAGES, deactivateNonSelected);
+//			EventController.getInstance().removeEventListener(ViewEvent.DEACTIVATE_OTHER_PAGES, deactivateNonSelected);
+			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, deactivateNonSelected);
 			_mc.removeEventListener(MouseEvent.CLICK, pageClick);
 			removeChild(_mc);
 			_mc = null;
@@ -95,7 +97,7 @@ package view
 //			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_GLOBAL_NAV));
 //			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DEACTIVATE_OTHER_PAGES, tempObj));
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DEACTIVATE_OTHER_PAGES, tempObj));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_GLOBAL_NAV));
 		}
 		

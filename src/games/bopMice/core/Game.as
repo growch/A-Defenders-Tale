@@ -140,8 +140,6 @@ package games.bopMice.core
 			_gameTimer = new Timer(1000);
 			_gameTimer.addEventListener(TimerEvent.TIMER, timerTick);
 			
-			addChild(_mc);
-			
 			addAssets();
 			
 			enemyManager = new EnemyManager(_mc.mice_mc);
@@ -154,10 +152,13 @@ package games.bopMice.core
 			_bgMusic = new Track("assets/audio/games/bopMice/bg.mp3");
 			
 			//restack screens
-			_mc.addChild(_mc.startGame_mc);
+			
 			_mc.addChild(_mc.tryAgain_mc);
 			_mc.addChild(_mc.gameWon_mc);
 			_mc.addChild(_mc.frame_mc);
+			_mc.addChild(_mc.startGame_mc);
+			
+			addChild(_mc);
 		}
 		
 		private function addAssets():void

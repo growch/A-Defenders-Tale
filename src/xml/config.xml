@@ -9,7 +9,7 @@
 <!-- 			PROLOGUE 			-->
 	<prologue id="PrologueView">
 		<contents id="prologue.PrologueView" image="assets/images/prologue/contents/PrologueView_thumbnail.jpg">
-			<title><![CDATA[The curtain of night]]></title>
+			<title><![CDATA[The Beginning]]></title>
 		</contents> 
 		<wardrobe1>
 			<male>
@@ -77,7 +77,7 @@ But in the meantime, [defender] had somewhere to be, and time was running out. [
 <!-- 			COIN1 			-->
 	<coin1 id="Coin1View">
 		<contents id="prologue.coins.Coin1View" image="assets/images/prologue/contents/Coin1View_thumbnail.jpg">
-			<title><![CDATA[The mysterious beggar]]></title>
+			<title><![CDATA[The Mysterious Beggar]]></title>
 		</contents> 
 		<companion1>
 			<companion><![CDATA[The ostrich yawned. “You’re the Defender,” Oonie said, and stuck her head under her wing.]]></companion>
@@ -113,7 +113,7 @@ The man nodded. “The very same. There was a time when the prince was our champ
 <!-- 			COIN2 			-->	
 	<coin2 id="Coin2View">
 		<contents id="prologue.coins.Coin2View" image="assets/images/prologue/contents/Coin2View_thumbnail.jpg">
-			<title><![CDATA[Knock knock]]></title>
+			<title><![CDATA[The Mysterious Beggar Continues]]></title>
 		</contents> 
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -146,7 +146,7 @@ The man took a long pull from the bottle. “Thank you, stranger,” he said. �
 <!-- 			COIN3			-->	
 	<coin3 id="Coin3View">
 		<contents id="prologue.coins.Coin3View" image="assets/images/prologue/contents/Coin3View_thumbnail.jpg">
-			<title><![CDATA[Coin3View]]></title>
+			<title><![CDATA[And Continues Some More]]></title>
 		</contents> 
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -179,7 +179,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 <!-- 			COIN4			-->	
 	<coin4 id="Coin4View">
 		<contents id="prologue.coins.Coin4View" image="assets/images/prologue/contents/Coin4View_thumbnail.jpg">
-			<title><![CDATA[Coin4View]]></title>
+			<title><![CDATA[The Joke]]></title>
 		</contents>
 		<gender1>
 			<gender><![CDATA[dashing]]></gender>
@@ -212,7 +212,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 <!-- 			COIN5			-->	
 	<coin5 id="Coin5View">
 		<contents id="prologue.coins.Coin5View" image="assets/images/prologue/contents/Coin5View_thumbnail.jpg">
-			<title><![CDATA[Coin5View]]></title>
+			<title><![CDATA[Another Joke]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -239,7 +239,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 <!-- 			COIN6			-->	
 	<coin6 id="Coin6View">
 		<contents id="prologue.coins.Coin6View" image="assets/images/prologue/contents/Coin6View_thumbnail.jpg">
-			<title><![CDATA[Coin6View]]></title>
+			<title><![CDATA[And Another Joke]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="20" file="">
@@ -264,7 +264,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 <!-- 			COIN7			-->	
 	<coin7 id="Coin7View">
 		<contents id="prologue.coins.Coin7View" image="assets/images/prologue/contents/Coin7View_thumbnail.jpg">
-			<title><![CDATA[Coin7View]]></title>
+			<title><![CDATA[Say Knock Knock]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="20" file="">
@@ -288,7 +288,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 <!-- 			DOCKS			-->
 	<docks id="DocksView">
 		<contents id="prologue.DocksView" image="assets/images/prologue/contents/DocksView_thumbnail.jpg">
-			<title><![CDATA[DocksView]]></title>
+			<title><![CDATA[A Visit to the Docks]]></title>
 		</contents>
 		<alms>
 			<alm id="no"><![CDATA[“I am sorry, sir,” [defender] said. “I wish I could help you, but I have little coin myself, and am late to meet someone. Good luck to you.”]]></alm>
@@ -329,7 +329,7 @@ As the figure rose, [pronoun1] realized it was a tiny woman. She barely reached 
 <!-- 			STEAL			-->
 	<steal id="StealView">
 		<contents id="prologue.StealView" image="assets/images/prologue/contents/StealView_thumbnail.jpg">
-			<title><![CDATA[StealView]]></title>
+			<title><![CDATA[Commandeering the Boat]]></title>
 		</contents>
 		<weapon1>
 			<weapon><![CDATA[slashed [pronoun3] Marrotti Blade through the air just in case there was any confusion. ]]></weapon>
@@ -479,7 +479,7 @@ But [defender] was not to be deterred. [Pronoun1] [weapon3]]]>
 <!-- 			NEGOTIATE			-->	
 	<negotiate id="NegotiateView">
 		<contents id="prologue.NegotiateView" image="assets/images/prologue/contents/NegotiateView_thumbnail.jpg">
-			<title><![CDATA[NegotiateView]]></title>
+			<title><![CDATA[The Negotiations]]></title>
 		</contents>
 		<coins>
 			<coin id="some"><![CDATA[[defender] opened [pronoun3] pack to scoop out [pronoun3] last coins, holding them out to the captain for inspection. [Pronoun1]’d spent most of it while talking to the old man and now had little money left.]]></coin>
@@ -550,14 +550,14 @@ Without further ado, Captain Cleapeezious Sandowskly climbed the ladder along th
 		</body>
 		<decisions top="60">
 			<decision id="prologue.SuppliesView"><![CDATA[GO TO TOWN]]></decision>
-			<decision id="prologue.BoatIntroView"><![CDATA[GO ABOARD]]></decision>
+			<decision id="prologue.BoatView"><![CDATA[GO ABOARD]]></decision>
 		</decisions>
 	</negotiate>
 <!-- 			***NEGOTIATE			-->	
 <!-- 			SUPPLIES 			-->
 	<supplies id="SuppliesView">
 		<contents id="prologue.SuppliesView" image="assets/images/prologue/contents/SuppliesView_thumbnail.jpg">
-			<title><![CDATA[SuppliesView]]></title>
+			<title><![CDATA[A Visit to the Town]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[He looked at [defender] and Oonie suspiciously. ]]></companion>
@@ -589,7 +589,7 @@ Without further ado, Captain Cleapeezious Sandowskly climbed the ladder along th
 <!-- 			TRAVELER 			-->
 	<traveler id="TravelerView">
 		<contents id="prologue.TravelerView" image="assets/images/prologue/contents/TravelerView_thumbnail.jpg">
-			<title><![CDATA[TravelerView]]></title>
+			<title><![CDATA[A Case of Concealed Identity]]></title>
 		</contents>
 		<body>
 			<item type="text" id="topSection" width="375" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -624,7 +624,7 @@ From behind the door a man’s voice yelled back. “And ye will at that, strang
 <!-- 			CELLAR1 			-->
 	<cellar1 id="Cellar1View">
 		<contents id="prologue.TravelerView" image="assets/images/prologue/contents/Cellar1View_thumbnail.jpg">
-			<title><![CDATA[Cellar1View]]></title>
+			<title><![CDATA[Inspecting the Cellar]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[“You attempted to best one of the fiercest sea captains this realm has ever known,” Oonie said with a sigh. “She gave us to a group of villagers to look after until she could come back to talk to you.”]]></companion>
@@ -681,7 +681,7 @@ The orcs had arrived.]]>
 		<decisions top="60">
 			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="prologue.PrologueView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</cellar1>
@@ -689,7 +689,7 @@ The orcs had arrived.]]>
 <!-- 			CELLAR2 			-->
 	<cellar2 id="Cellar2View">
 		<contents id="prologue.Cellar2View" image="assets/images/prologue/contents/Cellar2View_thumbnail.jpg">
-			<title><![CDATA[Cellar2View]]></title>
+			<title><![CDATA[Consulting the Emergency Contact ]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[
@@ -794,7 +794,7 @@ The orcs had arrived.]]>
 		<decisions top="60">
 			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="prologue.PrologueView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</cellar2>	
@@ -802,7 +802,7 @@ The orcs had arrived.]]>
 <!-- 			TRUTH 			-->
 	<truth id="TruthView">
 		<contents id="prologue.TruthView" image="assets/images/prologue/contents/TruthView_thumbnail.jpg">
-			<title><![CDATA[TruthView]]></title>
+			<title><![CDATA[The Announcement]]></title>
 		</contents>
 		<wardrobe1>
 			<wardrobe><![CDATA[bowed deeply, sweeping [pronoun3] cloak around [pronoun2].]]></wardrobe>
@@ -909,7 +909,7 @@ With that, [defender] stepped into the night, [pronoun3] companion at one side, 
 <!-- 			BOAT INTRO 			-->
 	<boatIntro id="BoatIntroView">
 		<contents id="prologue.BoatIntroView" image="assets/images/prologue/contents/BoatIntroView_thumbnail.jpg">
-			<title><![CDATA[BoatIntroView]]></title>
+			<title><![CDATA[A Second Chance]]></title>
 		</contents>
 		<captainBattled>
 			<captainBattle><![CDATA[Luckily, not only had [contact] negotiated [defender]’s freedom from the cellar, [contactPronoun1]’d also arranged passage onto the captain’s ship. Little had [defender] known that Captain Cleapeezious Sandowskly was a staunch supporter of the realm. As [pronoun1] approached the docks and walked down the planked surface to the captain’s ship, [pronoun1] still couldn’t believe [pronoun1] had [weapon1]
@@ -952,7 +952,7 @@ After the townspeople had let [pronoun2] go, [defender] and [companionName] had 
 <!-- 			BOAT 			-->
 	<boat id="BoatView">
 		<contents id="prologue.BoatView" image="assets/images/prologue/contents/BoatView_thumbnail.jpg">
-			<title><![CDATA[BoatView]]></title>
+			<title><![CDATA[The Stormin' Norman]]></title>
 		</contents>
 		<wardrobe1>
 			<wardrobe><![CDATA[held [pronoun3] cloak in one hand as]]></wardrobe>
@@ -968,7 +968,7 @@ After the townspeople had let [pronoun2] go, [defender] and [companionName] had 
 			<item type="text" id="" width="575" height="" top="150" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] [wardrobe1] [pronoun1] climbed the Stormin’ Norman’s ladder and stepped onto the deck. Even in the moonlight, [pronoun1] could see that the deck’s wooden surface gleamed. Above [pronoun3] head, ropes crisscrossed the sky. Several wooden barrels were scattered across the surface, with someone sitting on top of one. Whistling, if [pronoun1] wasn’t mistaken. The figure was too big to be the captain, but there was no one else in sight, so [pronoun1] and [companionName] walked toward the barrels. It was a man, [defender] realized as they approached. A large man, who stood as they drew near.
 
-				The man towered above [defender] and [companionName]. His height was amplified by his orange kilt and matching life vest. It strained across his broad chest. He took a moment to loosen one of its straps before giving [defender] a curt nod. “You must be the Defender, then. I’m the Cap’n’s first mate, Smeg.” He held out a second life vest.]]> 			
+The man towered above [defender] and [companionName]. His height was amplified by his orange kilt and matching life vest. It strained across his broad chest. He took a moment to loosen one of its straps before giving [defender] a curt nod. “You must be the Defender, then. I’m the Cap’n’s first mate, Smeg.” He held out a second life vest.]]> 			
 			</item>
 			<item type="image" id="" width="" height="119" top="40" left="" size="" align="" leading="" file="assets/images/prologue/boat_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
@@ -985,7 +985,7 @@ After the townspeople had let [pronoun2] go, [defender] and [companionName] had 
 <!-- 			BELOW DECK 			-->
 	<belowDeck id="BelowDeckView">
 		<contents id="prologue.BelowDeckView" image="assets/images/prologue/contents/BelowDeckView_thumbnail.jpg">
-			<title><![CDATA[BelowDeckView]]></title>
+			<title><![CDATA[Smeg the Kilted]]></title>
 		</contents>
 		<body>
 			<item type="text" id="mugs" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -1033,7 +1033,7 @@ Smeg picked up a mug and filled it with the frothy beverage.]]>
 <!-- 			CROSS SEA 			-->
 	<crossSea id="CrossSeaView">
 		<contents id="prologue.CrossSeaView" image="assets/images/prologue/contents/CrossSeaView_thumbnail.jpg">
-			<title><![CDATA[CrossSeaView]]></title>
+			<title><![CDATA[Ships Ahoy]]></title>
 		</contents>
 		<supplies>
 			<true><![CDATA[“No thank you,” [defender] replied. “The villagers were kind enough to supply me and [companionName] with rations.” [Pronoun1] dug around in [pronoun3] travel pack, pulling out a peanut butter and jelly sandwich. “Would you care for one?” 
@@ -1085,7 +1085,7 @@ Smeg nodded. “And will you be needing supplies? The captain says to help yours
 <!-- 			SEA MONSTER 			-->
 	<seaMonster id="SeaMonsterView">
 		<contents id="prologue.SeaMonsterView" image="assets/images/prologue/contents/SeaMonsterView_thumbnail.jpg">
-			<title><![CDATA[SeaMonsterView]]></title>
+			<title><![CDATA[The Giant Sea Squid]]></title>
 		</contents>
 		<gender1>
 			<gender><![CDATA[adventurer]]></gender>
@@ -1118,7 +1118,7 @@ Smeg nodded. “And will you be needing supplies? The captain says to help yours
 <!-- 			REASON 			-->
 	<reason id="ReasonView">
 		<contents id="prologue.ReasonView" image="assets/images/prologue/contents/ReasonView_thumbnail.jpg">
-			<title><![CDATA[ReasonView]]></title>
+			<title><![CDATA[A Peaceful Solution]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -1154,7 +1154,7 @@ The squid hesitated, scratching its giant head with a muscular tentacle. “That
 <!-- 			FIGHT 			-->
 	<fight id="FightView">
 		<contents id="prologue.FightView" image="assets/images/prologue/contents/FightView_thumbnail.jpg">
-			<title><![CDATA[FightView]]></title>
+			<title><![CDATA[En Garde!]]></title>
 		</contents>
 		<weapon1>
 			<weapon><![CDATA[[supplies]]]></weapon>
@@ -1359,7 +1359,7 @@ This time, when [defender] closed [pronoun3] eyes, it was to the sound of applau
 <!-- 			INTRO ALL ISLANDS 			-->
 	<introAllIslands id="IntroAllIslandsView">
 		<contents id="prologue.IntroAllIslandsView" image="assets/images/prologue/contents/IntroAllIslandsView_thumbnail.jpg">
-			<title><![CDATA[IntroAllIslandsView]]></title>
+			<title><![CDATA[The Barrier Islands]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[shaking the ostrich’s hammock strung beside [pronoun2].]]></companion>
@@ -1418,8 +1418,8 @@ The [companion2]
 <!-- 			MAP 			-->
 	<map id="MapView">
 		<contents id="MapView" image="assets/images/common/contents/MapView_thumbnail.jpg">
-			<title><![CDATA[Map of All the Islands]]></title>
-			<body><![CDATA[What should this copy be if anything?]]></body>
+			<title><![CDATA[The Map]]></title>
+			<body><![CDATA[The Barrier Islands Explained]]></body>
 		</contents>
 	</map>
 <!-- ***		MAP 			-->		
@@ -1427,7 +1427,7 @@ The [companion2]
 <!-- 			ISLAND 1 			-->
 	<island1 id="Island1View">
 		<contents id="theCattery.Island1View" image="assets/images/prologue/contents/Island1View_thumbnail.jpg">
-			<title><![CDATA[Island1View]]></title>
+			<title><![CDATA[An Introduction to The Cattery]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[an ostrich. Cats have a certain weakness for birds.”
@@ -1474,7 +1474,7 @@ The captain handed [defender] the eyeglass and [pronoun1] peered through it. The
 <!-- 			CAT RANCH SHORE 			-->
 	<catRanchShore id="CatRanchShoreView">
 		<contents id="theCattery.CatRanchShoreView" image="assets/images/cattery/contents/CatRanchShoreView_thumbnail.jpg">
-			<title><![CDATA[CatRanchShoreView]]></title>
+			<title><![CDATA[Arriving to Shore]]></title>
 		</contents>
 		<companionComing1>
 			<true><![CDATA[“Let us be on our way, then,” [pronoun1] said. [defender] waved goodbye to the crew as [pronoun1] and the [companion] bounded down the plank.]]>
@@ -1552,7 +1552,7 @@ Once they were inside, the Persian gave [defender] a sharp glance. “Do you hav
 <!-- 			CATLING AFFAIRS 			-->
 	<catlingAffairs id="CatlingAffairsView">
 		<contents id="theCattery.CatlingAffairsView" image="assets/images/cattery/contents/CatlingAffairsView_thumbnail.jpg">
-			<title><![CDATA[CatlingAffairsView]]></title>
+			<title><![CDATA[The Director of Catling Affairs]]></title>
 		</contents>
 		<companionComing1>
 			<true><![CDATA[and finally, [companionName]]]>
@@ -1614,7 +1614,7 @@ The tabby nodded politely as he opened a thick book on his desk to flip through 
 <!-- 			BALL 			-->
 	<ball id="BallView">
 		<contents id="theCattery.BallView" image="assets/images/cattery/contents/BallView_thumbnail.jpg">
-			<title><![CDATA[BallView]]></title>
+			<title><![CDATA[An Afternoon at The Groomery]]></title>
 		</contents>
 		<companionComing1>
 			<true><![CDATA[s to see Monsieur Bleujeanna.”]]>
@@ -1679,7 +1679,7 @@ As [defender] walked down the hallway, [pronoun1] passed several closed doors. A
 <!-- 			FOURTH DOOR 			-->
 	<fourthDoor id="FourthDoorView">
 		<contents id="theCattery.FourthDoorView" image="assets/images/cattery/contents/FourthDoorView_thumbnail.jpg">
-			<title><![CDATA[FourthDoorView]]></title>
+			<title><![CDATA[Bleujeanna Dentata, Groom to the Stars]]></title>
 		</contents>
 		<companionComing1>
 			<true><![CDATA[
@@ -1774,7 +1774,7 @@ The cats were mesmerized by [pronoun3] companion, and several gathered to [compa
 <!-- 			RENDEVOUZ			-->
 	<rendezvous id="RendezvousView">
 		<contents id="theCattery.RendezvousView" image="assets/images/cattery/contents/RendezvousView_thumbnail.jpg">
-			<title><![CDATA[RendezvousView]]></title>
+			<title><![CDATA[Crossing the Island]]></title>
 		</contents>
 		<companionComing1>
 			<true><![CDATA[ and [companionName]]]>
@@ -1812,7 +1812,7 @@ The cat sighed. “The entire island is overwrought with a mouse problem. This t
 <!-- 			NO TRESPASSING			-->
 	<noTrespassing id="NoTrespassingView">
 		<contents id="theCattery.NoTrespassingView" image="assets/images/cattery/contents/NoTrespassingView_thumbnail.jpg">
-			<title><![CDATA[NoTrespassingView]]></title>
+			<title><![CDATA[No Trespassing]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -1831,7 +1831,7 @@ As [pronoun1] took another step, [pronoun1] felt an odd shortness of breath. The
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</noTrespassing>
 <!-- ***			NO TRESPASSING 			-->
@@ -1839,7 +1839,7 @@ As [pronoun1] took another step, [pronoun1] felt an odd shortness of breath. The
 <!-- 			FOLLOW			-->
 	<follow id="FollowView">
 		<contents id="theCattery.FollowView" image="assets/images/cattery/contents/FollowView_thumbnail.jpg">
-			<title><![CDATA[FollowView]]></title>
+			<title><![CDATA[Alphonse, the Vizier]]></title>
 		</contents>
 		<companionComing1>
 			<true><![CDATA[Vizier Alphonse turned his eyes toward [companionName]. He smiled as he licked a paw. “I will help you, defender, on one condition.”
@@ -1918,7 +1918,7 @@ The vizier cocked his gray head in thought.
 <!-- 			SCRATCH EARS			-->
 	<scratchEars id="ScratchEarsView">
 		<contents id="theCattery.ScratchEarsView" image="assets/images/cattery/contents/ScratchEarsView_thumbnail.jpg">
-			<title><![CDATA[ScratchEarsView]]></title>
+			<title><![CDATA[Chief Scratcher to the Grand Vizier]]></title>
 		</contents>
 		<hair1>
 			<!-- [If male or female and hair color is designated as “bald” or “none”]  -->
@@ -1961,7 +1961,7 @@ Years later, [defender] learned of another Defender who had taken [pronoun3] pla
 		</body>
 		<decisions top="130">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</scratchEars>
 <!-- ***			SCRATCH EARS 			-->
@@ -1969,7 +1969,7 @@ Years later, [defender] learned of another Defender who had taken [pronoun3] pla
 <!-- 			MOUSE CONSULTATION			-->
 	<mouseConsultation id="MouseConsultationView">
 		<contents id="theCattery.MouseConsultationView" image="assets/images/cattery/contents/MouseConsultationView_thumbnail.jpg">
-			<title><![CDATA[MouseConsultationView]]></title>
+			<title><![CDATA[The Mouse Infestation]]></title>
 		</contents>
 		<instrument1>
 			<instrument><![CDATA[gave a firm blow on [pronoun3] piccolo until a mouse popped up.]]></instrument>
@@ -2018,8 +2018,8 @@ The vizier narrowed his eyes, no doubt attempting to deduce if [defender] was pl
 <!-- 			BOP MICE 			-->
 	<bopMice id="theCattery.BopMiceView">
 		<contents id="theCattery.BopMiceView" image="assets/images/cattery/contents/BopMiceView_thumbnail.jpg">
-			<title><![CDATA[Bop Mice!]]></title>
-			<body><![CDATA[What should this copy be if anything?]]></body>
+			<title><![CDATA[Whack-A-Mouse]]></title>
+			<body><![CDATA[Ready! Set! Whack!]]></body>
 		</contents>
 	</bopMice>
 <!-- ***		BOP MICE 			-->		
@@ -2027,7 +2027,7 @@ The vizier narrowed his eyes, no doubt attempting to deduce if [defender] was pl
 <!-- 			GAME WON			-->
 	<gameWon id="GameWonView">
 		<contents id="theCattery.GameWonView" image="assets/images/cattery/contents/GameWonView_thumbnail.jpg">
-			<title><![CDATA[GameWonView]]></title>
+			<title><![CDATA[Acquiring the Cat's Eye]]></title>
 		</contents>
 		<weapon1>
 			<weapon><![CDATA[the hilt of [pronoun3] Marrotti Blade. [stones1]]]></weapon>
@@ -2084,7 +2084,7 @@ The vizier waved a gray paw in the air. “Go now, before I change my mind.”]]
 <!-- 			THIRD DOOR 			-->
 	<thirdDoor id="ThirdDoorView">
 		<contents id="theCattery.ThirdDoorView" image="assets/images/cattery/contents/ThirdDoorView_thumbnail.jpg">
-			<title><![CDATA[ThirdDoorView]]></title>
+			<title><![CDATA[The Third Door]]></title>
 		</contents>
 		<companionComing1>
 			<true>
@@ -2126,7 +2126,7 @@ And as the realm plunged into eternal darkness, Prince Nero enslaved the populat
 			<decision id="theCattery.KittenContactView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="theCattery.PlayWithKittensView"><![CDATA[PLAY WITH KITTENS]]></decision>
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</thirdDoor>
 <!-- ***			THIRD DOOR 			-->
@@ -2134,7 +2134,7 @@ And as the realm plunged into eternal darkness, Prince Nero enslaved the populat
 <!-- 			KITTEN CONTACT			-->
 	<kittenContact id="KittenContactView">
 		<contents id="theCattery.KittenContactView" image="assets/images/cattery/contents/KittenContactView_thumbnail.jpg">
-			<title><![CDATA[KittenContactView]]></title>
+			<title><![CDATA[A Purrfectly Difficult Situation]]></title>
 		</contents>
 		<companionComing1>
 			<true><![CDATA[“[companionName],” [pronoun1] called. “We have to get back to work.”
@@ -2175,7 +2175,7 @@ The [companion] blinked as if waking from a deep sleep. “You’re right,” [c
 <!-- 			PLAY WITH KITTENS			-->
 	<playWithKittens id="PlayWithKittensView">
 		<contents id="theCattery.PlayWithKittensView" image="assets/images/cattery/contents/PlayWithKittensView_thumbnail.jpg">
-			<title><![CDATA[PlayWithKittensView]]></title>
+			<title><![CDATA[Playing With Kittens]]></title>
 		</contents>
 		<companionComing1>
 			<true><![CDATA[Time passed, but [defender] and [companionName] didn’t notice. They were so captivated by the kittens, and there always seemed to be more. When one litter grew up, another replaced it. Somehow these kittens were even sweeter than the last. [defender] played them songs on [pronoun3] [instrument] and [pronoun1] and [companionName] organized elaborate games of keep away with pieces of string. The kittens loved [defender] and [pronoun3] companion, who in turn loved the kittens. 
@@ -2196,7 +2196,7 @@ As the realm plunged into eternal darkness, Prince Nero enslaved the population.
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</playWithKittens>
 <!-- ***			PLAY WITH KITTENS 			-->
@@ -2204,7 +2204,7 @@ As the realm plunged into eternal darkness, Prince Nero enslaved the population.
 <!-- 			ACCEPT OFFER			-->
 	<acceptOffer id="AcceptOfferView">
 		<contents id="theCattery.AcceptOfferView" image="assets/images/cattery/contents/AcceptOfferView_thumbnail.jpg">
-			<title><![CDATA[AcceptOfferView]]></title>
+			<title><![CDATA[The Main Course]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -2223,7 +2223,7 @@ The vizier nipped [defender]’s arm. “The realm can wait,” Alphonse announc
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</acceptOffer>
 <!-- ***			ACCEPT OFFER 			-->
@@ -2231,7 +2231,7 @@ The vizier nipped [defender]’s arm. “The realm can wait,” Alphonse announc
 <!-- 			REFUSE OFFER			-->
 	<refuseOffer id="RefuseOfferView">
 		<contents id="theCattery.RefuseOfferView" image="assets/images/cattery/contents/RefuseOfferView_thumbnail.jpg">
-			<title><![CDATA[RefuseOfferView]]></title>
+			<title><![CDATA[Saving the Companion]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -2251,7 +2251,7 @@ Vizier Alphonse swished his tail in disappointment. “Very well, then there sha
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</refuseOffer>
 <!-- ***			REFUSE OFFER 			-->
@@ -2259,7 +2259,7 @@ Vizier Alphonse swished his tail in disappointment. “Very well, then there sha
 <!-- 			PRIVATE AUDIENCE			-->
 	<privateAudience id="PrivateAudienceView">
 		<contents id="theCattery.PrivateAudienceView" image="assets/images/cattery/contents/PrivateAudienceView_thumbnail.jpg">
-			<title><![CDATA[PrivateAudienceView]]></title>
+			<title><![CDATA[The Lunch Appointment]]></title>
 		</contents>
 		<companionComing1>
 			<true><![CDATA[guests]]></true>
@@ -2328,7 +2328,7 @@ The vizier rang his tinkling bell again. “Soon you’ll be my lunch.” He swe
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</privateAudience>
 <!-- ***			PRIVATE AUDIENCE 			-->
@@ -2336,7 +2336,7 @@ The vizier rang his tinkling bell again. “Soon you’ll be my lunch.” He swe
 <!-- 			RETURN TO BOAT			-->
 	<returnToBoat id="ReturnToBoatView">
 		<contents id="theCattery.ReturnToBoatView" image="assets/images/cattery/contents/ReturnToBoatView_thumbnail.jpg">
-			<title><![CDATA[ReturnToBoatView]]></title>
+			<title><![CDATA[Returning to the Boat]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[“Yes, welcome back,” Oonie clucked, her displeasure obvious by the tilt of her head. “Though it's a wonder you survived. Imagine, leaving one’s companion behind. How irresponsible.”]]></companion>
@@ -2403,7 +2403,7 @@ The captain arched her eyebrows into twin peaks. “What will it be, Defender? W
 <!-- 			LINGER			-->
 	<linger id="LingerView">
 		<contents id="theCattery.LingerView" image="assets/images/cattery/contents/LingerView_thumbnail.jpg">
-			<title><![CDATA[LingerView]]></title>
+			<title><![CDATA[The Vizier's Surprise Visit]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[Even Oonie seemed to be happy. The ostrich chatted away with the first mate, who was admiring her feathers.]]></companion>
@@ -2438,7 +2438,7 @@ The vizier pocketed the stone with an apologetic smile. “Cat’s have no honor
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</linger>
 <!-- ***			LINGER 			-->
@@ -2446,7 +2446,7 @@ The vizier pocketed the stone with an apologetic smile. “Cat’s have no honor
 <!-- 			JOYLESS MOUNTAINS INTRO			-->
 	<joylessMountainsIntro id="JoylessMountainsIntroView">
 		<contents id="joylessMountains.JoylessMountainsIntroView" image="assets/images/joyless/contents/JoylessMountainsIntroView_thumbnail.jpg">
-			<title><![CDATA[JoylessMountainsIntroView]]></title>
+			<title><![CDATA[An Introduction to The Joyless Mountains]]></title>
 		</contents>
 		<intro1>
 			<intro id="catteryVisited"><![CDATA[There could be no rest until all of the stones were collected, so it was with a heavy heart that [defender] thanked the crew for their offer of a celebration. Instead, [pronoun1] instead selected the next island. Despite some good-natured rumbling, the crew raised anchor to set sail toward the Joyless Mountains. Exhausted after [pronoun3] time with the cats, [defender] fell into a deep sleep. [Pronoun1] was awoken the next morning with a shout.
@@ -2522,7 +2522,7 @@ Cleapeezious scratched her head. “No one’s ever come back from the Joyless M
 <!-- 			CLIMB1			-->
 	<climb1 id="Climb1View">
 		<contents id="joylessMountains.Climb1View" image="assets/images/joyless/contents/Climb1View_thumbnail.jpg">
-			<title><![CDATA[Climb1View]]></title>
+			<title><![CDATA[The Long Climb]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[“Very well,” Oonie replied. The ostrich flapped her wings until she slowly floated off of the ground. Soon she was flying over [defender]’s head. “Come along, then,” Oonie called impatiently.]]></companion>
@@ -2571,7 +2571,7 @@ Cleapeezious scratched her head. “No one’s ever come back from the Joyless M
 <!-- 			CLIMB2			-->
 	<climb2 id="Climb2View">
 		<contents id="joylessMountains.Climb2View" image="assets/images/joyless/contents/Climb2View_thumbnail.jpg">
-			<title><![CDATA[Climb2View]]></title>
+			<title><![CDATA[The Cave's Entrance]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[Oonie flew closer to take a look. “It’s a cave,” she replied. “It looks quite dark inside.”]]></companion>
@@ -2608,7 +2608,7 @@ Cleapeezious scratched her head. “No one’s ever come back from the Joyless M
 <!-- 			CLIMB3			-->
 	<climb3 id="Climb3View">
 		<contents id="joylessMountains.Climb3View" image="assets/images/joyless/contents/Climb3View_thumbnail.jpg">
-			<title><![CDATA[Climb3View]]></title>
+			<title><![CDATA[The Tumble]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[“You’re tiring,” Oonie said. The ostrich fluttered next to [defender], eyeing the sweat rolling down [pronoun3] face. “We should turn back.”]]></companion>
@@ -2650,7 +2650,7 @@ As [pronoun1] tumbled down through the air, [pronoun1] had a sudden clarity of t
 		</body>
 		<decisions top="60">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</climb3>
 <!-- ***			CLIMB3 			-->
@@ -2658,7 +2658,7 @@ As [pronoun1] tumbled down through the air, [pronoun1] had a sudden clarity of t
 <!-- 			CAVE			-->
 	<cave id="CaveView">
 		<contents id="joylessMountains.CaveView" image="assets/images/joyless/contents/CaveView_thumbnail.jpg">
-			<title><![CDATA[CaveView]]></title>
+			<title><![CDATA[Entering the Cave]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[Oonie gave one look at [defender]’s sweat soaked [wardrobeShort] and snorted. “You’re in no condition to do any more climbing.”]]></companion>
@@ -2720,7 +2720,7 @@ reveal an empty elevator bay.
 <!-- 			ELEVATOR			-->
 	<elevator id="ElevatorView">
 		<contents id="joylessMountains.ElevatorView" image="assets/images/joyless/contents/ElevatorView_thumbnail.jpg">
-			<title><![CDATA[ElevatorView]]></title>
+			<title><![CDATA[Going Up]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[“A wise choice,” Oonie said.]]></companion>
@@ -2767,7 +2767,7 @@ other read, “Lobby”.]]>
 <!-- 			TREASURE			-->
 	<treasure id="TreasureView">
 		<contents id="joylessMountains.TreasureView" image="assets/images/joyless/contents/TreasureView_thumbnail.jpg">
-			<title><![CDATA[TreasureView]]></title>
+			<title><![CDATA[The Treasure]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[a small, delicate crown. “This would be perfect for you,” [pronoun1] shouted down to Oonie.]]></companion>
@@ -2867,7 +2867,7 @@ In the morning, when the tide receded, [pronoun1] summoned the elevator. Once in
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 			<decision id="joylessMountains.Climb4View"><![CDATA[KEEP CLIMBING]]></decision>
 			<decision id="joylessMountains.Escalator1View"><![CDATA[TAKE ESCALATOR]]></decision>
 		</decisions>	
@@ -2877,7 +2877,7 @@ In the morning, when the tide receded, [pronoun1] summoned the elevator. Once in
 <!-- 			CLIMB4			-->
 	<climb4 id="Climb4View">
 		<contents id="joylessMountains.Climb4View" image="assets/images/joyless/contents/Climb4View_thumbnail.jpg">
-			<title><![CDATA[Climb4View]]></title>
+			<title><![CDATA[Recognizing Limitations]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -2890,7 +2890,7 @@ In the morning, when the tide receded, [pronoun1] summoned the elevator. Once in
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</climb4>
 <!-- ***			CLIMB4 			-->
@@ -2898,7 +2898,7 @@ In the morning, when the tide receded, [pronoun1] summoned the elevator. Once in
 <!-- 			ESCALATOR1			-->
 	<escalator1 id="Escalator1View">
 		<contents id="joylessMountains.Escalator1View" image="assets/images/joyless/contents/Escalator1View_thumbnail.jpg">
-			<title><![CDATA[Escalator1View]]></title>
+			<title><![CDATA[Circling the Mountain]]></title>
 		</contents>
 		<intro1>
 			<intro id="nope"><![CDATA[Despite [pronoun3] misgivings, [defender] had no climbing gear. [Pronoun1] knew scaling a mountain without any equipment, or preparation for that matter, was a bad idea. So [pronoun1] and [companionName] proceeded to the escalator instead.]]></intro> 
@@ -2932,7 +2932,7 @@ This part of the mountain was covered in leafy trees, with a dirt path leading a
 <!-- 			EXPLORE			-->
 	<explore id="ExploreView">
 		<contents id="joylessMountains.ExploreView" image="assets/images/joyless/contents/ExploreView_thumbnail.jpg">
-			<title><![CDATA[ExploreView]]></title>
+			<title><![CDATA[Exploring the Path]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[]]></companion>
@@ -2990,7 +2990,7 @@ And so the two struck out together, down the path. It was a beautiful afternoon.
 <!-- 			PICNIC			-->
 	<picnic id="PicnicView">
 		<contents id="joylessMountains.PicnicView" image="assets/images/joyless/contents/PicnicView_thumbnail.jpg">
-			<title><![CDATA[PicnicView]]></title>
+			<title><![CDATA[The Scobell Tree]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[her head tucked under her wing. Tiny snores ruffled the feathers along her back. ]]></companion>
@@ -3075,7 +3075,7 @@ There wasn’t a living thing… anywhere. Nero had completed his evil mission. 
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</picnic>
 <!-- ***			PICNIC 			-->
@@ -3083,7 +3083,7 @@ There wasn’t a living thing… anywhere. Nero had completed his evil mission. 
 <!-- 			ESCALATOR2			-->
 <escalator2 id="Escalator2View">
 		<contents id="joylessMountains.Escalator2View" image="assets/images/joyless/contents/Escalator2View_thumbnail.jpg">
-			<title><![CDATA[Escalator2View]]></title>
+			<title><![CDATA[Pappathon the Flying Monkey]]></title>
 		</contents>
 		<intro1>
 			<intro id="prevEsca"><![CDATA[[defender] briefly wondered what might lie down the path, but [pronoun1] had a job to do, and if [pronoun1] followed every interesting path that presented itself, [pronoun1]’d never get anything done. Instead, [pronoun1] did as the sign suggested. [Pronoun1] and [companionName] rested for a few moments, and then stepped onto the next escalator.]]></intro> 
@@ -3150,7 +3150,7 @@ Pappathon nodded in excitement. “I’m sure you’ve heard of us,” he contin
 <!-- 			RALLY			-->
 	<rally id="RallyView">
 		<contents id="joylessMountains.RallyView" image="assets/images/joyless/contents/RallyView_thumbnail.jpg">
-			<title><![CDATA[RallyView]]></title>
+			<title><![CDATA[The METS]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[“And for you, Lady Ostrich, we have a nice selection of root vegetables and imported caviars.”
@@ -3218,7 +3218,7 @@ Immediately a cheer rang out over the clearing.
 <!-- 			METS4EVA			-->
 	<METS4Eva id="METS4EvaView">
 		<contents id="joylessMountains.METS4EvaView" image="assets/images/joyless/contents/METS4EvaView_thumbnail.jpg">
-			<title><![CDATA[METS4EvaView]]></title>
+			<title><![CDATA[An Unexpected Career Pivot]]></title>
 		</contents>
 		<body>
 			<item type="text" id="card" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -3234,7 +3234,7 @@ As eternal darkness descended over the land, and the METS continued to discuss t
 		</body>
 		<decisions top="60">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</METS4Eva>
 <!-- ***			METS4EVA 			-->
@@ -3242,7 +3242,7 @@ As eternal darkness descended over the land, and the METS continued to discuss t
 <!-- 			PLATFORM3			-->
 <platform3 id="Platform3View">
 		<contents id="joylessMountains.Platform3View" image="assets/images/joyless/contents/Platform3View_thumbnail.jpg">
-			<title><![CDATA[Platform3View]]></title>
+			<title><![CDATA[The Third Escalator]]></title>
 		</contents>
 		<intro1>
 			<intro id="platform2"><![CDATA[Despite a natural interest in meeting some like-minded monkeys, (and more importantly, snacks), [defender] and [companionName] bid Pappathon farewell as they stepped onto the third escalator. They’d come to the Joyless Mountains to speak with Snowmonch and they couldn’t get distracted now.]]></intro> 
@@ -3288,7 +3288,7 @@ This time they were far enough up the mountain that the escalator wrapped a full
 <!-- 			ROSES			-->
 <roses id="RosesView">
 		<contents id="joylessMountains.RosesView" image="assets/images/joyless/contents/RosesView_thumbnail.jpg">
-			<title><![CDATA[RosesView]]></title>
+			<title><![CDATA[A Delicious Aroma]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -3309,7 +3309,7 @@ This time they were far enough up the mountain that the escalator wrapped a full
 		</body>
 		<decisions top="60">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>
 	</roses>
 <!-- ***			ROSES 			-->
@@ -3317,7 +3317,7 @@ This time they were far enough up the mountain that the escalator wrapped a full
 <!-- 			PLATFORM4			-->
 <platform4 id="Platform4View">
 		<contents id="joylessMountains.Platform4View" image="assets/images/joyless/contents/Platform4View_thumbnail.jpg">
-			<title><![CDATA[Platform4View]]></title>
+			<title><![CDATA[The Top of the Mountain]]></title>
 		</contents>
 		<wardrobe1>
 			<wardrobe><![CDATA[gathered [pronoun3] cloak up to keep it out of the snow.]]></wardrobe>
@@ -3358,7 +3358,7 @@ The [companion] ignored [defender] and so, with nothing else to do, [pronoun1] s
 <!-- 			SNOWMONCH			-->
 <snowmonch id="SnowmonchView">
 		<contents id="joylessMountains.SnowmonchView" image="assets/images/joyless/contents/SnowmonchView_thumbnail.jpg">
-			<title><![CDATA[SnowmonchView]]></title>
+			<title><![CDATA[Snowmonch the Serpent]]></title>
 		</contents>
 		<wardrobe1>
 			<wardrobe><![CDATA[fluttering [defender]’s cloak around [pronoun3] shoulders. [Pronoun1] briefly considered taking it off before deciding that a cloakless Defender might seem unprofessional.]]></wardrobe>
@@ -3405,7 +3405,7 @@ Eventually the pathway opened up to a circular blacktop. A white serpent coiled 
 <!-- 			STEAL STONE			-->
 <stealStone id="StealStoneView">
 		<contents id="joylessMountains.StealStoneView" image="assets/images/joyless/contents/StealStoneView_thumbnail.jpg">
-			<title><![CDATA[StealStoneView]]></title>
+			<title><![CDATA[Stealing the Stone]]></title>
 		</contents>
 		<body>
 			<item type="text" id="companion" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -3421,7 +3421,7 @@ Unfortunately for [defender], Snowmonch breathed fire when yawning. [defender]�
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>
 	</stealStone>
 <!-- ***			STEAL STONE 			-->
@@ -3430,7 +3430,7 @@ Unfortunately for [defender], Snowmonch breathed fire when yawning. [defender]�
 <!-- 			AWAKENSERPENT			-->
 <awakenSerpent id="AwakenSerpentView">
 		<contents id="joylessMountains.AwakenSerpentView" image="assets/images/joyless/contents/AwakenSerpentView_thumbnail.jpg">
-			<title><![CDATA[AwakenSerpentView]]></title>
+			<title><![CDATA[Awakening the Serpent]]></title>
 		</contents>
 		<wardrobe1>
 			<wardrobe><![CDATA[your cloak. It’s perfectly majestic. Do you think it might come in my size?]]></wardrobe>
@@ -3474,7 +3474,7 @@ The serpent flipped her massive tail through the air. [defender] noticed the end
 <!-- 			IMPATIENCE1			-->
 <impatience1 id="Impatience1View">
 		<contents id="joylessMountains.Impatience1View" image="assets/images/joyless/contents/Impatience1View_thumbnail.jpg">
-			<title><![CDATA[Impatience1View]]></title>
+			<title><![CDATA[The Shunned Invitation]]></title>
 		</contents>
 		<body>
 			<item type="text" id="companion" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -3499,7 +3499,7 @@ Before [defender] could plead [pronoun3] case further, the serpent began to cry.
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>
 	</impatience1>
 <!-- ***			IMPATIENCE1			-->
@@ -3507,7 +3507,7 @@ Before [defender] could plead [pronoun3] case further, the serpent began to cry.
 <!-- 			DINNER			-->
 	<dinner id="DinnerView">
 		<contents id="joylessMountains.DinnerView" image="assets/images/joyless/contents/DinnerView_thumbnail.jpg">
-			<title><![CDATA[DinnerView]]></title>
+			<title><![CDATA[The Meatless Meatloaf Surprise]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[Oonie’s tail feathers fluffed out in worry, but she nodded her long neck all the same. “Defender’s first,” the ostrich said.]]></companion>
@@ -3563,7 +3563,7 @@ The serpent bustled around the cave, opening cupboards and bringing plates and s
 <!-- 			IMPATIENCE2			-->
 	<impatience2 id="Impatience2View">
 		<contents id="joylessMountains.Impatience2View" image="assets/images/joyless/contents/Impatience2View_thumbnail.jpg">
-			<title><![CDATA[Impatience2View]]></title>
+			<title><![CDATA[Impatience]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -3587,7 +3587,7 @@ Snowmonch’s bottom lip trembled. “You mean…” she began, her words tremul
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>
 	</impatience2>
 <!-- ***			IMPATIENCE2			-->
@@ -3596,7 +3596,7 @@ Snowmonch’s bottom lip trembled. “You mean…” she began, her words tremul
 <!-- 			TALK			-->
 	<talk id="TalkView">
 		<contents id="joylessMountains.TalkView" image="assets/images/joyless/contents/TalkView_thumbnail.jpg">
-			<title><![CDATA[TalkView]]></title>
+			<title><![CDATA[The Endless Conversation]]></title>
 		</contents>
 		<islands1>
 			<island><![CDATA[]]></island>
@@ -3638,7 +3638,7 @@ The serpent slithered over to the victrola and took the needle from the record w
 <!-- 			IMPATIENCE3			-->
 	<impatience3 id="Impatience3View">
 		<contents id="joylessMountains.Impatience3View" image="assets/images/joyless/contents/Impatience3View_thumbnail.jpg">
-			<title><![CDATA[Impatience3View]]></title>
+			<title><![CDATA[Negotiations with Snowmonch]]></title>
 		</contents>
 		<islands1>
 			<island><![CDATA[]]></island>
@@ -3678,7 +3678,7 @@ The serpent slithered over to the victrola and took the needle from the record w
 <!-- 			PLAY SONG			-->
 	<playSong id="PlaySongView">
 		<contents id="joylessMountains.PlaySongView" image="assets/images/joyless/contents/PlaySongView_thumbnail.jpg">
-			<title><![CDATA[PlaySongView]]></title>
+			<title><![CDATA[A Little Jig]]></title>
 		</contents>
 		<instrument1>
 			<instrument><![CDATA[brought [pronoun3] kazoo to [pronoun3] mouth and played the opening stanza to a jig that had topped the charts before [pronoun1]’d left home.]]></instrument>
@@ -3706,7 +3706,7 @@ As the song crescendoed into its final reprise, Snowmonch’s eyes welled with g
 <!-- 			RIDDLE INTRO			-->
 	<riddleIntro id="RiddleIntroView">
 		<contents id="joylessMountains.RiddleIntroView" image="assets/images/joyless/contents/PlayRiddlesView_thumbnail.jpg">
-			<title><![CDATA[RiddleIntroView]]></title>
+			<title><![CDATA[The Riddle]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -3734,8 +3734,8 @@ When she had gotten herself under control, she continued. “It could be an appl
 <!-- 			PLAY RIDDLES			-->
 	<playRiddles id="PlayRiddlesView">
 		<contents id="joylessMountains.PlayRiddlesView" image="assets/images/joyless/contents/DeepButNotProfoundGame_thumbnail.jpg">
-			<title><![CDATA[PlayRiddlesView]]></title>
-			<body><![CDATA[The body copy is TBD]]></body>
+			<title><![CDATA[Deep But Not Profound]]></title>
+			<body><![CDATA[It could be a riddle, and puzzling to boot.]]></body>
 		</contents>
 		<body>
 <!-- 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -3757,7 +3757,7 @@ When she had gotten herself under control, she continued. “It could be an appl
 		<decisions top="100">
 			<decision id="joylessMountains.StoneView"><![CDATA[CONTINUE]]></decision>
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>
 	</playRiddles>
 <!-- ***			PLAY RIDDLES			-->
@@ -3765,7 +3765,7 @@ When she had gotten herself under control, she continued. “It could be an appl
 <!-- 			STONE			-->
 	<stone id="StoneView">
 		<contents id="joylessMountains.StoneView" image="assets/images/joyless/contents/StoneView_thumbnail.jpg">
-			<title><![CDATA[StoneView]]></title>
+			<title><![CDATA[A Successful Visit]]></title>
 		</contents>
 		<islands1>
 			<island><![CDATA[Now we must retrieve the remaining stones and be on our way to defeat Nero!”]]></island>
@@ -3815,7 +3815,7 @@ The crew cheered even louder.
 <!-- 			SHIPWRECK COVE			-->
 	<shipwreckCove id="ShipwreckCoveView">
 		<contents id="shipwreck.ShipwreckCoveView" image="assets/images/shipwreck/contents/ShipwreckCoveView_thumbnail.jpg">
-			<title><![CDATA[ShipwreckCoveView]]></title>
+			<title><![CDATA[An Introduction to Shipwreck Cove]]></title>
 		</contents>
 		<intro1>
 			<intro id="cattery"><![CDATA[There could be no rest until all of the stones were collected, so it was with a heavy heart that [defender] thanked the crew for their offer of a celebration, and instead selected the next island. Despite some good-natured rumbling, the crew raised anchor and set sail toward Shipwreck Cove. Exhausted after [pronoun3] time with the cats, [defender] promptly fell into a deep sleep. 
@@ -3859,7 +3859,7 @@ There was something about the first mate’s statement that piqued [defender]’
 <!-- 			SMEG			-->
 	<smeg id="SmegView">
 		<contents id="shipwreck.SmegView" image="assets/images/shipwreck/contents/SmegView_thumbnail.jpg">
-			<title><![CDATA[SmegView]]></title>
+			<title><![CDATA[Smeg's Advice]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -3890,7 +3890,7 @@ The first mate mulled the question over. “The sea god strikes me as more than 
 <!-- 			CAPTAIN			-->
 	<captain id="CaptainView">
 		<contents id="shipwreck.CaptainView" image="assets/images/shipwreck/contents/CaptainView_thumbnail.jpg">
-			<title><![CDATA[CaptainView]]></title>
+			<title><![CDATA[Consulting the Captain]]></title>
 		</contents>
 		<intro1>
 			<intro id="smegNo"><![CDATA[[defender] thanked Smeg for waking [pronoun2], and then [pronoun1] and [companionName] set off to find the captain.]]></intro>
@@ -3950,7 +3950,7 @@ Cleapeezious inspected [defender]’s suit with a satisfied nod.
 <!-- 			REEF1			-->
 	<reef1 id="Reef1View">
 		<contents id="shipwreck.Reef1View" image="assets/images/shipwreck/contents/Reef1View_thumbnail.jpg">
-			<title><![CDATA[Reef1View]]></title>
+			<title><![CDATA[Descending the Reef]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="380" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -3989,7 +3989,7 @@ A clown fish paused to gape at them. “Hello,” it said. “What kind of fish 
 <!-- 			SHARK1			-->
 	<shark1 id="Shark1View">
 		<contents id="shipwreck.Shark1View" image="assets/images/shipwreck/contents/Shark1View_thumbnail.jpg">
-			<title><![CDATA[Shark1View]]></title>
+			<title><![CDATA[The Chase]]></title>
 		</contents>
 		<weapon1>
 			<weapon><![CDATA[[defender] pulled [pronoun3] Marrotti Blade from [pronoun3] weight belt and let [pronoun3] body relax, waiting. [Pronoun1] didn’t have long before [pronoun1] felt a shadow block out the sunlight overhead. [Pronoun1] twisted [pronoun3] body just as the beast attacked, slicing its snout.
@@ -4067,7 +4067,7 @@ This thought was suddenly interrupted by a beautiful, haunting aria. The sound d
 <!-- 			SHARK2			-->
 	<shark2 id="Shark2View">
 		<contents id="shipwreck.Shark2View" image="assets/images/shipwreck/contents/Shark2View_thumbnail.jpg">
-			<title><![CDATA[Shark2View]]></title>
+			<title><![CDATA[Multiple Rows of Giant Teeth]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -4081,7 +4081,7 @@ When [pronoun1] had almost reached the bottom, a large shadow passed overhead. [
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</shark2>
 <!-- ***			SHARK2 			-->
@@ -4089,7 +4089,7 @@ When [pronoun1] had almost reached the bottom, a large shadow passed overhead. [
 <!-- 			JELLYFISH1			-->
 	<jellyfish1 id="Jellyfish1View">
 		<contents id="shipwreck.Jellyfish1View" image="assets/images/shipwreck/contents/Jellyfish1View_thumbnail.jpg">
-			<title><![CDATA[Jellyfish1View]]></title>
+			<title><![CDATA[A Swarm of Singing Jellyfish]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="375" height="" top="0" left="200" size="20" align="left" leading="10" file="">
@@ -4108,7 +4108,7 @@ Still, [pronoun1] thought, trying to remain positive in [pronoun3] final moments
 		</body>
 		<decisions top="100">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</jellyfish1>
 <!-- ***			SHARK2 			-->
@@ -4116,7 +4116,7 @@ Still, [pronoun1] thought, trying to remain positive in [pronoun3] final moments
 <!-- 			REEF2			-->
 	<reef2 id="Reef2View">
 		<contents id="shipwreck.Reef2View" image="assets/images/shipwreck/contents/Reef2View_thumbnail.jpg">
-			<title><![CDATA[Reef2View]]></title>
+			<title><![CDATA[A Crabby Introduction]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="380" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -4154,7 +4154,7 @@ The lobster raised one claw in a salute. “Commodore Zachary Thacher, represent
 		<decisions top="100">
 			<decision id="shipwreck.FollowCommodoreView"><![CDATA[CONTINUE]]></decision>
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</reef2>
 <!-- ***			REEF2 			-->
@@ -4162,7 +4162,7 @@ The lobster raised one claw in a salute. “Commodore Zachary Thacher, represent
 <!-- 			FOLLOW COMMODORE			-->
 	<followCommodore id="FollowCommodoreView">
 		<contents id="shipwreck.FollowCommodoreView" image="assets/images/shipwreck/contents/FollowCommodoreView_thumbnail.jpg">
-			<title><![CDATA[FollowCommodoreView]]></title>
+			<title><![CDATA[The Sea God Morrissey]]></title>
 		</contents>
 		<body>
 			<item type="text" id="morrisey" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -4208,7 +4208,7 @@ The sea god paused, his back still turned, as [defender] considered [pronoun3] n
 <!-- 			STARFISH1			-->
 	<starfish1 id="Starfish1View">
 		<contents id="shipwreck.Starfish1View" image="assets/images/shipwreck/contents/Starfish1View_thumbnail.jpg">
-			<title><![CDATA[Starfish1View]]></title>
+			<title><![CDATA[A Friendly Wager]]></title>
 		</contents>
 		<body>
 			<item type="text" id="morrisey" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -4246,7 +4246,7 @@ Morrissey gave [pronoun2] a speculative look, but finally nodded his head slowly
 <!-- 			JOKE			-->
 	<joke id="JokeView">
 		<contents id="shipwreck.JokeView" image="assets/images/shipwreck/contents/JokeView_thumbnail.jpg">
-			<title><![CDATA[JokeView]]></title>
+			<title><![CDATA[A Real Fin Slapper]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -4290,7 +4290,7 @@ Morrissey straightened, turning around with sudden interest. “I’m listening,
 <!-- 			STARFISH2			-->
 	<starfish2 id="Starfish2View">
 		<contents id="shipwreck.Starfish2View" image="assets/images/shipwreck/contents/Starfish2View_thumbnail.jpg">
-			<title><![CDATA[Starfish2View]]></title>
+			<title><![CDATA[The Jellyfish Aria]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -4318,7 +4318,7 @@ The commodore nodded in agreement. “Beautiful from a distance,” he said. “
 <!-- 			STARFISH3			-->
 	<starfish3 id="Starfish3View">
 		<contents id="shipwreck.Starfish3View" image="assets/images/shipwreck/contents/Starfish3View_thumbnail.jpg">
-			<title><![CDATA[Starfish3View]]></title>
+			<title><![CDATA[Two Favors]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -4351,7 +4351,7 @@ Once again the sea god looked at [pronoun2] from unblinking green eyes.]]>
 <!-- 			PEARL1			-->
 	<pearl1 id="Pearl1View">
 		<contents id="shipwreck.Pearl1View" image="assets/images/shipwreck/contents/Pearl1View_thumbnail.jpg">
-			<title><![CDATA[Pearl1View]]></title>
+			<title><![CDATA[A Most Undefenderlike Decision]]></title>
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
@@ -4377,7 +4377,7 @@ A tear squeezed from [defender]’s eye, and then another, and another, mixing w
 		</body>
 		<decisions top="230">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</pearl1>
 <!-- ***			PEARL1 			-->
@@ -4385,7 +4385,7 @@ A tear squeezed from [defender]’s eye, and then another, and another, mixing w
 <!-- 			COMPANION			-->
 	<companion id="CompanionView">
 		<contents id="shipwreck.CompanionView" image="assets/images/shipwreck/contents/CompanionView_thumbnail.jpg">
-			<title><![CDATA[CompanionView]]></title>
+			<title><![CDATA[The Lucky Dice]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[Sure, Oonie liked to lecture from time to time, and could get downright bossy when the mood struck. But that mattered little. [defender] would never leave a friend in a bind. It went against [pronoun3] principles as a Defender of the Realm.]]></companion>
@@ -4464,7 +4464,7 @@ After wheedling, cajoling, and even some half-hearted begging, Morrissey finally
 <!-- 			SANDLANDS			-->
 	<sandlands id="SandlandsView">
 		<contents id="sandlands.SandlandsView" image="assets/images/sandlands/contents/SandlandsView_thumbnail.jpg">
-			<title><![CDATA[SandlandsView]]></title>
+			<title><![CDATA[An Introduction to The Sandlands]]></title>
 		</contents>
 		<intro1>
 			<intro><![CDATA[]]></intro>
@@ -4500,7 +4500,7 @@ Defender looked at [pronoun3] [weapon] wearily. The [stone1] [pronoun1] had coll
 <!-- 			SHORE			-->
 	<shore id="ShoreView">
 		<contents id="sandlands.ShoreView" image="assets/images/sandlands/contents/ShoreView_thumbnail.jpg">
-			<title><![CDATA[ShoreView]]></title>
+			<title><![CDATA[The Ravens' Advice]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[But Oonie simply glared at the ravens. “Uncivilized little twits,” she muttered.]]></companion>
@@ -4567,7 +4567,7 @@ This made the ravens laugh even louder, and they flew away, cawing as they swept
 <!-- 			STRAIGHT			-->
 	<straight id="StraightView">		
 		<contents id="sandlands.StraightView" image="assets/images/sandlands/contents/StraightView_thumbnail.jpg">
-			<title><![CDATA[StraightView]]></title>
+			<title><![CDATA[The Straight Path]]></title>
 		</contents>
 		<body>
 			<item type="text" id="ravens" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -4587,7 +4587,7 @@ Perhaps, [defender] thought as [pronoun1] felt the sand circle [pronoun3] throat
 		</body>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</straight>
 <!-- ***			STRAIGHT 			-->
@@ -4595,7 +4595,7 @@ Perhaps, [defender] thought as [pronoun1] felt the sand circle [pronoun3] throat
 <!-- 			WINDING			-->
 	<winding id="WindingView">
 		<contents id="sandlands.WindingView" image="assets/images/sandlands/contents/WindingView_thumbnail.jpg">
-			<title><![CDATA[WindingView]]></title>
+			<title><![CDATA[The Winding Path]]></title>
 		</contents>
 		<companion1>
 			<companion><![CDATA[“Perhaps we could wait for him?” Oonie interjected.]]></companion>
@@ -4650,7 +4650,7 @@ The boy leaned against the doorframe, slowly blowing another bubble. This one wa
 <!-- 			WAIT			-->
 	<wait id="WaitView">	
 		<contents id="sandlands.WaitView" image="assets/images/sandlands/contents/WaitView_thumbnail.jpg">
-			<title><![CDATA[WaitView]]></title>
+			<title><![CDATA[The Long Wait]]></title>
 		</contents>	
 		<body>
 			<item type="text" id="end" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -4671,7 +4671,7 @@ After a week passed, [defender] and [companionName] admitted defeat. The wizard 
 		</body>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</wait>
 <!-- ***			WAIT 			-->
@@ -4679,7 +4679,7 @@ After a week passed, [defender] and [companionName] admitted defeat. The wizard 
 <!-- 			APPRENTICE			-->
 	<apprentice id="ApprenticeView">
 		<contents id="sandlands.ApprenticeView" image="assets/images/sandlands/contents/ApprenticeView_thumbnail.jpg">
-			<title><![CDATA[ApprenticeView]]></title>
+			<title><![CDATA[Helping the Apprentice]]></title>
 		</contents>	
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -4718,7 +4718,7 @@ The apprentice handed [defender] a shovel, a tape measure, and a bucket.]]>
 <!-- 			WELL			-->
 	<well id="WellView">	
 		<contents id="sandlands.WellView" image="assets/images/sandlands/contents/WellView_thumbnail.jpg">
-			<title><![CDATA[WellView]]></title>
+			<title><![CDATA[A Visit to the Well]]></title>
 		</contents>	
 		<companion1>
 			<companion><![CDATA[Oonie looked around the swamp with distaste, and used one wing to flap away the flies buzzing around her. “You’d think wizards would get their materials from somewhere a little less muggy,” she said. 
@@ -4806,13 +4806,13 @@ They continued down the path until eventually it lead them to a crumbling well. 
 <!-- 			WELL2			-->
 	<well2 id="Well2View">		
 		<contents id="sandlands.Well2View" image="assets/images/sandlands/contents/Well2View_thumbnail.jpg">
-			<title><![CDATA[Well2View]]></title>
+			<title><![CDATA[Filling the Beaker]]></title>
 		</contents>	
 		<body>
 			<item type="text" id="" width="270" height="" top="10" left="390" size="20" align="left" leading="8" file="">
 			<![CDATA[A deal was a deal, [defender] mused, whether you agreed with the logic behind it or not. [Pronoun1] got out the eyedropper and set to the task of transferring 572 ½  drops of water from the bucket to the beaker. [Pronoun1] counted out loud as [pronoun1] went so as to not lose [pronoun3] place.
 
-Right at 126 drops, the crows [pronoun1]’d met earlier landed on the opposite side of the well.]]> 				
+Right at 126 drops, the ravens [pronoun1]’d met earlier landed on the opposite side of the well.]]> 				
 			</item>
 			<item type="text" id="ravens" width="575" height="" top="32" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[“One hundred and twenty-seven,” [pronoun1] said to [pronoun2]self.
@@ -4855,7 +4855,7 @@ Her brother flew after her and the birds were soon lost behind the swamp trees.
 <!-- 			WELL4			-->
 	<well4 id="Well4View">	
 		<contents id="sandlands.Well4View" image="assets/images/sandlands/contents/Well4View_thumbnail.jpg">
-			<title><![CDATA[Well4View]]></title>
+			<title><![CDATA[572½ Drops]]></title>
 		</contents>		
 		<companion1>
 			<companion><![CDATA[“Good decision,” Oonie said. “Never trust a raven, I say. Always flapping around and laughing at everyone and everything. Uncivilized, and untrustworthy. Certainly not the kind of company a Defender of the Realm should be surrounding [pronoun2]self with.”
@@ -4897,7 +4897,7 @@ Noah grinned, and used his tail to splash water into [defender]’s face. “Foo
 <!-- 			WELL3			-->
 	<well3 id="Well3View">		
 		<contents id="sandlands.Well3View" image="assets/images/sandlands/contents/Well3View_thumbnail.jpg">
-			<title><![CDATA[Well3View]]></title>
+			<title><![CDATA[Shortcuts]]></title>
 		</contents>		
 		<body>
 			<item type="text" id="beaker" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -4920,7 +4920,7 @@ Noah grinned, and used his tail to splash water into [defender]’s face. “Foo
 <!-- 			FIND WIZARD			-->
 	<findWizard id="FindWizardView">
 		<contents id="sandlands.FindWizardView" image="assets/images/sandlands/contents/FindWizardView_thumbnail.jpg">
-			<title><![CDATA[FindWizardView]]></title>
+			<title><![CDATA[Chasing the Wizard]]></title>
 		</contents>			
 		<body>
 			<item type="text" id="statue" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -4962,7 +4962,7 @@ The face rearranged to form an apologetic look. “A piece of advice,” he said
 		</body>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</findWizard>
 <!-- ***			FIND WIZARD 			-->
@@ -4970,7 +4970,7 @@ The face rearranged to form an apologetic look. “A piece of advice,” he said
 <!-- 			SAND			-->
 	<sand id="SandView">	
 		<contents id="sandlands.SandView" image="assets/images/sandlands/contents/SandView_thumbnail.jpg">
-			<title><![CDATA[SandView]]></title>
+			<title><![CDATA[The Sand Pit]]></title>
 		</contents>	
 		<companion1>
 			<companion><![CDATA[“Keep up the good work,” Oonie said from the sidelines. She used her beak to fluff her tail feathers, careful to unearth any errant grains of sand. “Bravo and jolly good show,” she added, tapping the tips of her wings together in silent applause.]]></companion>
@@ -5009,7 +5009,7 @@ But [defender], rather than keeping anything up, paused to sit down on the edge 
 <!-- 			SAND2			-->
 	<sand2 id="Sand2View">
 		<contents id="sandlands.Sand2View" image="assets/images/sandlands/contents/Sand2View_thumbnail.jpg">
-			<title><![CDATA[Sand2View]]></title>
+			<title><![CDATA[Five Feet Down]]></title>
 		</contents>	
 		<companion1>
 			<companion><![CDATA[Oonie shook her head in dismay. “You look an absolute mess,” she said. “There’s sand everywhere.”]]></companion>
@@ -5040,7 +5040,7 @@ But [defender], rather than keeping anything up, paused to sit down on the edge 
 <!-- 			SAND3			-->
 	<sand3 id="Sand3View">
 		<contents id="sandlands.Sand3View" image="assets/images/sandlands/contents/Sand3View_thumbnail.jpg">
-			<title><![CDATA[Sand3View]]></title>
+			<title><![CDATA[Three Feet Down]]></title>
 		</contents>	
 		<companion1>
 			<companion><![CDATA[“Are you sure about this?” Oonie demanded.]]></companion>
@@ -5074,7 +5074,7 @@ But [defender], rather than keeping anything up, paused to sit down on the edge 
 <!-- 			HUT			-->
 	<hut id="HutView">
 		<contents id="sandlands.HutView" image="assets/images/sandlands/contents/HutView_thumbnail.jpg">
-			<title><![CDATA[HutView]]></title>
+			<title><![CDATA[Return to the Hut]]></title>
 		</contents>	
 		<intro1>
 			<intro id="sandWrong"><![CDATA[The bubbles rising from the cauldron turned a putrid shade of green when the sand had all been added. The apprentice turned to [defender], rage contorting his face. “You cheated,” he snapped. “This is not Gannon Sand collected from five feet down.” His voice grew louder, and a vein popped out from his temple. 
@@ -5135,7 +5135,7 @@ Maysel adjusted his wizard’s hat in concentration. “If you can find it, it�
 		</body>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 			<decision id="sandlands.SandstoneGameView"><![CDATA[FIND SANDSTONE]]></decision>
 		</decisions>	
 	</hut>
@@ -5144,8 +5144,8 @@ Maysel adjusted his wizard’s hat in concentration. “If you can find it, it�
 <!-- 			SANDSTONE GAME 			-->
 	<sandstoneGame id="sandlands.SandstoneGameView">
 		<contents id="sandlands.SandstoneGameView" image="assets/images/sandlands/contents/SandstoneGameView_thumbnail.jpg">
-			<title><![CDATA[Sandstone Game]]></title>
-			<body><![CDATA[What should this copy be if anything?]]></body>
+			<title><![CDATA[The Missing Sanstone]]></title>
+			<body><![CDATA[A stone amidst the wizard's clutter]]></body>
 		</contents>
 	</sandstoneGame>
 <!-- ***		SANDSTONE GAME 			-->		
@@ -5153,7 +5153,7 @@ Maysel adjusted his wizard’s hat in concentration. “If you can find it, it�
 <!-- 			SANDSTONE WIN			-->
 	<sandstoneWin id="SandstoneWinView">
 		<contents id="sandlands.SandstoneWinView" image="assets/images/sandlands/contents/SandstoneWinView_thumbnail.jpg">
-			<title><![CDATA[SandstoneWinView]]></title>
+			<title><![CDATA[The Sandstone]]></title>
 		</contents>	
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -5187,7 +5187,7 @@ Maysel nodded. “Now as for the properties of the stone. It will give you the p
 <!-- 			SHIP			-->
 	<ship id="ShipView">
 		<contents id="sandlands.ShipView" image="assets/images/sandlands/contents/ShipView_thumbnail.jpg">
-			<title><![CDATA[ShipView]]></title>
+			<title><![CDATA[Departing The Sandlands]]></title>
 		</contents>	
 		<islands1>
 			<island id="notAllIslands"><![CDATA[“Then let us consult the map,” Cleapeezious said, unrolling the parchment and handing the map of the islands to [defender]. “Where shall we go next?”]]></island>
@@ -5225,7 +5225,7 @@ When they reached the boat, the crew helped them back aboard with a roar of exci
 <!-- 			CAPITOL			-->
 	<capitol id="CapitolView">
 		<contents id="capitol.CapitolView" image="assets/images/capitol/contents/CapitolView_thumbnail.jpg">
-			<title><![CDATA[CapitolView]]></title>
+			<title><![CDATA[An Introduction to The Capitol]]></title>
 		</contents>	
 		<intro1>
 			<intro id="onlyCatsEye"><![CDATA[Cleapeezious set sail for the Capitol. Soon the stars and moon were blotted from the sky, and the Stormin’ Norman shrouded in darkness. Smeg lit several lamps across the deck of the ship, but they did little to repel the night. 
@@ -5276,7 +5276,7 @@ But [pronoun1] couldn’t fool [pronoun3] companion. [companion1]
 		</body>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 			<decision id="capitol.GiantessView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</capitol>
@@ -5285,7 +5285,7 @@ But [pronoun1] couldn’t fool [pronoun3] companion. [companion1]
 <!-- 			GIANTESS			-->
 	<giantess id="GiantessView">
 		<contents id="capitol.GiantessView" image="assets/images/capitol/contents/GiantessView_thumbnail.jpg">
-			<title><![CDATA[GiantessView]]></title>
+			<title><![CDATA[The Smashley]]></title>
 		</contents>	
 		<body>
 			<item type="text" id="giantess" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -5311,7 +5311,7 @@ Before the [companion] could answer, a loud, booming voice interrupted.]]>
 <!-- 			FIGHT SMASHLEY			-->
 	<fightSmashley id="FightSmashleyView">
 		<contents id="capitol.FightSmashleyView" image="assets/images/capitol/contents/FightSmashleyView_thumbnail.jpg">
-			<title><![CDATA[FightSmashleyView]]></title>
+			<title><![CDATA[Fighting the Giantess]]></title>
 		</contents>	
 		<companion1>
 			<companion><![CDATA[“What a dreadful creature,” Oonie said, eyeing the Smashley with extreme dislike.]]></companion>
@@ -5358,7 +5358,7 @@ Before the Smashley could strike again, [weapon1]]]>
 		</body>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 			<decision id="capitol.CastleView"><![CDATA[ENTER GATE]]></decision>
 		</decisions>	
 	</fightSmashley>
@@ -5367,7 +5367,7 @@ Before the Smashley could strike again, [weapon1]]]>
 <!-- 			REASON SMASHLEY			-->
 	<reasonSmashley id="ReasonSmashleyView">
 		<contents id="capitol.ReasonSmashleyView" image="assets/images/capitol/contents/ReasonSmashleyView_thumbnail.jpg">
-			<title><![CDATA[ReasonSmashleyView]]></title>
+			<title><![CDATA[Reasoning with the Giantess]]></title>
 		</contents>	
 		<companion1>
 			<companion><![CDATA[“After you,” [defender] said pleasantly.]]></companion>
@@ -5422,7 +5422,7 @@ The Smashley pushed her glasses up from the bridge of her nose, and glared at [d
 		</body>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 			<decision id="capitol.CastleView"><![CDATA[ENTER GATE]]></decision>
 		</decisions>	
 	</reasonSmashley>
@@ -5431,7 +5431,7 @@ The Smashley pushed her glasses up from the bridge of her nose, and glared at [d
 <!-- 			CASTLE			-->
 	<castle id="CastleView">
 		<contents id="capitol.CastleView" image="assets/images/capitol/contents/CastleView_thumbnail.jpg">
-			<title><![CDATA[CastleView]]></title>
+			<title><![CDATA[A Distinct Lack of Sandstone]]></title>
 		</contents>	
 		<companion1>
 			<companion><![CDATA[“Why I say,” Oonie said, looking at [defender] with a hint of pride in her eyes. “That was a fine feat of daring-do. Well done, Defender.”]]></companion>
@@ -5508,7 +5508,7 @@ The dwarf obliged, and [defender] rubbed the stones on [pronoun3] [weapon] for l
 		</body>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 			<decision id="capitol.ConfrontNeroView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</castle>
@@ -5517,7 +5517,7 @@ The dwarf obliged, and [defender] rubbed the stones on [pronoun3] [weapon] for l
 <!-- 			CONFRONT NERO			-->
 	<confrontNero id="ConfrontNeroView">
 		<contents id="capitol.ConfrontNeroView" image="assets/images/capitol/contents/ConfrontView_thumbnail.jpg">
-			<title><![CDATA[ConfrontNeroView]]></title>
+			<title><![CDATA[Confronting Nero]]></title>
 		</contents>	
 		<weapon1>
 			<weapon><![CDATA[With the power of the four stones on [pronoun3] side, [pronoun1] might be able to defeat Nero at his own game. [Pronoun1] pointed [pronoun3] dagger toward the approaching hoard, pressing the stones as [pronoun1] did so. A surge of power coursed through the blade before it shimmered brightly, suddenly transforming, inexplicably, into a small canon. [Pronoun1] aimed and shot. Several of the advancing creatures exploded in front of [pronoun2].]]></weapon>
@@ -5551,8 +5551,8 @@ But it wasn’t enough. More and more light creatures swarmed toward [pronoun2].
 <!-- 			SUNLIGHT GAME 			-->
 	<sunlightGame id="capitol.SunlightGameView">
 		<contents id="capitol.SunlightGameView" image="assets/images/capitol/contents/SunlightGameView_thumbnail.jpg">
-			<title><![CDATA[Sunlight Game]]></title>
-			<body><![CDATA[What should this copy be if anything?]]></body>
+			<title><![CDATA[A Sunny Battle]]></title>
+			<body><![CDATA[The final, blistering confrontation against the treacherous prince nero]]></body>
 		</contents>
 	</sunlightGame>
 <!-- ***		SUNLIGHT GAME 			-->		
@@ -5560,7 +5560,7 @@ But it wasn’t enough. More and more light creatures swarmed toward [pronoun2].
 <!-- 			WIN			-->
 	<win id="WinView">
 		<contents id="capitol.WinView" image="assets/images/capitol/contents/WinView_thumbnail.jpg">
-			<title><![CDATA[WinView]]></title>
+			<title><![CDATA[Defeating the Prince]]></title>
 		</contents>	
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -5593,7 +5593,7 @@ The prince seemed to sense [pronoun3] hesitation, and continued his plea with an
 <!-- 			DRINK			-->
 	<drink id="DrinkView">
 		<contents id="capitol.DrinkView" image="assets/images/capitol/contents/DrinkView_thumbnail.jpg">
-			<title><![CDATA[DrinkView]]></title>
+			<title><![CDATA[A Drink of Sunshine]]></title>
 		</contents>	
 		<body>
 			<item type="text" id="topText" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -5606,7 +5606,7 @@ The prince seemed to sense [pronoun3] hesitation, and continued his plea with an
 
 “Have another drink,” the prince suggested.
 
-[defender] could hear Nero’s heartbeat quicken as [pronoun1] gulped down more of the liquid sunlight. The warmth spread from [pronoun3] stomach to [pronoun3] fingertips and toes. [Pronoun1] was brimming with so much sunlight that [pronoun1] could barely contain [pronoun2]self, and suddenly, [pronoun3] enhanced senses were too much. [Pronoun1] could hear the fishes swimming in the ocean. [Pronoun1] could see a solitary crow swimming miles and miles over the sea, and feel the breeze from its beating wings. The sunlight pressed against [pronoun2], stretching [pronoun3] skin until it felt too tight, as though [pronoun1] might pop. 
+[defender] could hear Nero’s heartbeat quicken as [pronoun1] gulped down more of the liquid sunlight. The warmth spread from [pronoun3] stomach to [pronoun3] fingertips and toes. [Pronoun1] was brimming with so much sunlight that [pronoun1] could barely contain [pronoun2]self, and suddenly, [pronoun3] enhanced senses were too much. [Pronoun1] could hear the fishes swimming in the ocean. [Pronoun1] could see a solitary raven flying miles and miles over the sea, and feel the breeze from its beating wings. The sunlight pressed against [pronoun2], stretching [pronoun3] skin until it felt too tight, as though [pronoun1] might pop. 
 
 “What’s happening to me?” [pronoun1] whispered, cringing at the volume of [pronoun3] voice. It sounded like it had been broadcast through a speaker placed next to [pronoun3] ear.
 
@@ -5617,7 +5617,7 @@ The prince laughed maniacally as [defender] fell to [pronoun3] knees, then toppl
 		</body>
 		<decisions top="110">
 			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ApplicationView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</drink>
 <!-- ***			DRINK 			-->
@@ -5625,7 +5625,7 @@ The prince laughed maniacally as [defender] fell to [pronoun3] knees, then toppl
 <!-- 			DON'T DRINK			-->
 	<dontDrink id="DontDrinkView">
 		<contents id="capitol.DontDrinkView" image="assets/images/capitol/contents/DontDrinkView_thumbnail.jpg">
-			<title><![CDATA[DontDrinkView]]></title>
+			<title><![CDATA[The Lost Defender, Found]]></title>
 		</contents>	
 		<weapon1>
 			<weapon><![CDATA[Even with the aid of [pronoun3] Marrotti blade, [pronoun1] had little real chance against Nero’s attack. All [pronoun1] could do was stall, and hope an idea came, and soon.]]></weapon>
@@ -5675,7 +5675,7 @@ The [previousDefenderGender] blushed.
 <!-- 			RETURN TO SHIP			-->
 	<returnToShip id="ReturnToShipView">
 		<contents id="capitol.ReturnToShipView" image="assets/images/capitol/contents/ReturnToShipView_thumbnail.jpg">
-			<title><![CDATA[ReturnToShipView]]></title>
+			<title><![CDATA[A Successful Mission]]></title>
 		</contents>	
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -5704,7 +5704,7 @@ A moment later, [previousDefender] took [pronoun3] hands in [previousDefenderPro
 <!-- 			GO WITH PREVIOUS			-->
 	<goWithPrevious id="GoWithPreviousView">
 		<contents id="capitol.GoWithPreviousView" image="assets/images/capitol/contents/GoWithPreviousView_thumbnail.jpg">
-			<title><![CDATA[GoWithPreviousView]]></title>
+			<title><![CDATA[Happily Ever After]]></title>
 		</contents>	
 		<companion1>
 			<companion><![CDATA[wings,]]></companion>
@@ -5726,7 +5726,7 @@ And so they lived happily. That is until [previousDefender] was captured by inte
 		</body>
 		<decisions top="110">
 			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
-			<decision id="TitleScreenView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="TitleScreenView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</goWithPrevious>
 <!-- ***			GO WITH PREVIOUS 			-->
@@ -5734,7 +5734,7 @@ And so they lived happily. That is until [previousDefender] was captured by inte
 <!-- 			DELAY			-->
 	<delay id="DelayView">
 		<contents id="capitol.DelayView" image="assets/images/capitol/contents/DelayView_thumbnail.jpg">
-			<title><![CDATA[DelayView]]></title>
+			<title><![CDATA[An Important Decision]]></title>
 		</contents>	
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -5757,7 +5757,7 @@ Which is why [pronoun1] told [previousDefender] kindly, but firmly, that [pronou
 <!-- 			TOGETHER			-->
 	<together id="TogetherView">
 		<contents id="capitol.TogetherView" image="assets/images/capitol/contents/TogetherView_thumbnail.jpg">
-			<title><![CDATA[TogetherView]]></title>
+			<title><![CDATA[Happily Ever After]]></title>
 		</contents>	
 		<weapon1>
 			<companion><![CDATA[Marrotti blades than [pronoun1] did,]]></companion>
@@ -5785,7 +5785,7 @@ That is until [previousDefender] was captured by intergalactic space pirates and
 		</body>
 		<decisions top="110">
 			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
-			<decision id="TitleScreenView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="TitleScreenView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</together>
 <!-- ***			TOGETHER 			-->
@@ -5793,7 +5793,7 @@ That is until [previousDefender] was captured by intergalactic space pirates and
 <!-- 			ALONE			-->
 	<alone id="AloneView">
 		<contents id="capitol.AloneView" image="assets/images/capitol/contents/AloneView_thumbnail.jpg">
-			<title><![CDATA[AloneView]]></title>
+			<title><![CDATA[Happily Ever After]]></title>
 		</contents>
 		<gender1>
 			<gender><![CDATA[With nothing else on his agenda looming, he agreed.]]></gender>
@@ -5816,7 +5816,7 @@ That is until a band of unruly intergalactic space pirates created a very big co
 		</body>
 		<decisions top="110">
 			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
-			<decision id="TitleScreenView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="TitleScreenView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</alone>
 <!-- ***			ALONE 			-->

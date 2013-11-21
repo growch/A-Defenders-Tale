@@ -39,6 +39,7 @@ package view.sandlands
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
 		private var _tapSound:Track;
+		private var _endPlayed:Boolean;
 		
 		
 		public function StraightView()
@@ -175,6 +176,11 @@ package view.sandlands
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_endPlayed) {
+				DataModel.getInstance().endSound();
+				_endPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

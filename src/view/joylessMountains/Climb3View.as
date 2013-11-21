@@ -39,6 +39,7 @@ package view.joylessMountains
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Object;
+		private var _endPlayed:Boolean;
 		
 		public function Climb3View()
 		{
@@ -160,6 +161,11 @@ package view.joylessMountains
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_endPlayed) {
+				DataModel.getInstance().endSound();
+				_endPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

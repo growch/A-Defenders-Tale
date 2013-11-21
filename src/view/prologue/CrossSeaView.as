@@ -146,7 +146,7 @@ package view.prologue
 			}
 			
 			// decision
-			_decisions = new DecisionsView(_pageInfo.decisions,0xFFFFFF); //tint white show bg
+			_decisions = new DecisionsView(_pageInfo.decisions); //tint white show bg
 //			EXCEPTION FOR FIXED HEIGHT BG
 			_decisions.y = _mc.bg_mc.height - 50;
 			_mc.addChild(_decisions);

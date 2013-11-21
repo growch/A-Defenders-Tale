@@ -44,7 +44,6 @@ package view.joylessMountains
 		{
 			_SAL = new SWFAssetLoader("joyless.StealStoneMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
-			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
@@ -81,6 +80,8 @@ package view.joylessMountains
 		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
+			
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 110;
 			
@@ -193,6 +194,7 @@ package view.joylessMountains
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			trace('steal decisionMade');
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
