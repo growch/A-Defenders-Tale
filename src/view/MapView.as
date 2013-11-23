@@ -43,6 +43,7 @@ package view
 			"assets/audio/shipwreck/shipwreck_VO.mp3", "assets/audio/sandlands/sandlands_VO.mp3", "assets/audio/capitol/capitol_VO.mp3"];
 		private var _tempObj:Object;
 		private var _islandClicked:Boolean;
+		private var _fog:MovieClip;
 		
 		public function MapView()
 		{
@@ -58,7 +59,10 @@ package view
 			
 			_tempObj = null;
 			
+			_fog = null;
+			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_OVERLAY, closeNewPathOverlay);
 			
 			_catteryBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_sandlandsBtn.removeEventListener(MouseEvent.CLICK, islandClick);
@@ -98,6 +102,10 @@ package view
 			_mc = _SAL.assetMC;
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			EventController.getInstance().addEventListener(ViewEvent.CLOSE_OVERLAY, closeNewPathOverlay);
+			
+			_fog = _mc.fog1_mc;
+			_fog.visible = false;
 			
 			_catteryBtn = _mc.cattery_btn;
 			_catteryBtn.mouseChildren = false;
@@ -140,6 +148,12 @@ package view
 			_bgSound.fadeAtEnd = true;
 			
 			
+		}
+		
+		protected function closeNewPathOverlay(event:ViewEvent):void
+		{
+			_fog.visible = false;
+			_islandClicked = false;
 		}
 		
 		protected function islandClick(event:MouseEvent):void
@@ -202,7 +216,7 @@ package view
 			_islandClicked = true;
 			
 //				TESTING!!!!
-			DataModel.ISLAND_SELECTED.length = 2;
+//			DataModel.ISLAND_SELECTED.length = 2;
 			
 			if (DataModel.ISLAND_SELECTED.length <= 1) {
 
@@ -223,11 +237,16 @@ package view
 		
 		protected function voSoundComplete(event:Event):void
 		{
+			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:nextPage});
+			_fog.visible = true;
+		}
+		
+		private function nextPage():void {
 			_mc.stopAllMovieClips();
 			TweenMax.killAll();
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MAP_SELECT_ISLAND));
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, _tempObj));
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, _tempObj));
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

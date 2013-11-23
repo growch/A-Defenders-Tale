@@ -93,13 +93,18 @@ package view.shipwreck
 			_bubbles2.stop();
 			_bubbles3.stop();
 			_bubbles4.stop();
-			_bubblesDung.stop();
+			
+			if (_bubblesDung) {
+				_bubblesDung.stop();
+				_bubblesDung = null;
+			}
+			
 			
 			_bubbles1 = null;
 			_bubbles2 = null;
 			_bubbles3 = null;
 			_bubbles4 = null;
-			_bubblesDung = null;
+			
 //			
 			_pageInfo = null;
 			

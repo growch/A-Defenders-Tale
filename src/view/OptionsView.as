@@ -70,6 +70,8 @@ package view
 			var tempObj:Object = new Object();
 			tempObj.x = _mc.x + thisBtn.x - 2;
 			tempObj.y = _mc.y + thisBtn.y - 4;
+			tempObj.ID = thisBtn.ID;
+			tempObj.mc = _mc;
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.APPLICATION_OPTION_CLICK, tempObj));
 			

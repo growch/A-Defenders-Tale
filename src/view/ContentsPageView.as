@@ -106,6 +106,11 @@ package view
 		protected function deactivateNonSelected(event:ViewEvent):void
 		{
 //			var pageInfo:PageInfo = event.data as PageInfo;
+			if (!event.data) return;
+			if (!pgInfo) return;
+			
+//			trace("deactivate contents page: "+pgInfo.contentPanelInfo.pageID);
+			
 			if (event.data.id != pgInfo.contentPanelInfo.pageID) {
 				deactivate();
 			}

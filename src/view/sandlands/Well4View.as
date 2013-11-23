@@ -134,7 +134,7 @@ package view.sandlands
 			_nextY += _pageInfo.decisionsMarginTop;
 //			_decisions = new DecisionsView(_pageInfo.decisions,0x040404,true); //tint it, showBG
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			if (DataModel.sandpit) {
+			if (DataModel.sand5Ft) {
 				dv.push(_pageInfo.decisions[0]);
 			} else {
 				dv.push(_pageInfo.decisions[1]);

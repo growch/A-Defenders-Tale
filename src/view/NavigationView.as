@@ -44,7 +44,7 @@ package view
 		private static const CONTENTS_Y:int = 0;
 		
 		private var _gear:MovieClip;
-		private var _panelOpen:Boolean;
+		private var _navOpen:Boolean;
 		private var _helpPanel:MovieClip;
 		private var _restartPanel:MovieClip;
 		private var _contentsMC:MovieClip;
@@ -59,11 +59,25 @@ package view
 			
 			EventController.getInstance().addEventListener(ViewEvent.CLOSE_NAV_DECISION_CLICK, closeNav);
 			EventController.getInstance().addEventListener(ViewEvent.PEEK_NAVIGATION, peekNavigation);
+			EventController.getInstance().addEventListener(ViewEvent.OPEN_GLOBAL_NAV, openNavShowContents);
+		}
+		
+		protected function openNavShowContents(event:Event):void
+		{
+			buttonOnOffOthers(_contents);
+			
+			if (_blocker.alpha != .5) {
+				TweenMax.to(_blocker, .5, {autoAlpha:.5, onComplete:showContents});
+			} else {
+				showContents();
+			}
+			
+			buttonOnOffOthers(_contents);
 		}
 		
 		protected function closeNav(event:ViewEvent):void
 		{
-			hidePanel(event.data);
+			closeNavigation(event.data);
 		}
 		
 		private function init(event:Event) : void {
@@ -80,11 +94,11 @@ package view
 			_mc.x = 30;
 			_mc.y = CLOSED_Y;
 			
-			_panelOpen = false;
+			_navOpen = false;
 			
 			_gear = _mc.gear_mc;
 			_gear.mouseChildren = false;
-			_gear.addEventListener(MouseEvent.CLICK, panelToggle);
+			_gear.addEventListener(MouseEvent.CLICK, navigationToggle);
 			
 			_contents = _mc.getChildByName("contents_btn") as MovieClip;
 			_contents.addEventListener(MouseEvent.CLICK, contentsClick);
@@ -141,34 +155,34 @@ package view
 		
 		protected function peekNavigation(event:ViewEvent):void
 		{
-			showPanel();
-			TweenMax.delayedCall(2, hidePanel);
+			openNavigation();
+			TweenMax.delayedCall(2, closeNavigation);
 		}
 		
-		protected function panelToggle(event:MouseEvent):void
+		protected function navigationToggle(event:MouseEvent):void
 		{
 			DataModel.getInstance().buttonTap();
 			
-			if (!_panelOpen) {
-				showPanel();
+			if (!_navOpen) {
+				openNavigation();
 			} else {
-				hidePanel();
+				closeNavigation();
 			}
 		}
 		
-		private function showPanel():void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.OPEN_GLOBAL_NAV));
+		private function openNavigation():void {
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.GLOBAL_NAV_OPEN));
 			
 			_contents.gotoAndStop("_off");
 			_restart.gotoAndStop("_off");
 			_help.gotoAndStop("_off");
 			TweenMax.to(_mc, .6, {y:OPEN_Y, ease:Quad.easeInOut});
-			_panelOpen = true;
+			_navOpen = true;
 		}
 		
-		private function hidePanel(thisPageObj:Object=null):void {
+		private function closeNavigation(thisPageObj:Object=null):void {
 			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut, onComplete:panelsOff, onCompleteParams:[thisPageObj]});
-			_panelOpen = false;
+			_navOpen = false;
 			TweenMax.to(_blocker, 0, {autoAlpha:0});
 		}
 		
@@ -192,7 +206,7 @@ package view
 			
 			showRestart();
 			
-//			hidePanel();
+//			closeNavigation();
 			
 //			var tempObj:Object = new Object();
 //			tempObj.id = "TitleScreenView";
@@ -204,7 +218,7 @@ package view
 		{
 			DataModel.getInstance().buttonTap();
 			
-			hidePanel();
+			closeNavigation();
 
 			var tempObj:Object = new Object();
 			
@@ -272,11 +286,17 @@ package view
 		protected function contentsClick(event:MouseEvent):void
 		{
 			DataModel.getInstance().buttonTap();
-			
-			TweenMax.to(_blocker, .5, {autoAlpha:.5});
-			
 			buttonOnOffOthers(_contents);
 			
+			if (_blocker.alpha != .5) {
+				TweenMax.to(_blocker, .5, {autoAlpha:.5, onComplete:showContents});
+			} else {
+				showContents();
+			}
+			
+		}
+		
+		private function showContents():void {
 			TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_contentsMC]});
 			TweenMax.to(_panelHolder, 0, {autoAlpha:0});
 		}
@@ -288,6 +308,8 @@ package view
 			_aboutMC.visible = false;
 			
 			thisMC.visible = true;
+			
+			_navOpen = true;
 			
 //			TweenMax.to(thisMC, 1, {autoAlpha:1});
 			TweenMax.to(_panelHolder, .5, {autoAlpha:1});

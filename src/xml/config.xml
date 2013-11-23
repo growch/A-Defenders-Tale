@@ -4924,7 +4924,7 @@ Noah grinned, and used his tail to splash water into [defender]’s face. “Foo
 		</contents>			
 		<body>
 			<item type="text" id="statue" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[[Knowing that the wizard was just down the path changed everything. [defender] quickly returned the beaker and eyedropper to [pronoun3] pocket. “Let’s go, [companionName],” [pronoun1] said, brushing [pronoun3] [wardrobeShort] off. “We’ve got a wizard to find.”
+			<![CDATA[Knowing that the wizard was just down the path changed everything. [defender] quickly returned the beaker and eyedropper to [pronoun3] pocket. “Let’s go, [companionName],” [pronoun1] said, brushing [pronoun3] [wardrobeShort] off. “We’ve got a wizard to find.”
 
 [companionName] gave [pronoun2] a disapproving look, but remained silent.
 
@@ -5725,7 +5725,7 @@ And so they lived happily. That is until [previousDefender] was captured by inte
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
+			<decision id="FacebookNotifyView"><![CDATA[SHARE ON SOCIAL MEDIA]]></decision>
 			<decision id="TitleScreenView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</goWithPrevious>
@@ -5784,7 +5784,7 @@ That is until [previousDefender] was captured by intergalactic space pirates and
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
+			<decision id="FacebookNotifyView"><![CDATA[SHARE ON SOCIAL MEDIA]]></decision>
 			<decision id="TitleScreenView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</together>
@@ -5815,7 +5815,7 @@ That is until a band of unruly intergalactic space pirates created a very big co
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
+			<decision id="FacebookNotifyView"><![CDATA[SHARE ON SOCIAL MEDIA]]></decision>
 			<decision id="TitleScreenView"><![CDATA[OPEN CONTENTS]]></decision>
 		</decisions>	
 	</alone>

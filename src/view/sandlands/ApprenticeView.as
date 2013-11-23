@@ -89,6 +89,11 @@ package view.sandlands
 			_pageInfo = DataModel.appData.getPageInfo("apprentice");
 			_bodyParts = _pageInfo.body;
 			
+//			IMPORTANT CLEAR OUT if already done and going back
+			DataModel.sand5Ft = false;
+			DataModel.dropsCorrect = false;
+			DataModel.sandpit = false;
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

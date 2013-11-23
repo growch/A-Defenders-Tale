@@ -29,7 +29,7 @@ package view
 		{
 			EventController.getInstance().addEventListener(ViewEvent.ADD_CONTENTS_PAGE, addContentsPage); 
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
-			EventController.getInstance().addEventListener(ViewEvent.MAP_SELECT_ISLAND, resetSelectedIsland);
+//			EventController.getInstance().addEventListener(ViewEvent.MAP_SELECT_ISLAND, resetSelectedIsland);
 			EventController.getInstance().addEventListener(ApplicationEvent.RESTART_BOOK, resetPanel);
 			EventController.getInstance().addEventListener(ApplicationEvent.GOD_MODE_ON, godModeOn);
 			

@@ -169,7 +169,11 @@ package view.prologue
 					
 					//set the contents panel
 					if (!_tf) {
-						_pageInfo.contentPanelInfo.body = copy;
+						//hack cuz of inline textformat
+						var tempCopy:String = copy;
+						tempCopy = StringUtil.replace(tempCopy, "<TEXTFORMAT LEFTMARGIN='250'>", "");
+						tempCopy = StringUtil.replace(tempCopy, "<TEXTFORMAT RIGHTMARGIN='250'>", "");
+						_pageInfo.contentPanelInfo.body = tempCopy;
 						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 					}
 					

@@ -121,7 +121,15 @@ package view
 			var tempObj:Object = new Object();
 			tempObj.decisionNumber = thisID;
 			tempObj.id = _decisions[thisID].id;
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+			
+//			trace("decisionClick description: "+_decisions[thisID].description);
+			if (_decisions[thisID].description == "OPEN CONTENTS") {
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.OPEN_GLOBAL_NAV, tempObj));
+			} else {
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+			}
+			
+			
 		}
 		
 		public function deactivateButton(thisButtonNumb:int) : void {

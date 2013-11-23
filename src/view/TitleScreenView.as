@@ -22,7 +22,7 @@ package view
 	public class TitleScreenView extends MovieClip implements IPageView
 	{
 		private var _mc:MovieClip;
-		private var _fog1:MovieClip;
+		private var _fog:MovieClip;
 		private var _sun:MovieClip;
 		private var _beginBtn:MovieClip;
 		private var _bgSound:Track;
@@ -45,8 +45,8 @@ package view
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
-			_fog1 = _mc.fog1_mc;
-			_fog1.visible = false;
+			_fog = _mc.fog1_mc;
+			_fog.visible = false;
 			
 			_sun = _mc.sun_mc;
 			
@@ -98,7 +98,7 @@ package view
 			
 			_helpWanted = null;
 			
-			_fog1 = null;
+			_fog = null;
 			_sun = null;
 			_bgSound = null;
 			
@@ -130,9 +130,9 @@ package view
 			TweenMax.to(_beginBtn, .5, {scaleX:1.1, scaleY:1.1, ease:Quad.easeOut});
 			
 			TweenMax.killTweensOf(_sun);
-			_fog1.visible = true;
-//			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:fadeDownParts});
-			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:takeScreenshot});
+			_fog.visible = true;
+//			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:fadeDownParts});
+			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:takeScreenshot});
 //			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_mc, .2, {alpha:0, delay:2.4});
@@ -144,8 +144,8 @@ package view
 //		LESSON??? IT'S THE onComplete (i think?)
 		private function showFog() : void {
 //			TweenMax.killTweensOf(_sun);
-//			_fog1.visible = true;
-//			TweenMax.from(_fog1, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
+//			_fog.visible = true;
+//			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 //			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_mc, .3, {alpha:0, delay:2.4, onComplete:nextScreen});
@@ -161,7 +161,7 @@ package view
 			
 			_mc.removeChild(_mc.bg_mc);
 			_mc.removeChild(_sun);
-			_mc.removeChild(_fog1);
+			_mc.removeChild(_fog);
 			_mc.removeChild(_beginBtn);
 			
 			//put this back on top
@@ -193,7 +193,7 @@ package view
 		
 		private function fadeDownParts():void {
 //			TweenMax.allTo([_mc.bg_mc, _sun], .6, {autoAlpha:0, onComplete:nextScreen});
-			TweenMax.allTo([_mc.bg_mc, _sun, _fog1, _beginBtn], .4, {autoAlpha:0}, 0, showHelp);
+			TweenMax.allTo([_mc.bg_mc, _sun, _fog, _beginBtn], .4, {autoAlpha:0}, 0, showHelp);
 		}
 		
 		private function continueClick(e:MouseEvent):void {

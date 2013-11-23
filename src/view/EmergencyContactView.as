@@ -26,6 +26,9 @@ package view
 		private var _contactMC:MovieClip;
 		private var _twitterMC:MovieClip;
 		private var _signInMC:MovieClip;
+		private var _companion:String;
+		private var _deathArray:Array = ["thrown into a troll’s cookpot", "barbequed by a dragon", "squashed by a giant"];
+		private var _suddenDeath:String;
 		
 		public function EmergencyContactView()
 		{
@@ -64,6 +67,11 @@ package view
 			
 			TweenMax.from(_mc, .5, {alpha:0, onComplete:initGV}); 
 			addChild(_mc);
+			
+			_companion = DataModel.companionSelected ? "pet " + DataModel.defenderOptions.companionArray[DataModel.defenderInfo.companion] : "trusty sidekick";
+		
+			var randNum:int = Math.round(DataModel.getInstance().randomRange(0, _deathArray.length-1));
+			_suddenDeath = _deathArray[randNum];
 		}
 		
 		private function initGV():void {
@@ -79,11 +87,11 @@ package view
 		{
 			if (_goViral.isSupported) {
 				if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
-					var msg:String = "Hey " + DataModel.defenderInfo.contactFullName + 
-						", I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side."
+					var msg:String = "I’m leaving town for an epic adventure to help defend a realm in peril. Should I be " + 
+						_suddenDeath + ", I hereby bequeath my " + _companion + " to @" + DataModel.defenderInfo.contactFullName;
 					_goViral.postFacebookWall("A message from A Defender's Tale", "I'm off to defend the realm!", msg);
 				} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
-					DataModel.getTwitter().postTweet("Leaving town to help defend a realm in peril. Should I fail, I bequeath my pet companion to @" + DataModel.defenderInfo.twitterHandle + 
+					DataModel.getTwitter().postTweet("Leaving town to help defend a realm in peril. Should I fail, I bequeath my " + _companion + " to @" + DataModel.defenderInfo.twitterHandle + 
 						" http://bit.ly/1aEYCZJ");
 				}
 			} else {

@@ -228,6 +228,11 @@ package view
 		
 		protected function showSmoke(event:ViewEvent):void
 		{
+			// hack for emergency overlay social message
+			if (event.data.mc.name == "sidekick_mc") {
+				DataModel.defenderInfo.companion = event.data.ID;
+				DataModel.companionSelected = true;
+			}
 			_smokePuff = new SmokePuffMC();
 			_smokePuff.x = event.data.x;
 			_smokePuff.y = event.data.y;
