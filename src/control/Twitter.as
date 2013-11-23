@@ -45,10 +45,12 @@ package control
 //					getFollowers();
 					
 //					NativeTwitter.instance.composeTweet("testing");
+					
 				} else {
 					EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.TWITTER_NOT_SETUP));
 				}
 				trace("isSetup: " + NativeTwitter.instance.isTwitterSetup());
+//				trace("accessAllowed: "+accessAllowed);
 				
 			} else {
 				trace("NativeTwitter NOT supported");
@@ -63,6 +65,7 @@ package control
 		
 		public function twitterAvailable():Boolean {
 			if (NativeTwitter.isSupported()) {
+				trace("TWITTER AVAILABLE NativeTwitter.instance.accessDenied: "+NativeTwitter.instance.accessDenied);
 				return NativeTwitter.instance.isTwitterSetup();
 			} else {
 //				trace("NativeTwitter NOT supported");
@@ -110,6 +113,7 @@ package control
 		}
 		
 		private function twRequestResult(resultCode:String, data:Object):void {
+			
 			var dataS:String = "";
 			if (data != null)
 				dataS = JSON.stringify(data);

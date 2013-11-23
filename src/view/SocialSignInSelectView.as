@@ -53,6 +53,7 @@ package view
 				var firstName:String = fullName[0];
 				
 				DataModel.defenderInfo.contact = firstName; 
+				DataModel.defenderInfo.contactFullName = _nameTF.text; 
 				DataModel.SOCIAL_CONNECTED = false;
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CONTACT_SELECTED));
 			}

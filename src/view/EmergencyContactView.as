@@ -35,6 +35,7 @@ package view
 //			super();
 			
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			
 			EventController.getInstance().addEventListener(ViewEvent.LOGIN_FACEBOOK, loginFacebook);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, showFriends);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DEFENDER_INFO, addFBName);
@@ -46,6 +47,7 @@ package view
 			EventController.getInstance().addEventListener(ViewEvent.TWITTER_DONE, twitterDone);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DONE, facebookDone);
 			EventController.getInstance().addEventListener(ViewEvent.CLOSE_TWITTER_OVERLAY, removeTwitterOverlay);
+			EventController.getInstance().addEventListener(ViewEvent.TWITTER_ACCESS_DENIED, twitterDenied);
 		}
 		
 		
@@ -65,13 +67,22 @@ package view
 			_twitterSelect = new SocialTwitterView(_twitterMC);
 			_twitterMC.visible = false;
 			
-			TweenMax.from(_mc, .5, {alpha:0, onComplete:initGV}); 
+			
 			addChild(_mc);
+			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcOnStage);
 			
 			_companion = DataModel.companionSelected ? "pet " + DataModel.defenderOptions.companionArray[DataModel.defenderInfo.companion] : "trusty sidekick";
 		
 			var randNum:int = Math.round(DataModel.getInstance().randomRange(0, _deathArray.length-1));
 			_suddenDeath = _deathArray[randNum];
+		}
+		
+		protected function mcOnStage(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcOnStage); 
+			
+			TweenMax.from(_mc, .5, {alpha:0, onComplete:initGV}); 
 		}
 		
 		private function initGV():void {
@@ -85,10 +96,15 @@ package view
 		
 		protected function contactSelected(event:ViewEvent):void
 		{
+			if (!DataModel.SOCIAL_CONNECTED) {
+				//not really but will work
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));
+				return;
+			}
 			if (_goViral.isSupported) {
 				if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
 					var msg:String = "I’m leaving town for an epic adventure to help defend a realm in peril. Should I be " + 
-						_suddenDeath + ", I hereby bequeath my " + _companion + " to @" + DataModel.defenderInfo.contactFullName;
+						_suddenDeath + ", I hereby bequeath my " + _companion + " to " + DataModel.defenderInfo.contactFullName;
 					_goViral.postFacebookWall("A message from A Defender's Tale", "I'm off to defend the realm!", msg);
 				} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
 					DataModel.getTwitter().postTweet("Leaving town to help defend a realm in peril. Should I fail, I bequeath my " + _companion + " to @" + DataModel.defenderInfo.twitterHandle + 
@@ -118,8 +134,21 @@ package view
 			_twitterMC.visible = true;
 		}
 		
+		protected function twitterDenied(event:ViewEvent):void
+		{
+			_signInMC.visible = false;
+			
+			_twitterSelect.twitterDisabled();
+			
+			_twitterMC.visible = true;
+		}
+		
 		protected function showFriends(event:ViewEvent):void
 		{
+			//THIS COULD BE BETTER - for when logged into FB but haven't clicked button yet 
+			// i.e. when this view inits
+			if(!DataModel.SOCIAL_CONNECTED) return;
+			
 			trace("showFriends");
 			_signInMC.visible = false;
 				
@@ -233,6 +262,7 @@ package view
 			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_DONE, twitterDone);
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DONE, facebookDone);
 			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_TWITTER_OVERLAY, removeTwitterOverlay);
+			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_ACCESS_DENIED, twitterDenied);
 			
 			removeChild(_mc);
 		}
