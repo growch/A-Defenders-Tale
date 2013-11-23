@@ -233,6 +233,11 @@ package view.prologue
 			fadeUpLantern();
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			if (!DataModel.getInstance().navigationPeeked) {
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.PEEK_NAVIGATION));
+				DataModel.getInstance().navigationPeeked = true;
+			}
 		}
 		
 		protected function enterFrameLoop(event:Event):void

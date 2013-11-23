@@ -81,10 +81,10 @@ package view
 				if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
 					var msg:String = "Hey " + DataModel.defenderInfo.contactFullName + 
 						", I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side."
-					_goViral.postFacebookWall("I'm starting a great adventure!", msg);
+					_goViral.postFacebookWall("A message from A Defender's Tale", "I'm off to defend the realm!", msg);
 				} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
-					DataModel.getTwitter().postTweet("Hey @" + DataModel.defenderInfo.twitterHandle + 
-						", I'm leaving town for a while to help defend in a Realm in trouble, catch you on the flip side.");
+					DataModel.getTwitter().postTweet("Leaving town to help defend a realm in peril. Should I fail, I bequeath my pet companion to @" + DataModel.defenderInfo.twitterHandle + 
+						" http://bit.ly/1aEYCZJ");
 				}
 			} else {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));

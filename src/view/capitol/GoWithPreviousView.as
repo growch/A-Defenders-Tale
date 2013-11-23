@@ -10,6 +10,7 @@ package view.capitol
 	import flash.utils.setTimeout;
 	
 	import control.EventController;
+	import control.GoViralService;
 	
 	import events.ViewEvent;
 	
@@ -27,7 +28,6 @@ package view.capitol
 	import view.DecisionsView;
 	import view.FrameView;
 	import view.IPageView;
-	import control.GoViralService;
 	
 	public class GoWithPreviousView extends MovieClip implements IPageView
 	{
@@ -57,14 +57,7 @@ package view.capitol
 		{
 			_SAL = new SWFAssetLoader("capitol.GoAloneTogetherMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
-			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
-			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
-		}
-		
-		protected function loggedInFacebook(event:ViewEvent):void
-		{
-			_goViral.postFinishedAppFacebook();
 		}
 		
 		public function destroy() : void {
@@ -93,7 +86,6 @@ package view.capitol
 			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
-			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, loggedInFacebook);
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -290,8 +282,18 @@ package view.capitol
 		protected function decisionMade(event:ViewEvent):void
 		{
 			if (event.data.id == "FacebookNotifyView") {
-				_goViral = DataModel.getGoViral();
-				_goViral.loginFacebook();
+				if (DataModel.getGoViral().isSupported) {
+					if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+						var msg:String = "Today I saved a distant realm from Certain Doom and Destruction with a little help from my dear friends,  " 
+							+ DataModel.defenderInfo.contactFullName + "and " 
+							+ DataModel.defenderOptions.companionNameArray[DataModel.defenderInfo.companion] +
+							". For autographs, please form an orderly line."
+						DataModel.getGoViral().postFacebookWall("I Defended the Realm", "All in a day’s work", msg);
+					} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+						DataModel.getTwitter().postTweet("Today I saved a realm from Certain Doom with a help from @" + DataModel.defenderInfo.twitterHandle + 
+							". No autographs, please. http://bit.ly/1aEYCZJ");
+					}
+				}
 				return;
 			}
 			TweenMax.killAll();

@@ -3,6 +3,7 @@ package view.capitol
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -50,6 +51,7 @@ package view.capitol
 		private var _wave4:MovieClip;
 		private var _wave5:MovieClip;
 		private var _wave6:MovieClip;
+		private var _bgSound:Track;
 		
 		public function CapitolView()
 		{
@@ -215,9 +217,17 @@ package view.capitol
 			addChild(_dragVCont);
 			
 			DataModel.getInstance().oceanLoop();
+			
+			_bgSound = new Track("assets/audio/global/Ocean.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			
 		}
 		
+		
 		private function pageOn(e:ViewEvent):void {
+			
 			if (!DataModel.ipad1) _vortex.play();
 			
 			initWave(_wave1);

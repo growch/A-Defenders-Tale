@@ -1,6 +1,7 @@
 package view
 {
 	import com.greensock.TweenMax;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -11,6 +12,7 @@ package view
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	
 	import util.SWFAssetLoader;
 	
@@ -19,7 +21,6 @@ package view
 	import view.map.MapJoylessView;
 	import view.map.MapSandlandsView;
 	import view.map.MapShipwreckView;
-	import model.PageInfo;
 	
 	public class MapView extends MovieClip implements IPageView
 	{
@@ -36,6 +37,12 @@ package view
 		private var _capitol:MapCapitolView;
 		private var _cattery:MapCatteryView;
 		private var _pageInfo:PageInfo;
+		private var _bgSound:Track;
+		private var _VOSound:Track;
+		private var _voArray:Array = ["assets/audio/cattery/cattery_VO.mp3", "assets/audio/joyless/joyless_VO.mp3", 
+			"assets/audio/shipwreck/shipwreck_VO.mp3", "assets/audio/sandlands/sandlands_VO.mp3", "assets/audio/capitol/capitol_VO.mp3"];
+		private var _tempObj:Object;
+		private var _islandClicked:Boolean;
 		
 		public function MapView()
 		{
@@ -44,6 +51,13 @@ package view
 		}
 		
 		public function destroy() : void {
+			if (_VOSound) {
+				_VOSound.removeEventListener(Event.COMPLETE, voSoundComplete);
+				_VOSound = null;
+			}
+			
+			_tempObj = null;
+			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_catteryBtn.removeEventListener(MouseEvent.CLICK, islandClick);
@@ -120,15 +134,22 @@ package view
 //			_pageInfo.contentPanelInfo.body = "What should this copy be if anything?";
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 			
-			DataModel.getInstance().oceanLoop();
+			_bgSound = new Track("assets/audio/global/Ocean.mp3");
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			_bgSound.fadeAtEnd = true;
+			
+			
 		}
 		
 		protected function islandClick(event:MouseEvent):void
 		{
+			if (_islandClicked) return;
+			
 			DataModel.getInstance().buttonTap();
 			
 			var thisButton:String = event.target.name;
-			var tempObj:Object = new Object();
+			_tempObj = new Object();
 			
 			switch(thisButton)
 			{
@@ -136,7 +157,7 @@ package view
 				{
 					if (DataModel.STONE_CAT) return;
 					DataModel.CURRENT_ISLAND_INT = 0;
-					tempObj.id = "theCattery.Island1View";
+					_tempObj.id = "theCattery.Island1View";
 					break;
 				}
 					
@@ -144,7 +165,7 @@ package view
 				{
 					if (DataModel.STONE_SERPENT) return;
 					DataModel.CURRENT_ISLAND_INT = 1;
-					tempObj.id = "joylessMountains.JoylessMountainsIntroView";
+					_tempObj.id = "joylessMountains.JoylessMountainsIntroView";
 					break;
 				}	
 				
@@ -152,7 +173,7 @@ package view
 				{
 					if (DataModel.STONE_PEARL) return;
 					DataModel.CURRENT_ISLAND_INT = 2;
-					tempObj.id = "shipwreck.ShipwreckCoveView";
+					_tempObj.id = "shipwreck.ShipwreckCoveView";
 					break;
 				}		
 					
@@ -160,15 +181,15 @@ package view
 				{
 					if (DataModel.STONE_SAND) return;
 					DataModel.CURRENT_ISLAND_INT = 3;
-					tempObj.id = "sandlands.SandlandsView";
-					if (DataModel.ISLAND_SELECTED.length < 1) tempObj.id = "sandlands.ShoreView";
+					_tempObj.id = "sandlands.SandlandsView";
+					if (DataModel.ISLAND_SELECTED.length < 1) _tempObj.id = "sandlands.ShoreView";
 					break;
 				}		
 				
 				case "capitol_btn":
 				{
 					DataModel.CURRENT_ISLAND_INT = 4;
-					tempObj.id = "capitol.CapitolView";
+					_tempObj.id = "capitol.CapitolView";
 					break;
 				}
 //				default:
@@ -178,16 +199,35 @@ package view
 			}
 			DataModel.ISLAND_SELECTED.push(DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 			
-			if (DataModel.ISLAND_SELECTED.length <= 1) {
-//				TESTING!!!!
-				tempObj.id = "prologue.CrossSeaView";
-			}
+			_islandClicked = true;
 			
-			TweenMax.killAll();
+//				TESTING!!!!
+			DataModel.ISLAND_SELECTED.length = 2;
+			
+			if (DataModel.ISLAND_SELECTED.length <= 1) {
+
+				_tempObj.id = "prologue.CrossSeaView";
+				
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MAP_SELECT_ISLAND));
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, _tempObj));
+				
+			} 
+			
+			_VOSound = new Track(_voArray[DataModel.CURRENT_ISLAND_INT]);
+			_VOSound.addEventListener(Event.SOUND_COMPLETE, voSoundComplete);
+			
+			_bgSound.volumeTo(1000, .5);
+			_VOSound.start();
+			
+		}
+		
+		protected function voSoundComplete(event:Event):void
+		{
 			_mc.stopAllMovieClips();
+			TweenMax.killAll();
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MAP_SELECT_ISLAND));
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, _tempObj));
 		}
 		
 		protected function decisionMade(event:ViewEvent):void

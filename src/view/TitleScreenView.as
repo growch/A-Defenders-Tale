@@ -31,6 +31,7 @@ package view
 		private var _continueBtn:MovieClip;
 		private var _screenshotBMD:BitmapData;
 		private var _screenshotBMP:Bitmap;
+		private var _VOSound:Track;
 		
 		public function TitleScreenView()
 		{
@@ -52,6 +53,8 @@ package view
 			_beginBtn = _mc.begin_btn;
 			_beginBtn.mouseChildren = false;
 			_beginBtn.addEventListener(MouseEvent.CLICK, beginBook);
+			
+			_VOSound = new Track("assets/audio/global/Intro.mp3");
 			
 			_bgSound = new Track("assets/audio/global/DefenderTheme.mp3");
 			_bgSound.start(true);
@@ -75,10 +78,12 @@ package view
 		
 		public function destroy():void
 		{
-			_screenshotBMD.dispose();
-			_screenshotBMD = null;
-			
-			_screenshotBMP = null;
+			if (_screenshotBMD) {
+				_screenshotBMD.dispose();
+				_screenshotBMD = null;
+				
+				_screenshotBMP = null;
+			}
 			
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
@@ -96,6 +101,8 @@ package view
 			_fog1 = null;
 			_sun = null;
 			_bgSound = null;
+			
+			_VOSound = null;
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -165,18 +172,23 @@ package view
 		
 		private function showHelp():void {
 			TweenMax.to(_helpWanted, .6, {autoAlpha:1, onComplete:animateLines});
+			_bgSound.volumeTo(1000, .5);
 		}
 		
 		private function animateLines():void {
+			
+			
 			var offX:int = _helpWanted.mask_mc.line1_mc.x - _helpWanted.mask_mc.line1_mc.width;
 			
-			TweenMax.from(_helpWanted.mask_mc.line1_mc, 2, {x:offX, delay:1});
-			TweenMax.from(_helpWanted.mask_mc.line2_mc, 2, {x:offX, delay:3.0});
-			TweenMax.from(_helpWanted.mask_mc.line3_mc, 2.4, {x:offX, delay:4.6});
-			TweenMax.from(_helpWanted.mask_mc.line4_mc, 2.5, {x:offX, delay:6.5});
-			TweenMax.from(_helpWanted.mask_mc.line5_mc, 2, {x:offX, delay:8.4});
+			TweenMax.from(_helpWanted.mask_mc.line1_mc, 2.2, {x:offX, delay:1});
+			TweenMax.from(_helpWanted.mask_mc.line2_mc, 2.5, {x:offX, delay:4.0});
+			TweenMax.from(_helpWanted.mask_mc.line3_mc, 3.6, {x:offX, delay:6.4});
+			TweenMax.from(_helpWanted.mask_mc.line4_mc, 3.5, {x:offX, delay:8.5});
+			TweenMax.from(_helpWanted.mask_mc.line5_mc, 3.6, {x:offX, delay:11.2});
 			
 			_helpWanted.description_mc.visible = true;
+			
+			_VOSound.start();
 		}
 		
 		private function fadeDownParts():void {

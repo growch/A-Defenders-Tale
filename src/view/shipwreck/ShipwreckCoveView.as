@@ -232,10 +232,10 @@ package view.shipwreck
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+			
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-//			return;
 			_wave1.initX = _wave1.x;
 			_wave1.initY = _wave1.y;
 			_wave1.downY = _wave1.initY + _wave1.height + 2;

@@ -230,9 +230,11 @@ package view.joylessMountains
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+		
 		}
 		
 		private function pageOn(e:ViewEvent):void {
+			
 			initWave(_wave1);
 			initWave(_wave2);
 			initWave(_wave3);

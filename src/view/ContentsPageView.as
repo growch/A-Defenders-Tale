@@ -94,11 +94,13 @@ package view
 			tempObj.contentsPage = true;
 			tempObj.contentsPanelClick = true;
 			
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_NAV_DECISION_CLICK, tempObj));
+			
 //			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_GLOBAL_NAV));
 //			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 //			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DEACTIVATE_OTHER_PAGES, tempObj));
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_GLOBAL_NAV));
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_GLOBAL_NAV));
 		}
 		
 		protected function deactivateNonSelected(event:ViewEvent):void

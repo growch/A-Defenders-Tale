@@ -207,6 +207,7 @@ package view.prologue
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+			
 		}
 		
 		private function pageOn(event:ViewEvent):void {
@@ -262,13 +263,15 @@ package view.prologue
 		{
 			if (event.data.id == "FacebookNotifyView") {
 				if (DataModel.getGoViral().isSupported) {
+					var pronoun3:String = DataModel.getInstance().replaceVariableText('[pronoun3]');
+					
 					if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
-						var msg:String = "Hey " + DataModel.defenderInfo.contactFullName + 
-							", I'm stuck in the Cellar of A Defender's Tale."
-						DataModel.getGoViral().postFacebookWall("I'm starting a great adventure!", msg);
+						var msg:String = "I have to admit that my quest hasn’t been easy. I’d be Orc chow if " + DataModel.defenderInfo.contactFullName + 
+							"hadn’t flexed " + pronoun3 + " diplomatic skills. Wish me luck as I sail for the Barrier Islands."
+						DataModel.getGoViral().postFacebookWall("Setting sail in A Defender’s Tale", "Defending the Realm is harder than it looks.", msg);
 					} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
-						DataModel.getTwitter().postTweet("Hey @" + DataModel.defenderInfo.twitterHandle + 
-							", I'm stuck in the Cellar of A Defender's Tale.");
+						DataModel.getTwitter().postTweet("Still defending the realm: I’d be Orc chow if @" + DataModel.defenderInfo.twitterHandle + 
+							" hadn’t flexed " + pronoun3 + " diplomatic skills. http://bit.ly/1aEYCZJ");
 					}
 				}
 				return;
