@@ -128,9 +128,9 @@ package view.sandlands
 //			_decisions = new DecisionsView(_pageInfo.decisions,0x040404,true); //tint it, showBG
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			if (DataModel.sandpit) {
-				dv.push(_pageInfo.decisions[1]);
-			} else {
 				dv.push(_pageInfo.decisions[0]);
+			} else {
+				dv.push(_pageInfo.decisions[1]);
 			}	
 			_decisions = new DecisionsView(dv,0x040404,true);
 			_decisions.y = _nextY;

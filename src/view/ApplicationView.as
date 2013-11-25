@@ -309,7 +309,7 @@ package view
 		protected function submitClick(event:MouseEvent):void
 		{
 			if (errorsFound()) {
-//				return;
+				return;
 			}
 			
 			DataModel.getInstance().buttonTap();

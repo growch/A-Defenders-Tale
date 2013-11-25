@@ -228,22 +228,34 @@ package view
 			} 
 			
 			_VOSound = new Track(_voArray[DataModel.CURRENT_ISLAND_INT]);
-			_VOSound.addEventListener(Event.SOUND_COMPLETE, voSoundComplete);
+			_VOSound.addEventListener(Event.SOUND_COMPLETE, nextPage);
+			
+			_mc.stopAllMovieClips();
+			TweenMax.killAll();
+			
+			TweenMax.delayedCall(1, showFog);
 			
 			_bgSound.volumeTo(1000, .5);
 			_VOSound.start();
 			
 		}
 		
-		protected function voSoundComplete(event:Event):void
-		{
-			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:nextPage});
+		private function showFog():void {
+			TweenMax.from(_fog, 4, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 			_fog.visible = true;
 		}
 		
-		private function nextPage():void {
-			_mc.stopAllMovieClips();
-			TweenMax.killAll();
+		protected function voSoundComplete(event:Event):void
+		{
+//			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:nextPage});
+//			_fog.visible = true;
+		}
+		
+		private function nextPage(event:Event):void {
+			trace("map sound done nextPage");
+			
+//			_mc.stopAllMovieClips();
+//			TweenMax.killAll();
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MAP_SELECT_ISLAND));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, _tempObj));

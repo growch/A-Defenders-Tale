@@ -898,7 +898,8 @@ Rey walked [pronoun2] to the door. “Thanks be to yer sacrifice,” he said. �
 
 “I will be sure to heed your words,” [defender] said as she shook Rey’s hand.
 
-With that, [defender] stepped into the night, [pronoun3] companion at one side, supplies at the other. It was with equal parts excitement, dread, and sadness that [pronoun1] returned to the docks.]]>
+With that, [defender] stepped into the night, [pronoun3] companion at one side, supplies at the other. It was with equal parts excitement, dread, and sadness that [pronoun1] returned to the docks.
+]]>
 			</item>	
 		</body>
 		<decisions top="60">
@@ -2072,7 +2073,8 @@ The vizier narrowed his yellow eyes. “Very well.” He reached into his pocket
 			<item type="text" id="weapon" width="300" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] took the stone and pressed it into [weapon1]
 
-The vizier waved a gray paw in the air. “Go now, before I change my mind.”]]> 			
+The vizier waved a gray paw in the air. “Go now, before I change my mind.”
+]]> 			
 			</item>
 		</body>
 		<decisions top="100">
