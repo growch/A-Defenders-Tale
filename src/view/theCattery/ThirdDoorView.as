@@ -42,6 +42,7 @@ package view.theCattery
 		private var _bgSound:Track;
 		private var _endSound:Boolean;
 		private var _socialConnectInt:int;
+		private var _messageDone:Boolean;
 		
 		public function ThirdDoorView()
 		{
@@ -49,6 +50,7 @@ package view.theCattery
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_DONE, messageDone);
+			EventController.getInstance().addEventListener(ViewEvent.FACEBOOK_LOGGED_IN, fbLogin);
 			EventController.getInstance().addEventListener(ViewEvent.TWITTER_DONE, messageDone);
 		}
 		
@@ -56,6 +58,7 @@ package view.theCattery
 //			
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DONE, messageDone);
 			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_DONE, messageDone);
+			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_LOGGED_IN, fbLogin);
 //			
 			_pageInfo = null;
 			
@@ -238,6 +241,15 @@ package view.theCattery
 		
 		protected function messageDone(event:ViewEvent):void
 		{
+			_messageDone = true;
+			
+			var tempObj:Object = new Object();
+			tempObj.id = _pageInfo.decisions[0].id;
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+		}
+		
+		protected function fbLogin(event:ViewEvent):void
+		{
 			var tempObj:Object = new Object();
 			tempObj.id = _pageInfo.decisions[0].id;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
@@ -245,7 +257,7 @@ package view.theCattery
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (event.data.id == "theCattery.KittenContactView") {
+			if (event.data.id == "theCattery.KittenContactView" && !_messageDone) {
 				if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
 					if (!DataModel.getGoViral().isSupported) return;
 					
