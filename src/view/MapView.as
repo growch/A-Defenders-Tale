@@ -3,6 +3,8 @@ package view
 	import com.greensock.TweenMax;
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -41,9 +43,12 @@ package view
 		private var _VOSound:Track;
 		private var _voArray:Array = ["assets/audio/cattery/cattery_VO.mp3", "assets/audio/joyless/joyless_VO.mp3", 
 			"assets/audio/shipwreck/shipwreck_VO.mp3", "assets/audio/sandlands/sandlands_VO.mp3", "assets/audio/capitol/capitol_VO.mp3"];
+		private var _voDurations:Array = [10, 8, 8, 8, 7];
 		private var _tempObj:Object;
 		private var _islandClicked:Boolean;
 		private var _fog:MovieClip;
+		private var _screenshotBMD:BitmapData;
+		private var _screenshotBMP:Bitmap;
 		
 		public function MapView()
 		{
@@ -57,8 +62,18 @@ package view
 				_VOSound = null;
 			}
 			
+			if (_screenshotBMD) {
+				_screenshotBMD.dispose();
+				_screenshotBMD = null;
+				
+				removeChild(_screenshotBMP);
+				
+				_screenshotBMP = null;
+			}
+			
 			_tempObj = null;
 			
+			removeChild(_fog);
 			_fog = null;
 			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
@@ -147,13 +162,17 @@ package view
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
 			
-			
 		}
 		
 		protected function closeNewPathOverlay(event:ViewEvent):void
 		{
 			_fog.visible = false;
 			_islandClicked = false;
+			if (_screenshotBMP) {
+				_screenshotBMD.dispose();
+				removeChild(_screenshotBMP);
+			}
+			_mc.visible = true;
 		}
 		
 		protected function islandClick(event:MouseEvent):void
@@ -217,46 +236,49 @@ package view
 			
 //				TESTING!!!!
 //			DataModel.ISLAND_SELECTED.length = 2;
+			takeScreenshot();
 			
 			if (DataModel.ISLAND_SELECTED.length <= 1) {
-
 				_tempObj.id = "prologue.CrossSeaView";
-				
-//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MAP_SELECT_ISLAND));
-//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, _tempObj));
-				
 			} 
 			
 			_VOSound = new Track(_voArray[DataModel.CURRENT_ISLAND_INT]);
-			_VOSound.addEventListener(Event.SOUND_COMPLETE, nextPage);
-			
-			_mc.stopAllMovieClips();
-			TweenMax.killAll();
-			
-			TweenMax.delayedCall(1, showFog);
+			_VOSound.addEventListener(Event.SOUND_COMPLETE, voSoundComplete);
 			
 			_bgSound.volumeTo(1000, .5);
 			_VOSound.start();
 			
+			TweenMax.delayedCall(1, showFog);
 		}
 		
+		private function takeScreenshot():void {
+			_mc.visible = false;
+			
+			_screenshotBMD = new BitmapData(stage.stageWidth, stage.stageHeight, false, 0);
+			_screenshotBMP = new Bitmap(_screenshotBMD);
+			_screenshotBMD.draw(_mc);
+			
+			addChild(_screenshotBMP);
+			
+//			_sectionHolder.visible = false;
+			
+			addChild(_fog);
+		}
+		
+		
 		private function showFog():void {
-			TweenMax.from(_fog, 4, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
+			var duration:int = _voDurations[DataModel.CURRENT_ISLAND_INT];
+//			TweenMax.from(_fog, 4, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
+			TweenMax.from(_fog, duration, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 			_fog.visible = true;
 		}
 		
 		protected function voSoundComplete(event:Event):void
 		{
-//			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:nextPage});
-//			_fog.visible = true;
+			nextPage();
 		}
 		
-		private function nextPage(event:Event):void {
-			trace("map sound done nextPage");
-			
-//			_mc.stopAllMovieClips();
-//			TweenMax.killAll();
-			
+		private function nextPage():void {
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MAP_SELECT_ISLAND));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, _tempObj));
 		}

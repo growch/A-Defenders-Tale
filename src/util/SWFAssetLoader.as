@@ -18,27 +18,30 @@ package util
 		
 		public function SWFAssetLoader(thisSWF:String, thisContainer:MovieClip)
 		{
-			_loader = new SWFLoader("app:/assets/swfs/"+thisSWF+".swf", {container:thisContainer, noCache:true, context:DataModel.LoadContext, onInit:initLoadedSWF});
+//			_loader = new SWFLoader("app:/assets/swfs/"+thisSWF+".swf", {container:thisContainer, noCache:true, context:DataModel.LoadContext, onInit:initLoadedSWF});
+			_loader = new SWFLoader("app:/assets/swfs/"+thisSWF+".swf", {container:thisContainer, noCache:true, context:DataModel.LoadContext, onComplete:initLoadedSWF});
 //			_loader = new SWFLoader("assets/swfs/"+thisSWF+".swf", {container:thisContainer, noCache:true, context:DataModel.LoadContext, onInit:initLoadedSWF});
 			_loader.load();
 		}
 		
-		private  function initLoadedSWF(event:LoaderEvent):void { 
+		private  function initLoadedSWF(event:LoaderEvent):void {
+//			trace("initLoadedSWF");
 			assetMC = _loader.getSWFChild("mc_mc") as MovieClip;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ASSET_LOADED));
-//			_loader.addEventListener("unload", swfUnloaded);
+			_loader.addEventListener(LoaderEvent.UNLOAD, swfUnloaded);
 		}
 		
-//		protected function swfUnloaded(event:LoaderEvent):void
-//		{
-//			trace("swfUnloaded");
-//		}
+		protected function swfUnloaded(event:LoaderEvent):void
+		{
+			trace("$$$%$%$%$%$%$%%$ swfUnloaded");
+		}
 		
 		public function destroy():void
 		{
-			_loader.unload();
+//			trace("destroy");
+//			_loader.unload();
 			_loader.dispose(true);
-//			_loader.removeEventListener("unload", swfUnloaded);
+			_loader.removeEventListener(LoaderEvent.UNLOAD, swfUnloaded);
 			_loader = null;
 		}
 	}
