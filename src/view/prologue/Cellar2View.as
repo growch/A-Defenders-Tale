@@ -188,19 +188,26 @@ package view.prologue
 			}
 			
 			_frame = new FrameView(_mc.frame_mc);
+			var frameSize:int;
 			
 			// HACK for 3 decisions
 			if(dv.length > 2) {
-				_frame.sizeFrame(_decisions.y + _magicSpacer);
+				frameSize = _decisions.y + _magicSpacer;
+				_frame.sizeFrame(frameSize);
 				_frame.extraDecisionAdjust(60);
+				frameSize += 60;
 				_decisions.y += 20;
 			} else {
-				var frameSize:int = _decisions.y + 210;
+				frameSize = _decisions.y + 210;
 				_frame.sizeFrame(frameSize);
 				if (frameSize < DataModel.APP_HEIGHT) {
 					_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
 				}
 			}
+			
+			//			EXCEPTION FOR SCREENSHOT - PREVENTS WHITE FROM SHOWING UP
+			// 			size black BG
+			_mc.bg_mc.height = frameSize;
 			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
