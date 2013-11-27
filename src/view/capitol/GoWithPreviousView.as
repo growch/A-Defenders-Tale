@@ -7,7 +7,6 @@ package view.capitol
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	import control.GoViralService;
@@ -15,7 +14,6 @@ package view.capitol
 	import events.ViewEvent;
 	
 	import model.DataModel;
-	import model.DecisionInfo;
 	import model.PageInfo;
 	import model.StoryPart;
 	

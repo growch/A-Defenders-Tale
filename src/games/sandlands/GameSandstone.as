@@ -1,5 +1,6 @@
 package games.sandlands
 {
+	import com.greensock.TweenMax;
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
@@ -60,7 +61,11 @@ package games.sandlands
 		protected function stoneFound(event:ViewEvent):void
 		{
 			stopGame();
-			setTimeout(function():void {_mc.gameWon_mc.visible = true;}, 500);
+			TweenMax.delayedCall(.5, showGameWon);
+		}
+		
+		private function showGameWon():void {
+			_mc.gameWon_mc.visible = true;
 		}
 		
 		public function destroy():void {

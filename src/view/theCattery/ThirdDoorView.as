@@ -112,7 +112,7 @@ package view.theCattery
 //			
 			
 //			TESTING!!!!
-			DataModel.SOCIAL_CONNECTED = true;
+//			DataModel.SOCIAL_CONNECTED = true;
 //			
 			_socialConnectInt = DataModel.SOCIAL_CONNECTED ? 1 : 0;
 			// 0 = TRUE

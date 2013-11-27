@@ -176,8 +176,6 @@ package view
 		}
 		
 		private function animateLines():void {
-			
-			
 			var offX:int = _helpWanted.mask_mc.line1_mc.x - _helpWanted.mask_mc.line1_mc.width;
 			
 			TweenMax.from(_helpWanted.mask_mc.line1_mc, 2.2, {x:offX, delay:1});

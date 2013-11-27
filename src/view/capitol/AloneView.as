@@ -7,7 +7,6 @@ package view.capitol
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	import control.GoViralService;
@@ -227,16 +226,6 @@ package view.capitol
 			initWave(_wave4);
 			initWave(_wave5);
 			initWave(_wave6);
-			
-//			setTimeout(waveUp, 1000, _wave1); 
-//			setTimeout(waveUp, 2000, _wave2); 
-//			setTimeout(waveUp, 3000, _wave3); 
-//			setTimeout(waveUp, 4000, _wave4);
-//			setTimeout(waveUp, 5000, _wave5);
-//			setTimeout(waveUp, 6000, _wave6);
-			
-//			!!!!LESSON
-//			using setTimeout above and selecting next page quickly, caused swf to not unload
 			
 			TweenMax.delayedCall(1, waveUp, [_wave1]);
 			TweenMax.delayedCall(2, waveUp, [_wave2]);

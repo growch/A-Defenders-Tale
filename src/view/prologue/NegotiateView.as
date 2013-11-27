@@ -9,7 +9,6 @@ package view.prologue
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -47,6 +46,7 @@ package view.prologue
 		private var _notesPlayed:Object;
 		private var _bgSound:Track;
 		private var _instrumentInt:int;
+		private var _coinDone:Boolean;
 		
 		public function NegotiateView()
 		{
@@ -202,7 +202,7 @@ package view.prologue
 		
 		private function pageOn(e:ViewEvent):void {
 			
-			setTimeout(function():void{_mc.coin_mc.gotoAndStop(5);}, 3000);
+			TweenMax.delayedCall(3, stopCoin);
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
@@ -211,6 +211,11 @@ package view.prologue
 		
 		private function clickToShine(e:MouseEvent):void {
 			showNotes();
+		}
+		
+		private function stopCoin():void {
+			_mc.coin_mc.gotoAndStop(5);
+			_coinDone = true;
 		}
 		
 		protected function showNotes():void
@@ -246,10 +251,12 @@ package view.prologue
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;
-				
+				_mc.coin_mc.stop();
 			} else {
 				if (!_scrolling) return;
-				
+				if (!_coinDone) {
+					_mc.coin_mc.play();
+				}
 				TweenMax.resumeAll();
 				_scrolling = false;
 			}

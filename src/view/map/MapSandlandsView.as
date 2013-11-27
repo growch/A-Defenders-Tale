@@ -4,7 +4,6 @@ package view.map
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import view.IPageView;
 	

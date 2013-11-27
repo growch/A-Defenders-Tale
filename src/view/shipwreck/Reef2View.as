@@ -8,7 +8,6 @@ package view.shipwreck
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -61,6 +60,7 @@ package view.shipwreck
 		private var _SAL:SWFAssetLoader;
 		private var _clawAnimating:Boolean;
 		private var _bgSound:Track;
+		private var _clawDone:Boolean;
 		
 		public function Reef2View()
 		{
@@ -148,6 +148,7 @@ package view.shipwreck
 			_mc.addChild(_renderer4);
 			
 			_lobster = _mc.lobster_mc;
+			_lobster.stop();
 			_fish2 = _mc.fish2_mc;
 			_fish3 = _mc.fish3_mc;
 			_fish4 = _mc.fish4_mc;
@@ -241,8 +242,6 @@ package view.shipwreck
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_mc.password_mc.submit_btn.addEventListener(MouseEvent.CLICK, submitClick);
-			
 			// bg sound
 			_bgSound = new Track("assets/audio/shipwreck/shipwreck_04.mp3");
 			_bgSound.start(true);
@@ -286,8 +285,11 @@ package view.shipwreck
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-//			_mc.lobster_mc.play();
-			setTimeout(turnOffClaw, 1800);
+			_mc.password_mc.submit_btn.addEventListener(MouseEvent.CLICK, submitClick);
+			
+			_mc.lobster_mc.play();
+			_clawAnimating = true;
+			TweenMax.delayedCall(1.8, turnOffClaw);
 			
 			_fish2.goLeft = true;
 			_fish3.goLeft = true;
@@ -322,13 +324,13 @@ package view.shipwreck
 		}
 		
 		private function turnOffClaw():void {
-			_clawAnimating = true;
+			_clawDone = true;
 		}
 		
 		protected function enterFrameLoop(event:Event):void
 		{
 			
-			if (_clawAnimating) {
+			if (_clawDone && _clawAnimating) {
 				if (_lobster.currentFrame == 1) {
 					_lobster.stop();
 					_clawAnimating = false;
@@ -338,19 +340,28 @@ package view.shipwreck
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				
+				if (_clawAnimating && ! _clawDone) {
+					_lobster.stop();
+				}
+				
 				_bubbles1.pause()
 				_bubbles2.pause();
 				_bubbles3.pause();
 				_bubbles4.pause();
 				_scrolling = true;
+				
 			} else {
 				
 				moveFish(_fish2, .8);
 				moveFish(_fish3, .6);
 				moveFish(_fish4, .4);
 				
-				
 				if (!_scrolling) return;
+				
+				if (_clawAnimating && ! _clawDone) {
+					_lobster.play();
+				}
+
 				TweenMax.resumeAll();
 				_bubbles1.resume();
 				_bubbles2.resume();

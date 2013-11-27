@@ -7,7 +7,6 @@ package view.shipwreck
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -251,7 +250,7 @@ package view.shipwreck
 			_rendererMo.x = 130;
 			_rendererMo.y = 400;
 			_bubblesMo.start();
-			setTimeout(_bubblesMo.stopBubbles, 3000);
+			TweenMax.delayedCall(3, _bubblesMo.stopBubbles);
 		}
 
 		

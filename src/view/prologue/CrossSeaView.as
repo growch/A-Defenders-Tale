@@ -6,7 +6,6 @@ package view.prologue
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	

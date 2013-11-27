@@ -7,7 +7,6 @@ package view.theCattery
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -217,10 +216,10 @@ package view.theCattery
 				TweenMax.to(thisWave, 1, {y:thisWave.downY, x:"+20", ease:Quad.easeIn, delay:0, onComplete:waveUp, onCompleteParams:[thisWave]});
 			}
 			
-			setTimeout(waveUp, 1000, _wave1); 
-			setTimeout(waveUp, 1500, _wave2); 
-			setTimeout(waveUp, 2000, _wave3); 
-			setTimeout(waveUp, 2500, _wave4); 
+			TweenMax.delayedCall(1, waveUp, [_wave1]);
+			TweenMax.delayedCall(1.5, waveUp, [_wave2]);
+			TweenMax.delayedCall(2, waveUp, [_wave3]);
+			TweenMax.delayedCall(2.5, waveUp, [_wave4]);
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}

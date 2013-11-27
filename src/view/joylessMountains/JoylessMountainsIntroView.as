@@ -8,7 +8,6 @@ package view.joylessMountains
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -242,12 +241,12 @@ package view.joylessMountains
 			initWave(_wave5);
 			initWave(_wave6);
 			
-			setTimeout(waveUp, 1000, _wave1); 
-			setTimeout(waveUp, 2000, _wave2); 
-			setTimeout(waveUp, 3000, _wave3); 
-			setTimeout(waveUp, 4000, _wave4);
-			setTimeout(waveUp, 5000, _wave5);
-			setTimeout(waveUp, 6000, _wave6);
+			TweenMax.delayedCall(1, waveUp, [_wave1]);
+			TweenMax.delayedCall(2, waveUp, [_wave2]);
+			TweenMax.delayedCall(3, waveUp, [_wave3]);
+			TweenMax.delayedCall(4, waveUp, [_wave4]);
+			TweenMax.delayedCall(5, waveUp, [_wave5]);
+			TweenMax.delayedCall(6, waveUp, [_wave6]);
 			
 			function initWave(thisWave:MovieClip):void {
 				thisWave.initX = thisWave.x;

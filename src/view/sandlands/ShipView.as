@@ -6,7 +6,6 @@ package view.sandlands
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -202,7 +201,7 @@ package view.sandlands
 			var wave2DownY:int = wave2InitY + _boat.waves_mc.waves2_mc.height+2;
 			_boat.waves_mc.waves2_mc.y = wave2DownY;
 			
-			setTimeout(boatWave2Up, 1600);
+			TweenMax.delayedCall(1.6, boatWave2Up);
 			
 			function boatWave2Up():void {
 				_boat.waves_mc.waves2_mc.x = wave2InitX -10;

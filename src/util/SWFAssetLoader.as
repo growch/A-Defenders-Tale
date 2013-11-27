@@ -33,7 +33,15 @@ package util
 		
 		protected function swfUnloaded(event:LoaderEvent):void
 		{
-			trace("$$$%$%$%$%$%$%%$ swfUnloaded");
+			
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ASSET_UNLOADED));
+//			TweenMax.delayedCall(.5, unloadNotification);
+			unloadNotification();
+		}
+		
+		private function unloadNotification():void {
+			trace("$$$%$%$%$%$%$%%$ unloadNotification");
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ASSET_UNLOADED));
 		}
 		
 		public function destroy():void

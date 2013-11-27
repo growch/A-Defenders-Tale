@@ -11,8 +11,6 @@ package view.shipwreck
 	import flash.events.TimerEvent;
 	import flash.sensors.Accelerometer;
 	import flash.utils.Timer;
-	import flash.utils.clearTimeout;
-	import flash.utils.setTimeout;
 	
 	import assets.Jelly1MC;
 	import assets.Jelly2MC;

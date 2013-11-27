@@ -7,7 +7,6 @@ package view.sandlands
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -251,17 +250,17 @@ package view.sandlands
 				TweenMax.to(thisWave, 1, {y:thisWave.downY, x:"+20", ease:Quad.easeIn, delay:0, onComplete:waveUp, onCompleteParams:[thisWave]});
 			}
 			
-			setTimeout(waveUp, 1000, _wave1); 
-			setTimeout(waveUp, 1500, _wave2); 
-			setTimeout(waveUp, 2000, _wave3); 
-			setTimeout(waveUp, 2500, _wave4); 
+			TweenMax.delayedCall(1, waveUp, [_wave1]);
+			TweenMax.delayedCall(1.5, waveUp, [_wave2]);
+			TweenMax.delayedCall(2, waveUp, [_wave3]);
+			TweenMax.delayedCall(2.5, waveUp, [_wave4]);
 			
-			setTimeout(birdOn, 200, _bird1);
-			setTimeout(birdOn, 400, _bird2);
-			setTimeout(birdOn, 600, _bird3);
-			setTimeout(birdOn, 800, _bird4);
-			setTimeout(birdOn, 1000, _bird5);
-			setTimeout(birdOn, 1200, _bird6);
+			TweenMax.delayedCall(.2, birdOn, [_bird1]);
+			TweenMax.delayedCall(.4, birdOn, [_bird2]);
+			TweenMax.delayedCall(.6, birdOn, [_bird3]);
+			TweenMax.delayedCall(.8, birdOn, [_bird4]);
+			TweenMax.delayedCall(1, birdOn, [_bird5]);
+			TweenMax.delayedCall(1.2, birdOn, [_bird6]);
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}

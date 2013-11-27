@@ -7,7 +7,6 @@ package view.shipwreck
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -279,7 +278,7 @@ package view.shipwreck
 			_bubblesDung = new Bubbles2();
 			_rendererDung.addEmitter(_bubblesDung);
 			_bubblesDung.start();
-			setTimeout(_bubblesDung.stopBubbles, 3000);
+			TweenMax.delayedCall(3, _bubblesDung.stopBubbles);
 		}
 		
 		protected function enterFrameLoop(event:Event):void

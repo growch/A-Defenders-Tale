@@ -6,7 +6,6 @@ package view.joylessMountains
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -222,10 +221,10 @@ package view.joylessMountains
 			
 			//clouds 1-5 big, 6-7 medium, 8-12 small
 			
-			setTimeout(showFeather,1000,_feather1);
-			setTimeout(showFeather,2000,_feather3);
-			setTimeout(showFeather,3000,_feather2);
-			setTimeout(showFeather,4000,_feather4);
+			TweenMax.delayedCall(1, showFeather, [_feather1]);
+			TweenMax.delayedCall(2, showFeather, [_feather3]);
+			TweenMax.delayedCall(3, showFeather, [_feather2]);
+			TweenMax.delayedCall(4, showFeather, [_feather4]);
 		}
 		
 		private function showFeather(thisMC:MovieClip):void {
