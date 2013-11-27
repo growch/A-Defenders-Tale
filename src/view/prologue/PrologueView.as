@@ -212,7 +212,11 @@ package view.prologue
 			
 			_frame = new FrameView(_mc.frame_mc);
 			
-			_frame.sizeFrame(_decisions.y + 210);
+			var frameSize:int = _decisions.y + 210;
+//			EXCEPTION FOR SCREENSHOT - PREVENTS WHITE FROM SHOWING UP
+			// size black BG
+			_mc.black_mc.height = frameSize;
+			_frame.sizeFrame(frameSize);
 
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
