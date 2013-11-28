@@ -143,7 +143,7 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_bgSound = new Track("assets/audio/cattery/cattery_13.mp3");
+			_bgSound = new Track("assets/audio/cattery/cattery_09.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;

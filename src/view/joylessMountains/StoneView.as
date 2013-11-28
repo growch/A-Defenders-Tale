@@ -50,6 +50,7 @@ package view.joylessMountains
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
+		private var _secondSoundPlayed:Boolean;
 		
 		public function StoneView()
 		{
@@ -238,6 +239,12 @@ package view.joylessMountains
 			_bgSound.fadeAtEnd = true;
 		}
 		
+		private function secondSound():void
+		{
+			_bgSound.stop(true);
+			DataModel.getInstance().oceanLoop();
+		}
+		
 		private function pageOn(e:ViewEvent):void {
 			shineWeapon();
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
@@ -260,6 +267,11 @@ package view.joylessMountains
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY > 900 && !_secondSoundPlayed) {
+				secondSound();
+				_secondSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_boat.stop();

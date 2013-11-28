@@ -41,6 +41,9 @@ package view.joylessMountains
 		private var _bgSound:Track;
 		private var _secondSound:Track;
 		private var _secondSoundPlayed:Boolean;
+		private var _signOffY:int;
+		private var _nextSound:Track;
+		private var _nextSoundPlayed:Boolean;
 		
 		public function DinnerView()
 		{
@@ -121,6 +124,7 @@ package view.joylessMountains
 					
 					if (part.id == "sign") {
 						_mc.sign_mc.y = _nextY + 30;
+						_signOffY = _mc.sign_mc.y + _mc.sign_mc.height + 100;
 					}
 					
 				} else if (part.type == "image") {
@@ -166,6 +170,11 @@ package view.joylessMountains
 			_secondSound = new Track("assets/audio/joyless/joyless_05.mp3");
 			_secondSound.loop = true;
 			_secondSound.fadeAtEnd = true;
+			
+			_nextSound = new Track("assets/audio/joyless/joyless_22_jazz.mp3");
+			_nextSound.loop = true;
+			_nextSound.fadeAtEnd = true;
+			_nextSound.volumeMultiplier = 1.5;
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -182,12 +191,26 @@ package view.joylessMountains
 			_secondSound.start(true);
 		}
 		
+		private function nextSound():void
+		{
+//			_bgSound.stop(true);
+			_secondSound.volumeTo(1000, .5);
+			_nextSound.start();
+		}
+		
 		protected function enterFrameLoop(event:Event):void
 		{
 			if (_dragVCont.scrollY > 800 && !_secondSoundPlayed) {
 				secondSound();
 				_secondSoundPlayed = true;
 			}
+			
+			if (_dragVCont.scrollY > _signOffY && !_nextSoundPlayed) {
+				nextSound();
+				_nextSoundPlayed = true;
+			}
+			
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

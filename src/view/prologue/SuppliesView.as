@@ -3,6 +3,7 @@ package view.prologue
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Bounce;
 	import com.greensock.loading.ImageLoader;
+	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -36,6 +37,8 @@ package view.prologue
 		private var _frame:FrameView; 
 		private var _pageInfo:PageInfo;
 		private var _SAL:SWFAssetLoader;
+		private var _bgSound:Track;
+		private var _nextSound:Track;
 		
 		public function SuppliesView()
 		{
@@ -145,7 +148,23 @@ package view.prologue
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			// load sound
+			_bgSound = new Track("assets/audio/prologue/prologue_approach_reys.mp3");
+			_bgSound.start(true);
+			_bgSound.fadeAtEnd = true;
+			_bgSound.addEventListener(Event.SOUND_COMPLETE, nextSound);
+			
+			_nextSound = new Track("assets/audio/prologue/prologue_reys.mp3");
+			_nextSound.loop = true;
+			_nextSound.fadeAtEnd = true;
+			
 			_mc.sign_mc.lit_mc.alpha = 0;
+		}
+		
+		private function nextSound(e:Event):void
+		{
+			_bgSound.stop(true);
+			_nextSound.start(true);
 		}
 		
 		private function pageOn(e:ViewEvent):void {

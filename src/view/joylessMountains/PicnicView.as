@@ -43,6 +43,9 @@ package view.joylessMountains
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
 		private var _finalSoundPlayed:Boolean;
+		private var _nextSoundPlayed:Boolean;
+		private var _nextSound:Object;
+		private var _soundTriggerHeight:int;
 		
 		public function PicnicView()
 		{
@@ -171,6 +174,8 @@ package view.joylessMountains
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);
 			}
 			
+			_soundTriggerHeight = Math.round(_mc.bg_mc.height/2) - 400;
+			
 			_dragVCont = new DraggableVerticalContainer(0,0xFF0000,0,false,0,0,40,40);
 			_dragVCont.width = DataModel.APP_WIDTH;
 			_dragVCont.height = DataModel.APP_HEIGHT;
@@ -182,6 +187,16 @@ package view.joylessMountains
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+
+			_nextSound = new Track("assets/audio/joyless/joyless_11_wind.mp3");
+			_nextSound.loop = true;
+			_nextSound.fadeAtEnd = true;
+		}
+		
+		private function nextSound():void
+		{
+			_bgSound.stop(true);
+			_nextSound.start(true);
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -197,6 +212,11 @@ package view.joylessMountains
 			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSoundPlayed) {
 				DataModel.getInstance().endSound();
 				_finalSoundPlayed = true;
+			}
+			
+			if (_dragVCont.scrollY > _soundTriggerHeight && !_nextSoundPlayed) {
+				nextSound();
+				_nextSoundPlayed = true;
 			}
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {

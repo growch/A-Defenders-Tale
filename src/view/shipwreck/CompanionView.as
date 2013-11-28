@@ -49,7 +49,7 @@ package view.shipwreck
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
 		private var _surfaceSound:Track;
-		private var nextSoundPlayed:Boolean;
+		private var _nextSoundPlayed:Boolean;
 		
 		public function CompanionView()
 		{
@@ -282,9 +282,9 @@ package view.shipwreck
 			}
 			
 //			trace(_dragVCont.scrollY);
-			if (_dragVCont.scrollY > 1800 && !nextSoundPlayed) {
+			if (_dragVCont.scrollY > 1800 && !_nextSoundPlayed) {
 				nextSound();
-				nextSoundPlayed = true;
+				_nextSoundPlayed = true;
 			}
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {

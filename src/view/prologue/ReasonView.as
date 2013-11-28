@@ -137,7 +137,7 @@ package view.prologue
 			var frameSize:int = _decisions.y + 210;
 			//			EXCEPTION FOR SCREENSHOT - PREVENTS WHITE FROM SHOWING UP
 			// 			size black BG
-			_mc.black_mc.height = frameSize;
+			_mc.bg_mc.height = frameSize;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);

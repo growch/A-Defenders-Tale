@@ -40,6 +40,7 @@ package view.theCattery
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
 		private var _endSound:Boolean;
+		private var _nextSound:Track;
 		
 		public function PrivateAudienceView()
 		{
@@ -169,6 +170,15 @@ package view.theCattery
 			_bgSound.start(true);
 			_bgSound.loop = true;	
 			_bgSound.fadeAtEnd = true;	
+			_bgSound.addEventListener(Event.SOUND_COMPLETE, nextSound);
+			
+			_nextSound = new Track("assets/audio/cattery/cattery_09.mp3");
+		}
+		
+		private function nextSound(e:Event):void
+		{
+			_bgSound.stop(true);
+			_nextSound.start(true);
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -193,7 +203,6 @@ package view.theCattery
 				DataModel.getInstance().endSound();
 				_endSound = true;
 			}
-			
 		}
 		
 		private function clickToShine(e:MouseEvent):void {

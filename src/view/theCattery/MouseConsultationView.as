@@ -43,6 +43,7 @@ package view.theCattery
 		private var _SAL:SWFAssetLoader;
 		private var _notesPlayed:Object;
 		private var _bgSound:Track;
+		private var _secondSound:Track;
 		
 		public function MouseConsultationView()
 		{
@@ -169,10 +170,20 @@ package view.theCattery
 			_mc.instrument_mc.glows_mc.visible = true;
 			_mc.instrument_mc.shine_mc.visible = true;
 			
-			_bgSound = new Track("assets/audio/cattery/cattery_02.mp3");
+			_bgSound = new Track("assets/audio/cattery/cattery_08_waltz.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+			
+			_secondSound = new Track("assets/audio/cattery/cattery_02.mp3");
+			_secondSound.loop = true;
+			_secondSound.fadeAtEnd = true;
+		}
+		
+		private function secondSound():void
+		{
+			_bgSound.stop(true);
+			_secondSound.start(true);
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -181,6 +192,7 @@ package view.theCattery
 			
 			_mc.instrument_mc.addEventListener(MouseEvent.CLICK, clickToShine);
 			
+			TweenMax.delayedCall(4, secondSound);
 		}
 		
 		private function clickToShine(e:MouseEvent):void {
@@ -205,6 +217,7 @@ package view.theCattery
 					_mc.instrument_mc.noteDouble_mc.y = _doubleStart[1];
 				}}); 
 			TweenMax.to(_mc.instrument_mc.noteDouble_mc, .4, {alpha:0, delay:1.8});
+			
 			DataModel.getInstance().instrumentSound();
 		}
 		

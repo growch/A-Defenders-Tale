@@ -55,6 +55,7 @@ package view.joylessMountains
 		private var _hintCount:int = 1;
 		private var _retryCount:int = 0;
 		private var _bgSound:Track;
+		private var _gameSound:Track;
 		
 		public function PlayRiddlesView()
 		{
@@ -232,10 +233,15 @@ package view.joylessMountains
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_bgSound = new Track("assets/audio/joyless/joyless_game.mp3");
+			_bgSound = new Track("assets/audio/joyless/joyless_05.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+
+			_gameSound = new Track("assets/audio/joyless/joyless_game.mp3");
+			_gameSound.loop = true;
+			_gameSound.fadeAtEnd = true;
+			_gameSound.volume = .8;
 		}
 		
 		protected function hintClick(event:MouseEvent):void
@@ -256,6 +262,9 @@ package view.joylessMountains
 		private function pageOn(e:ViewEvent):void {
 			_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_bgSound.volumeTo(1000, .5);
+			_gameSound.start(true);
 		}
 		
 		private function startClick(e:MouseEvent):void {

@@ -7,7 +7,6 @@ package view.theCattery
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
-	import flash.text.TextField;
 	
 	import control.EventController;
 	
@@ -40,6 +39,9 @@ package view.theCattery
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
 		private var _endSound:Boolean;
+		private var _secondSound:Track;
+		private var _secondSoundPlayed:Boolean;
+		private var _cardTF:Text;
 		
 		public function ScratchEarsView()
 		{
@@ -50,6 +52,9 @@ package view.theCattery
 		}
 		
 		public function destroy() : void {
+//			
+			_mc.card_mc.removeChild(_cardTF);
+//			
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			_pageInfo = null;
@@ -127,16 +132,15 @@ package view.theCattery
 						var rect0:Rectangle = _tf.getCharBoundaries(index0);
 						_mc.card_mc.y = _tf.y + rect0.y + 50;
 						
-//						_mc.card_mc.name_txt.text = DataModel.defenderInfo.defender.toUpperCase();
-						var cardTF:Text = new Text("DEFENDER " + DataModel.defenderInfo.defender.toUpperCase(), 
+						_cardTF = new Text("DEFENDER " + DataModel.defenderInfo.defender.toUpperCase(), 
 							Formats.businessCardFormat(24), 300);
-						cardTF.rotation = 4;
-						cardTF.x = 42;
-						cardTF.y = 88;
-						_mc.card_mc.addChild(cardTF);
+						_cardTF.rotation = 4;
+						_cardTF.x = 42;
+						_cardTF.y = 88;
+						_mc.card_mc.addChild(_cardTF);
 						
-						if (cardTF.numLines > 1) {
-							cardTF.y -= 24;
+						if (_cardTF.numLines > 1) {
+							_cardTF.y -= 24;
 						}
 						
 						_mc.end_mc.y = Math.round(_tf.y + _tf.height + 60);
@@ -175,10 +179,12 @@ package view.theCattery
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
-			_bgSound = new Track("assets/audio/cattery/cattery_08_waltz.mp3");
+			_bgSound = new Track("assets/audio/cattery/cattery_09.mp3");
 			_bgSound.fadeAtEnd = true;
-//			_bgSound.start(true);
-//			_bgSound.loop = true;
+			_bgSound.start(true);
+			_bgSound.loop = true;
+			
+			_secondSound = new Track("assets/audio/cattery/cattery_purring.mp3");
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -190,6 +196,11 @@ package view.theCattery
 			if (_dragVCont.scrollY > _dragVCont.maxScroll && !_endSound) {
 				DataModel.getInstance().endSound();
 				_endSound = true;
+			}
+			
+			if (_dragVCont.scrollY >= 500 && !_secondSoundPlayed) {
+				_secondSound.start();
+				_secondSoundPlayed = true;
 			}
 			
 		}

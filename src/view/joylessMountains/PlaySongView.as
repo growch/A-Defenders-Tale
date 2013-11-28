@@ -46,6 +46,8 @@ package view.joylessMountains
 		private var _SAL:SWFAssetLoader;
 		private var _notesPlayed:Object;
 		private var _bgSound:Track;
+		private var _secondSound:Track;
+		private var _instrumentInt:int;
 		
 		public function PlaySongView()
 		{
@@ -98,8 +100,10 @@ package view.joylessMountains
 			
 			_nextY = 110;
 			
-			_mc.instrument_mc.gotoAndStop(int(DataModel.defenderInfo.instrument)+1);
-			_mc.instrument_mc.glows_mc.gotoAndStop(int(DataModel.defenderInfo.instrument)+1);
+			_instrumentInt = DataModel.defenderInfo.instrument;
+			
+			_mc.instrument_mc.gotoAndStop(_instrumentInt+1);
+			_mc.instrument_mc.glows_mc.gotoAndStop(_instrumentInt+1);
 			_mc.instrument_mc.glows_mc.visible = false;
 			_mc.instrument_mc.shine_mc.visible = false;
 			
@@ -185,6 +189,8 @@ package view.joylessMountains
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+			
+			_secondSound = new Track(DataModel.JIG_SOUND_ARRAY[_instrumentInt]);
 		}
 		
 		protected function clipMC(thisMC:MovieClip, thisHeight:int):void
@@ -224,7 +230,8 @@ package view.joylessMountains
 					_mc.instrument_mc.noteDouble_mc.y = _doubleStart[1];
 				}}); 
 			TweenMax.to(_mc.instrument_mc.noteDouble_mc, .4, {alpha:0, delay:1.8});
-			DataModel.getInstance().instrumentSound();
+			
+			_secondSound.start();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

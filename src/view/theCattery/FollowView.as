@@ -49,6 +49,8 @@ package view.theCattery
 		private var _bgSound:Track;
 		private var _finalSound:Boolean;
 		private var _compTakenIndex:int;
+		private var _secondSoundPlayed:Boolean;
+		private var _secondSound:Track;
 		
 		public function FollowView()
 		{
@@ -105,6 +107,9 @@ package view.theCattery
 			
 			// companion take or not
 			_compTakenIndex = DataModel.COMPANION_TAKEN ? 0 : 1;
+			
+//			TESTING!!!!
+//			_compTakenIndex = 0; 
 			
 			_nextY = 110;
 			
@@ -218,6 +223,9 @@ package view.theCattery
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+			
+			_secondSound = new Track("assets/audio/cattery/cattery_purring.mp3");
+
 		}
 		
 //		protected function clipMC(thisMC:MovieClip, thisHeight:int):void
@@ -243,11 +251,6 @@ package view.theCattery
 			DataModel.getInstance().companionSound();
 		}
 		
-		private function finalSound():void
-		{
-			
-		}
-		
 		protected function enterFrameLoop(event:Event):void
 		{
 			if(_dragVCont.scrollY > _vizier.y + 110 && !_ball.visible) {
@@ -258,8 +261,13 @@ package view.theCattery
 			}
 			
 			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSound) {
-				finalSound();
+				DataModel.getInstance().endSound();
 				_finalSound = true;
+			}
+			
+			if (_dragVCont.scrollY >= _dragVCont.maxScroll - 500 && !_secondSoundPlayed) {
+				_secondSound.start();
+				_secondSoundPlayed = true;
 			}
 			
 			if (_ballAnimating) {

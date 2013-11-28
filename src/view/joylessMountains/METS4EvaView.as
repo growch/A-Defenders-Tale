@@ -39,6 +39,7 @@ package view.joylessMountains
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
 		private var _finalSoundPlayed:Boolean;
+		private var _cardTF:Text;
 		
 		public function METS4EvaView()
 		{
@@ -49,6 +50,9 @@ package view.joylessMountains
 		}
 		
 		public function destroy() : void {
+//			
+			_mc.card_mc.removeChild(_cardTF);
+//			
 			_pageInfo = null;
 			
 			_frame.destroy();
@@ -88,15 +92,15 @@ package view.joylessMountains
 //			LESSON
 //			having embedded text would cause swf to not unload
 //			
-			var cardTF:Text = new Text("DEFENDER " + DataModel.defenderInfo.defender.toUpperCase(), 
+			_cardTF = new Text("DEFENDER " + DataModel.defenderInfo.defender.toUpperCase(), 
 				Formats.businessCardFormat(), 250);
-			cardTF.rotation = 4;
-			cardTF.x = -124;
-			cardTF.y = -42;
-			_mc.card_mc.addChild(cardTF);
+			_cardTF.rotation = 4;
+			_cardTF.x = -124;
+			_cardTF.y = -42;
+			_mc.card_mc.addChild(_cardTF);
 			
-			if (cardTF.numLines > 1) {
-				cardTF.y -= 20;
+			if (_cardTF.numLines > 1) {
+				_cardTF.y -= 20;
 			}
 			
 			_pageInfo = DataModel.appData.getPageInfo("METS4Eva");

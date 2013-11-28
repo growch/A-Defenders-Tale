@@ -49,6 +49,8 @@ package view.theCattery
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
 		private var _thirdDoor:Boolean;
+		private var _nextSoundPlayed:Boolean;
+		private var _graphicSound:Track;
 		
 		public function FourthDoorView()
 		{
@@ -249,6 +251,8 @@ package view.theCattery
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+			
+			_graphicSound = new Track("assets/audio/cattery/cattery_scissors.mp3");
 		}
 		
 		private function pageOn(e:ViewEvent):void {
@@ -290,6 +294,9 @@ package view.theCattery
 		}		
 		
 		private function showShine(thisMC:MovieClip):void {
+			if (thisMC == _scissors) {
+				_graphicSound.start();
+			}
 			TweenMax.to(thisMC.shine_mc, 1, {y:thisMC.glow_mc.height+20, ease:Quad.easeIn, onComplete:function():void {thisMC.shine_mc.y = -240}});
 		}
 		
@@ -311,6 +318,11 @@ package view.theCattery
 		
 		protected function enterFrameLoop(event:Event):void
 		{
+			if (_dragVCont.scrollY > 1000 && !_nextSoundPlayed) {
+				showShine(_scissors);
+				_nextSoundPlayed = true;
+			}
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;

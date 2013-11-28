@@ -196,7 +196,6 @@ package view.capitol
 			_cloud2.y -= difference;
 			_cloud3.y -= difference;
 			
-			
 			_mc.mask_mc.y -= difference;
 			_mc.waves_mc.y -= difference;
 			
