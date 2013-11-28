@@ -57,6 +57,7 @@ package games.bopMice.core
 		private var _gameWon:GameWon;
 		private var _SAL:SWFAssetLoader;
 		private var _mallet:MalletMC;
+		public var explosionHolder:Sprite;
 		
 		public function Game()
 		{
@@ -97,6 +98,9 @@ package games.bopMice.core
 			explosionManager = null;
 			collisionManager = null;
 			enemyManager = null;
+			
+			_mc.removeChild(explosionHolder);
+			explosionHolder = null;
 			
 			_bgMusic.stop(true);
 			_bgMusic = null;
@@ -142,6 +146,9 @@ package games.bopMice.core
 			
 			addAssets();
 			
+			explosionHolder = new Sprite();
+			_mc.addChild(explosionHolder);
+			
 			enemyManager = new EnemyManager(_mc.mice_mc);
 			collisionManager = new CollisionManager(this);
 			explosionManager = new ExplosionManager(this);
@@ -159,6 +166,7 @@ package games.bopMice.core
 			_mc.addChild(_mc.startGame_mc);
 			
 			addChild(_mc);
+			
 		}
 		
 		private function addAssets():void
