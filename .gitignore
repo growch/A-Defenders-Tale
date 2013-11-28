@@ -10,3 +10,5 @@ src/ADefendersTale.swf
 ######################
 .DS_Store
 .actionScriptProperties
+
+src/assets/audio/games/bopMice/hitMouse.mp3
