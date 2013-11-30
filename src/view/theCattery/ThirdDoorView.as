@@ -107,13 +107,6 @@ package view.theCattery
 			var compTakenInt:int = DataModel.COMPANION_TAKEN ? 0 : 1;
 //			1 = TRUE
 			
-//			TESTING!!!!
-//			compTakenInt = 0;
-//			
-			
-//			TESTING!!!!
-//			DataModel.SOCIAL_CONNECTED = true;
-//			
 			_socialConnectInt = DataModel.SOCIAL_CONNECTED ? 1 : 0;
 			// 0 = TRUE
 			

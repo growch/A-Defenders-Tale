@@ -103,11 +103,6 @@ package view.theCattery
 				supplyIndex = 1;
 			}
 			
-//			TESTING!!!!
-//			compAlongIndex = 0;
-//			supplyIndex = 0;
-//			
-			
 			_pageInfo = DataModel.appData.getPageInfo("ball");
 			_bodyParts = _pageInfo.body;
 			

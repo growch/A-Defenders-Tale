@@ -4,6 +4,10 @@ package view.map
 	import flash.events.Event;
 	import flash.geom.Point;
 	
+	import control.EventController;
+	
+	import events.ViewEvent;
+	
 	import model.DataModel;
 	
 	import org.flintparticles.common.counters.Steady;
@@ -29,26 +33,41 @@ package view.map
 		private var _mc:MovieClip;
 		private var _emitter:Emitter2D;
 		private var _renderer:DisplayObjectRenderer;
+		private var _stone:MovieClip;
 		
 		public function MapJoylessView(mc:MovieClip)
 		{
 			_mc = mc;
 			init();
+			
+			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
+		}
+		
+		protected function pageOn(event:Event):void
+		{
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+//			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			if (_emitter) {
+				_emitter.start();
+			}
+			
 		}
 		
 		private function init():void
 		{
-			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			
 			_mc.snow_mc.visible = false;
 			_mc.snow_mc.stop();
 			
+			_stone = _mc.name_mc.stone_mc;
+			_stone.visible = false;
+			
 			//!IMPORTANT otherwise chugs on iPad1
-			if (DataModel.ipad1) { 
+//			if (DataModel.ipad1) { 
 				_mc.snow_mc.visible = true;
 				_mc.snow_mc.play();
 				return;
-			}
+//			}
 			
 			//snowfall
 			_emitter = new Emitter2D();
@@ -70,15 +89,15 @@ package view.map
 			_mc.cloud_mc.addChild( _renderer );
 			_renderer.y = _mc.cloud_mc.height;
 			
-			_emitter.start();
-			_emitter.runAhead( 10 );
-			
 		}
 		
-		protected function enterFrameLoop(event:Event):void
-		{
-		}
+//		protected function enterFrameLoop(event:Event):void
+//		{
+//		}
 		
+		public function showStone():void {
+			_stone.visible = true;
+		}
 		
 		public function destroy():void {
 			
@@ -91,7 +110,8 @@ package view.map
 				_emitter = null;
 			}
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			_stone = null;
+//			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			_mc = null;
 		}

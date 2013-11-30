@@ -108,9 +108,6 @@ package view.theCattery
 			// companion take or not
 			_compTakenIndex = DataModel.COMPANION_TAKEN ? 0 : 1;
 			
-//			TESTING!!!!
-//			_compTakenIndex = 0; 
-			
 			_nextY = 110;
 			
 			_vizier = _mc.vizier_mc;

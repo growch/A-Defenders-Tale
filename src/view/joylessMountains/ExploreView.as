@@ -138,8 +138,6 @@ package view.joylessMountains
 			if (DataModel.supplies && !DataModel.STONE_CAT) {
 				supplyInt = 1;
 			}
-			//TESTING
-//			supplyInt = 1;
 			
 			_pageInfo = DataModel.appData.getPageInfo("explore");
 			_bodyParts = _pageInfo.body;

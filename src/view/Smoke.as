@@ -57,7 +57,6 @@ package view
 			addInitializer( new Lifetime( 3, 4 ) );
 			addInitializer( new Velocity( new DiscSectorZone( new Point( 0, 0 ), 40, 30, -4 * Math.PI / 7, -3 * Math.PI / 7 ) ) );
 			addInitializer( new SharedImage( new RadialDot( 6 ) ) );
-			//TESTING
 			addInitializer(new ColorInit(0000000001));
       
 			addAction( new Age( ) );

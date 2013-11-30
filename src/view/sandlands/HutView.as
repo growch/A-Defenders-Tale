@@ -101,9 +101,6 @@ package view.sandlands
 				_introInt = 1;
 			}
 			
-//			TESTING!!!!
-//			_introInt = 2;
-			
 			_mc.end_mc.visible = false; 
 			
 			_mc.cauldron_mc.correct_mc.stop();

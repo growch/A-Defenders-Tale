@@ -3,6 +3,10 @@ package view.map
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
+	import control.EventController;
+	
+	import events.ViewEvent;
+	
 	import view.IPageView;
 	
 	public class MapShipwreckView extends MovieClip implements IPageView
@@ -10,11 +14,20 @@ package view.map
 		private var _mc:MovieClip;
 		private var _shark1:MovieClip;
 		private var _shark2:MovieClip;
+		private var _stone:MovieClip;
 		
 		public function MapShipwreckView(mc:MovieClip)
 		{
 			_mc = mc;
 			init();
+			
+			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
+		}
+		
+		protected function pageOn(event:ViewEvent):void
+		{
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		private function init():void
@@ -32,14 +45,18 @@ package view.map
 			_shark1.orientRight = true; 
 			_shark2.goLeft = true;
 			
-			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			_stone = _mc.name_mc.stone_mc;
+			_stone.visible = false;
 		}
-		
 		
 		protected function enterFrameLoop(event:Event):void
 		{
 			moveFish(_shark1, .6);
 			moveFish(_shark2, .4);
+		}
+		
+		public function showStone():void {
+			_stone.visible = true;
 		}
 		
 		private function moveFish(thisMC:MovieClip, thisAmt:Number):void {
@@ -68,6 +85,8 @@ package view.map
 		
 		public function destroy():void {
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			_stone = null;
 			
 			_shark1 = null;
 			_shark2 = null;

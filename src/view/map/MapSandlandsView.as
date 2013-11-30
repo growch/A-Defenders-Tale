@@ -5,6 +5,10 @@ package view.map
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
+	import control.EventController;
+	
+	import events.ViewEvent;
+	
 	import view.IPageView;
 	
 	public class MapSandlandsView extends MovieClip implements IPageView
@@ -16,12 +20,15 @@ package view.map
 		private var _bird4:MovieClip;
 		private var _range:Number = 4;
 		private var _speed:Number = .1;
-		private var _ripples:MovieClip;
+//		private var _ripples:MovieClip;
+		private var _stone:MovieClip;
 		
 		public function MapSandlandsView(mc:MovieClip)
 		{
 			_mc = mc;
 			init();
+			
+			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
 		}
 		
 		private function init():void
@@ -43,17 +50,25 @@ package view.map
 			_bird3.stop();
 			_bird4.stop();
 			
-			_ripples = _mc.ripples_mc;
-			_ripples.stop();
+			_stone = _mc.name_mc.stone_mc;
+			_stone.visible = false;
 			
-			TweenMax.delayedCall(.4, playMC, [_ripples]);
+//			_ripples = _mc.ripples_mc;
+//			_ripples.stop();
+			
+//			TweenMax.delayedCall(.4, playMC, [_ripples]);
 
-			TweenMax.delayedCall(.2, birdOn, [_bird1]);
-			TweenMax.delayedCall(.5, birdOn, [_bird2]);
-			TweenMax.delayedCall(.8, birdOn, [_bird3]);
-			TweenMax.delayedCall(1.1, birdOn, [_bird4]);
-			
+		}
+		
+		protected function pageOn(event:ViewEvent):void
+		{
+			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			TweenMax.delayedCall(0, birdOn, [_bird1]);
+			TweenMax.delayedCall(.4, birdOn, [_bird2]);
+			TweenMax.delayedCall(.6, birdOn, [_bird3]);
+			TweenMax.delayedCall(.8, birdOn, [_bird4]);
 		}
 		
 		private function playMC(thisMC:MovieClip):void {
@@ -79,6 +94,10 @@ package view.map
 			bobItem(_bird4);
 		}
 		
+		public function showStone():void {
+			_stone.visible = true;
+		}
+		
 		public function destroy():void {
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
@@ -87,7 +106,9 @@ package view.map
 			_bird3 = null;
 			_bird4 = null;
 			
-			_ripples = null;
+			_stone = null;
+			
+//			_ripples = null;
 			
 			_mc = null;
 		}

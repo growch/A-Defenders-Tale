@@ -124,9 +124,6 @@ package view.prologue
 				_supplyInt = 1;
 			}
 			
-//			TESTING!!!!
-//			_supplyInt = 0;
-			
 			if (_weaponInt != 2 && _supplyInt == 0) {
 				_mc.textSupplies_mc.visible = true;
 			}

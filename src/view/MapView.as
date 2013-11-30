@@ -116,6 +116,8 @@ package view
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().addEventListener(ViewEvent.CLOSE_OVERLAY, closeNewPathOverlay);
 			
@@ -138,11 +140,17 @@ package view
 			_shipwreckBtn.mouseChildren = false;
 			_shipwreckBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			
-			_sandlands = new MapSandlandsView(_mc.sandlands_mc);
-			_shipwreck = new MapShipwreckView(_mc.shipwreck_mc);
-			_joyless = new MapJoylessView(_mc.joyless_mc); 
 			_capitol = new MapCapitolView(_mc.capitol_mc);
 			_cattery = new MapCatteryView(_mc.cattery_mc);
+			_joyless = new MapJoylessView(_mc.joyless_mc); 
+			_sandlands = new MapSandlandsView(_mc.sandlands_mc);
+			_shipwreck = new MapShipwreckView(_mc.shipwreck_mc);
+			
+			if (DataModel.STONE_CAT) _cattery.showStone();
+			if (DataModel.STONE_SERPENT) _joyless.showStone();
+			if (DataModel.STONE_SAND) _sandlands.showStone();
+			if (DataModel.STONE_PEARL) _shipwreck.showStone();
+			
 			
 			if (DataModel.STONE_COUNT >= 4) {
 				_capitol.showCapitol();
@@ -161,7 +169,12 @@ package view
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
-			
+		}
+		
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
 		}
 		
 		protected function closeNewPathOverlay(event:ViewEvent):void
@@ -234,8 +247,7 @@ package view
 			
 			_islandClicked = true;
 			
-//				TESTING!!!!
-//			DataModel.ISLAND_SELECTED.length = 2;
+			
 			takeScreenshot();
 			
 			if (DataModel.ISLAND_SELECTED.length <= 1) {

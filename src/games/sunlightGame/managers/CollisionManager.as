@@ -110,8 +110,6 @@ package games.sunlightGame.managers
 //				trace("_enem i: "+i);
 				
 				var leng:int = bla.length-1;
-//				TESTING!!!!
-//				leng = 0;	
 				
 				for(var j:int=leng; j>=0; j--)
 				{

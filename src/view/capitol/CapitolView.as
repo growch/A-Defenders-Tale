@@ -133,10 +133,6 @@ package view.capitol
 			
 			var compInt:int = DataModel.defenderInfo.companion;
 			
-//			TESTING!!!!!!
-			DataModel.STONE_COUNT = 4;
-//			TESTING!!!!!!!!
-			
 			var introInt:int = 0;
 			if (DataModel.STONE_PEARL && DataModel.STONE_CAT) {
 				introInt = 1;

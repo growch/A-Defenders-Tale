@@ -89,10 +89,6 @@ package view.theCattery
 			_pageInfo = DataModel.appData.getPageInfo("playWithKittens");
 			_bodyParts = _pageInfo.body;
 			
-			
-//			TESTING!!!!
-//			DataModel.COMPANION_TAKEN = true;
-			
 			// companion take or not
 			_compTakenInt = DataModel.COMPANION_TAKEN ? 0 : 1;
 //			0 = TRUE

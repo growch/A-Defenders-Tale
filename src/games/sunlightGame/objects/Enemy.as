@@ -41,18 +41,12 @@ package games.sunlightGame.objects
 			
 			ySpeed = DataModel.getInstance().randomRange(2,3);
 			
-			
-//			TESTING!!!!
-//			ySpeed = .5;
-//			trace(ySpeed);
 			_stepX = Math.PI*(DataModel.getInstance().randomRange(.01, .02));
 			
 			_enemMC = new EnemyMC();
 			_hitMC = _enemMC.getChildByName("hitSmall_mc") as MovieClip;
 			_hitBigMC = _enemMC.getChildByName("hitBig_mc") as MovieClip;
 			addChild(_enemMC);
-			
-			
 			
 			_startX = x;
 		}

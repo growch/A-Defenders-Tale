@@ -1,5 +1,6 @@
 package util
 {
+	import com.greensock.TweenMax;
 	import com.greensock.events.LoaderEvent;
 	import com.greensock.loading.SWFLoader;
 	
@@ -35,7 +36,7 @@ package util
 		{
 			
 //			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ASSET_UNLOADED));
-//			TweenMax.delayedCall(.5, unloadNotification);
+//			TweenMax.delayedCall(2, unloadNotification); 
 			unloadNotification();
 		}
 		

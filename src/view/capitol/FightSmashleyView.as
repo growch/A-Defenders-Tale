@@ -95,10 +95,6 @@ package view.capitol
 			_pageInfo = DataModel.appData.getPageInfo("fightSmashley");
 			_bodyParts = _pageInfo.body;
 			
-//			TESTING!!!!!
-//			DataModel.STONE_SERPENT = true;
-//			TESTING!!!!!!!
-			
 			var hasSerpentine:int = DataModel.STONE_SERPENT? 0 : 1;
 			// 1 = false !!!
 			_deadEnd = !DataModel.STONE_SERPENT;

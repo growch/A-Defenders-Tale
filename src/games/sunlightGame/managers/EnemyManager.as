@@ -32,8 +32,6 @@ package games.sunlightGame.managers
 			this.game = game;
 			enemies = new Array();
 			pool = new StarlingPool(Enemy, 80);
-//			TESTING!!!!
-//			pool = new StarlingPool(Enemy, 1);
 			
 			sundrops = new Array();
 			sunpool = new StarlingPool(SundropMC, 10);
@@ -45,8 +43,6 @@ package games.sunlightGame.managers
 			_dropTimer.addEventListener(TimerEvent.TIMER, addDrop);
 			_dropTimer.start();
 			
-//			TESTING!!!!!
-//			spawn();
 		}
 		
 		public function destroy():void
@@ -146,8 +142,6 @@ package games.sunlightGame.managers
 			game.enemyHolder.addChild(e);
 			
 			e.reset();
-//			TESTING!!!!
-//			e.startDrag(true);
 		}
 		
 		public function destroyEnemy(e:Enemy):void

@@ -97,9 +97,6 @@ package view.theCattery
 			_compTakenInt = DataModel.COMPANION_TAKEN ? 0 : 1;
 //			1 = TRUE
 			
-//			TESTING!!!!
-//			_compTakenInt = 0;
-//			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

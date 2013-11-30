@@ -19,7 +19,6 @@ package games.bopMice.managers
 		
 		public function spawn(x:int, y:int):void
 		{
-			trace("shootStars");
 			explosion.shootStars(x, y);
 		}
 		

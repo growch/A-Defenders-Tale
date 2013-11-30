@@ -128,13 +128,6 @@ package view.theCattery
 				_compAlongIndex = 1;
 			}
 			
-			//TESTING!!!
-//			_compAlongIndex = 0;
-			
-//			TESTING!!!
-//			DataModel.thirdDoor = true;
-//			
-			
 			_thirdDoor = DataModel.thirdDoor;
 			
 			var supplyIndex:int;

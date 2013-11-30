@@ -109,8 +109,6 @@ package view.joylessMountains
 			if (!DataModel.STONE_CAT) {
 				supplyInt = 1;
 			}
-			//TESTING
-//			supplyInt = 1;
 			
 			_pageInfo = DataModel.appData.getPageInfo("picnic");
 			_bodyParts = _pageInfo.body;
