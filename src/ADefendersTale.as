@@ -9,6 +9,7 @@ package
 	import flash.events.Event;
 	import flash.events.StatusEvent;
 	import flash.net.URLRequest;
+	import flash.system.Capabilities;
 	import flash.text.AntiAliasType;
 	
 	import air.net.URLMonitor;
@@ -66,6 +67,10 @@ package
 			_dm.addEventListener( ApplicationEvent.DISPLAY_ERROR, onLoadingError );
 			_dm.loadApplicationConfigurationFile();
 			
+			if (Capabilities.screenResolutionY > DataModel.APP_HEIGHT) {
+				DataModel.highRes = true;
+				
+			}
 			//set security
 //			Security.allowDomain("*"); 
 			

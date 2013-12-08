@@ -128,11 +128,19 @@ package games.sunlightGame.core
 			_mc = null;
 		}
 		
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
 		private function init(event:Event):void
 		{
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
+
 			_startGame = new StartGame(this, _mc.startGame_mc);
 			
 			_gameLost = new GameLost(this, _mc.gameLost_mc);

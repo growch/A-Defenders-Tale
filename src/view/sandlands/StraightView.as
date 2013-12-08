@@ -81,9 +81,17 @@ package view.sandlands
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
 		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
+			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
@@ -91,6 +99,11 @@ package view.sandlands
 			
 			_pageInfo = DataModel.appData.getPageInfo("straight");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.ravens_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

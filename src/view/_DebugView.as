@@ -64,7 +64,9 @@ package view
 			//CRASHES iPAD1
 //			tempObj.id = "theCattery.FollowView"; !!!! look into cache _tf as bitmap
 
-			tempObj.id = "MapView";
+//			tempObj.id = "MapView";
+			tempObj.id = "_DebugView";
+//			tempObj.id = "sandlands.ApprenticeView";
 			
 			//DON'T UNLOAD
 //			tempObj.id = "ApplicationView";

@@ -105,9 +105,17 @@ package view.sandlands
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
 		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
+			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
@@ -131,12 +139,29 @@ package view.sandlands
 			_wave3.visible = false;
 			_wave4.visible = false;
 			
-			_bird1 = _mc.bird1_mc;
-			_bird2 = _mc.bird2_mc;
-			_bird3 = _mc.bird3_mc;
-			_bird4 = _mc.bird4_mc;
-			_bird5 = _mc.bird5_mc;
-			_bird6 = _mc.bird6_mc;
+			//LOW RES GRAPHICS
+			if (DataModel.highRes) {
+				_mc.bird1_mc.gotoAndStop(2);
+				_mc.bird2_mc.gotoAndStop(2);
+				_mc.bird3_mc.gotoAndStop(2);
+				_mc.bird4_mc.gotoAndStop(2);
+				_mc.bird5_mc.gotoAndStop(2);
+				_mc.bird6_mc.gotoAndStop(2);
+			} else {
+				_mc.bird1_mc.gotoAndStop(1);
+				_mc.bird2_mc.gotoAndStop(1);
+				_mc.bird3_mc.gotoAndStop(1);
+				_mc.bird4_mc.gotoAndStop(1);
+				_mc.bird5_mc.gotoAndStop(1);
+				_mc.bird6_mc.gotoAndStop(1);
+			}
+			
+			_bird1 = _mc.bird1_mc.bird_mc;
+			_bird2 = _mc.bird2_mc.bird_mc;
+			_bird3 = _mc.bird3_mc.bird_mc;
+			_bird4 = _mc.bird4_mc.bird_mc;
+			_bird5 = _mc.bird5_mc.bird_mc;
+			_bird6 = _mc.bird6_mc.bird_mc;
 			
 			birdsOff();
 			
@@ -154,6 +179,16 @@ package view.sandlands
 			
 			var stoneInt:int = DataModel.STONE_COUNT > 1 ? 1:0;
 			var stoneNumberArray:Array = ['one', 'two', 'three', 'four'];
+			
+			//LOW RES GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_wave1);
+			DataModel.getInstance().setGraphicResolution(_wave2);
+			DataModel.getInstance().setGraphicResolution(_wave3);
+			DataModel.getInstance().setGraphicResolution(_wave4);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

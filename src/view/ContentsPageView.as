@@ -45,7 +45,7 @@ package view
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			_active = true;
+//			_active = true;
 			
 			_mc.title_txt.text = pgInfo.contentPanelInfo.title;
 			
@@ -126,19 +126,24 @@ package view
 		
 		public function activate():void
 		{
+			if (_active) return;
+			
 			_mc.bg_mc.gotoAndStop("active");
 			_mc.title_txt.textColor = ACTIVE_COLOR;
 			_mc.body_txt.textColor = ACTIVE_COLOR;
 			_active = true;
+			
 		}
 		
 		protected function deactivate():void
 		{
 			if (!_active) return;
+			
 			_mc.bg_mc.gotoAndStop("inactive");
 			_mc.title_txt.textColor = INACTIVE_COLOR;
 			_mc.body_txt.textColor = INACTIVE_COLOR;
 			_active = false;
+			
 		}
 		
 		public function get pageHeight():int {

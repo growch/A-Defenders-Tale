@@ -88,6 +88,10 @@ package view.sandlands
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
+			//SET LOW RES GRAPHICS IF NEEDED
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sand_mc);
+			
 			_nextY = 110;
 			
 			_pageInfo = DataModel.appData.getPageInfo("sand");
@@ -192,6 +196,7 @@ package view.sandlands
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			_dragVCont.stopVerticalScrolling();
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));

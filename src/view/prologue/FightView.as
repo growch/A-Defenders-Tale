@@ -101,9 +101,17 @@ package view.prologue
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		public function init(e:ViewEvent) : void {
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
+		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
+			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade); 
 			
@@ -329,6 +337,8 @@ package view.prologue
 			
 			_mc.instruments_mc.instrument_mc.glows_mc.visible = true;
 			_mc.instruments_mc.instrument_mc.shine_mc.visible = true;
+			
+			_balladSound.start();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

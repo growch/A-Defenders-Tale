@@ -5,6 +5,8 @@ package games.sandlands.managers
 	
 	import games.sandlands.objects.Enemy;
 	
+	import model.DataModel;
+	
 	public class EnemyManager
 	{
 		private var _enemsMC:MovieClip;

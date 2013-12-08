@@ -172,7 +172,9 @@ package view
 		
 		private function getFromStockpile(thisMC:MovieClip):DisplayObject {
 			var thisAsset:DisplayObject = thisMC.getChildAt(0);
-//			trace(thisAsset.name);
+			DataModel.getInstance().setGraphicResolution(thisAsset as MovieClip);
+//			trace(MovieClip(thisAsset).currentFrame);
+//			trace(MovieClip(thisAsset).name);
 			return thisAsset;
 		}
 		

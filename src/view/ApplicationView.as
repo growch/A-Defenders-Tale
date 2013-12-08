@@ -147,9 +147,17 @@ package view
 			_mc = null;
 		}
 		
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
 		private function init(e:Event) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
+			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
 			
 			_error1 = _mc.getChildByName("error1_mc") as MovieClip;
 			_error1.visible = false;

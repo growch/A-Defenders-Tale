@@ -77,13 +77,14 @@ package view.prologue
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
+		
 		protected function mcAdded(event:Event):void
 		{
 			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
 		}
 		
-		public function init(e:ViewEvent) : void {
+		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
@@ -160,6 +161,9 @@ package view.prologue
 			
 			_frame = new FrameView(_mc.frame_mc); 
 			var frameSize:int = _decisions.y + 260;
+//			EXCEPTION FOR SCREENSHOT - PREVENTS WHITE FROM SHOWING UP
+// 			size black BG
+			_mc.black_mc.height = frameSize;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);

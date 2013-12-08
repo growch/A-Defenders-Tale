@@ -4,6 +4,8 @@ package games.sandlands.objects
 	
 	import flash.display.MovieClip;
 	
+	import model.DataModel;
+	
 	
 	public class CountdownClock extends MovieClip
 	{
@@ -38,6 +40,14 @@ package games.sandlands.objects
 			_maskInitHeight = _topMask.height;
 			_bottomSand = _hourglass.bottom_mc;
 			_columnMask = _hourglass.columnMask_mc;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_num1.font_mc);
+			DataModel.getInstance().setGraphicResolution(_num2.font_mc);
+			DataModel.getInstance().setGraphicResolution(_hourglass.glass_mc);
+			DataModel.getInstance().setGraphicResolution(_hourglass.bottom_mc);
+			DataModel.getInstance().setGraphicResolution(_hourglass.column_mc);
+			DataModel.getInstance().setGraphicResolution(_hourglass.top_mc);
 			
 			_botDiff = _botInitY-_botTargetY;
 			

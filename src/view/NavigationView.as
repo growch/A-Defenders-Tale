@@ -84,7 +84,7 @@ package view
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			_blocker = new FadeToBlackMC();
-			_blocker.cacheAsBitmap = true;
+//			_blocker.cacheAsBitmap = true;
 			TweenMax.to(_blocker, 0, {autoAlpha:0});
 			addChild(_blocker);
 			

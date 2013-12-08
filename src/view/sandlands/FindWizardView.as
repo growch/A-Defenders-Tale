@@ -74,11 +74,24 @@ package view.sandlands
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
 		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
+			//SET LOW RES GRAPHICS IF NEEDED
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.statue_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
 			
 			_nextY = 110;
 			
@@ -178,6 +191,7 @@ package view.sandlands
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			_dragVCont.stopVerticalScrolling();
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

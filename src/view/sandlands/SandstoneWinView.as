@@ -78,9 +78,17 @@ package view.sandlands
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		private function init(e:Event) : void {
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
+		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
+			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
@@ -90,6 +98,8 @@ package view.sandlands
 			DataModel.STONE_SAND = true; 
 			DataModel.STONE_COUNT++;
 			
+			_mc.weapon_mc.stoneSand_mc.visible = false;
+			if (DataModel.STONE_SAND) _mc.weapon_mc.stoneSand_mc.visible = true;
 			_mc.weapon_mc.stonePearl_mc.visible = false;
 			if (DataModel.STONE_PEARL) _mc.weapon_mc.stonePearl_mc.visible = true;
 			_mc.weapon_mc.stoneSerpent_mc.visible = false;
@@ -110,6 +120,14 @@ package view.sandlands
 			_pageInfo = DataModel.appData.getPageInfo("sandstoneWin");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stonePearl_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSerpent_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneCat_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSand_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.glows_mc.weapon_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

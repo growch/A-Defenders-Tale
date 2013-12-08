@@ -84,9 +84,17 @@ package view.sandlands
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		public function init(e:ViewEvent) : void {
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
+		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
+			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
 			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
@@ -112,6 +120,15 @@ package view.sandlands
 			_bodyParts = _pageInfo.body;
 			
 			var islandInt:int = DataModel.STONE_COUNT >= DataModel.ISLANDS.length ? 1 : 0;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_boat.boat_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.waves_mc.waves1_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.waves_mc.waves2_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

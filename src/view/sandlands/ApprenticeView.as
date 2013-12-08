@@ -102,6 +102,10 @@ package view.sandlands
 			DataModel.dropsCorrect = false;
 			DataModel.sandpit = false;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.list_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
@@ -198,6 +202,7 @@ package view.sandlands
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			_dragVCont.stopVerticalScrolling();
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

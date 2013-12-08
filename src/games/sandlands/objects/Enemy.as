@@ -10,6 +10,8 @@ package games.sandlands.objects
 	
 	import events.ViewEvent;
 	
+	import model.DataModel;
+	
 	public class Enemy extends flash.display.MovieClip 
 	{
 		private var enemy:MovieClip;
@@ -30,6 +32,19 @@ package games.sandlands.objects
 			_stone.visible = false;
 			
 			_object = _enemMC.getChildByName("object_mc") as MovieClip;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_stone);
+			DataModel.getInstance().setGraphicResolution(_object);
+			if (_enemMC.name == "portrait_mc"){
+				DataModel.getInstance().setGraphicResolution(_enemMC.nail_mc);
+			}
+			if (_enemMC.name == "spoon_mc"){
+				DataModel.getInstance().setGraphicResolution(_enemMC.hook_mc);
+			}
+			if (_enemMC.name == "globe_mc"){
+				DataModel.getInstance().setGraphicResolution(_enemMC.bottom_mc);
+			}
 			
 			_ogX = _object.x;
 			_ogY = _object.y;

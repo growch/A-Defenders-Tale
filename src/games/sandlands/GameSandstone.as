@@ -110,10 +110,17 @@ package games.sandlands
 			_mc = null;
 		}
 		
-		private function init(event:Event):void
+		protected function mcAdded(event:Event):void
 		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
+		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
+			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
 			
 			_mc.frame_mc.mouseEnabled = false;
 			_mc.frame_mc.mouseChildren = false;
@@ -135,6 +142,16 @@ package games.sandlands
 //			
 			_gameTimer = new Timer(1000);
 			_gameTimer.addEventListener(TimerEvent.TIMER, timerTick);
+			
+			//LOW RES GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.frame_mc.top_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.frame_mc.mid_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.frame_mc.bottom_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.startGame_mc.graphic_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tryAgain_mc.graphic_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.gameWon_mc.graphic_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.gameLost_mc.graphic_mc);
 			
 			addChild(_mc);
 			

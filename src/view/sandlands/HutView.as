@@ -82,11 +82,23 @@ package view.sandlands
 			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
+		protected function mcAdded(event:Event):void
+		{
+			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MC_READY));
+		}
+		
 		private function init(e:ViewEvent) : void {
 			EventController.getInstance().removeEventListener(ViewEvent.ASSET_LOADED, init);
 			_mc = _SAL.assetMC;
 			
+			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+			
+			//LOW RES GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
 			
 			_nextY = 110;
 			
@@ -102,6 +114,13 @@ package view.sandlands
 			}
 			
 			_mc.end_mc.visible = false; 
+			
+			//LOW RES GRAPHICS
+			if (DataModel.highRes) {
+				_mc.cauldron_mc.gotoAndStop(2);
+			} else {
+				_mc.cauldron_mc.gotoAndStop(1);
+			}
 			
 			_mc.cauldron_mc.correct_mc.stop();
 			_mc.cauldron_mc.incorrect_mc.stop();
