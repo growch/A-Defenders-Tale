@@ -128,8 +128,6 @@ package view
 			} else {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			}
-			
-			
 		}
 		
 		public function deactivateButton(thisButtonNumb:int) : void {

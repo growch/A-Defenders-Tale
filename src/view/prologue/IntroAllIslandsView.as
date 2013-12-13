@@ -54,6 +54,8 @@ package view.prologue
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			EventController.getInstance().addEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 		}
 		
 		public function destroy() : void {
@@ -79,6 +81,8 @@ package view.prologue
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
+			
+			EventController.getInstance().removeEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -274,6 +278,8 @@ package view.prologue
 			
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			DataModel.getStoreKit();
 		}
 		
 		protected function enterFrameLoop(event:Event):void
@@ -306,8 +312,21 @@ package view.prologue
 			}
 		}
 		
+		protected function unlockPurchased(event:ViewEvent):void
+		{
+			DataModel.getInstance().unlockBook();
+			
+			var tempObj:Object = new Object();
+			tempObj.id = _pageInfo.decisions[0].id;
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+		}
+		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (!DataModel.unlocked && event.data.id != "TitleScreenView") {
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
+				return;
+			}
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));

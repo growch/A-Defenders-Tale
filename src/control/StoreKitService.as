@@ -1,5 +1,10 @@
 package control 
 {
+import com.milkmangames.nativeextensions.ios.StoreKit;
+import com.milkmangames.nativeextensions.ios.StoreKitProduct;
+import com.milkmangames.nativeextensions.ios.events.StoreKitErrorEvent;
+import com.milkmangames.nativeextensions.ios.events.StoreKitEvent;
+
 import flash.display.Loader;
 import flash.display.Sprite;
 import flash.filesystem.File;
@@ -10,8 +15,8 @@ import flash.system.ApplicationDomain;
 import flash.system.LoaderContext;
 import flash.system.SecurityDomain;
 import flash.text.TextField;
-import com.milkmangames.nativeextensions.ios.*;
-import com.milkmangames.nativeextensions.ios.events.*;
+
+import events.ViewEvent;
 
 /** StoreKit Example App 
  * 
@@ -27,12 +32,8 @@ public class StoreKitService extends Sprite
 	//
 	// Definitions
 	//
-	
 		
-	/** Sample Product IDs, must match iTunes Connect Items */
-	private static const LEVELPACK_PRODUCT_ID:String="your_product_id";
-	private static const SPELL_PRODUCT_ID:String="your_product_id";
-	
+	/** Product IDs, must match iTunes Connect Items */
 	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockBook";
 
 	//
@@ -92,11 +93,6 @@ public class StoreKitService extends Sprite
 		StoreKit.storeKit.addEventListener(StoreKitErrorEvent.PURCHASE_FAILED,onPurchaseFailed);
 		StoreKit.storeKit.addEventListener(StoreKitErrorEvent.TRANSACTION_RESTORE_FAILED, onTransactionRestoreFailed);
 		
-		// OPTIONAL listeners for apple-hosted, downloadable content.
-		StoreKit.storeKit.addEventListener(StoreKitEvent.DOWNLOAD_FINISHED, onDownloadFinished);
-		StoreKit.storeKit.addEventListener(StoreKitEvent.DOWNLOAD_UPDATED, onDownloadUpdated);
-		StoreKit.storeKit.addEventListener(StoreKitErrorEvent.DOWNLOAD_FAILED, onDownloadFailed);
-		
 		// OPTIONAL listeners for displayProductView() events.  
 		StoreKit.storeKit.addEventListener(StoreKitEvent.PRODUCT_VIEW_DISPLAYED, onProductViewDisplayed);
 		StoreKit.storeKit.addEventListener(StoreKitEvent.PRODUCT_VIEW_DISMISSED, onProductViewDismissed);
@@ -143,30 +139,46 @@ public class StoreKitService extends Sprite
 		
 	}
 	
-	/** Example of how to purchase a product */
-	public function purchaseSpell():void
-	{
-		// for this to work, you must have added the value of SPELL_PRODUCT_ID in the iTunes Connect website
-		log("start purchase of consumable  '"+SPELL_PRODUCT_ID+"'...");
-		// the second parameter is quantity.  its possible to purchase more than 1 if you want.
-		StoreKit.storeKit.purchaseProduct(SPELL_PRODUCT_ID,1);
-	}
+//	/** Example of how to purchase a product */
+//	public function purchaseSpell():void
+//	{
+//		// for this to work, you must have added the value of SPELL_PRODUCT_ID in the iTunes Connect website
+//		log("start purchase of consumable  '"+SPELL_PRODUCT_ID+"'...");
+//		// the second parameter is quantity.  its possible to purchase more than 1 if you want.
+//		StoreKit.storeKit.purchaseProduct(SPELL_PRODUCT_ID,1);
+//	}
+//	
+//	/** Example of how to purchase a product */
+//	public function purchaseLevelPack():void
+//	{
+//		// for this to work, you must have added the value of LEVELPACK_PRODUCT_ID in the iTunes Connect website
+//		log("start purchase of non-consumable '"+LEVELPACK_PRODUCT_ID+"'...");
+//		
+//		// we won't let you purchase it if its already in your inventory!
+//		var inventory:Object=sharedObject.data["inventory"];
+//		if (inventory[LEVELPACK_PRODUCT_ID]!=null)
+//		{
+//			log("You already have a level pack!");
+//			return;
+//		}
+//		
+//		StoreKit.storeKit.purchaseProduct(LEVELPACK_PRODUCT_ID);
+//	}
 	
-	/** Example of how to purchase a product */
-	public function purchaseLevelPack():void
+	public function purchaseUnlock():void
 	{
 		// for this to work, you must have added the value of LEVELPACK_PRODUCT_ID in the iTunes Connect website
-		log("start purchase of non-consumable '"+LEVELPACK_PRODUCT_ID+"'...");
+		log("start purchase of non-consumable '"+UNLOCK_ID+"'...");
 		
 		// we won't let you purchase it if its already in your inventory!
 		var inventory:Object=sharedObject.data["inventory"];
-		if (inventory[LEVELPACK_PRODUCT_ID]!=null)
+		if (inventory[UNLOCK_ID]!=null)
 		{
-			log("You already have a level pack!");
+			log("You already have unlocked the app!");
 			return;
 		}
 		
-		StoreKit.storeKit.purchaseProduct(LEVELPACK_PRODUCT_ID);
+		StoreKit.storeKit.purchaseProduct(UNLOCK_ID);
 	}
 	
 	/** Example of how to restore transactions */
@@ -240,15 +252,8 @@ public class StoreKitService extends Sprite
 		var inventory:Object=sharedObject.data["inventory"];
 		switch(e.productId)
 		{
-			case LEVELPACK_PRODUCT_ID:
-				inventory[LEVELPACK_PRODUCT_ID]="purchased";
-				break;
-			case SPELL_PRODUCT_ID:
-				if (inventory[SPELL_PRODUCT_ID]==null)
-				{
-					inventory[SPELL_PRODUCT_ID]=0;
-				}
-				inventory[SPELL_PRODUCT_ID]++;
+			case UNLOCK_ID:
+				inventory[UNLOCK_ID]="purchased";
 				break;
 			default:
 				// we don't do anything for unknown items.
@@ -259,6 +264,8 @@ public class StoreKitService extends Sprite
 		
 		// update the message on screen
 		updateInventoryMessage();		
+		
+		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
 	}
 	
 	/** A purchase has failed */
@@ -284,49 +291,6 @@ public class StoreKitService extends Sprite
 	private function onTransactionRestoreFailed(e:StoreKitErrorEvent):void
 	{
 		log("an error occurred in restore purchases:"+e.text);		
-	}
-	
-	// Hosted content download events
-	
-	/** An update to the download's progress */
-	private function onDownloadUpdated(e:StoreKitEvent):void
-	{
-		trace("downloading item: "+e.productId);
-		trace("percent complete:"+(e.downloadProgress*100)); // e.downloadProgress is a 0-1.0 scale
-		trace("seconds remaining:"+e.downloadTimeRemaining);
-		trace("content version:"+e.downloadVersion);
-		log("DL UPDATE: "+e.productId+", "+e.transactionId+", "+e.downloadProgress+", "+e.downloadTimeRemaining+", "+e.downloadVersion);
-	}
-	
-	/** A download has finished */
-	private function onDownloadFinished(e:StoreKitEvent):void
-	{
-		log("DL FINISHED: "+e.productId+", "+e.transactionId+", "+e.downloadPath+", "+e.downloadVersion);
-		
-		trace("finished downloading:"+e.productId);
-		
-		// for this example, we load any downloaded .png files and put them on screen.
-		var downloadDirectory:File=new File(e.downloadPath);
-		if (downloadDirectory.exists)
-		{
-			var contents:Array=downloadDirectory.getDirectoryListing();
-			for each(var file:File in contents)
-			{
-				if (file.extension=="png")
-				{
-					var context:LoaderContext=new LoaderContext(true, ApplicationDomain.currentDomain);
-					var loader:Loader=new Loader();
-					loader.load(new URLRequest(file.url),context);
-					stage.addChild(loader);
-				}
-			}
-		}
-	}
-	
-	/** A download has failed */
-	private function onDownloadFailed(e:StoreKitErrorEvent):void
-	{
-		log("DL FAILED:"+e.productId+", "+e.transactionId+", "+e.errorId+", "+e.text);
 	}
 	
 	// Product view events
@@ -365,31 +329,10 @@ public class StoreKitService extends Sprite
 	{
 		var inventory:Object=sharedObject.data["inventory"];
 		
-//		var hasLevelpack:Boolean;
-//		var numberOfSpells:int;
-//		// if the value is set to something, you have it
-//		if (inventory[LEVELPACK_PRODUCT_ID]!=null)
-//		{
-//			hasLevelpack=true;
-//		}
-//		else
-//		{
-//			hasLevelpack=false;
-//		}
-//		
-//		// for the spells, we store an int of how many you own
-//		// if there's no value there at all, we just use 0
-//		if (inventory[SPELL_PRODUCT_ID]==null)
-//		{
-//			numberOfSpells=0;
-//		}
-//		else
-//		{
-//			numberOfSpells=inventory[SPELL_PRODUCT_ID];
-//		}
+		// if the value is set to something, you have it
 		var hasUnlocked:Boolean;
 		// if the value is set to something, you have it
-		if (inventory[LEVELPACK_PRODUCT_ID]!=null)
+		if (inventory[UNLOCK_ID]!=null)
 		{
 			hasUnlocked=true;
 		}
@@ -403,64 +346,6 @@ public class StoreKitService extends Sprite
 		log("Has hasUnlocked? "+hasUnlocked);
 	}
 	
-	/** Create UI */
-//	public function createUI():void
-//	{
-//		txtStatus=new TextField();
-//		txtStatus.defaultTextFormat=new flash.text.TextFormat("Arial",15);
-//		txtStatus.width=stage.stageWidth;
-//		//txtStatus.height=1500;
-//		txtStatus.multiline=true;
-//		txtStatus.wordWrap=true;
-//		txtStatus.text="Ready";
-//		addChild(txtStatus);
-//		
-//		txtInventory=new TextField();
-//		txtInventory.defaultTextFormat=new flash.text.TextFormat("Arial",25);
-//		txtInventory.width=stage.stageWidth;
-//		txtInventory.multiline=true;
-//		txtInventory.wordWrap=true;
-//		txtInventory.text="Inventory:";
-//		txtInventory.y=stage.stageHeight-txtInventory.textHeight*1.1;
-//		addChild(txtInventory);
-//
-//	}
-		
-	/** Hide the UI */
-//	public function hideUI():void
-//	{
-//		if (buttonContainer)
-//		{
-//			removeChild(buttonContainer);
-//			buttonContainer=null;
-//		}
-//	}
-	
-	/** Show full UI Options  */
-//	public function showFullUI():void
-//	{
-//		if (buttonContainer)
-//		{
-//			removeChild(buttonContainer);
-//			buttonContainer=null;
-//		}
-//		
-//		buttonContainer=new Sprite();
-//		buttonContainer.y=txtStatus.height;
-//		addChild(buttonContainer);
-//		
-//		var uiRect:Rectangle=new Rectangle(0,0,stage.stageWidth,stage.stageHeight);
-//		var layout:ButtonLayout=new ButtonLayout(uiRect,14);
-//		layout.addButton(new SimpleButton(new Command("Buy Level Pack",purchaseLevelPack)));
-//		layout.addButton(new SimpleButton(new Command("Buy spell",purchaseSpell)));
-//		layout.addButton(new SimpleButton(new Command("Restore transactions", restoreTransactions)));
-//		layout.addButton(new SimpleButton(new Command("Show Product View", showProductView)));
-//
-//		layout.attach(buttonContainer);
-//		layout.layout();	
-//	}
-	
-	
 	/** Log */
 	private function log(msg:String):void
 	{
@@ -470,183 +355,4 @@ public class StoreKitService extends Sprite
 	
 	
 }
-}
-
-//
-// This is generic UI code
-//
-
-import flash.display.DisplayObjectContainer;
-import flash.display.Sprite;
-import flash.events.MouseEvent;
-import flash.geom.Rectangle;
-import flash.text.TextField;
-import flash.text.TextFieldAutoSize;
-import flash.text.TextFormat;
-
-/** Simple Button */
-class SimpleButton extends Sprite
-{
-	//
-	// Instance Variables
-	//
-	
-	/** Command */
-	private var cmd:Command;
-	
-	/** Width */
-	private var _width:Number;
-	
-	/** Label */
-	private var txtLabel:TextField;
-	
-	//
-	// Public Methods
-	//
-	
-	/** Create New SimpleButton */
-	public function SimpleButton(cmd:Command)
-	{
-		super();
-		this.cmd=cmd;
-		
-		mouseChildren=false;
-		mouseEnabled=buttonMode=useHandCursor=true;
-		
-		txtLabel=new TextField();
-		txtLabel.defaultTextFormat=new TextFormat("Arial",32,0xFFFFFF);
-		txtLabel.mouseEnabled=txtLabel.mouseEnabled=txtLabel.selectable=false;
-		txtLabel.text=cmd.getLabel();
-		txtLabel.autoSize=TextFieldAutoSize.LEFT;
-		
-		redraw();
-		
-		addEventListener(MouseEvent.CLICK,onSelect);
-	}
-	
-	/** Set Width */
-	override public function set width(val:Number):void
-	{
-		this._width=val;
-		redraw();
-	}
-
-	
-	/** Dispose */
-	public function dispose():void
-	{
-		removeEventListener(MouseEvent.CLICK,onSelect);
-	}
-	
-	//
-	// Events
-	//
-	
-	/** On Press */
-	private function onSelect(e:MouseEvent):void
-	{
-		this.cmd.execute();
-	}
-	
-	//
-	// Implementation
-	//
-	
-	/** Redraw */
-	private function redraw():void
-	{		
-		txtLabel.text=cmd.getLabel();
-		_width=_width||txtLabel.width*1.1;
-		
-		graphics.clear();
-		graphics.beginFill(0x444444);
-		graphics.lineStyle(2,0);
-		graphics.drawRoundRect(0,0,_width,txtLabel.height*1.1,txtLabel.height*.4);
-		graphics.endFill();
-		
-		txtLabel.x=_width/2-(txtLabel.width/2);
-		txtLabel.y=txtLabel.height*.05;
-		addChild(txtLabel);
-	}
-}
-
-/** Button Layout */
-class ButtonLayout
-{
-	private var buttons:Array;
-	private var rect:Rectangle;
-	private var padding:Number;
-	private var parent:DisplayObjectContainer;
-	
-	public function ButtonLayout(rect:Rectangle,padding:Number)
-	{
-		this.rect=rect;
-		this.padding=padding;
-		this.buttons=new Array();
-	}
-	
-	public function addButton(btn:SimpleButton):uint
-	{
-		return buttons.push(btn);
-	}
-	
-	public function attach(parent:DisplayObjectContainer):void
-	{
-		this.parent=parent;
-		for each(var btn:SimpleButton in this.buttons)
-		{
-			parent.addChild(btn);
-		}
-	}
-	
-	public function layout():void
-	{
-		var btnX:Number=rect.x+padding;
-		var btnY:Number=rect.y;
-		for each( var btn:SimpleButton in this.buttons)
-		{
-			btn.width=rect.width-(padding*2);
-			btnY+=this.padding;
-			btn.x=btnX;
-			btn.y=btnY;
-			btnY+=btn.height;
-		}
-	}
-}
-
-/** Inline Command */
-class Command
-{
-	/** Callback Method */
-	private var fnCallback:Function;
-	
-	/** Label */
-	private var label:String;
-	
-	//
-	// Public Methods
-	//
-	
-	/** Create New Command */
-	public function Command(label:String,fnCallback:Function)
-	{
-		this.fnCallback=fnCallback;
-		this.label=label;
-	}
-	
-	//
-	// Command Implementation
-	//
-	
-	/** Get Label */
-	public function getLabel():String
-	{
-		return label;
-	}
-	
-	/** Execute */
-	public function execute():void
-	{
-		fnCallback();
-	}
 }
