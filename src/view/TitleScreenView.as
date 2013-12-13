@@ -81,6 +81,11 @@ package view
 			_helpWanted.mask_mc.alpha = 1;
 			_helpWanted.description_mc.visible = false;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_helpWanted.help_mc);
+			DataModel.getInstance().setGraphicResolution(_helpWanted.description_mc);
+			
 			addChild(_mc);
 		}
 		

@@ -224,6 +224,9 @@ package view
 			
 			_today = new Date();
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			
 			addChild(_mc);
 			
 			TweenMax.from(_mc, 1.6, {y:DataModel.APP_HEIGHT, ease:Quad.easeInOut});
