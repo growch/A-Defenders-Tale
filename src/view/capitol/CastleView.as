@@ -119,8 +119,21 @@ package view.capitol
 			_mc.weapon_mc.visible = false;
 			
 			var hasSandstone:int = DataModel.STONE_SAND ? 0 : 1;
+//			TESTING!!!!
+			hasSandstone = 0;
 			// 1 = false !!!
 			_deadEnd = !DataModel.STONE_SAND;
+			
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stonePearl_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSerpent_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneCat_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSand_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.weapon_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.glows_mc.weapon_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

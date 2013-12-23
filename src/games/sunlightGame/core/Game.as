@@ -34,12 +34,6 @@ package games.sunlightGame.core
 	public class Game extends MovieClip
 	{
 		
-		public static const FPS:int = DataModel.BOP_MICE_FPS; 
-//		public static const DURATION:int = 60; // in seconds
-		public var DURATION:int = 60; // in seconds
-		public static const MINIMUM_SCORE:int = 30;	
-		
-		public var userScore:int;
 		private var _mc:MovieClip;
 		public var hero:Hero;
 		public var nero:Nero;
@@ -98,6 +92,7 @@ package games.sunlightGame.core
 			_underGlow = null;
 			_energy = null;
 			
+			_startGame.destroy();
 			_gameWon.destroy();
 			_gameLost.destroy();
 			
@@ -115,8 +110,16 @@ package games.sunlightGame.core
 			collisionManager = null;
 			enemyManager = null;
 			
+			bulletHolder = null;
+			enemyHolder = null;
+			explosionHolder = null;
+			dropHolder = null;
+			lightSource = null;
+			
 			_bgMusic.stop(true);
 			_bgMusic = null;
+			
+			_cannonSound = null;
 			
 			_gameTimer.stop();
 			_gameTimer = null;
@@ -176,6 +179,14 @@ package games.sunlightGame.core
 			_underGlow = _mc.machine_mc.underglow_mc;
 			_underGlow.alpha = 0;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.startGame_mc.overlay_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.gameLost_mc.overlay_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.gameWon_mc.overlay_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.machine_mc.shadow_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.machine_mc.machine_mc);
+			
 			addChild(_mc);
 			
 			stage.autoOrients = true;
@@ -184,11 +195,6 @@ package games.sunlightGame.core
 //			stage.addEventListener(	StageOrientationEvent.ORIENTATION_CHANGING, onOrientationChanging );
 			// didn't have to bother with the above, the below locks it in portrait mode
 //			stage.setAspectRatio(StageAspectRatio.PORTRAIT); SET IN default class
-			
-			//restack screens
-//			_mc.addChild(_mc.startGame_mc);
-//			_mc.addChild(_mc.gameLost_mc);
-//			_mc.addChild(_mc.gameWon_mc);
 		}
 		
 		protected function speedUp(event:TimerEvent):void
@@ -230,6 +236,7 @@ package games.sunlightGame.core
 			_gameTimer.start();
 			
 			TweenMax.allTo([_glowingLight, _underGlow], 1.5, {alpha:1, yoyo:true, repeat:-1, delay:1}); 
+			
 		}
 		
 		private function heroOn():void  {
@@ -260,10 +267,10 @@ package games.sunlightGame.core
 		}
 		
 		public function gameOver(winOrLose:String):void  {
+			_gameTimer.stop();
 			removeEventListener(Event.ENTER_FRAME, update);
 			stage.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
 			stage.removeEventListener(MouseEvent.MOUSE_UP, onUp);
-			_mc.stopAllMovieClips();
 			enemyManager.gameOver();
 			
 			_bgMusic.stop(true);
@@ -275,23 +282,23 @@ package games.sunlightGame.core
 				DataModel.getInstance().endSound();
 			}
 			
-			
 			_mc.stopAllMovieClips();
 			TweenMax.killAll();
 		}
 		
-		public function gameCompleted():void
+		public function gameCompleted(thisPageObj:Object):void
 		{
-			var tempObj:Object = new Object();
-			tempObj.id = "capitol.WinView";
+//			trace("gameCompleted");
 //			_mc.stopAllMovieClips();
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
-		}
-		
-		public function gameLost(thisPageObj:Object):void {
-//			_mc.stopAllMovieClips();
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
 		}
+		
+//		public function gameLost(thisPageObj:Object):void {
+//			trace("gameLost");
+////			_mc.stopAllMovieClips();
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
+//		}
 		
 		public function heroHit():void
 		{

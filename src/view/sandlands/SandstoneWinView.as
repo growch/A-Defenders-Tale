@@ -126,7 +126,7 @@ package view.sandlands
 			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSerpent_mc);
 			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneCat_mc);
 			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSand_mc);
-			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.weapon_mc);
 			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.glows_mc.weapon_mc);
 			
 			// set the text

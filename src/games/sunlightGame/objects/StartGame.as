@@ -20,8 +20,13 @@ package games.sunlightGame.objects
 		
 		protected function startClick(event:MouseEvent):void
 		{
-			MovieClip(_mc.cta_btn).removeEventListener(MouseEvent.CLICK, startClick);
 			_game.startGame();
+		}
+		
+		public function destroy():void {
+			MovieClip(_mc.cta_btn).removeEventListener(MouseEvent.CLICK, startClick);
+			_game = null;
+			_mc = null;
 		}
 	}
 }

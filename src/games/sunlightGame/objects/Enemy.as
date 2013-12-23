@@ -11,6 +11,7 @@ package games.sunlightGame.objects
 	public class Enemy extends flash.display.MovieClip 
 	{
 		private var _enemMC:MovieClip;
+		private var _mcMC:MovieClip;
 		private var _hitMC:MovieClip;
 		private var _hitBigMC:MovieClip;
 		private var _angleX:Number = 0;
@@ -44,8 +45,13 @@ package games.sunlightGame.objects
 			_stepX = Math.PI*(DataModel.getInstance().randomRange(.01, .02));
 			
 			_enemMC = new EnemyMC();
-			_hitMC = _enemMC.getChildByName("hitSmall_mc") as MovieClip;
-			_hitBigMC = _enemMC.getChildByName("hitBig_mc") as MovieClip;
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_enemMC);
+			_mcMC = _enemMC.enemy_mc;
+			
+			_hitMC = _enemMC.enemy_mc.getChildByName("hitSmall_mc") as MovieClip;
+			_hitBigMC = _enemMC.enemy_mc.getChildByName("hitBig_mc") as MovieClip;
+			
 			addChild(_enemMC);
 			
 			_startX = x;
@@ -61,10 +67,11 @@ package games.sunlightGame.objects
 		
 		public function destroy():void {
 			removeChild(_enemMC);
+//			trace("destroy enemy");
 		}
 		
 		public function update():void {
-			if (_enemMC.currentFrame < 30) return;
+			if (_mcMC.currentFrame < 30) return;
 			
 			if (moveLateral) {
 				goLateral();
@@ -98,7 +105,7 @@ package games.sunlightGame.objects
 		
 		public function reset():void
 		{
-			_enemMC.gotoAndPlay(1);
+			_mcMC.gotoAndPlay(1);
 		}
 	}
 }

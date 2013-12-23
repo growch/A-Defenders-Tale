@@ -27,7 +27,7 @@ package games.sunlightGame.objects
 			} else {
 				tempObj.id = "ApplicationView";
 			}
-			_game.gameLost(tempObj);
+			_game.gameCompleted(tempObj);
 		}
 		
 		public function destroy():void {

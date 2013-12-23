@@ -4,6 +4,8 @@ package games.sunlightGame.objects
 	
 	import games.sunlightGame.core.Game;
 	
+	import model.DataModel;
+	
 	public class Energy extends MovieClip
 	{
 		private var _game:Game;
@@ -18,6 +20,9 @@ package games.sunlightGame.objects
 			for (var i:int = 1; i <= _hitCount; i++) 
 			{
 				var thisHeart:MovieClip = _mc["heart"+i+"_mc"];
+				//GRAPHICS
+				DataModel.getInstance().setGraphicResolution(thisHeart.empty_mc);
+				DataModel.getInstance().setGraphicResolution(thisHeart.full_mc);
 				thisHeart.empty_mc.visible = false;
 			}
 			

@@ -107,6 +107,12 @@ package view.capitol
 			// 1 = false !!!
 			_deadEnd = !DataModel.STONE_SERPENT;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.mallet_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.winPuddle_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

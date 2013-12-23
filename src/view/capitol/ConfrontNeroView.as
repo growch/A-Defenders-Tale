@@ -104,6 +104,10 @@ package view.capitol
 			_pageInfo = DataModel.appData.getPageInfo("confrontNero");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_picture);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

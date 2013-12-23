@@ -20,7 +20,9 @@ package games.sunlightGame.objects
 		
 		protected function ctaClick(event:MouseEvent):void
 		{
-			_game.gameCompleted();
+			var tempObj:Object = new Object();
+			tempObj.id = "capitol.WinView";
+			_game.gameCompleted(tempObj);
 		}
 		
 		public function destroy():void {

@@ -115,7 +115,8 @@ package view.capitol
 			
 			_nextY = 140;
 			
-			_vortex = _mc.vortex_mc;
+			DataModel.getInstance().setGraphicResolution(_mc.vortex_mc);
+			_vortex = _mc.vortex_mc.vortex_mc;
 			_vortex.stop();
 			
 			_mc.mask_mc.cacheAsBitmap = true;
@@ -146,6 +147,19 @@ package view.capitol
 				introInt = 1;
 			}
 			var stoneCount:int = DataModel.STONE_COUNT == 4 ? 0 : 1;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.island_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_wave1);
+			DataModel.getInstance().setGraphicResolution(_wave2);
+			DataModel.getInstance().setGraphicResolution(_wave3);
+			DataModel.getInstance().setGraphicResolution(_wave4);
+			DataModel.getInstance().setGraphicResolution(_wave5);
+			DataModel.getInstance().setGraphicResolution(_wave6);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

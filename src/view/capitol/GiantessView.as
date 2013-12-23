@@ -102,6 +102,10 @@ package view.capitol
 			_pageInfo = DataModel.appData.getPageInfo("giantess");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.giantess_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

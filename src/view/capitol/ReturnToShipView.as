@@ -137,6 +137,15 @@ package view.capitol
 			_boat.boat_mc.mask = _boat.boatMask_mc;
 			_boat.boatMask_mc.alpha = 1;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.boat_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_cloud4);
+			DataModel.getInstance().setGraphicResolution(_cloud5);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

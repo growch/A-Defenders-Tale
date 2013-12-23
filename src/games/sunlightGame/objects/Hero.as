@@ -43,13 +43,17 @@ package games.sunlightGame.objects
 			_leftEdge = player.width;
 			_rightEdge = DataModel.APP_WIDTH - player.width;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(mc.cannon_mc);
+			DataModel.getInstance().setGraphicResolution(mc.smoke_mc);
+			
 			// Check for Accelerometer availability and act accordingly. 
 			if(Accelerometer.isSupported)
 			{
 				// Create a new Accelerometer instance.
 				_accel = new Accelerometer();
 				// Have the Accelerometer listen. This happens on every "tick".
-				_accel.addEventListener(AccelerometerEvent.UPDATE, accelUpdate);
+//				_accel.addEventListener(AccelerometerEvent.UPDATE, accelUpdate);
 			} else
 			{
 				// If there is no access to the Accelerometer
@@ -66,7 +70,7 @@ package games.sunlightGame.objects
 			hit2MC = null;
 			_smoke = null;
 			if (_accel) {
-				_accel.removeEventListener(AccelerometerEvent.UPDATE, accelUpdate);
+//				_accel.removeEventListener(AccelerometerEvent.UPDATE, accelUpdate);
 				_accel = null;
 			}
 			

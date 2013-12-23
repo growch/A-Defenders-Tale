@@ -73,6 +73,10 @@ package view
 			singleMid.y = _top.height;
 			_mc.addChild(singleMid);
 			
+			DataModel.getInstance().setGraphicResolution(_top);
+			DataModel.getInstance().setGraphicResolution(singleMid);
+			DataModel.getInstance().setGraphicResolution(_bottom);
+			
 			_spacerArray = new Array();
 			
 			_mc.mouseChildren = false;
@@ -173,8 +177,6 @@ package view
 		private function getFromStockpile(thisMC:MovieClip):DisplayObject {
 			var thisAsset:DisplayObject = thisMC.getChildAt(0);
 			DataModel.getInstance().setGraphicResolution(thisAsset as MovieClip);
-//			trace(MovieClip(thisAsset).currentFrame);
-//			trace(MovieClip(thisAsset).name);
 			return thisAsset;
 		}
 		

@@ -99,9 +99,15 @@ package view.capitol
 			_bodyParts = _pageInfo.body;
 			
 			_mc.companionsDont_mc.stop();
+			_mc.companionsDont_mc.companion_mc.stop();
 			_mc.companionsDont_mc.visible = false;
 			
 			_mc.companionsDrink_mc.gotoAndStop(DataModel.defenderInfo.companion + 1); // zero based
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.companionsDrink_mc.companion_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
