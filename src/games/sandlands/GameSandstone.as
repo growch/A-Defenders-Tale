@@ -238,15 +238,16 @@ package games.sandlands
 			_bgMusic.start();
 		}
 		
-		public function gameCompleted():void
+		public function gameCompleted(thisPageObj:Object):void
 		{
-			var tempObj:Object = new Object();
-			tempObj.id = "sandlands.SandstoneWinView";
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
-		}
-		
-		public function gameLost(thisPageObj:Object):void {
+//			var tempObj:Object = new Object();
+//			tempObj.id = "sandlands.SandstoneWinView";
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
 		}
+		
+//		public function gameLost(thisPageObj:Object):void {
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
+//		}
 	}
 }

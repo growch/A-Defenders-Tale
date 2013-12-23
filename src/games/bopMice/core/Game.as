@@ -285,15 +285,15 @@ package games.bopMice.core
 			_bgMusic.start();
 		}
 		
-		public function gameCompleted():void
+		public function gameCompleted(thisObj:Object):void
 		{
 			_mc.stopAllMovieClips();
 			TweenMax.killAll();
 			
-			var tempObj:Object = new Object();
-			tempObj.id = "theCattery.GameWonView";
+//			var tempObj:Object = new Object();
+//			tempObj.id = "theCattery.GameWonView";
 			_mc.stopAllMovieClips();
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisObj));
 		}
 	}
 }

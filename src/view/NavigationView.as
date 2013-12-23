@@ -49,6 +49,7 @@ package view
 		private var _restartPanel:MovieClip;
 		private var _contentsMC:MovieClip;
 		private var _aboutMC:MovieClip;
+		private var _contentScreen:MovieClip;
 		private var _blocker:FadeToBlackMC;
 		private var _panelHolder:Sprite;
 		
@@ -104,6 +105,8 @@ package view
 			_contents.addEventListener(MouseEvent.CLICK, contentsClick);
 			_contents.stop();
 			
+			_contentScreen = _mc.getChildByName("contentScreen_mc") as MovieClip;
+			
 			_sound = _mc.getChildByName("sound_btn") as MovieClip;
 			_sound.addEventListener(MouseEvent.CLICK, soundClick);
 			_sound.stop();
@@ -121,22 +124,18 @@ package view
 			_about.stop();
 			
 			_helpPanel = _mc.help_mc;
-//			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
 			
 			_restartPanel = _mc.restart_mc;
-//			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
 			_restartPanel.restart_btn.addEventListener(MouseEvent.CLICK, restartPanelClick);
 			_restartPanel.map_btn.addEventListener(MouseEvent.CLICK, restartPanelClick);
 
 			_contentsMC = _mc.contents_mc;
 			contentsPanel = new ContentsPanelView();
 			_contentsMC.holder_mc.addChild(contentsPanel);
-//			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
 			
 			_aboutMC = _mc.about_mc;
 			_aboutPanel = new AboutPanelView(_aboutMC);
 			_aboutMC.holder_mc.addChild(_aboutPanel);
-//			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
 			
 			_navBtnArray = [_contents, _restart, _help, _about];
 			
@@ -148,7 +147,8 @@ package view
 			_panelHolder.addChild(_contentsMC);
 			_panelHolder.addChild(_aboutMC);
 			
-			TweenMax.to(_panelHolder, 0, {autoAlpha:0});
+			//put screen back on top
+			_mc.addChild(_contentScreen);
 			
 			addChild(_mc);
 		}
@@ -236,8 +236,8 @@ package view
 			buttonOnOffOthers(_restart);
 			
 			TweenMax.to(_blocker, .5, {autoAlpha:.5});
+			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
 			TweenMax.to(_mc, .6, {y:RESTART_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_restartPanel]});
-			TweenMax.to(_panelHolder, 0, {autoAlpha:0});
 		}
 		
 		protected function aboutClick(event:MouseEvent):void
@@ -251,8 +251,8 @@ package view
 			buttonOnOffOthers(_about);
 			
 			TweenMax.to(_blocker, .5, {autoAlpha:.5});  
+			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
 			TweenMax.to(_mc, .6, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_aboutMC]});
-			TweenMax.to(_panelHolder, 0, {autoAlpha:0});
 		}
 		
 		protected function helpClick(event:MouseEvent):void
@@ -265,8 +265,8 @@ package view
 			buttonOnOffOthers(_help);
 			
 			TweenMax.to(_blocker, .5, {autoAlpha:.5});
+			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
 			TweenMax.to(_mc, .6, {y:HELP_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_helpPanel]});
-			TweenMax.to(_panelHolder, 0, {autoAlpha:0});
 		}
 		
 		protected function soundClick(event:MouseEvent):void
@@ -297,8 +297,8 @@ package view
 		}
 		
 		private function showContents():void {
+			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
 			TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_contentsMC]});
-			TweenMax.to(_panelHolder, 0, {autoAlpha:0});
 		}
 		
 		private function fadeInMC(thisMC:MovieClip):void {
@@ -312,7 +312,8 @@ package view
 			_navOpen = true;
 			
 //			TweenMax.to(thisMC, 1, {autoAlpha:1});
-			TweenMax.to(_panelHolder, .5, {autoAlpha:1});
+//			TweenMax.to(_panelHolder, .5, {autoAlpha:1});
+			TweenMax.to(_contentScreen, .5, {autoAlpha:0});
 		}
 		
 		private function buttonOnOffOthers(thisBtn:MovieClip):void {

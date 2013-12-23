@@ -67,6 +67,9 @@ package
 			_dm.addEventListener( ApplicationEvent.DISPLAY_ERROR, onLoadingError );
 			_dm.loadApplicationConfigurationFile();
 			
+//			NativeApplication.nativeApplication.addEventListener(Event.EXITING, onCloseCall);
+			
+			//SET HIGH OR LOW RESOLUTION property
 			if (Capabilities.screenResolutionY > DataModel.APP_HEIGHT) {
 				DataModel.highRes = true;
 				
@@ -75,6 +78,11 @@ package
 //			Security.allowDomain("*"); 
 			
 		}
+		
+//		protected function onCloseCall(event:Event):void
+//		{
+//			trace("ADT IS CLOSING....BUH BYE!");
+//		}
 		
 		//Checking for network connectivity
 		protected function onNetworkChange(e:Event):void
