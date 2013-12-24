@@ -191,7 +191,7 @@ package view
 //			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
 //			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
 //			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
-			TweenMax.to(_panelHolder, 0, {autoAlpha:0});
+			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.GLOBAL_NAV_CLOSED));
 			

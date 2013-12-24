@@ -192,14 +192,14 @@ package view
 				_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
 			}
 			
-			if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+			if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_FACEBOOK) {
 				var fullName:Array = _friendsVector[thisID].name.split(" ");
 				var firstName:String = fullName[0];
 				
 				DataModel.defenderInfo.contact = firstName;
 				DataModel.defenderInfo.contactFullName = _friendsVector[thisID].name;
 				DataModel.defenderInfo.contactFBID = thisFriend.FBID;
-			} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+			} else if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_TWITTER) {
 				fullName = thisFriend.fullName.split(" ");
 				firstName = fullName[0];
 				

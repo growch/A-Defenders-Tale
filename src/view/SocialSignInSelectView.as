@@ -73,7 +73,7 @@ package view
 			if (!DataModel.getInstance().networkConnection()) return;
 			
 			DataModel.SOCIAL_CONNECTED = true;
-			DataModel.SOCIAL_PLATFROM = DataModel.SOCIAL_FACEBOOK;
+			DataModel.SOCIAL_PLATFORM = DataModel.SOCIAL_FACEBOOK;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.LOGIN_FACEBOOK));	
 		}
 		
@@ -82,7 +82,7 @@ package view
 			if (!DataModel.getInstance().networkConnection()) return;
 			
 			DataModel.SOCIAL_CONNECTED = true;
-			DataModel.SOCIAL_PLATFROM = DataModel.SOCIAL_TWITTER;
+			DataModel.SOCIAL_PLATFORM = DataModel.SOCIAL_TWITTER;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.LOGIN_TWITTER));	
 		}
 		

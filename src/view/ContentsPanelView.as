@@ -13,6 +13,7 @@ package view
 	import model.ContentPanelInfo;
 	import model.DataModel;
 	import model.PageInfo;
+	import model.StoryPart;
 	
 	import util.fpmobile.controls.DraggableVerticalContainer;
 	
@@ -20,10 +21,12 @@ package view
 	{
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _nextY:int;
-		private var _pageArray:Array;
+		private var _pageArray:Vector.<ContentsPageView>;
+		private var _pageInfoArray:Vector.<PageInfo>;
 		private var _cpv:ContentsPageView;
 		private var _selectedNamespace:String;
 		private var _tempArray:Array;
+		private var _restoring:Boolean;
 		
 		public function ContentsPanelView()
 		{
@@ -39,8 +42,6 @@ package view
 		private function init(event:Event) : void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			_pageArray = new Array();
-			
 			_nextY = 0;
 			
 			_dragVCont = new DraggableVerticalContainer(0, 0x000000, 0);
@@ -50,6 +51,16 @@ package view
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
 			
+			if (DataModel.getInstance().alreadyRead) {
+				trace("BOOK ALREADY READ");
+				_pageArray = new Vector.<ContentsPageView>();
+				_pageInfoArray = DataModel.PAGE_ARRAY;
+				_restoring = true;
+				addPreviousPages();
+			} else {
+				_pageArray = new Vector.<ContentsPageView>();
+				_pageInfoArray = new Vector.<PageInfo>();
+			}
 		}
 		
 		protected function resetPanel(event:ApplicationEvent):void
@@ -68,6 +79,22 @@ package view
 				addPage(pgInf);
 			}
 			
+		}
+		
+		protected function addPreviousPages():void
+		{
+			trace("addPreviousPages");
+			trace(_pageInfoArray.length);
+			
+			for (var i:int = 0; i < _pageInfoArray.length; i++) 
+			{
+//				trace(_pageInfoArray[i].contentPanelInfo);
+//				var pgInf:PageInfo = new PageInfo();
+//				pgInf.contentPanelInfo = _pageInfoArray[i].contentPanelInfo;
+				addPage(_pageInfoArray[i]);
+				trace(_pageInfoArray[i]);
+			}
+			_restoring = false;
 		}
 		
 		protected function addContentsPage(event:ViewEvent):void
@@ -122,6 +149,12 @@ package view
 			
 			_pageArray.push(newPage);
 			
+			if (!_restoring) {
+				//IMPORTANT FOR RESTORE
+				_pageInfoArray.push(pgInf);
+				DataModel.PAGE_ARRAY = _pageInfoArray;
+			}
+			
 			_nextY += newPage.pageHeight;
 //			trace("++++addPage: "+ pgInf.contentPanelInfo.pageID);
 			scrollToBottom();
@@ -146,7 +179,7 @@ package view
 					if (DataModel.GOD_MODE) return;
 					
 					//
-					if (DataModel.getInstance().contentsPageSelected) return;
+					if (event.data.contentsPanelClick) return;
 					
 					removeOldPages(i+1);
 					return;
@@ -157,6 +190,7 @@ package view
 		private function removeOldPages(startIndex:int = 0):void {
 			if (DataModel.GOD_MODE) return;
 			
+			trace("removeOldPages");
 			for (var i:int = startIndex; i < _pageArray.length; i++) 
 			{
 				_cpv = _pageArray[i] as ContentsPageView;
@@ -166,6 +200,10 @@ package view
 				_dragVCont.refreshView(true);
 			}
 			_pageArray.length = startIndex;
+			_pageInfoArray.length = startIndex;
+			
+			//IMPORTANT FOR RESTORE
+			DataModel.PAGE_ARRAY = _pageInfoArray;
 		}
 		
 		protected function resetSelectedIsland(event:ViewEvent):void
@@ -189,6 +227,7 @@ package view
 				}
 			}
 			_pageArray.splice(_tempArray[0], _tempArray.length);
+			_pageInfoArray.splice(_tempArray[0], _tempArray.length);
 		}
 		
 		

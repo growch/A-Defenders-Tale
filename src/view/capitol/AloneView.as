@@ -302,14 +302,14 @@ package view.capitol
 		protected function decisionMade(event:ViewEvent):void
 		{
 			if (event.data.id == "FacebookNotifyView") {
-				if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+				if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_FACEBOOK) {
 					if (!DataModel.getGoViral().isSupported) return;
 					var msg:String = "Today I saved a distant realm from Certain Doom and Destruction with a little help from my dear friends,  " 
 						+ DataModel.defenderInfo.contactFullName + "and " 
 						+ DataModel.defenderOptions.companionNameArray[DataModel.defenderInfo.companion] +
 						". For autographs, please form an orderly line."
 					DataModel.getGoViral().postFacebookWall("I Defended the Realm", "All in a day’s work", msg);
-				} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+				} else if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_TWITTER) {
 					DataModel.getTwitter().postTweet("Today I saved a realm from Certain Doom with a help from @" + DataModel.defenderInfo.twitterHandle + 
 						". No autographs, please. http://bit.ly/1aEYCZJ");
 				}

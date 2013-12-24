@@ -118,6 +118,9 @@ package view
 		
 		protected function onNewPageAdd(event:ViewEvent):void
 		{
+//			trace("onNewPageAdd event.data: "+event.data);
+//			trace("pgInfo: "+pgInfo);
+			if(!pgInfo) return;
 			var pageInfo:PageInfo = event.data as PageInfo;
 			if (pageInfo.contentPanelInfo.pageID != pgInfo.contentPanelInfo.pageID) {
 				deactivate();

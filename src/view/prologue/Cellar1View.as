@@ -279,13 +279,13 @@ package view.prologue
 			if (event.data.id == "FacebookNotifyView") {
 				var pronoun3:String = DataModel.getInstance().replaceVariableText('[pronoun3]');
 				
-				if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+				if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_FACEBOOK) {
 					if (!DataModel.getGoViral().isSupported) return;
 					
 					var msg:String = "I have to admit that my quest hasn’t been easy. I’d be Orc chow if " + DataModel.defenderInfo.contactFullName + 
 						"hadn’t flexed " + pronoun3 + " diplomatic skills. Wish me luck as I sail for the Barrier Islands."
 					DataModel.getGoViral().postFacebookWall("Setting sail in A Defender’s Tale", "Defending the Realm is harder than it looks.", msg);
-				} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+				} else if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_TWITTER) {
 					DataModel.getTwitter().postTweet("Still defending the realm: I’d be Orc chow if @" + DataModel.defenderInfo.twitterHandle + 
 						" hadn’t flexed " + pronoun3 + " diplomatic skills. http://bit.ly/1aEYCZJ");
 				}

@@ -25,6 +25,8 @@ package view
 		private var _fog:MovieClip;
 		private var _sun:MovieClip;
 		private var _beginBtn:MovieClip;
+		private var _beginNewBtn:MovieClip;
+		private var _continuePreviousBtn:MovieClip;
 		private var _bgSound:Track;
 		private var _SAL:SWFAssetLoader;
 		private var _helpWanted:MovieClip;
@@ -61,6 +63,21 @@ package view
 			_beginBtn = _mc.begin_btn;
 			_beginBtn.mouseChildren = false;
 			_beginBtn.addEventListener(MouseEvent.CLICK, beginBook);
+			
+			_beginNewBtn = _mc.revisit_mc.beginNew_btn;
+			_beginNewBtn.mouseChildren = false;
+			_beginNewBtn.addEventListener(MouseEvent.CLICK, beginBook);
+
+			_continuePreviousBtn = _mc.revisit_mc.continue_btn;
+			_continuePreviousBtn.mouseChildren = false;
+			_continuePreviousBtn.addEventListener(MouseEvent.CLICK, beginBook);
+			
+			// check if already used app
+			if (DataModel.getInstance().alreadyRead) {
+				_beginBtn.visible = false;
+			} else {
+				_mc.revisit_mc.visible = false;
+			}
 			
 			_VOSound = new Track("assets/audio/global/Intro.mp3");
 			
@@ -105,6 +122,12 @@ package view
 			
 			_beginBtn.removeEventListener(MouseEvent.CLICK, beginBook);
 			_beginBtn = null;
+
+			_beginNewBtn.removeEventListener(MouseEvent.CLICK, beginBook);
+			_beginNewBtn = null;
+
+			_continuePreviousBtn.removeEventListener(MouseEvent.CLICK, beginBook);
+			_continuePreviousBtn = null;
 			
 			_continueBtn.removeEventListener(MouseEvent.CLICK, continueClick);
 			_continueBtn = null;
@@ -140,17 +163,30 @@ package view
 		{
 			DataModel.getInstance().buttonTap();
 			
-			TweenMax.to(_beginBtn, .5, {scaleX:1.1, scaleY:1.1, ease:Quad.easeOut});
+			var thisBtn:MovieClip = event.target as MovieClip;
+			
+			TweenMax.to(thisBtn, .5, {scaleX:1.1, scaleY:1.1, ease:Quad.easeOut});
+			
+			
 			
 			TweenMax.killTweensOf(_sun);
 			_fog.visible = true;
 //			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:fadeDownParts});
-			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:takeScreenshot});
+//			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:takeScreenshot});
 //			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
 //			TweenMax.to(_mc, .2, {alpha:0, delay:2.4});
 			
 //			TweenMax.delayedCall(2.0, showHelp);
+			if (thisBtn == _continuePreviousBtn) {
+				DataModel.getInstance().rebuildPrevious = true;
+//				TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:fadeDownMC});
+				//SOMETHING ABOUT ONCOMPLETE CAUSING SWF TO NOT UNLOAD
+				TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:null});
+				TweenMax.delayedCall(2.7, fadeDownMC);
+			} else {
+				TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:takeScreenshot});
+			}
 		}		
 		
 //		WTF!!!!! for some reason this function was causing swf to not UNLOAD!!!
@@ -208,12 +244,19 @@ package view
 		}
 		
 		private function continueClick(e:MouseEvent):void {
-			TweenMax.killAll();
+//			TweenMax.killAll();
 //			TweenMax.to(_mc.bg_mc, .6, {alpha:0}); 
 //			TweenMax.to(_sun, .6, {alpha:0}); 
 //			TweenMax.to(_mc, .6, {autoAlpha:0, onComplete:nextScreen}); THIS WOULD CAUSE THE SWF TO NOT UNLOAD
-			TweenMax.to(_mc, .6, {autoAlpha:0});
 			
+//			TweenMax.to(_mc, .6, {autoAlpha:0});
+//			TweenMax.delayedCall(.5, nextScreen);
+			fadeDownMC();
+		}
+		
+		private function fadeDownMC():void {
+			TweenMax.killAll();
+			TweenMax.to(_mc, .6, {autoAlpha:0});
 			TweenMax.delayedCall(.5, nextScreen);
 		}
 		

@@ -259,7 +259,7 @@ package view.theCattery
 		protected function decisionMade(event:ViewEvent):void
 		{
 			if (event.data.id == "theCattery.KittenContactView" && !_messageDone) {
-				if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_FACEBOOK) {
+				if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_FACEBOOK) {
 					if (!DataModel.getGoViral().isSupported) return;
 					
 					var msg:String = DataModel.defenderInfo.contactFullName + 
@@ -267,7 +267,7 @@ package view.theCattery
 						"I couldn’t have picked a better emergency contact. " +
 						"Soon I’ll have the cat’s eye stone and be even closer to saving the realm!"
 					DataModel.getGoViral().postFacebookWall("Hoards of squeezable kittens in A Defender’s Tale", "Still over here, defending the realm.", msg);
-				} else if (DataModel.SOCIAL_PLATFROM == DataModel.SOCIAL_TWITTER) {
+				} else if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_TWITTER) {
 					DataModel.getTwitter().postTweet("@" + DataModel.defenderInfo.twitterHandle + 
 						" just saved the day against the worst kind of trick: hoards of squeezable kittens!");
 				}
