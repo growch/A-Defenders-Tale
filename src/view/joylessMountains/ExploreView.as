@@ -119,6 +119,10 @@ package view.joylessMountains
 			
 			_nextY = 110;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.vines_mc.vineLeft_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.vines_mc.vineRight_mc);
+			
 			_bellL1 = _mc.vines_mc.vineLeft_mc.bell1_mc;
 			_bellL2 = _mc.vines_mc.vineLeft_mc.bell2_mc;
 			_bellL3 = _mc.vines_mc.vineLeft_mc.bell3_mc;
@@ -149,6 +153,18 @@ package view.joylessMountains
 			
 			_pageInfo = DataModel.appData.getPageInfo("explore");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cloud6_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cloud1_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cloud10_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cloud12_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cloud4_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cloud5_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instrument_mc.glows_mc.instrument_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instrument_mc.instrument_mc);
+			
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

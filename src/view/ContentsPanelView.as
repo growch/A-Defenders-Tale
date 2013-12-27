@@ -92,7 +92,7 @@ package view
 //				var pgInf:PageInfo = new PageInfo();
 //				pgInf.contentPanelInfo = _pageInfoArray[i].contentPanelInfo;
 				addPage(_pageInfoArray[i]);
-				trace(_pageInfoArray[i]);
+//				trace(_pageInfoArray[i]);
 			}
 			_restoring = false;
 		}

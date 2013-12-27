@@ -118,6 +118,11 @@ package view.joylessMountains
 			_pageInfo = DataModel.appData.getPageInfo("playSong");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instrument_mc.glows_mc.instrument_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instrument_mc.instrument_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

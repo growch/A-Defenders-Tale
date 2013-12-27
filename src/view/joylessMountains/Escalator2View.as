@@ -156,6 +156,25 @@ package view.joylessMountains
 			_pageInfo = DataModel.appData.getPageInfo("escalator2");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_cloud4);
+			DataModel.getInstance().setGraphicResolution(_cloud5);
+			DataModel.getInstance().setGraphicResolution(_cloud6);
+			DataModel.getInstance().setGraphicResolution(_cloud7);
+			DataModel.getInstance().setGraphicResolution(_cloud8);
+			DataModel.getInstance().setGraphicResolution(_cloud9);
+			DataModel.getInstance().setGraphicResolution(_cloud10);
+			DataModel.getInstance().setGraphicResolution(_cloud11);
+			DataModel.getInstance().setGraphicResolution(_cloud12);
+			DataModel.getInstance().setGraphicResolution(_feather1);
+			DataModel.getInstance().setGraphicResolution(_feather2);
+			DataModel.getInstance().setGraphicResolution(_feather3);
+			DataModel.getInstance().setGraphicResolution(_feather4);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

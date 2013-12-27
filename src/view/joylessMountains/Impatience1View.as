@@ -99,6 +99,17 @@ package view.joylessMountains
 			_pageInfo = DataModel.appData.getPageInfo("impatience1");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tears1_mc.teardrop_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tears1_mc.drop1_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tears1_mc.drop2_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tears1_mc.drop3_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tears2_mc.teardrop_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tears2_mc.drop1_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tears2_mc.drop2_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tears2_mc.drop3_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

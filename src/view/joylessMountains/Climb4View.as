@@ -91,6 +91,10 @@ package view.joylessMountains
 			
 			_pageInfo = DataModel.appData.getPageInfo("climb4");
 			_bodyParts = _pageInfo.body;
+
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

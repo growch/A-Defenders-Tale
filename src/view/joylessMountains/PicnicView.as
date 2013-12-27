@@ -104,6 +104,9 @@ package view.joylessMountains
 			
 			_nextY = 330;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.vine_mc);
+			
 			_bellR1 = _mc.vine_mc.bell1_mc;
 			_bellR2 = _mc.vine_mc.bell2_mc;
 			_bellR3 = _mc.vine_mc.bell3_mc;
@@ -120,6 +123,10 @@ package view.joylessMountains
 			
 			_pageInfo = DataModel.appData.getPageInfo("picnic");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -174,7 +181,7 @@ package view.joylessMountains
 			_frame = new FrameView(_mc.frame_mc); 
 			var frameSize:int = _decisions.y + 250;
 			// size bg
-			_mc.bg_mc.height = frameSize;
+			_mc.bg_mc.color_mc.height = frameSize;
 			_frame.sizeFrame(frameSize);
 			if (frameSize < DataModel.APP_HEIGHT) {
 				_decisions.y += Math.round(DataModel.APP_HEIGHT - frameSize);

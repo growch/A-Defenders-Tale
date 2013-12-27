@@ -97,6 +97,11 @@ package view.joylessMountains
 			_pageInfo = DataModel.appData.getPageInfo("roses");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.roseL_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.roseR_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

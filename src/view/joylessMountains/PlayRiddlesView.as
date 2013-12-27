@@ -162,6 +162,7 @@ package view.joylessMountains
 			
 			_retry = _mc.tryAgain_mc;
 			_retry.stop();
+			_retry.retry_mc.stop();
 			_retry.visible = false;
 			_retry.cta_btn.addEventListener(MouseEvent.CLICK, retryClick);
 			
@@ -185,6 +186,12 @@ package view.joylessMountains
 			
 //			_pageInfo.contentPanelInfo.body = "The Play Riddles Game copy TBD";
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_start);
+			DataModel.getInstance().setGraphicResolution(_gameLost);
+			DataModel.getInstance().setGraphicResolution(_gameWon);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -319,6 +326,7 @@ package view.joylessMountains
 				_gameWon.visible = true;
 			} else if (_retryCount < 3) {
 				_retry.gotoAndStop(_retryCount+1);
+				DataModel.getInstance().setGraphicResolution(_retry.retry_mc);
 				_retry.visible = true;
 			} else {
 				_gameLost.visible = true;

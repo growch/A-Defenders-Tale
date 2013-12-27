@@ -124,8 +124,28 @@ package view.joylessMountains
 			_mc.weapon_mc.glows_mc.gotoAndStop(_weaponInt+1);
 			var weapon1Text :int = _weaponInt == 0 ? 0 : 1;
 			
+			_mc.weapon_mc.stonePearl_mc.visible = false;
+			if (DataModel.STONE_PEARL) _mc.weapon_mc.stonePearl_mc.visible = true;
+			_mc.weapon_mc.stoneSand_mc.visible = false;
+			if (DataModel.STONE_SAND) _mc.weapon_mc.stoneSand_mc.visible = true;
+			_mc.weapon_mc.stoneCat_mc.visible = false;
+			if (DataModel.STONE_CAT) _mc.weapon_mc.stoneCat_mc.visible = true;
+			_mc.weapon_mc.stoneSerpent_mc.visible = false;
+			if (DataModel.STONE_SERPENT) _mc.weapon_mc.stoneSerpent_mc.visible = true;
+			
 			_pageInfo = DataModel.appData.getPageInfo("treasure");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.treasure_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stonePearl_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSerpent_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneCat_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSand_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.weapon_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.glows_mc.weapon_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

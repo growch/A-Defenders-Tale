@@ -103,8 +103,6 @@ package view.joylessMountains
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			
-			
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -125,6 +123,11 @@ package view.joylessMountains
 			
 			_pageInfo = DataModel.appData.getPageInfo("awakenSerpent");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.snowmonch_mc.serpent_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.snowmonch_mc.serpent_mc.eyelid_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

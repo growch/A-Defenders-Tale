@@ -111,6 +111,11 @@ package view.joylessMountains
 			_pageInfo = DataModel.appData.getPageInfo("cave");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.stalagmite_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.stalactite_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.treasure_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

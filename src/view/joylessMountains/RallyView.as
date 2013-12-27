@@ -99,6 +99,10 @@ package view.joylessMountains
 			_pageInfo = DataModel.appData.getPageInfo("rally");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.pin_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

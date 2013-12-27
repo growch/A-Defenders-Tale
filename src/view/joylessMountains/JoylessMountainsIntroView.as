@@ -145,7 +145,8 @@ package view.joylessMountains
 			_mc.waves_mc.mask = _mc.mask_mc;
 			
 			_mc.snow_mc.visible = false;
-			_mc.snow_mc.stop();
+			DataModel.getInstance().setGraphicResolution(_mc.snow_mc);
+			_mc.snow_mc.snow_mc.stop();
 			
 			_nextY = 110;
 			
@@ -173,6 +174,19 @@ package view.joylessMountains
 			
 			_pageInfo = DataModel.appData.getPageInfo("joylessMountainsIntro");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cloudSnow_mc.cloud_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_wave1);
+			DataModel.getInstance().setGraphicResolution(_wave2);
+			DataModel.getInstance().setGraphicResolution(_wave3);
+			DataModel.getInstance().setGraphicResolution(_wave4);
+			DataModel.getInstance().setGraphicResolution(_wave5);
+			DataModel.getInstance().setGraphicResolution(_wave6);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -277,7 +291,7 @@ package view.joylessMountains
 			//!IMPORTANT otherwise chugs on iPad1
 			if (DataModel.ipad1) { 
 				_mc.snow_mc.visible = true;
-				_mc.snow_mc.play();
+				_mc.snow_mc.snow_mc.play();
 				return;
 			}
 			
@@ -314,6 +328,8 @@ package view.joylessMountains
 				TweenMax.pauseAll();
 				if (_emitter) {
 					_emitter.pause();
+				} else {
+					_mc.snow_mc.snow_mc.stop();
 				}
 				_scrolling = true;
 			} else {
@@ -329,6 +345,8 @@ package view.joylessMountains
 				
 				if (_emitter) {
 					_emitter.resume();
+				} else {
+					_mc.snow_mc.snow_mc.play();
 				}
 				
 				TweenMax.resumeAll();

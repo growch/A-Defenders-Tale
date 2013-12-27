@@ -102,17 +102,22 @@ package view.joylessMountains
 //			
 			_cardTF = new Text("DEFENDER " + DataModel.defenderInfo.defender.toUpperCase(), 
 				Formats.businessCardFormat(), 250);
-			_cardTF.rotation = 4;
+			_cardTF.rotation = 4.4;
 			_cardTF.x = -124;
-			_cardTF.y = -42;
+			_cardTF.y = -56;
 			_mc.card_mc.addChild(_cardTF);
 			
 			if (_cardTF.numLines > 1) {
-				_cardTF.y -= 20;
+				_cardTF.y -= 24;
 			}
 			
 			_pageInfo = DataModel.appData.getPageInfo("METS4Eva");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.card_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
