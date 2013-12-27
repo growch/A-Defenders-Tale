@@ -1,6 +1,9 @@
 package view
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.events.LoaderEvent;
+	import com.greensock.loading.ImageLoader;
+	import com.greensock.loading.LoaderMax;
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -19,7 +22,7 @@ package view
 	
 	public class ContentsPanelView extends MovieClip 
 	{
-		private var _dragVCont:DraggableVerticalContainer;
+		public var dragVCont:DraggableVerticalContainer;
 		private var _nextY:int;
 		private var _pageArray:Vector.<ContentsPageView>;
 		private var _pageInfoArray:Vector.<PageInfo>;
@@ -27,6 +30,8 @@ package view
 		private var _selectedNamespace:String;
 		private var _tempArray:Array;
 		private var _restoring:Boolean;
+		private var _loaderMax:LoaderMax;
+		private var _loadMultiple:Boolean;
 		
 		public function ContentsPanelView()
 		{
@@ -44,15 +49,21 @@ package view
 			
 			_nextY = 0;
 			
-			_dragVCont = new DraggableVerticalContainer(0, 0x000000, 0);
-			_dragVCont.SCROLL_INDICATOR_RIGHT_PADDING = 0;
-			_dragVCont.width = Math.floor(this.parent.parent.width) - 2;
-			_dragVCont.height = Math.floor(this.parent.parent.height) - 13; 
-			_dragVCont.refreshView(true);
-			addChild(_dragVCont);
+			dragVCont = new DraggableVerticalContainer(0, 0x000000, 0);
+			dragVCont.SCROLL_INDICATOR_RIGHT_PADDING = 0;
+			dragVCont.width = Math.floor(this.parent.parent.width) - 2;
+			dragVCont.height = Math.floor(this.parent.parent.height) - 13; 
+			dragVCont.refreshView(true);
+			addChild(dragVCont);
+			
+			_loaderMax = new LoaderMax({name:"mainQueue", onProgress:progressHandler, onComplete:completeHandler, onError:errorHandler});
 			
 			if (DataModel.getInstance().alreadyRead) {
-				trace("BOOK ALREADY READ");
+				trace("BOOK ALREADY READ -> ContentsPanelView");
+			}
+			
+			if (DataModel.getInstance().rebuildPrevious) {
+				trace("REBUILDING *** -> ContentsPanelView");
 				_pageArray = new Vector.<ContentsPageView>();
 				_pageInfoArray = DataModel.PAGE_ARRAY;
 				_restoring = true;
@@ -63,6 +74,22 @@ package view
 			}
 		}
 		
+		private function progressHandler(event:LoaderEvent):void { 
+//			trace("progress: " + event.target.progress);
+		}
+		
+		private function completeHandler(event:LoaderEvent):void {
+//			trace(event.target + " is complete!");
+		}
+		
+		private function errorHandler(event:LoaderEvent):void {
+			trace("_loaderMax ++++++ error occured with " + event.target + ": " + event.text);
+		}
+		
+		public function addImageLoader(imgLdr:ImageLoader):void {
+			_loaderMax.append(imgLdr);
+		}
+		
 		protected function resetPanel(event:ApplicationEvent):void
 		{
 			removeOldPages();
@@ -70,6 +97,7 @@ package view
 		
 		protected function godModeOn(event:Event):void
 		{
+			_loadMultiple = true;
 			var cpiVect:Vector.<ContentPanelInfo> = DataModel.appData.parseContentsForGod();
 			
 			for (var i:int = 0; i < cpiVect.length; i++) 
@@ -78,23 +106,28 @@ package view
 				pgInf.contentPanelInfo = cpiVect[i];
 				addPage(pgInf);
 			}
+			//LOAD THE IMAGES
+			_loaderMax.load(true);
 			
+			_loadMultiple = false;
 		}
 		
 		protected function addPreviousPages():void
 		{
+			_loadMultiple = true;
 			trace("addPreviousPages");
 			trace(_pageInfoArray.length);
 			
 			for (var i:int = 0; i < _pageInfoArray.length; i++) 
 			{
-//				trace(_pageInfoArray[i].contentPanelInfo);
-//				var pgInf:PageInfo = new PageInfo();
-//				pgInf.contentPanelInfo = _pageInfoArray[i].contentPanelInfo;
 				addPage(_pageInfoArray[i]);
-//				trace(_pageInfoArray[i]);
 			}
+			
+			//LOAD THE IMAGES
+			_loaderMax.load(true);
+			
 			_restoring = false;
+			_loadMultiple = false;
 		}
 		
 		protected function addContentsPage(event:ViewEvent):void
@@ -138,14 +171,15 @@ package view
 		}
 		
 		public function scrollToBottom():void {
-			_dragVCont.scrollY = _dragVCont.maxScroll;
+			dragVCont.scrollY = dragVCont.maxScroll;
 		}
 		
 		public function addPage(pgInf:PageInfo):void {
-			var newPage:ContentsPageView = new ContentsPageView(pgInf,_dragVCont);
+//			trace("add page this: "+this);
+			var newPage:ContentsPageView = new ContentsPageView(pgInf,this);
 			
-			_dragVCont.addChild(newPage);
-			_dragVCont.refreshView(true);
+			dragVCont.addChild(newPage);
+			dragVCont.refreshView(true);
 			
 			_pageArray.push(newPage);
 			
@@ -153,6 +187,11 @@ package view
 				//IMPORTANT FOR RESTORE
 				_pageInfoArray.push(pgInf);
 				DataModel.PAGE_ARRAY = _pageInfoArray;
+			}
+			
+			if (!_loadMultiple) {
+//				trace("load CPV image");
+				_loaderMax.load(true);
 			}
 			
 			_nextY += newPage.pageHeight;
@@ -196,8 +235,8 @@ package view
 				_cpv = _pageArray[i] as ContentsPageView;
 				_nextY -= _cpv.pageHeight;
 				_cpv.destroy();
-				_dragVCont.removeChild(_cpv);
-				_dragVCont.refreshView(true);
+				dragVCont.removeChild(_cpv);
+				dragVCont.refreshView(true);
 			}
 			_pageArray.length = startIndex;
 			_pageInfoArray.length = startIndex;
@@ -222,8 +261,8 @@ package view
 					_cpv.destroy();
 					_tempArray.push(i);
 					
-					_dragVCont.removeChild(_cpv);
-					_dragVCont.refreshView(true);
+					dragVCont.removeChild(_cpv);
+					dragVCont.refreshView(true);
 				}
 			}
 			_pageArray.splice(_tempArray[0], _tempArray.length);
