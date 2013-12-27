@@ -135,6 +135,10 @@ package view.prologue
 			
 			_mc.bg_mc.gotoAndStop(introNumber+1);
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.boat_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

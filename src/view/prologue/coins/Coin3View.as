@@ -110,6 +110,12 @@ package view.prologue.coins
 			_pageInfo = DataModel.appData.getPageInfo("coin3");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_cup.cupFront_mc);
+			DataModel.getInstance().setGraphicResolution(_cup.cup_mc);
+			DataModel.getInstance().setGraphicResolution(_cup.coin_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

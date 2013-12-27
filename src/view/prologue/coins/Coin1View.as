@@ -102,13 +102,20 @@ package view.prologue.coins
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade); 
 			
 			_cup = _mc.cup_mc;
-			_coin = _cup["coin_mc"];
+			_coin = _cup.coin_mc;
 			_coin.visible = false;
 			
 			_nextY = 110;
 			
 			_pageInfo = DataModel.appData.getPageInfo("coin1");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_cup.cupFront_mc);
+			DataModel.getInstance().setGraphicResolution(_cup.cup_mc);
+			DataModel.getInstance().setGraphicResolution(_cup.coin_mc);
+
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts)      

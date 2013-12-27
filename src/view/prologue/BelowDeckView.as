@@ -104,6 +104,16 @@ package view.prologue
 			_pageInfo = DataModel.appData.getPageInfo("belowDeck");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.mugs_mc.mugText_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.mugs_mc.mugLeft_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.mugs_mc.mugRight_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.shipwreck_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cattery_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sandlands_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.joyless_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
