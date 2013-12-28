@@ -27,16 +27,18 @@ package view
 		private var _pageArray:Vector.<ContentsPageView>;
 		private var _pageInfoArray:Vector.<PageInfo>;
 		private var _cpv:ContentsPageView;
+		private var _pi:PageInfo;
 		private var _selectedNamespace:String;
 		private var _tempArray:Array;
 		private var _restoring:Boolean;
 		private var _loaderMax:LoaderMax;
 		private var _loadMultiple:Boolean;
+		private var _dm:DataModel;
 		
 		public function ContentsPanelView()
 		{
 			EventController.getInstance().addEventListener(ViewEvent.ADD_CONTENTS_PAGE, addContentsPage); 
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
+//			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 //			EventController.getInstance().addEventListener(ViewEvent.MAP_SELECT_ISLAND, resetSelectedIsland);
 			EventController.getInstance().addEventListener(ApplicationEvent.RESTART_BOOK, resetPanel);
 			EventController.getInstance().addEventListener(ApplicationEvent.GOD_MODE_ON, godModeOn);
@@ -58,12 +60,14 @@ package view
 			
 			_loaderMax = new LoaderMax({name:"mainQueue", onProgress:progressHandler, onComplete:completeHandler, onError:errorHandler});
 			
-			if (DataModel.getInstance().alreadyRead) {
-				trace("BOOK ALREADY READ -> ContentsPanelView");
-			}
 			
-			if (DataModel.getInstance().rebuildPrevious) {
-				trace("REBUILDING *** -> ContentsPanelView");
+			_dm = DataModel.getInstance();
+//			if (DataModel.getInstance().alreadyRead) {
+//				trace("BOOK ALREADY READ -> ContentsPanelView");
+//			}
+			
+			if (_dm.rebuildPrevious) {
+//				trace("REBUILDING *** -> ContentsPanelView");
 				_pageArray = new Vector.<ContentsPageView>();
 				_pageInfoArray = DataModel.PAGE_ARRAY;
 				_restoring = true;
@@ -132,11 +136,14 @@ package view
 		
 		protected function addContentsPage(event:ViewEvent):void
 		{
+			
 			if (DataModel.GOD_MODE) return;
 			
 			var pgInf:PageInfo = event.data as PageInfo;
 			
 			if (checkForPage(pgInf)) return;
+			
+//			trace("CP!!!! addContentsPage");
 			
 			addPage(pgInf);
 		}
@@ -157,6 +164,7 @@ package view
 		
 		
 		public function pageVisited(pageID:String):Boolean {
+			trace("pageVisited DataModel.CURRENT_PAGE_ID:"+DataModel.CURRENT_PAGE_ID);
 			var pageFound:Boolean = false;
 			
 			for (var i:int = 0; i < _pageArray.length; i++) 
@@ -169,13 +177,39 @@ package view
 			
 			return pageFound;
 		}
+
+		public function changingPath(nextSelectedID:String):Boolean {
+			var nextPageNew:Boolean = false;
+			var currentPageIndex:int;
+			var nextVisited:String;
+//			trace("CHANGING PATH????");
+			
+			for (var i:int = 0; i < _pageInfoArray.length; i++) 
+			{
+				_pi = _pageInfoArray[i];
+				if (DataModel.CURRENT_PAGE_ID == _pi.contentPanelInfo.pageID) {
+//					pageFound = true;
+					currentPageIndex = i;
+					nextVisited = _pageInfoArray[currentPageIndex+1].contentPanelInfo.pageID;
+					break;
+				}
+			}
+//			trace("currentPageIndex: "+currentPageIndex);
+//			trace("next visited page: " + _pageInfoArray[currentPageIndex+1].contentPanelInfo.pageID);
+//			trace("next CLICKED page: "+nextSelectedID);
+			if (nextSelectedID != nextVisited) {
+				nextPageNew = true;
+			}
+//			trace("nextPageNew: "+nextPageNew);
+			
+			return nextPageNew;
+		}
 		
 		public function scrollToBottom():void {
 			dragVCont.scrollY = dragVCont.maxScroll;
 		}
 		
 		public function addPage(pgInf:PageInfo):void {
-//			trace("add page this: "+this);
 			var newPage:ContentsPageView = new ContentsPageView(pgInf,this);
 			
 			dragVCont.addChild(newPage);
@@ -199,37 +233,52 @@ package view
 			scrollToBottom();
 		}
 		
-		protected function decisionMade(event:ViewEvent):void
-		{
-//			if (DataModel.GOD_MODE) return;
-			
-			var decisionID:String = event.data.id;
-			
+//		protected function decisionMade(event:ViewEvent):void
+//		{
+//			var decisionID:String = event.data.id;
+//			
+//			var len:int = _pageArray.length;
+//			
+//			for (var i:int = 0; i < len; i++) 
+//			{
+//				_cpv = _pageArray[i] as ContentsPageView;
+//				
+//				
+//				if (DataModel.CURRENT_PAGE_ID == _cpv.pgInfo.contentPanelInfo.pageID) {
+////					_cpv.activate();
+//					
+//					if (DataModel.GOD_MODE) return;
+//					
+//					if (event.data.contentsPanelClick) return;
+//					
+////					removeOldPages(i+1);
+//					return;
+//				}
+//			}
+//		}
+		
+		public function overwriteHistory():void {
 			var len:int = _pageArray.length;
-			
+						
 			for (var i:int = 0; i < len; i++) 
 			{
 				_cpv = _pageArray[i] as ContentsPageView;
 				
-				
 				if (DataModel.CURRENT_PAGE_ID == _cpv.pgInfo.contentPanelInfo.pageID) {
-					_cpv.activate();
 					
 					if (DataModel.GOD_MODE) return;
-					
-					//
-					if (event.data.contentsPanelClick) return;
 					
 					removeOldPages(i+1);
 					return;
 				}
 			}
+			
 		}
 		
 		private function removeOldPages(startIndex:int = 0):void {
 			if (DataModel.GOD_MODE) return;
 			
-			trace("removeOldPages");
+			trace("††††††††††† removeOldPages");
 			for (var i:int = startIndex; i < _pageArray.length; i++) 
 			{
 				_cpv = _pageArray[i] as ContentsPageView;

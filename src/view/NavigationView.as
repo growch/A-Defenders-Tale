@@ -26,16 +26,12 @@ package view
 		private var _help:MovieClip;
 		private var _restart:MovieClip;
 		private var _about:MovieClip;
-//		private var _contentsPanel:ContentsPanelView;
 		public var contentsPanel:ContentsPanelView;
 		private var _aboutPanel:AboutPanelView;
 		
 		private var _navBtnArray:Array;
 		
 		private var _soundOn:Boolean = true;
-//		private var _contentsShowing:Boolean;
-		
-//		private var _contentsOffX:int = -235;
 		
 		private static const CLOSED_Y:int = -910;
 		private static const OPEN_Y:int = -735;
@@ -156,7 +152,7 @@ package view
 		protected function peekNavigation(event:ViewEvent):void
 		{
 			openNavigation();
-			TweenMax.delayedCall(2, closeNavigation);
+			TweenMax.delayedCall(1, closeNavigation);
 		}
 		
 		protected function navigationToggle(event:MouseEvent):void

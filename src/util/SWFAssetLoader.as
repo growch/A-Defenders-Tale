@@ -41,7 +41,7 @@ package util
 		}
 		
 		private function unloadNotification():void {
-			trace("$$$%$%$%$%$%$%%$ unloadNotification");
+//			trace("$$$%$%$%$%$%$%%$ unloadNotification");
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ASSET_UNLOADED));
 		}
 		

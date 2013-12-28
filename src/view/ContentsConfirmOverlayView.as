@@ -36,7 +36,9 @@ package view
 		
 		protected function continueClick(event:MouseEvent):void
 		{
-			DataModel.getInstance().contentsPageSelected = false; 
+			trace("continueClick");
+//			DataModel.getInstance().contentsPageSelected = false; 
+			_decisionObject.overwriteHistory = true;
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_OVERLAY));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, _decisionObject));
 		}

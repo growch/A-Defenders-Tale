@@ -57,6 +57,7 @@ package view.prologue.coins
 		
 		public function destroy():void
 		{
+			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 //			
 			_cup.removeEventListener(MouseEvent.CLICK, cupRattle);
 			_coinSound = null;
@@ -89,7 +90,6 @@ package view.prologue.coins
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, scrollCheck);
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -200,8 +200,7 @@ package view.prologue.coins
 			
 			_cup.addEventListener(MouseEvent.CLICK, cupRattle);
 			
-			addEventListener(Event.ENTER_FRAME, scrollCheck);
-			
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			coinAnimation();
 		}
@@ -225,7 +224,7 @@ package view.prologue.coins
 			_coinSound.start();
 		}
 		
-		protected function scrollCheck(event:Event):void
+		protected function enterFrameLoop(event:Event):void
 		{
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
@@ -246,6 +245,7 @@ package view.prologue.coins
 			if (event.data.decisionNumber == 1) {
 				DataModel.coinCount++;
 			}
+			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}

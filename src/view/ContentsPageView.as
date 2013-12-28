@@ -40,7 +40,8 @@ package view
 			
 			EventController.getInstance().addEventListener(ViewEvent.ADD_CONTENTS_PAGE, onNewPageAdd); 
 //			EventController.getInstance().addEventListener(ViewEvent.DEACTIVATE_OTHER_PAGES, deactivateNonSelected); 
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, deactivateNonSelected); 
+//			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, deactivateNonSelected); 
+			EventController.getInstance().addEventListener(ViewEvent.CLOSE_NAV_DECISION_CLICK, deactivateNonSelected); 
 		}
 		
 		protected function init(event:Event):void
@@ -79,7 +80,8 @@ package view
 			pgInfo = null;
 			EventController.getInstance().removeEventListener(ViewEvent.ADD_CONTENTS_PAGE, onNewPageAdd); 
 //			EventController.getInstance().removeEventListener(ViewEvent.DEACTIVATE_OTHER_PAGES, deactivateNonSelected);
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, deactivateNonSelected);
+//			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, deactivateNonSelected);
+			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_NAV_DECISION_CLICK, deactivateNonSelected);
 			_mc.removeEventListener(MouseEvent.CLICK, pageClick);
 			removeChild(_mc);
 			_mc = null;
@@ -100,11 +102,6 @@ package view
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_NAV_DECISION_CLICK, tempObj));
 			
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_GLOBAL_NAV));
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DEACTIVATE_OTHER_PAGES, tempObj));
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_GLOBAL_NAV));
 		}
 		
 		protected function deactivateNonSelected(event:ViewEvent):void
@@ -113,27 +110,30 @@ package view
 			if (!event.data) return;
 			if (!pgInfo) return;
 			
-//			trace("deactivate contents page: "+pgInfo.contentPanelInfo.pageID);
-			
-			if (event.data.id != pgInfo.contentPanelInfo.pageID) {
+			if (event.data.id != pgInfo.contentPanelInfo.pageID && _active) {
 				deactivate();
+//				trace("deactivate contents page: "+pgInfo.contentPanelInfo.pageID);
 			}
 		}
 		
 		protected function onNewPageAdd(event:ViewEvent):void
 		{
-//			trace("onNewPageAdd event.data: "+event.data);
+//			trace("onNewPageAdd: "+pgInfo.contentPanelInfo.pageID);
 //			trace("pgInfo: "+pgInfo);
 			if(!pgInfo) return;
 			var pageInfo:PageInfo = event.data as PageInfo;
-			if (pageInfo.contentPanelInfo.pageID != pgInfo.contentPanelInfo.pageID) {
+			if (pageInfo.contentPanelInfo.pageID != pgInfo.contentPanelInfo.pageID && _active) {
 				deactivate();
+			} else if (pageInfo.contentPanelInfo.pageID == pgInfo.contentPanelInfo.pageID) {
+				activate();
 			}
 		}
 		
 		public function activate():void
 		{
 			if (_active) return;
+			
+//			_cPanel.setCurrentIndex(this);
 			
 			_mc.bg_mc.gotoAndStop("active");
 			_mc.title_txt.textColor = ACTIVE_COLOR;
