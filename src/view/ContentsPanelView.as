@@ -188,8 +188,11 @@ package view
 			{
 				_pi = _pageInfoArray[i];
 				if (DataModel.CURRENT_PAGE_ID == _pi.contentPanelInfo.pageID) {
-//					pageFound = true;
 					currentPageIndex = i;
+					//if the next one is new i.e. beyond _pageInfoArray
+					if ((currentPageIndex+1) >= _pageInfoArray.length) {
+						return false;
+					}
 					nextVisited = _pageInfoArray[currentPageIndex+1].contentPanelInfo.pageID;
 					break;
 				}
