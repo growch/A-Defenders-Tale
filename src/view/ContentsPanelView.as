@@ -66,16 +66,23 @@ package view
 //				trace("BOOK ALREADY READ -> ContentsPanelView");
 //			}
 			
-			if (_dm.rebuildPrevious) {
-//				trace("REBUILDING *** -> ContentsPanelView");
-				_pageArray = new Vector.<ContentsPageView>();
-				_pageInfoArray = DataModel.PAGE_ARRAY;
-				_restoring = true;
-				addPreviousPages();
-			} else {
+//			if (_dm.rebuildPrevious) {
+////				trace("REBUILDING *** -> ContentsPanelView");
+//				_pageArray = new Vector.<ContentsPageView>();
+//				_pageInfoArray = DataModel.PAGE_ARRAY;
+//				_restoring = true;
+//				addPreviousPages();
+//			} else {
 				_pageArray = new Vector.<ContentsPageView>();
 				_pageInfoArray = new Vector.<PageInfo>();
-			}
+//			}
+		}
+		
+		public function restorePrevious():void {
+			_pageArray = new Vector.<ContentsPageView>();
+			_pageInfoArray = DataModel.PAGE_ARRAY;
+			_restoring = true;
+			addPreviousPages();
 		}
 		
 		private function progressHandler(event:LoaderEvent):void { 
@@ -119,8 +126,8 @@ package view
 		protected function addPreviousPages():void
 		{
 			_loadMultiple = true;
-			trace("addPreviousPages");
-			trace(_pageInfoArray.length);
+//			trace("addPreviousPages");
+//			trace(_pageInfoArray.length);
 			
 			for (var i:int = 0; i < _pageInfoArray.length; i++) 
 			{
@@ -206,6 +213,27 @@ package view
 //			trace("nextPageNew: "+nextPageNew);
 			
 			return nextPageNew;
+		}
+		
+		public function backOneStep():String {
+			var currentPageIndex:int;
+			var previousVisited:String;
+			
+			for (var i:int = 0; i < _pageInfoArray.length; i++) 
+			{
+				_pi = _pageInfoArray[i];
+				if (DataModel.CURRENT_PAGE_ID == _pi.contentPanelInfo.pageID) {
+					currentPageIndex = i;
+					//if the next one is new i.e. beyond _pageInfoArray
+//					if ((currentPageIndex+1) >= _pageInfoArray.length) {
+//						return false;
+//					}
+					previousVisited = _pageInfoArray[currentPageIndex-1].contentPanelInfo.pageID;
+					break;
+				}
+			}
+//			trace("previousVisited: "+previousVisited);
+			return previousVisited;
 		}
 		
 		public function scrollToBottom():void {

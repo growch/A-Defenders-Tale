@@ -123,8 +123,11 @@ package view
 			tempObj.id = _decisions[thisID].id;
 			
 //			trace("decisionClick description: "+_decisions[thisID].description);
-			if (_decisions[thisID].description == "OPEN CONTENTS") {
+			if (_decisions[thisID].id == "ShowHistoryPanel") {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.OPEN_GLOBAL_NAV, tempObj));
+			} else if (_decisions[thisID].id == "BackOneStep") {
+				tempObj.backOneStep = true;
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			} else {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			}

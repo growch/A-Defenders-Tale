@@ -13,6 +13,7 @@ package view
 	
 	import control.EventController;
 	
+	import events.ApplicationEvent;
 	import events.ViewEvent;
 	
 	import model.DataModel;
@@ -264,9 +265,17 @@ package view
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			
-			var tempObj:Object = new Object();
-			tempObj.id = "ApplicationView";
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
+			if (DataModel.getInstance().rebuildPrevious) {
+//				trace("RESTORING FROM TITLE");
+				EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.RESTORE_PREVIOUS));
+			} else {
+//				trace("NEW BOOK FROM TITLE");
+				var tempObj:Object = new Object();
+				tempObj.id = "ApplicationView";
+				tempObj.overwriteHistory = true;
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
+			}
+			
 		}
 		
 	}

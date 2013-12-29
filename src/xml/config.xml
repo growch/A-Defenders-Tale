@@ -615,7 +615,7 @@ From behind the door a man’s voice yelled back. “And ye will at that, strang
 <!-- 			***TRAVELER 			-->
 <!-- 			CELLAR1 			-->
 	<cellar1 id="Cellar1View">
-		<contents id="prologue.TravelerView" image="assets/images/prologue/contents/Cellar1View_thumbnail.jpg">
+		<contents id="prologue.Cellar1View" image="assets/images/prologue/contents/Cellar1View_thumbnail.jpg">
 			<title><![CDATA[Inspecting the Cellar]]></title>
 		</contents>
 		<companion1>
@@ -672,8 +672,8 @@ The orcs had arrived.]]>
 		</body>
 		<decisions top="60">
 			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
-			<decision id="prologue.PrologueView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</cellar1>
@@ -785,8 +785,8 @@ The orcs had arrived.]]>
 		</body>
 		<decisions top="60">
 			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
-			<decision id="prologue.PrologueView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</cellar2>	
@@ -1822,8 +1822,8 @@ As [pronoun1] took another step, [pronoun1] felt an odd shortness of breath. The
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</noTrespassing>
 <!-- ***			NO TRESPASSING 			-->
@@ -1952,8 +1952,8 @@ Years later, [defender] learned of another Defender who had taken [pronoun3] pla
 			</item>
 		</body>
 		<decisions top="130">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</scratchEars>
 <!-- ***			SCRATCH EARS 			-->
@@ -2116,8 +2116,8 @@ And as the realm plunged into eternal darkness, Prince Nero enslaved the populat
 		<decisions top="100">
 			<decision id="theCattery.KittenContactView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="theCattery.PlayWithKittensView"><![CDATA[PLAY WITH KITTENS]]></decision>
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</thirdDoor>
 <!-- ***			THIRD DOOR 			-->
@@ -2186,8 +2186,8 @@ As the realm plunged into eternal darkness, Prince Nero enslaved the population.
 ]]>		</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</playWithKittens>
 <!-- ***			PLAY WITH KITTENS 			-->
@@ -2213,8 +2213,8 @@ The vizier nipped [defender]’s arm. “The realm can wait,” Alphonse announc
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</acceptOffer>
 <!-- ***			ACCEPT OFFER 			-->
@@ -2241,8 +2241,8 @@ Vizier Alphonse swished his tail in disappointment. “Very well, then there sha
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</refuseOffer>
 <!-- ***			REFUSE OFFER 			-->
@@ -2317,8 +2317,8 @@ The vizier rang his tinkling bell again. “Soon you’ll be my lunch.” He swe
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</privateAudience>
 <!-- ***			PRIVATE AUDIENCE 			-->
@@ -2427,8 +2427,8 @@ The vizier pocketed the stone with an apologetic smile. “Cat’s have no honor
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</linger>
 <!-- ***			LINGER 			-->
@@ -2639,8 +2639,8 @@ As [pronoun1] tumbled down through the air, [pronoun1] had a sudden clarity of t
 			</item>
 		</body>
 		<decisions top="60">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</climb3>
 <!-- ***			CLIMB3 			-->
@@ -2856,8 +2856,8 @@ In the morning, when the tide receded, [pronoun1] summoned the elevator. Once in
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="joylessMountains.Climb4View"><![CDATA[KEEP CLIMBING]]></decision>
 			<decision id="joylessMountains.Escalator1View"><![CDATA[TAKE ESCALATOR]]></decision>
 		</decisions>	
@@ -2879,8 +2879,8 @@ In the morning, when the tide receded, [pronoun1] summoned the elevator. Once in
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</climb4>
 <!-- ***			CLIMB4 			-->
@@ -3064,8 +3064,8 @@ There wasn’t a living thing… anywhere. Nero had completed his evil mission. 
 			</item>	
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</picnic>
 <!-- ***			PICNIC 			-->
@@ -3223,8 +3223,8 @@ As eternal darkness descended over the land, and the METS continued to discuss t
 			</item>
 		</body>
 		<decisions top="60">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</METS4Eva>
 <!-- ***			METS4EVA 			-->
@@ -3298,8 +3298,8 @@ This time they were far enough up the mountain that the escalator wrapped a full
 			</item>
 		</body>
 		<decisions top="60">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>
 	</roses>
 <!-- ***			ROSES 			-->
@@ -3410,8 +3410,8 @@ Unfortunately for [defender], Snowmonch breathed fire when yawning. [defender]�
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>
 	</stealStone>
 <!-- ***			STEAL STONE 			-->
@@ -3488,8 +3488,8 @@ Before [defender] could plead [pronoun3] case further, the serpent began to cry.
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>
 	</impatience1>
 <!-- ***			IMPATIENCE1			-->
@@ -3576,8 +3576,8 @@ Snowmonch’s bottom lip trembled. “You mean…” she began, her words tremul
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>
 	</impatience2>
 <!-- ***			IMPATIENCE2			-->
@@ -3728,26 +3728,12 @@ When she had gotten herself under control, she continued. “It could be an appl
 			<body><![CDATA[Letter patterns in green, yellow, sapphire, or brass.]]></body>
 		</contents>
 		<body>
-<!-- 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[“Listen carefully,” Snowmonch said, “for I’ll only tell you once. This is one of my favorite word games. It’s called]]> 				
-			</item>
-			<item type="image" id="" width="" height="62" top="40" left="" size="" align="" leading="" file="assets/images/joyless/playRiddles_imageText1.png"/>
-			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[The serpent leaned back, stretching out her tail across the cave. “It could be coffee, but not tea; a moon, but not the stars; a hill, but not a mountain; a dizzy, but not a daisy.” The serpent giggled loudly. The giggles shook her whole body, and she paused to adjust her tiny hat. “A dizzy, but not a daisy,” she repeated. “That’s funny, right? Because it could be. Funny, that is.” 
-
-When she had gotten herself under control, she continued. “It could be an apple, but not an orange; the grass, but not the dirt, though,” she amended, “either one could be green. And it could assuredly be a pretty little rattlesnake egg. Oh I do love a rattlesnake egg, don’t you?”
-
-[defender] was unsure of how to answer this question, and wisely kept [pronoun3] mouth shut.
-
-“Now it’s your turn,” Snowmonch said.” “Tell me what it could be, and what it couldn’t, and the stone is yours.”
-
-]]> 				
-			</item> -->
+			<!--  -->
 		</body>
 		<decisions top="100">
 			<decision id="joylessMountains.StoneView"><![CDATA[CONTINUE]]></decision>
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>
 	</playRiddles>
 <!-- ***			PLAY RIDDLES			-->
@@ -4070,8 +4056,8 @@ When [pronoun1] had almost reached the bottom, a large shadow passed overhead. [
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</shark2>
 <!-- ***			SHARK2 			-->
@@ -4097,8 +4083,8 @@ Still, [pronoun1] thought, trying to remain positive in [pronoun3] final moments
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</jellyfish1>
 <!-- ***			SHARK2 			-->
@@ -4143,8 +4129,8 @@ The lobster raised one claw in a salute. “Commodore Zachary Thacher, represent
 		</body>
 		<decisions top="100">
 			<decision id="shipwreck.FollowCommodoreView"><![CDATA[CONTINUE]]></decision>
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</reef2>
 <!-- ***			REEF2 			-->
@@ -4366,8 +4352,8 @@ A tear squeezed from [defender]’s eye, and then another, and another, mixing w
 			</item>
 		</body>
 		<decisions top="230">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</pearl1>
 <!-- ***			PEARL1 			-->
@@ -4576,8 +4562,8 @@ Perhaps, [defender] thought as [pronoun1] felt the sand circle [pronoun3] throat
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</straight>
 <!-- ***			STRAIGHT 			-->
@@ -4660,8 +4646,8 @@ After a week passed, [defender] and [companionName] admitted defeat. The wizard 
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</wait>
 <!-- ***			WAIT 			-->
@@ -4951,8 +4937,8 @@ The face rearranged to form an apologetic look. “A piece of advice,” he said
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</findWizard>
 <!-- ***			FIND WIZARD 			-->
@@ -5124,8 +5110,8 @@ Maysel adjusted his wizard’s hat in concentration. “If you can find it, it�
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="sandlands.SandstoneGameView"><![CDATA[FIND SANDSTONE]]></decision>
 		</decisions>	
 	</hut>
@@ -5265,8 +5251,8 @@ But [pronoun1] couldn’t fool [pronoun3] companion. [companion1]
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="capitol.GiantessView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</capitol>
@@ -5347,8 +5333,8 @@ Before the Smashley could strike again, [weapon1]]]>
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="capitol.CastleView"><![CDATA[ENTER GATE]]></decision>
 		</decisions>	
 	</fightSmashley>
@@ -5411,8 +5397,8 @@ The Smashley pushed her glasses up from the bridge of her nose, and glared at [d
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="capitol.CastleView"><![CDATA[ENTER GATE]]></decision>
 		</decisions>	
 	</reasonSmashley>
@@ -5497,8 +5483,8 @@ The dwarf obliged, and [defender] rubbed the stones on [pronoun3] [weapon] for l
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="capitol.ConfrontNeroView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</castle>
@@ -5606,8 +5592,8 @@ The prince laughed maniacally as [defender] fell to [pronoun3] knees, then toppl
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[TRY AGAIN]]></decision>
-			<decision id="ApplicationView"><![CDATA[RESTART BOOK]]></decision>
+			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
+			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</drink>
 <!-- ***			DRINK 			-->
@@ -5810,8 +5796,5 @@ That is until a band of unruly intergalactic space pirates created a very big co
 		</decisions>	
 	</alone>
 <!-- ***			ALONE 			-->
-
-
-
 
 </config>	
