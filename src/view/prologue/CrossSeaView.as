@@ -117,6 +117,11 @@ package view.prologue
 			_boat.boatMask_mc.alpha = 1;
 			_boat.mask_mc.alpha = 1;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.boat_mc.boat_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.waves_mc.waves1_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.waves_mc.waves2_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

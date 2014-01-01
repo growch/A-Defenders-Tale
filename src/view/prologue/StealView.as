@@ -105,12 +105,24 @@ package view.prologue
 			_mc.weapon_mc.glows_mc.visible = false;
 			_mc.weapon_mc.shine_mc.visible = false;
 			
+			_mc.weapon_mc.stonePearl_mc.visible = false;
+			_mc.weapon_mc.stoneSand_mc.visible = false;
+			_mc.weapon_mc.stoneCat_mc.visible = false;
+			_mc.weapon_mc.stoneSerpent_mc.visible = false;
+			
 			_nextY = 110;
 			
 			_pageInfo = DataModel.appData.getPageInfo("steal");
 			_bodyParts = _pageInfo.body;
 			
 			_weaponInt = int(DataModel.defenderInfo.weapon);
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.companion_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.tornado_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.weapon_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.glows_mc.weapon_mc);
 			
 			for each (var part:StoryPart in _bodyParts) 
 			{

@@ -95,6 +95,11 @@ package view.prologue
 			_pageInfo = DataModel.appData.getPageInfo("supplies");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sign_mc.lit_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sign_mc.unlit_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

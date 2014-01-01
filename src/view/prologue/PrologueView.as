@@ -79,6 +79,8 @@ package view.prologue
 			_stars = null;
 			
 			_lantern = null;
+			_firefliesText.removeEventListener("FirefliesTextReady", firefliesTextReady);
+			_firefliesLamp.removeEventListener("FirefliesLampReady", firefliesLampReady);
 			_firefliesText = null;
 			_firefliesLamp = null;
 			
@@ -154,11 +156,19 @@ package view.prologue
 			_firefliesText.x = _mc.firefliesText_mc.x;
 			_mc.removeChild(_mc.firefliesText_mc);
 			_mc.addChild(_firefliesText);
+			_firefliesText.addEventListener("FirefliesTextReady", firefliesTextReady);
+			
 			
 			_firefliesLamp = new FirefliesLampMC();
 			_firefliesLamp.x = _mc.firefliesLamp_mc.x;
 			_mc.removeChild(_mc.firefliesLamp_mc);
 			_mc.addChild(_firefliesLamp);
+			_firefliesLamp.addEventListener("FirefliesLampReady", firefliesLampReady);
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_lantern.lit_mc);
+			DataModel.getInstance().setGraphicResolution(_lantern.lantern_mc);
 			
 			for each (var part:StoryPart in _bodyParts) 
 			{
@@ -177,7 +187,7 @@ package view.prologue
 					
 					//set the contents panel
 					if (!_tf) {
-						_pageInfo.contentPanelInfo.body = copy;
+						_pageInfo.contentPanelInfo.body = "The curtain of night "+copy;
 						EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 					}
 					
@@ -238,6 +248,24 @@ package view.prologue
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+		}
+		
+		protected function firefliesTextReady(event:Event):void
+		{
+			var res:String;
+			if (DataModel.highRes) {
+				res = "high";
+			}
+			_firefliesText.setFlyGraphics(res);
+		}
+		
+		protected function firefliesLampReady(event:Event):void
+		{
+			var res:String;
+			if (DataModel.highRes) {
+				res = "high";
+			}
+			_firefliesLamp.setFlyGraphics(res);
 		}
 		
 		private function pageOn(event:ViewEvent):void {

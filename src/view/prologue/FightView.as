@@ -152,12 +152,24 @@ package view.prologue
 			_pageInfo = DataModel.appData.getPageInfo("fight");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.text_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.instrument_mc.noteSingle_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.instrument_mc.noteDouble_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.instrument_mc.instrument_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.instrument_mc.glows_mc.instrument_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.armLeft_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.armRight_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.squidSmall_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.textSupplies_mc);
+			
+			
 			for each (var part:StoryPart in _bodyParts) 
 			{
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
-					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[DataModel.defenderInfo.weapon]);
+					copy = StringUtil.replace(copy, "[weapon1]", _pageInfo.weapon1[_weaponInt]);
 					//this is tricky
 					if (_weaponInt != 2) {
 						copy = StringUtil.replace(copy, "[supplies]", _pageInfo.supplies[_supplyInt][_weaponInt]);
@@ -209,7 +221,6 @@ package view.prologue
 						var index:int = copy.indexOf("[spacer]", 0);
 						var rect:Rectangle = _tf.getCharBoundaries(index);
 						_mc.squidSmall_mc.y = rect.y + 110 + 10;
-						
 						_tf.text = StringUtil.replace(_tf.text, "[spacer]", "");
 					}
 					

@@ -145,6 +145,20 @@ package view.prologue
 			_pageInfo = DataModel.appData.getPageInfo("introAllIslands");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.boat_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.waves_mc.waves1_mc);
+			DataModel.getInstance().setGraphicResolution(_boat.waves_mc.waves2_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_wave1);
+			DataModel.getInstance().setGraphicResolution(_wave2);
+			DataModel.getInstance().setGraphicResolution(_wave3);
+			DataModel.getInstance().setGraphicResolution(_wave4);
+			DataModel.getInstance().setGraphicResolution(_wave5);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

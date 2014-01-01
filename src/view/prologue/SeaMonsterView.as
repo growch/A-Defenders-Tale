@@ -100,6 +100,10 @@ package view.prologue
 			_pageInfo = DataModel.appData.getPageInfo("seaMonster");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.armLeft_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.armRight_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

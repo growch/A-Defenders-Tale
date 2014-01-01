@@ -9,8 +9,6 @@ package view
 	
 	import events.ViewEvent;
 	
-	import model.DataModel;
-
 	public class ContentsConfirmOverlayView extends MovieClip
 	{
 		private var _mc:OverlayContentsPanelMC;

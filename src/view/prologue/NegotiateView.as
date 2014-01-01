@@ -118,6 +118,14 @@ package view.prologue
 			_pageInfo = DataModel.appData.getPageInfo("negotiate");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instrument_mc.noteSingle_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instrument_mc.noteDouble_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instrument_mc.instrument_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.instrument_mc.glows_mc.instrument_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.coin_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
@@ -225,7 +233,7 @@ package view.prologue
 		}
 		
 		private function stopCoin():void {
-			_mc.coin_mc.gotoAndStop(5);
+			_mc.coin_mc.coin_mc.gotoAndStop(5);
 			_coinDone = true;
 		}
 		
@@ -262,11 +270,11 @@ package view.prologue
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_scrolling = true;
-				_mc.coin_mc.stop();
+				_mc.coin_mc.coin_mc.stop();
 			} else {
 				if (!_scrolling) return;
 				if (!_coinDone) {
-					_mc.coin_mc.play();
+					_mc.coin_mc.coin_mc.play();
 				}
 				TweenMax.resumeAll();
 				_scrolling = false;

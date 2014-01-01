@@ -102,6 +102,10 @@ package view.prologue
 			_pageInfo = DataModel.appData.getPageInfo("truth");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.companion_mc.companion_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

@@ -122,6 +122,16 @@ package view.prologue
 			_pageInfo = DataModel.appData.getPageInfo("docks");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.boat_mc.boat_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.boat_mc.dock_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_cloud4);
+			DataModel.getInstance().setGraphicResolution(_cloud5);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
