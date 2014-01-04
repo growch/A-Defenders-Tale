@@ -111,6 +111,20 @@ package view.shipwreck
 			_fish3 = _mc.fish3_mc;
 			_fish4 = _mc.fish4_mc;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_fish1.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish1.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish1.f3_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f3_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f3_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f3_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

@@ -144,6 +144,17 @@ package view.shipwreck
 			_mc.addChild(_fish4);
 			_mc.addChild(_fish1);
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.reef_mc);
+			DataModel.getInstance().setGraphicResolution(_shark);
+			DataModel.getInstance().setGraphicResolution(_fish1.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish1.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish1.f3_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f3_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

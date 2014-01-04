@@ -144,7 +144,6 @@ package view.shipwreck
 			
 			_morrisey = _mc.morrisey_mc;
 			
-			
 			_fish2 = _mc.fish2_mc;
 			_fish3 = _mc.fish3_mc;
 			
@@ -152,6 +151,16 @@ package view.shipwreck
 			_mc.addChild(_fish2);
 			_mc.addChild(_fish3);
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.morrisey_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.reef_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f3_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f3_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

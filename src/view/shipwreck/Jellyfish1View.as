@@ -119,6 +119,9 @@ package view.shipwreck
 				
 				var thisClass:Class = jellyTypeArray[i];
 				var thisJ:MovieClip = new thisClass() as MovieClip;
+				//GRAPHICS
+				DataModel.getInstance().setGraphicResolution(thisJ);
+				thisJ = thisJ.jellyfish_mc;
 				thisJ.hit_mc.visible = false;
 				thisJ.stop();
 				thisJ.x = thisRef.x;
@@ -129,6 +132,11 @@ package view.shipwreck
 				_mc.addChild(thisJ);
 				_mc.removeChild(thisRef);
 			}
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sand_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

@@ -179,7 +179,7 @@ package view.shipwreck
 				var thisRef:MovieClip = jellyfish.getChildByName("jelly"+String(i+1)+"_mc") as MovieClip;
 				var thisClass:Class = jellyTypeArray[i];
 				var thisJelly:MovieClip = new thisClass() as MovieClip;
-				
+				thisJelly = thisJelly.jellyfish_mc;
 				jellyfish.addChild(thisJelly);
 				
 				thisJelly.stop();
@@ -227,6 +227,12 @@ package view.shipwreck
 			_mc.addChild(_startMC);
 			_mc.addChild(_winMC);
 			_mc.addChild(_loseMC);
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_startMC);
+			DataModel.getInstance().setGraphicResolution(_winMC);
+			DataModel.getInstance().setGraphicResolution(_loseMC);
 			
 			addChild(_mc);
 			

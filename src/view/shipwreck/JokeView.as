@@ -149,7 +149,7 @@ package view.shipwreck
 			_sub1Text.embedFonts = true;
 			_sub1Text.width = 363;
 			_sub1Text.x = -44;
-			_sub1Text.y = 8;
+			_sub1Text.y = -20;
 			_sub1Text.defaultTextFormat = tf;
 			_sub1Text.text = "enter knock knock name";
 			_submit1.addChild(_sub1Text);
@@ -160,13 +160,28 @@ package view.shipwreck
 			_sub2Text.embedFonts = true;
 			_sub2Text.width = 552;
 			_sub2Text.x = 8;
-			_sub2Text.y = 8;
+			_sub2Text.y = -20;
 			_sub2Text.defaultTextFormat = tf;
 			_sub2Text.text = "enter punchline";
 			_submit2.addChild(_sub2Text);
 			
 			_sub1Text.addEventListener(FocusEvent.FOCUS_IN, clearText);
 			_sub2Text.addEventListener(FocusEvent.FOCUS_IN, clearText);
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_submit1);
+			DataModel.getInstance().setGraphicResolution(_submit2);
+			DataModel.getInstance().setGraphicResolution(_fish1.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish1.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f3_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f3_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f3_mc);
 			
 			_submit2.visible = false;
 			

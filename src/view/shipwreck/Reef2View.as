@@ -155,17 +155,34 @@ package view.shipwreck
 			_renderer4 = new DisplayObjectRenderer();
 			_mc.addChild(_renderer4);
 			
-			_lobster = _mc.lobster_mc;
+			
+			DataModel.getInstance().setGraphicResolution(_mc.lobster_mc);
+			_lobster = _mc.lobster_mc.lobster_mc;
 			_lobster.stop();
 			_fish2 = _mc.fish2_mc;
 			_fish3 = _mc.fish3_mc;
 			_fish4 = _mc.fish4_mc;
 			
 			//put fish back on top of bubbles
-			_mc.addChild(_lobster);
+//			_mc.addChild(_mc.lobster_mc);
 			_mc.addChild(_fish2);
 			_mc.addChild(_fish3);
 			_mc.addChild(_fish4);
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.password_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.reef_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f3_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f3_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish4.f3_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -295,7 +312,7 @@ package view.shipwreck
 		private function pageOn(e:ViewEvent):void {
 			_mc.password_mc.submit_btn.addEventListener(MouseEvent.CLICK, submitClick);
 			
-			_mc.lobster_mc.play();
+			_lobster.play();
 			_clawAnimating = true;
 			TweenMax.delayedCall(1.8, turnOffClaw);
 			

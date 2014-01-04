@@ -153,12 +153,20 @@ package view.shipwreck
 			_wave3.visible = false;
 			_wave4.visible = false;
 			
-			_bird1 = _mc.bird1_mc;
-			_bird2 = _mc.bird2_mc;
-			_bird3 = _mc.bird3_mc;
-			_bird4 = _mc.bird4_mc;
-			_bird5 = _mc.bird5_mc;
-			_bird6 = _mc.bird6_mc;
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bird1_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird2_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird3_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird4_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird5_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird6_mc);
+			
+			_bird1 = _mc.bird1_mc.bird_mc;
+			_bird2 = _mc.bird2_mc.bird_mc;
+			_bird3 = _mc.bird3_mc.bird_mc;
+			_bird4 = _mc.bird4_mc.bird_mc;
+			_bird5 = _mc.bird5_mc.bird_mc;
+			_bird6 = _mc.bird6_mc.bird_mc;
 			
 			birdsOff();
 			
@@ -176,6 +184,14 @@ package view.shipwreck
 			if (lastIsland != "Joyless Mountains" && lastIsland != "The Cattery") {
 				introInt = 2;
 			}
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_wreckShip);
+			DataModel.getInstance().setGraphicResolution(_wreckMast);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

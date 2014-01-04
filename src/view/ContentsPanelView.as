@@ -171,7 +171,7 @@ package view
 		
 		
 		public function pageVisited(pageID:String):Boolean {
-			trace("pageVisited DataModel.CURRENT_PAGE_ID:"+DataModel.CURRENT_PAGE_ID);
+//			trace("pageVisited DataModel.CURRENT_PAGE_ID:"+DataModel.CURRENT_PAGE_ID);
 			var pageFound:Boolean = false;
 			
 			for (var i:int = 0; i < _pageArray.length; i++) 

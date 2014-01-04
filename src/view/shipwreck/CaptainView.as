@@ -103,6 +103,10 @@ package view.shipwreck
 			
 			var introInt:int = DataModel.smegTalk ? 1:0;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.companions_mc.companion_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

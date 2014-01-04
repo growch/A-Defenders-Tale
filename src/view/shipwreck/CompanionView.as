@@ -153,6 +153,20 @@ package view.shipwreck
 			
 			var island1Int: int = DataModel.STONE_COUNT >= 4 ? 1:0;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish2.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f1_mc);
+			DataModel.getInstance().setGraphicResolution(_fish3.f2_mc);
+			DataModel.getInstance().setGraphicResolution(_dungeonFish);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stonePearl_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSerpent_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneCat_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSand_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.weapon_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.glows_mc.weapon_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

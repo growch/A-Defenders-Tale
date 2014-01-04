@@ -95,6 +95,9 @@ package view.shipwreck
 			//!IMPORTANT USED IN CAPTAIN SECTION
 			DataModel.smegTalk = true;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

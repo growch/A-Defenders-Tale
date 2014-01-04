@@ -139,22 +139,13 @@ package view.sandlands
 			_wave3.visible = false;
 			_wave4.visible = false;
 			
-			//LOW RES GRAPHICS
-			if (DataModel.highRes) {
-				_mc.bird1_mc.gotoAndStop(2);
-				_mc.bird2_mc.gotoAndStop(2);
-				_mc.bird3_mc.gotoAndStop(2);
-				_mc.bird4_mc.gotoAndStop(2);
-				_mc.bird5_mc.gotoAndStop(2);
-				_mc.bird6_mc.gotoAndStop(2);
-			} else {
-				_mc.bird1_mc.gotoAndStop(1);
-				_mc.bird2_mc.gotoAndStop(1);
-				_mc.bird3_mc.gotoAndStop(1);
-				_mc.bird4_mc.gotoAndStop(1);
-				_mc.bird5_mc.gotoAndStop(1);
-				_mc.bird6_mc.gotoAndStop(1);
-			}
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bird1_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird2_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird3_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird4_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird5_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bird6_mc);
 			
 			_bird1 = _mc.bird1_mc.bird_mc;
 			_bird2 = _mc.bird2_mc.bird_mc;

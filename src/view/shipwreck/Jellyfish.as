@@ -41,6 +41,10 @@ package view.shipwreck
 //			_mc.y += Math.sin(_vy);
 //			_vx *= _friction;
 //			_vy *= _friction;
+			if (_mc.currentFrame == _mc.totalFrames) {
+				trace("last frame: "+_mc);
+				_mc.gotoAndStop(1);
+			}
 			
 			_mc.x = centerX + Math.sin(angleX) * range;
 			_mc.y = centerY + Math.sin(angleY) * range;
