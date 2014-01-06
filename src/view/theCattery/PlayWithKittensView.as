@@ -101,6 +101,11 @@ package view.theCattery
 			_compTakenInt = DataModel.COMPANION_TAKEN ? 0 : 1;
 //			0 = TRUE
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.paws_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

@@ -1547,7 +1547,7 @@ Once they were inside, the Persian gave [defender] a sharp glance. “Do you hav
 			<title><![CDATA[The Director of Catling Affairs]]></title>
 		</contents>
 		<companionComing1>
-			<true><![CDATA[and finally, [companionName]]]>
+			<true><![CDATA[ and finally, [companionName]]]>
 			</true>
 			<false></false>
 		</companionComing1>
@@ -1587,7 +1587,7 @@ The Persian flicked her tail as her wide ears pressed back against her head.
 
 “Whatever you say, boss,” Olivia said, as she sauntered out of the room, slamming the door behind her.
 
-The tabby shrugged his shoulders. “Persians. So temperamental. Comes from all of that fur no doubt.” His eyes swept over [defender]’s [wardrobeShort], pausing on [pronoun3] [instrument] [companionComing1]. “You must be the latest Defender,” the tabby said. “You are no doubt here to see the Grand Vizier on the realm’s business. I’m Bruno Shulz, Director of Catling Affairs, keeper of the Vizier’s social calendar.”
+The tabby shrugged his shoulders. “Persians. So temperamental. Comes from all of that fur no doubt.” His eyes swept over [defender]’s [wardrobeShort], pausing on [pronoun3] [instrument][companionComing1]. “You must be the latest Defender,” the tabby said. “You are no doubt here to see the Grand Vizier on the realm’s business. I’m Bruno Shulz, Director of Catling Affairs, keeper of the Vizier’s social calendar.”
 
 [defender] was impressed. “Nice to meet you, Bruno. It is a pleasure to make the acquaintance of such a well-informed individual.” [companionComing2]
 

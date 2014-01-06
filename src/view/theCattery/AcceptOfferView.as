@@ -73,7 +73,6 @@ package view.theCattery
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-//			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -94,6 +93,10 @@ package view.theCattery
 			
 			_pageInfo = DataModel.appData.getPageInfo("acceptOffer");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

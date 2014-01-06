@@ -102,6 +102,11 @@ package view.theCattery
 			_pageInfo = DataModel.appData.getPageInfo("rendezvous");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_catnip.left_mc);
+			DataModel.getInstance().setGraphicResolution(_catnip.right_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

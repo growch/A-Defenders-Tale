@@ -130,6 +130,16 @@ package view.theCattery
 			_pageInfo = DataModel.appData.getPageInfo("island1");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
+			DataModel.getInstance().setGraphicResolution(_wave1);
+			DataModel.getInstance().setGraphicResolution(_wave2);
+			DataModel.getInstance().setGraphicResolution(_wave3);
+			DataModel.getInstance().setGraphicResolution(_wave4);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

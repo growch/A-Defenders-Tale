@@ -126,9 +126,19 @@ package view.theCattery
 			
 			_mc.entree_mc.visible = false;
 			_mc.companions_mc.visible = false;
+			_mc.companions_mc.gotoAndStop(DataModel.defenderInfo.companion+1);
 			
 			_pageInfo = DataModel.appData.getPageInfo("follow");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.entree_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.companions_mc.companion_mc);
+			DataModel.getInstance().setGraphicResolution(_vizier);
+			DataModel.getInstance().setGraphicResolution(_vizier.mouse_mc);
+			DataModel.getInstance().setGraphicResolution(_vizier.ball_mc.ball_mc);
+			DataModel.getInstance().setGraphicResolution(_vizier.ball_mc.yarn_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -155,12 +165,11 @@ package view.theCattery
 					_mc.addChild(_tf);
 					
 					if (part.id == "vizier") {
-						_vizier.y = _tf.y -240;
+						_vizier.y = _tf.y - 300;
 					}
 					
 					if (part.id == "last") {
 						if (_compTakenIndex == 0) {
-							_mc.companions_mc.gotoAndStop(DataModel.defenderInfo.companion+1);
 							_mc.companions_mc.y = _tf.y + _tf.height + 20;
 							_nextY += Math.round(_mc.companions_mc.height);
 							_mc.companions_mc.visible = true;

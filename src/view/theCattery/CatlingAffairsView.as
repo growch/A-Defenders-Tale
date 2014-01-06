@@ -114,15 +114,15 @@ package view.theCattery
 //			TESTING!!!!
 //			compAlongIndex = 0;
 			
-			var supplyIndex:int;
-			if (DataModel.supplies) {
-				supplyIndex = 0;
-			} else {
-				supplyIndex = 1;
-			}
-			
 			_pageInfo = DataModel.appData.getPageInfo("catlingAffairs");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cigar_mc);
+			DataModel.getInstance().setGraphicResolution(_smokes.smoke1_mc);
+			DataModel.getInstance().setGraphicResolution(_smokes.smoke2_mc);
+			DataModel.getInstance().setGraphicResolution(_smokes.smoke3_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

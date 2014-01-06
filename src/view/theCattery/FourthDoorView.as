@@ -138,15 +138,23 @@ package view.theCattery
 			
 			_thirdDoor = DataModel.thirdDoor;
 			
-			var supplyIndex:int;
-			if (DataModel.supplies) {
-				supplyIndex = 0;
-			} else {
-				supplyIndex = 1;
-			}
+//			var supplyIndex:int;
+//			if (DataModel.supplies) {
+//				supplyIndex = 0;
+//			} else {
+//				supplyIndex = 1;
+//			}
 			
 			_pageInfo = DataModel.appData.getPageInfo("fourthDoor");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_picture);
+			DataModel.getInstance().setGraphicResolution(_scissors);
+			DataModel.getInstance().setGraphicResolution(_scissors.glow_mc);
+			DataModel.getInstance().setGraphicResolution(_comb);
+			DataModel.getInstance().setGraphicResolution(_comb.glow_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 

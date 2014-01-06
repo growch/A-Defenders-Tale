@@ -112,6 +112,11 @@ package view.theCattery
 			_pageInfo = DataModel.appData.getPageInfo("scratchEars");
 			_bodyParts = _pageInfo.body;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.card_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
@@ -141,14 +146,14 @@ package view.theCattery
 						_mc.card_mc.y = _tf.y + rect0.y + 50;
 						
 						_cardTF = new Text("DEFENDER " + DataModel.defenderInfo.defender.toUpperCase(), 
-							Formats.businessCardFormat(24), 300);
-						_cardTF.rotation = 4;
+							Formats.businessCardFormat(24, "center", -48), 300);
+						_cardTF.rotation = 4.4;
 						_cardTF.x = 42;
 						_cardTF.y = 88;
 						_mc.card_mc.addChild(_cardTF);
 						
 						if (_cardTF.numLines > 1) {
-							_cardTF.y -= 24;
+							_cardTF.y -= 48;
 						}
 						
 						_mc.end_mc.y = Math.round(_tf.y + _tf.height + 60);

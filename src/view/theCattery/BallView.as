@@ -75,7 +75,6 @@ package view.theCattery
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			//			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -104,16 +103,14 @@ package view.theCattery
 				compAlongIndex = 1;
 			}
 			
-			
-			var supplyIndex:int;
-			if (DataModel.supplies) {
-				supplyIndex = 0;
-			} else {
-				supplyIndex = 1;
-			}
+//			TESTING!!!
+			compAlongIndex = 0;
 			
 			_pageInfo = DataModel.appData.getPageInfo("ball");
 			_bodyParts = _pageInfo.body;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
 			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
@@ -202,7 +199,6 @@ package view.theCattery
 				secondSound();
 				_secondSoundPlayed = true;
 			}
-			
 			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();

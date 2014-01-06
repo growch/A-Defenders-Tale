@@ -97,6 +97,11 @@ package view.theCattery
 			//reusing the asset swf, this mc used in PlayWithKittens
 			_mc.paws_mc.visible = false;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.paws_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

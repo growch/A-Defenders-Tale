@@ -118,6 +118,12 @@ package view.theCattery
 			_socialConnectInt = DataModel.SOCIAL_CONNECTED ? 1 : 0;
 			// 0 = TRUE
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.end_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.ball_mc.ball_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.ball_mc.yarn_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{

@@ -124,6 +124,15 @@ package view.theCattery
 			_mc.weapon_mc.stoneSerpent_mc.visible = false;
 			if (DataModel.STONE_SERPENT) _mc.weapon_mc.stoneSerpent_mc.visible = true;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stonePearl_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSerpent_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneCat_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.stoneSand_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.weapon_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.weapon_mc.glows_mc.weapon_mc);
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
