@@ -66,6 +66,7 @@ package
 			_dm.addEventListener( ApplicationEvent.APP_DATA_LOADED, onApplicationDataLoaded ); 
 			_dm.addEventListener( ApplicationEvent.DISPLAY_ERROR, onLoadingError );
 			_dm.loadApplicationConfigurationFile();
+			_dm.configureTracking();
 			
 //			NativeApplication.nativeApplication.addEventListener(Event.EXITING, onCloseCall);
 			

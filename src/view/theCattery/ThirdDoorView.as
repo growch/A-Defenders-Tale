@@ -277,6 +277,8 @@ package view.theCattery
 					DataModel.getTwitter().postTweet("@" + DataModel.defenderInfo.twitterHandle + 
 						" just saved the day against the worst kind of trick: hoards of squeezable kittens!");
 				}
+				//tracking
+				DataModel.getInstance().trackEvent("notify contact via "+DataModel.SOCIAL_PLATFORM, "Third Door");
 				return;
 			}
 			TweenMax.killAll();

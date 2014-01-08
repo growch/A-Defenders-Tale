@@ -292,6 +292,7 @@
     
     
     
+    <extensionID>eu.alebianco.air.extensions.analytics.NativeGATracker</extensionID>
     </extensions>
     
 </application>

@@ -294,6 +294,8 @@ package view.prologue
 					DataModel.getTwitter().postTweet("Still defending the realm: I’d be Orc chow if @" + DataModel.defenderInfo.twitterHandle + 
 						" hadn’t flexed " + pronoun3 + " diplomatic skills. http://bit.ly/1aEYCZJ");
 				}
+				//tracking
+				DataModel.getInstance().trackEvent("notify contact via "+DataModel.SOCIAL_PLATFORM, "Cellar 1");
 				return;
 			}
 			
