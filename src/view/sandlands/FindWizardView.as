@@ -71,7 +71,9 @@ package view.sandlands
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -191,7 +193,9 @@ package view.sandlands
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			_dragVCont.stopVerticalScrolling();
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

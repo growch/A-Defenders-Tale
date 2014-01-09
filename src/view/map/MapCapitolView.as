@@ -42,15 +42,10 @@ package view.map
 		private function init():void
 		{
 			
-//			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-//		protected function enterFrameLoop(event:Event):void
-//		{
-//		}
 		
 		public function destroy():void {
-//			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			_darkness = null;
 			_mc = null;

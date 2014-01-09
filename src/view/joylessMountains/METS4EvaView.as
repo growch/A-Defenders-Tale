@@ -76,7 +76,9 @@ package view.joylessMountains
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -221,6 +223,9 @@ package view.joylessMountains
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

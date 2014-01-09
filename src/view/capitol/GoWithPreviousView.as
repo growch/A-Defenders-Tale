@@ -96,7 +96,9 @@ package view.capitol
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -314,6 +316,9 @@ package view.capitol
 						". No autographs, please. http://bit.ly/1aEYCZJ");
 				}
 				return;
+			}
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

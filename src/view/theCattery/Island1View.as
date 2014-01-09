@@ -90,7 +90,9 @@ package view.theCattery
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -269,6 +271,9 @@ package view.theCattery
 				DataModel.COMPANION_TAKEN = true;
 			} else {
 				DataModel.COMPANION_TAKEN = false;
+			}
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

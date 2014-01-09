@@ -65,13 +65,6 @@ package view.prologue
 		
 		public function destroy():void
 		{
-			
-			TweenMax.killAll();
-			if (hasEventListener(Event.ENTER_FRAME)) {
-				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			}
-			_mc.stopAllMovieClips();
-			
 			_bgSound = null;
 			
 			_stars.destroy();
@@ -111,6 +104,9 @@ package view.prologue
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -314,11 +310,12 @@ package view.prologue
 			if (event.data.decisionNumber == 1) {
 				DataModel.coinCount++;
 			}
-			TweenMax.killAll();
+			
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
 			_mc.stopAllMovieClips();
+			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		

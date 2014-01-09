@@ -61,9 +61,6 @@ package view.joylessMountains
 		
 		public function destroy() : void {
 			TweenMax.killAll();
-			if (hasEventListener(Event.ENTER_FRAME)) {
-				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			}
 			
 			//			if (!DataModel.ipad1) {
 			_smokeTimer.stop();
@@ -103,6 +100,9 @@ package view.joylessMountains
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -279,6 +279,9 @@ package view.joylessMountains
 
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			_smokeTimer.stop();
 			//for delayed calls
 			TweenMax.killAll();

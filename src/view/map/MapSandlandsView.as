@@ -99,7 +99,9 @@ package view.map
 		}
 		
 		public function destroy():void {
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			
 			_bird1 = null;
 			_bird2 = null;

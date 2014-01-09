@@ -57,7 +57,9 @@ package view.prologue.coins
 		
 		public function destroy():void
 		{
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 //			
 			_cup.removeEventListener(MouseEvent.CLICK, cupRattle);
 			_coinSound = null;
@@ -244,6 +246,9 @@ package view.prologue.coins
 			// coin/alms count
 			if (event.data.decisionNumber == 1) {
 				DataModel.coinCount++;
+			}
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
