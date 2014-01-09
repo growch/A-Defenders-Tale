@@ -5,6 +5,8 @@ package games.bopMice.managers
 	import games.bopMice.core.Game;
 	import games.bopMice.objects.StarExplosion;
 	
+	import model.DataModel;
+	
 	public class ExplosionManager extends Sprite
 	{
 		private var _game:Game;
@@ -19,6 +21,8 @@ package games.bopMice.managers
 		
 		public function spawn(x:int, y:int):void
 		{
+			if (DataModel.ipad1) return;
+			
 			explosion.shootStars(x, y);
 		}
 		

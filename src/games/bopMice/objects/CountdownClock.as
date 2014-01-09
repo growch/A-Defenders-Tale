@@ -6,6 +6,8 @@ package games.bopMice.objects
 	
 	import games.bopMice.core.Game;
 	
+	import model.DataModel;
+	
 	
 	public class CountdownClock extends MovieClip
 	{
@@ -41,6 +43,14 @@ package games.bopMice.objects
 			_bottomSand = _hourglass.bottom_mc;
 			_columnMask = _hourglass.columnMask_mc;
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_num1.font_mc);
+			DataModel.getInstance().setGraphicResolution(_num2.font_mc);
+			DataModel.getInstance().setGraphicResolution(_hourglass.glass_mc);
+			DataModel.getInstance().setGraphicResolution(_hourglass.bottom_mc);
+			DataModel.getInstance().setGraphicResolution(_hourglass.column_mc);
+			DataModel.getInstance().setGraphicResolution(_hourglass.top_mc);
+			
 			_botDiff = _botInitY-_botTargetY;
 			
 			resetSand();
@@ -48,15 +58,15 @@ package games.bopMice.objects
 		
 		public function destroy():void
 		{
-			_game = null;	
-			_mc = null;	
-			_num1 = null;	
+			_game = null;
+			_mc = null;
+			_num1 = null;
 			_num2 = null;
 			
 			_hourglass = null;
-			_topMask = null;
+			_topMask =  null;
 			_bottomSand = null;
-			_columnMask = null;
+			_columnMask = null;	
 		}
 		
 		public function startClock():void {

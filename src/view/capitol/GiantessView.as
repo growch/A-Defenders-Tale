@@ -50,6 +50,7 @@ package view.capitol
 		}
 		
 		public function destroy() : void {
+			trace("destroy!!!! Giantess");
 //			
 			_mc.giantess_mc.removeEventListener(MouseEvent.CLICK, graphicClick);
 //			
@@ -163,6 +164,8 @@ package view.capitol
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
+			trace("_dragVCont: "+_dragVCont.name);
+			
 			
 			_bgSound = new Track("assets/audio/capitol/capitol_OutdoorSounds.mp3");
 			_bgSound.start(true);
@@ -213,10 +216,12 @@ package view.capitol
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+//			_dragVCont.stopTween();
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
+			trace("Giantess decisionMade");
 		}
 	}
 }

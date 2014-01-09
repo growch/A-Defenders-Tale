@@ -28,7 +28,8 @@ package games.bopMice.managers
 			var enem:Enemy
 			for (var i:int = 0; i < _enemyCount; i++) 
 			{
-				enem = new Enemy(_enemsMC.getChildByName("mouse"+i) as MovieClip);
+//				enem = new Enemy(_enemsMC.getChildByName("mouse"+i) as MovieClip);
+				enem = new Enemy(_enemsMC.getChildAt(i) as MovieClip);
 				enemies.push(enem);
 			}
 		}

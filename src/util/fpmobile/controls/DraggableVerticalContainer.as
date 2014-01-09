@@ -34,6 +34,10 @@ package util.fpmobile.controls {
 	
 	import mx.effects.easing.Quartic;
 	
+	import control.EventController;
+	
+	import events.ViewEvent;
+	
 	import util.fpmobile.constant.SwipeDirections;
 	import util.fpmobile.events.ScrollEvent;
 	import util.fpmobile.events.SwipeEvent;
@@ -234,6 +238,7 @@ package util.fpmobile.controls {
 		
 		private var useScrollIndicator:Boolean;
 		
+		private var _deactivated:Boolean;
 		
 		/**
 		 * For the sake of simplicity, params are passed into the
@@ -273,6 +278,7 @@ package util.fpmobile.controls {
 			if ( hasEventListener( Event.REMOVED_FROM_STAGE ) ) removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 			if ( hasEventListener( Event.ADDED_TO_STAGE ) ) removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			if( this.contains(itemContainer)) this.removeChild(itemContainer);
+			
 		}
 		
 		
@@ -293,6 +299,7 @@ package util.fpmobile.controls {
 		private function addedToStageHandler(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+			
 			
 			// Calculate how much to decrement the alpha per frame when scrollIndicator fades out.
 			scrollIndicatorAlphaDelta = 1 / (SCROLL_FADE_TWEEN_DURATION * stage.frameRate);
@@ -786,7 +793,9 @@ package util.fpmobile.controls {
 		/**
 		 * Stops the flick tween.
 		 */
-		private function stopTween():void
+//		private function stopTween():void
+		//MARKG
+		public function stopTween():void
 		{
 			if (isTweening)
 			{

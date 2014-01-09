@@ -36,8 +36,8 @@ package games.bopMice.core
 	{
 		
 		public static const FPS:int = DataModel.BOP_MICE_FPS; 
-		public var DURATION:int = 30; // in seconds
-		public static const MINIMUM_SCORE:int = 25;	
+		public var DURATION:int = 1; // in seconds
+		public static const MINIMUM_SCORE:int = 0;	
 		
 		public var userScore:int;
 		private var _mc:MovieClip;
@@ -160,7 +160,8 @@ package games.bopMice.core
 			collisionManager = new CollisionManager(this);
 			explosionManager = new ExplosionManager(this);
 			
-			hero = new Hero(this, _mallet);
+			DataModel.getInstance().setGraphicResolution(_mallet);
+			hero = new Hero(this, _mallet.mallet_mc);
 			
 			// audio
 			_bgMusic = new Track("assets/audio/games/bopMice/bg.mp3");
@@ -171,6 +172,14 @@ package games.bopMice.core
 			_mc.addChild(_mc.gameWon_mc);
 			_mc.addChild(_mc.frame_mc);
 			_mc.addChild(_mc.startGame_mc);
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.tryAgain_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.gameWon_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.frame_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.startGame_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.counter_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
 			
 			addChild(_mc);
 			
@@ -184,8 +193,9 @@ package games.bopMice.core
 				var thisRef:MovieClip = _mc.mice_mc.getChildByName("mouse"+i) as MovieClip;
 				var thisMouse:MovieClip = new MouseStatesMC();
 				
-//								thisMouse.stop();
-				thisMouse.name = "mouse"+i;
+				DataModel.getInstance().setGraphicResolution(thisMouse);
+				thisMouse = thisMouse.mouse_mc;
+//				thisMouse.name = "mouse"+i;
 				thisMouse.x = thisRef.x;
 				thisMouse.y = thisRef.y;
 				thisMouse.scaleX = thisMouse.scaleY = thisRef.scaleX;
@@ -292,7 +302,6 @@ package games.bopMice.core
 			
 //			var tempObj:Object = new Object();
 //			tempObj.id = "theCattery.GameWonView";
-			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisObj));
 		}
 	}

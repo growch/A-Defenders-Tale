@@ -17,6 +17,11 @@ package games.bopMice.objects
 			_cloud1 = _mc.cloud1_mc;
 			_cloud2 = _mc.cloud2_mc;
 			_cloud3 = _mc.cloud3_mc;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_cloud1);
+			DataModel.getInstance().setGraphicResolution(_cloud2);
+			DataModel.getInstance().setGraphicResolution(_cloud3);
 		}
 		
 		public function update():void

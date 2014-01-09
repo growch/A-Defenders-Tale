@@ -72,7 +72,6 @@ import org.flintparticles.twoD.zones.DiscSectorZone;
 //		addInitializer(emitter_initializer15);
 		bitmap_emitter_0.blendMode = "normal";
 		addInitializer(new SharedImages([bitmap_emitter_0]));
-		trace("bitmap_emitter_0: "+bitmap_emitter_0);
 		}
 	}
 }

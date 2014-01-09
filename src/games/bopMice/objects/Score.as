@@ -6,39 +6,28 @@ package games.bopMice.objects
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	
+	import model.DataModel;
+	
+	import util.Formats;
+	import util.Text;
+	
 
 	public class Score extends MovieClip
 	{
-		private var _shadow:TextField; 
-		private var _score:TextField; 
-		private var _highlight:TextField; 
+		private var _shadow:Text; 
+		private var _score:Text; 
+		private var _highlight:Text; 
 		private var _mc:MovieClip;
 		
 		public function Score(mc:MovieClip)
 		{
 			_mc = mc;
 			
-			var tf:TextFormat = new TextFormat();
-			tf.size = 52;
-			tf.color = 0x000000;
-			tf.align = "center";
-			tf.font = new BaskervilleBold().fontName;
+			_shadow = new Text("00",Formats.businessCardFormat(52,"center",0,0x000000), 87);
+			_score = new Text("00",Formats.businessCardFormat(52,"center",0,0x000000), 87);
+			_highlight = new Text("00",Formats.businessCardFormat(52,"center",0,0x000000), 87);
 			
-			_shadow = new TextField();
-			_score = new TextField();
-			_highlight = new TextField();
-			
-			
-			
-			_shadow.antiAliasType = AntiAliasType.ADVANCED;
-			_score.antiAliasType = AntiAliasType.ADVANCED;
-			_highlight.antiAliasType = AntiAliasType.ADVANCED;
-			
-			_shadow.width = _score.width = _highlight.width = 87;
-			
-			_shadow.defaultTextFormat = tf;
-			_score.defaultTextFormat = tf;
-			_highlight.defaultTextFormat = tf;
+			_shadow.y = _score.y = _highlight.y = -33;
 			
 			_mc.shadow_mc.addChild(_shadow);
 			_mc.score_mc.addChild(_score);
