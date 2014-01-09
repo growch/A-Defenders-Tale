@@ -50,7 +50,6 @@ package view.capitol
 		}
 		
 		public function destroy() : void {
-			trace("destroy!!!! Giantess");
 //			
 			_mc.giantess_mc.removeEventListener(MouseEvent.CLICK, graphicClick);
 //			
