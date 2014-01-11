@@ -84,7 +84,9 @@ package view.map
 		}
 		
 		public function destroy():void {
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			
 			_stone = null;
 			

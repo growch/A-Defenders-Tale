@@ -40,19 +40,13 @@ package view.map
 			_stone = _mc.name_mc.stone_mc;
 			_stone.visible = false;
 			
-//			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
 		public function showStone():void {
 			_stone.visible = true;
 		}
 		
-//		protected function enterFrameLoop(event:Event):void
-//		{
-//		}
-		
 		public function destroy():void {
-//			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			_stone = null;
 			_ripples = null;
 			_mc = null;

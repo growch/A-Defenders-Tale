@@ -91,10 +91,6 @@ package view.map
 			
 		}
 		
-//		protected function enterFrameLoop(event:Event):void
-//		{
-//		}
-		
 		public function showStone():void {
 			_stone.visible = true;
 		}
@@ -111,7 +107,6 @@ package view.map
 			}
 			
 			_stone = null;
-//			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			_mc = null;
 		}

@@ -110,9 +110,6 @@ package view.joylessMountains
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
-			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
-			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
 			_dragVCont.removeChild(_mc);
@@ -123,7 +120,10 @@ package view.joylessMountains
 			_dragVCont.dispose();
 			removeChild(_dragVCont);
 			_dragVCont = null; 
-
+			
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -356,6 +356,9 @@ package view.joylessMountains
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

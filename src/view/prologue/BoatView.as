@@ -78,7 +78,9 @@ package view.prologue
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -198,7 +200,11 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			_mc.stopAllMovieClips();
+			TweenMax.killAll();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}

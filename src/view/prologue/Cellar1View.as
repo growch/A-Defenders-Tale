@@ -60,7 +60,9 @@ package view.prologue
 			EventController.getInstance().removeEventListener(ViewEvent.FACEBOOK_DONE, messageDone);
 			EventController.getInstance().removeEventListener(ViewEvent.TWITTER_DONE, messageDone);
 //			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			
 			_pageInfo = null;
 			
@@ -298,7 +300,9 @@ package view.prologue
 				DataModel.getInstance().trackEvent("notify contact via "+DataModel.SOCIAL_PLATFORM, "Cellar 1");
 				return;
 			}
-			
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));

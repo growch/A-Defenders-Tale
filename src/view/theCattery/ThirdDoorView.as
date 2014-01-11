@@ -83,7 +83,9 @@ package view.theCattery
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -280,6 +282,9 @@ package view.theCattery
 				//tracking
 				DataModel.getInstance().trackEvent("notify contact via "+DataModel.SOCIAL_PLATFORM, "Third Door");
 				return;
+			}
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();

@@ -86,7 +86,9 @@ package view.prologue
 			removeChild(_dragVCont);
 			_dragVCont = null; 
 			
-			removeEventListener(Event.ENTER_FRAME, frameLoop);
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -201,10 +203,10 @@ package view.prologue
 		
 		private function pageOn(event:ViewEvent):void {
 			_mc.boat_mc.play();
-			addEventListener(Event.ENTER_FRAME, frameLoop);
+			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 		}
 		
-		protected function frameLoop(event:Event):void
+		protected function enterFrameLoop(event:Event):void
 		{
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
@@ -237,6 +239,9 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (hasEventListener(Event.ENTER_FRAME)) {
+				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			}
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
