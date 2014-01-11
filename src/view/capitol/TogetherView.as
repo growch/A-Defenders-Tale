@@ -318,6 +318,7 @@ package view.capitol
 				}
 				return;
 			}
+			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}

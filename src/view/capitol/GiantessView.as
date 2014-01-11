@@ -217,6 +217,7 @@ package view.capitol
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
@@ -224,7 +225,6 @@ package view.capitol
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
-			trace("Giantess decisionMade");
 		}
 	}
 }

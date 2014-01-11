@@ -352,6 +352,7 @@ package view.joylessMountains
 		{
 			_sparkleTimer.stop();
 			
+			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}

@@ -378,10 +378,10 @@ package view.shipwreck
 			_bubbles3.pause();
 			_bubbles4.pause();
 			
+			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
-			
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));

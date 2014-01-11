@@ -304,6 +304,7 @@ package view.prologue
 				DataModel.getInstance().trackEvent("notify contact via "+DataModel.SOCIAL_PLATFORM, "Cellar 2");
 				return;
 			}
+			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
