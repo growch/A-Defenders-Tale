@@ -165,10 +165,38 @@ package view
 				_capitolBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			} 
 			
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			
+			DataModel.getInstance().setGraphicResolution(_mc.capitol_mc);
+			
+			DataModel.getInstance().setGraphicResolution(_mc.cattery_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cattery_mc.name_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.cattery_mc.name_mc.stone_mc);
+			
+			DataModel.getInstance().setGraphicResolution(_mc.joyless_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.joyless_mc.name_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.joyless_mc.name_mc.stone_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.joyless_mc.cloud_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.joyless_mc.snow_mc);
+			
+			DataModel.getInstance().setGraphicResolution(_mc.sandlands_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sandlands_mc.name_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sandlands_mc.name_mc.stone_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sandlands_mc.bird1_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sandlands_mc.bird2_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sandlands_mc.bird3_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.sandlands_mc.bird4_mc);
+			
+			DataModel.getInstance().setGraphicResolution(_mc.shipwreck_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.shipwreck_mc.name_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.shipwreck_mc.name_mc.stone_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.shipwreck_mc.shark1_mc);
+			DataModel.getInstance().setGraphicResolution(_mc.shipwreck_mc.shark2_mc);
 			addChild(_mc);
 			
 			_pageInfo = DataModel.appData.getPageInfo("map");
-//			_pageInfo.contentPanelInfo.body = "What should this copy be if anything?";
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 			
 			_bgSound = new Track("assets/audio/global/Ocean.mp3");
@@ -185,6 +213,7 @@ package view
 				_screenshotBMD.dispose();
 				removeChild(_screenshotBMP);
 			}
+			_mc.alpha = 1;
 			_mc.visible = true;
 		}
 		
@@ -261,6 +290,8 @@ package view
 			_VOSound.start();
 			
 			TweenMax.delayedCall(1, showFog);
+			TweenMax.to(_screenshotBMP, 3, {alpha:.6});
+//			showFog();
 		}
 		
 		private function takeScreenshot():void {
@@ -279,7 +310,7 @@ package view
 		
 		
 		private function showFog():void {
-			var duration:int = _voDurations[DataModel.CURRENT_ISLAND_INT];
+			var duration:int = _voDurations[DataModel.CURRENT_ISLAND_INT]-1;
 //			TweenMax.from(_fog, 4, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 			TweenMax.from(_fog, duration, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 			_fog.visible = true;

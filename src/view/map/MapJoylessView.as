@@ -8,8 +8,6 @@ package view.map
 	
 	import events.ViewEvent;
 	
-	import model.DataModel;
-	
 	import org.flintparticles.common.counters.Steady;
 	import org.flintparticles.common.displayObjects.RadialDot;
 	import org.flintparticles.common.initializers.ColorInit;
@@ -46,7 +44,6 @@ package view.map
 		protected function pageOn(event:Event):void
 		{
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
-//			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			if (_emitter) {
 				_emitter.start();
