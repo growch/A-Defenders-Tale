@@ -241,6 +241,7 @@ package view.joylessMountains
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}

@@ -65,6 +65,11 @@ package games.bopMice.objects
 		
 		public function destroy():void
 		{
+			// not doing this was causing SWF to not unload
+			_mc.shadow_mc.removeChild(_shadow);
+			_mc.score_mc.removeChild(_score);
+			_mc.highlight_mc.removeChild(_highlight);
+			
 			_mc = null;
 			_shadow = null;
 			_score = null;

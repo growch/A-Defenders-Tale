@@ -34,6 +34,8 @@ package view.theCattery
 			removeChild(_game);
 			_game = null;
 			
+			_pageInfo = null;
+			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 		}
 		

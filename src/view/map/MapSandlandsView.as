@@ -20,7 +20,6 @@ package view.map
 		private var _bird4:MovieClip;
 		private var _range:Number = 4;
 		private var _speed:Number = .1;
-//		private var _ripples:MovieClip;
 		private var _stone:MovieClip;
 		
 		public function MapSandlandsView(mc:MovieClip)
@@ -33,10 +32,10 @@ package view.map
 		
 		private function init():void
 		{
-			_bird1 = _mc.bird1_mc;
-			_bird2 = _mc.bird2_mc;
-			_bird3 = _mc.bird3_mc;
-			_bird4 = _mc.bird4_mc;
+			_bird1 = _mc.bird1_mc.bird_mc;
+			_bird2 = _mc.bird2_mc.bird_mc;
+			_bird3 = _mc.bird3_mc.bird_mc;
+			_bird4 = _mc.bird4_mc.bird_mc;
 			
 			_bird1.on = _bird2.on = _bird3.on = _bird4.on = false;
 			_bird1.initY = _bird1.y;
@@ -52,11 +51,6 @@ package view.map
 			
 			_stone = _mc.name_mc.stone_mc;
 			_stone.visible = false;
-			
-//			_ripples = _mc.ripples_mc;
-//			_ripples.stop();
-			
-//			TweenMax.delayedCall(.4, playMC, [_ripples]);
 
 		}
 		
@@ -109,8 +103,6 @@ package view.map
 			_bird4 = null;
 			
 			_stone = null;
-			
-//			_ripples = null;
 			
 			_mc = null;
 		}

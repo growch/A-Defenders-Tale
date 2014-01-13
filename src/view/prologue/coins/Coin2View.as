@@ -67,6 +67,7 @@ package view.prologue.coins
 			
 			_cup = null;
 			_coin = null;
+			_firefliesText.removeEventListener("FirefliesTextReady", firefliesTextReady);
 			_firefliesText = null;
 //			
 			_pageInfo = null;
@@ -156,6 +157,7 @@ package view.prologue.coins
 						_firefliesText.x = 175;
 						_firefliesText.y = Math.round(_nextY+part.top);
 						_mc.addChild(_firefliesText);
+						_firefliesText.addEventListener("FirefliesTextReady", firefliesTextReady);
 					}
 					
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
@@ -194,6 +196,15 @@ package view.prologue.coins
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+		}
+		
+		protected function firefliesTextReady(event:Event):void
+		{
+			var res:String;
+			if (DataModel.highRes) {
+				res = "high";
+			}
+			_firefliesText.setFlyGraphics(res);
 		}
 		
 		private function pageOn(event:ViewEvent) : void {
@@ -250,6 +261,7 @@ package view.prologue.coins
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
+			_dragVCont.stopTween();
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));

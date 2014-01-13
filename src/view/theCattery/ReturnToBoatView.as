@@ -262,6 +262,7 @@ package view.theCattery
 			// INCREMENT STONE COUNT!
 			if (event.data.decisionNumber == 1) DataModel.STONE_COUNT++;
 			
+			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}

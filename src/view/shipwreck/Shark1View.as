@@ -340,6 +340,7 @@ package view.shipwreck
 			_bubbles2.pause();
 			_bubbles3.pause();
 			
+			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}

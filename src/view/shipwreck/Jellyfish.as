@@ -42,7 +42,7 @@ package view.shipwreck
 //			_vx *= _friction;
 //			_vy *= _friction;
 			if (_mc.currentFrame == _mc.totalFrames) {
-				trace("last frame: "+_mc);
+//				trace("last frame: "+_mc);
 				_mc.gotoAndStop(1);
 			}
 			
