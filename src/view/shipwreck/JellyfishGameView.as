@@ -12,10 +12,6 @@ package view.shipwreck
 	import flash.sensors.Accelerometer;
 	import flash.utils.Timer;
 	
-	import assets.Jelly1MC;
-	import assets.Jelly2MC;
-	import assets.Jelly3MC;
-	import assets.Jelly4MC;
 	import assets.JellyfishGameGlowMC;
 	
 	import control.EventController;
@@ -67,6 +63,7 @@ package view.shipwreck
 		private var _zapped:Boolean;
 		private var _bgSound:Track;
 		private var _hitSound:Track;
+		private var _jellyF:Jellyfish;
 		
 		public function JellyfishGameView()
 		{
@@ -110,10 +107,9 @@ package view.shipwreck
 			
 			for (var j:int = 0; j < _jellyfishArray.length; j++) 
 			{
-				var thisJelly:Jellyfish = _jellyfishArray[j] as Jellyfish;
-				thisJelly.destroy();
+				_jellyF = _jellyfishArray[j] as Jellyfish;
+				_jellyF.destroy();
 			}
-			
 			
 			_jellyfishArray = null;
 			
@@ -171,32 +167,25 @@ package view.shipwreck
 			_rightEdge = DataModel.APP_WIDTH - buffer;
 			
 			var jellyfish:MovieClip = _mc.jellyfish_mc;
-			var jellyTypeArray:Array = [Jelly1MC, Jelly2MC, Jelly3MC, Jelly1MC, Jelly4MC, Jelly1MC, Jelly2MC,
-				Jelly3MC, Jelly4MC, Jelly1MC, Jelly2MC, Jelly3MC, Jelly4MC, Jelly2MC, Jelly3MC, Jelly4MC, Jelly1MC];
+			var _dm:DataModel = DataModel.getInstance();
+			_jellyfishCount = jellyfish.numChildren;
 			
-			for (var i:int = 0; i < jellyfish.numChildren; i++) 
+			for (var i:int = 1; i < _jellyfishCount; i++) 
 			{
-				var thisRef:MovieClip = jellyfish.getChildByName("jelly"+String(i+1)+"_mc") as MovieClip;
-				var thisClass:Class = jellyTypeArray[i];
-				var thisJelly:MovieClip = new thisClass() as MovieClip;
-				thisJelly = thisJelly.jellyfish_mc;
-				jellyfish.addChild(thisJelly);
+				thisJ = jellyfish["jelly"+i+"_mc"] as MovieClip;
 				
-				thisJelly.stop();
-				thisJelly.hit_mc.alpha = .1;
-				thisJelly.x = thisRef.x;
-				thisJelly.y = thisRef.y;
-				thisJelly.scaleX = thisJelly.scaleY = thisRef.scaleX;
+				//GRAPHICS
+				_dm.setGraphicResolution(thisJ);
+				thisJ = thisJ.jellyfish_mc;
 				
-				jellyfish.removeChild(thisRef);
+				thisJ.stop();
 				
-				var jellyF:Jellyfish = new Jellyfish(thisJelly);
+				_jellyF = new Jellyfish(thisJ);
 				
-				_jellyfishArray.push(jellyF);
+				_jellyfishArray.push(_jellyF);
 				
-				_collisionList.addItem(thisJelly.hit_mc);
+				_collisionList.addItem(thisJ.hit_mc);
 			}
-			_jellyfishCount = _jellyfishArray.length;
 			
 			// Check for Accelerometer availability and act accordingly. 
 			if(Accelerometer.isSupported)

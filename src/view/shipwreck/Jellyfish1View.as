@@ -9,11 +9,6 @@ package view.shipwreck
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import assets.Jelly1MC;
-	import assets.Jelly2MC;
-	import assets.Jelly3MC;
-	import assets.Jelly4MC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
@@ -45,10 +40,13 @@ package view.shipwreck
 		private var _counter:int = 0;
 		private var _pageInfo:PageInfo;
 		private var _jellyTimer:Timer;
-		private var _timerSpeed:int = 800;
+		private var _timerSpeed:int = 1000;
 		private var _SAL:SWFAssetLoader;
 		private var _endPlayed:Boolean;
 		private var _bgSound:Track;
+		private var _jellyCount:int;
+		private var _i:int;
+		private var _thisJelly:MovieClip;
 		
 		public function Jellyfish1View()
 		{
@@ -112,27 +110,19 @@ package view.shipwreck
 			_bodyParts = _pageInfo.body;
 			
 			_jellyArray = new Array();
+			_jellyCount = 8;
 			
-			var jellyTypeArray:Array = [Jelly1MC, Jelly2MC, Jelly3MC, Jelly1MC, Jelly4MC, Jelly1MC, Jelly2MC, Jelly3MC];
-			
-			for (var i:int = 0; i < jellyTypeArray.length; i++) 
+			for (var i:int = 0; i < _jellyCount; i++) 
 			{
-				var thisRef:MovieClip = _mc.getChildByName("jelly"+String(i+1)+"_mc") as MovieClip;
-				
-				var thisClass:Class = jellyTypeArray[i];
-				var thisJ:MovieClip = new thisClass() as MovieClip;
+				var thisJ:MovieClip = _mc["jelly"+String(i+1)+"_mc"] as MovieClip;
 				//GRAPHICS
 				DataModel.getInstance().setGraphicResolution(thisJ);
 				thisJ = thisJ.jellyfish_mc;
 				thisJ.hit_mc.visible = false;
 				thisJ.stop();
-				thisJ.x = thisRef.x;
-				thisJ.y = thisRef.y;
 				
 				_jellyArray.push(thisJ);
 				
-				_mc.addChild(thisJ);
-				_mc.removeChild(thisRef);
 			}
 			
 			//GRAPHICS
@@ -212,8 +202,6 @@ package view.shipwreck
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			//TODO MIGHT HAVE TO KILL ANIMATION FOR IPAD1
-			if (DataModel.ipad1) _timerSpeed = 3000;
 			_jellyTimer = new Timer(_timerSpeed);
 			_jellyTimer.addEventListener(TimerEvent.TIMER, animateJelly); 
 			_jellyTimer.start();
@@ -222,6 +210,8 @@ package view.shipwreck
 		}
 		
 		private function animateJelly(e:TimerEvent):void {
+			if (DataModel.ipad1) return;
+			
 			var thisJelly:MovieClip = _jellyArray[_counter] as MovieClip;
 			thisJelly.play(); 
 			_counter++;
@@ -237,6 +227,8 @@ package view.shipwreck
 				_endPlayed = true;
 			}
 			
+			updateJellies();
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_jellyTimer.stop();
@@ -251,6 +243,18 @@ package view.shipwreck
 				TweenMax.resumeAll();
 				_scrolling = false;
 			}
+		}
+		
+		private function updateJellies():void {
+			if (DataModel.ipad1) return;
+			for (_i = 0; _i < _jellyCount; _i++) 
+			{
+				_thisJelly = _jellyArray[_i] as MovieClip
+				if (_thisJelly.currentFrame == _thisJelly.totalFrames) {
+					_thisJelly.gotoAndStop(1);
+				}
+			}
+			
 		}
 		
 		

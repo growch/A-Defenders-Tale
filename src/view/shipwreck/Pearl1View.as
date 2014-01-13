@@ -9,11 +9,6 @@ package view.shipwreck
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import assets.Jelly1MC;
-	import assets.Jelly2MC;
-	import assets.Jelly3MC;
-	import assets.Jelly4MC;
-	
 	import control.EventController;
 	
 	import events.ViewEvent;
@@ -45,12 +40,15 @@ package view.shipwreck
 		private var _counter:int = 0;
 		private var _pageInfo:PageInfo;
 		private var _jellyTimer:Timer;
-		private var _timerSpeed:int = 800;
+		private var _timerSpeed:int = 1000;
 		private var _SAL:SWFAssetLoader;
 		private var _bgSound:Track;
 		private var _ariaSound:Track;
 		private var ariaPlayed:Boolean;
 		private var _endPlayed:Boolean;
+		private var _jellyCount:int;
+		private var _i:int;
+		private var _thisJelly:MovieClip;
 		
 		public function Pearl1View()
 		{
@@ -114,28 +112,19 @@ package view.shipwreck
 			_bodyParts = _pageInfo.body;
 			
 			_jellyArray = new Array();
+			_jellyCount = 6;
 			
-			var jellyTypeArray:Array = [Jelly1MC, Jelly2MC, Jelly3MC, Jelly4MC, Jelly1MC, Jelly2MC];
-			
-			for (var i:int = 0; i < jellyTypeArray.length; i++) 
+			for (var i:int = 0; i < _jellyCount; i++) 
 			{
-				var thisRef:MovieClip = _mc.getChildByName("jelly"+String(i+1)+"_mc") as MovieClip;
-				
-				var thisClass:Class = jellyTypeArray[i];
-				var thisJ:MovieClip = new thisClass() as MovieClip;
+				var thisJ:MovieClip = _mc["jelly"+String(i+1)+"_mc"] as MovieClip;
 				//GRAPHICS
 				DataModel.getInstance().setGraphicResolution(thisJ);
 				thisJ = thisJ.jellyfish_mc;
 				thisJ.hit_mc.visible = false;
 				thisJ.stop();
-				thisJ.x = thisRef.x;
-				thisJ.y = thisRef.y;
-				thisJ.alpha = thisRef.alpha;
 				
 				_jellyArray.push(thisJ);
 				
-				_mc.addChild(thisJ);
-				_mc.removeChild(thisRef);
 			}
 			
 			//GRAPHICS
@@ -172,8 +161,8 @@ package view.shipwreck
 						//EXCEPTION
 //						_jelly5.y = _mc.end_mc.y - 160;
 //						_jelly6.y = _mc.end_mc.y - 40;
-						_jellyArray[4].y = _mc.end_mc.y - 160;
-						_jellyArray[5].y = _mc.end_mc.y - 40;
+						_jellyArray[4].parent.y = _mc.end_mc.y - 160;
+						_jellyArray[5].parent.y = _mc.end_mc.y - 40;
 						
 						_nextY += 120;
 					}
@@ -185,15 +174,10 @@ package view.shipwreck
 					loader.autoDispose = true;
 					
 					//EXCEPTION
-//					_jelly1.y = _nextY + 20;
-//					_jelly2.y = _nextY + 200;
-//					_jelly3.y = _nextY;
-//					_jelly4.y = _nextY + 200;
-					
-					_jellyArray[0].y = _nextY + 20;
-					_jellyArray[1].y = _nextY + 200;
-					_jellyArray[2].y = _nextY;
-					_jellyArray[3].y = _nextY + 200;
+					_jellyArray[0].parent.y = _nextY + 20;
+					_jellyArray[1].parent.y = _nextY + 200;
+					_jellyArray[2].parent.y = _nextY;
+					_jellyArray[3].parent.y = _nextY + 200;
 					
 					_nextY += part.height + part.top;
 				}
@@ -238,8 +222,6 @@ package view.shipwreck
 		}
 		
 		private function pageOn(e:ViewEvent):void {
-			//TODO MIGHT HAVE TO KILL ANIMATION FOR IPAD1
-			if (DataModel.ipad1) _timerSpeed = 3000;
 			_jellyTimer = new Timer(_timerSpeed);
 			_jellyTimer.addEventListener(TimerEvent.TIMER, animateJelly); 
 			_jellyTimer.start();
@@ -248,6 +230,8 @@ package view.shipwreck
 		}
 		
 		private function animateJelly(e:TimerEvent):void {
+			if (DataModel.ipad1) return;
+			
 			var thisJelly:MovieClip = _jellyArray[_counter] as MovieClip;
 			thisJelly.play(); 
 			_counter++;
@@ -274,6 +258,8 @@ package view.shipwreck
 				_endPlayed = true;
 			}
 			
+			updateJellies();
+			
 			if (_dragVCont.isDragging || _dragVCont.isTweening) {
 				TweenMax.pauseAll();
 				_jellyTimer.stop();
@@ -290,6 +276,18 @@ package view.shipwreck
 			}
 		}
 		
+		private function updateJellies():void {
+			if (DataModel.ipad1) return;
+			
+			for (_i = 0; _i < _jellyCount; _i++) 
+			{
+				_thisJelly = _jellyArray[_i] as MovieClip
+				if (_thisJelly.currentFrame == _thisJelly.totalFrames) {
+					_thisJelly.gotoAndStop(1);
+				}
+			}
+			
+		}
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
