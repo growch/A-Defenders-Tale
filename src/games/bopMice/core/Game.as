@@ -41,16 +41,17 @@ package games.bopMice.core
 		
 		public var userScore:int;
 		private var _mc:MovieClip;
-		public var enemyManager:EnemyManager;
 		public var hero:Hero;
+		public var enemyManager:EnemyManager;
 		public var collisionManager:CollisionManager;
+		public var explosionManager:ExplosionManager;
 		public var fire:Boolean;
 		private var _countdownClock:CountdownClock;
 		private var _timer:int;
 		private var _gameTimer:Timer;
 		public var score:Score;
 		private var _clouds:Clouds;
-		public var explosionManager:ExplosionManager;
+		
 		private var _bgMusic:Track;
 		private var _startGame:StartGame;
 		private var _tryAgain:RetryGame;
