@@ -43,6 +43,8 @@ package games.bopMice.objects
 			_bottomSand = _hourglass.bottom_mc;
 			_columnMask = _hourglass.columnMask_mc;
 			
+			trace("_num1: "+_num1);
+			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_num1.font_mc);
 			DataModel.getInstance().setGraphicResolution(_num2.font_mc);

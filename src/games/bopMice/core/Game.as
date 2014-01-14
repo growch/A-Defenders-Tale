@@ -42,22 +42,22 @@ package games.bopMice.core
 		public var userScore:int;
 		private var _mc:MovieClip;
 		public var hero:Hero;
-		private var _mallet:MalletMC;
 		public var enemyManager:EnemyManager;
-		public var explosionManager:ExplosionManager;
 		public var collisionManager:CollisionManager;
+		public var explosionManager:ExplosionManager;
 		public var fire:Boolean;
 		private var _countdownClock:CountdownClock;
 		private var _timer:int;
 		private var _gameTimer:Timer;
 		public var score:Score;
 		private var _clouds:Clouds;
+		
 		private var _bgMusic:Track;
 		private var _startGame:StartGame;
 		private var _tryAgain:RetryGame;
 		private var _gameWon:GameWon;
 		private var _SAL:SWFAssetLoader;
-		
+		private var _mallet:MalletMC;
 		public var explosionHolder:Sprite;
 		
 		public function Game()
