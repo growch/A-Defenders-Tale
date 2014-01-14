@@ -210,7 +210,7 @@ package view.prologue
 						_firefliesText.y = Math.round(_nextY+part.top + 30);
 					}
 					
-					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
+					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:DataModel.scaleMultiplier, scaleY:DataModel.scaleMultiplier});
 					//begin loading
 					loader.load();
 					loader.autoDispose = true;

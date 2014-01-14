@@ -135,7 +135,7 @@ package view.joylessMountains
 						_mc.pin_mc.y = Math.round(_tf.y+(_mc.pin_mc.height/3.6));
 					}
 				} else if (part.type == "image") {
-					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
+					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:DataModel.scaleMultiplier, scaleY:DataModel.scaleMultiplier});
 					//begin loading
 					loader.load();
 					loader.autoDispose = true;

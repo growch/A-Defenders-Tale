@@ -11,6 +11,7 @@ package view.shipwreck
 	import flash.events.TimerEvent;
 	import flash.sensors.Accelerometer;
 	import flash.utils.Timer;
+	import flash.utils.setTimeout;
 	
 	import assets.JellyfishGameGlowMC;
 	
@@ -24,6 +25,7 @@ package view.shipwreck
 	
 	import view.FrameView;
 	import view.IPageView;
+	import model.PageInfo;
 	
 	public class JellyfishGameView extends MovieClip implements IPageView
 	{
@@ -64,6 +66,7 @@ package view.shipwreck
 		private var _bgSound:Track;
 		private var _hitSound:Track;
 		private var _jellyF:Jellyfish;
+		private var _pageInfo:PageInfo;
 		
 		public function JellyfishGameView()
 		{
@@ -74,6 +77,7 @@ package view.shipwreck
 		public function destroy() : void {
 //			clearTimeout(_hitTimeout);
 //			_hitTimeout = null;
+			_pageInfo = null;
 			
 			_jellyTimer.removeEventListener(TimerEvent.TIMER, animateJelly); 
 			_jellyTimer = null;
@@ -133,6 +137,9 @@ package view.shipwreck
 			_mc = _SAL.assetMC;
 			
 			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			
+			_pageInfo = DataModel.appData.getPageInfo("jellyfishGame");
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 			
 			_dm = DataModel.getInstance();
 			
@@ -252,6 +259,8 @@ package view.shipwreck
 			if (DataModel.ipad1) return;
 			_jellyTimer.start();
 			
+//			TESTING!!!!
+			setTimeout(gameWon, 1000);
 		}
 		
 		private function stopGame():void {
@@ -260,7 +269,6 @@ package view.shipwreck
 			_jellyTimer.stop();
 			_mc.stopAllMovieClips();
 			TweenMax.killAll();
-//			trace("stopGame");
 		}
 		
 		private function gameLose():void
@@ -307,12 +315,6 @@ package view.shipwreck
 		
 		protected function accelUpdate(e:AccelerometerEvent):void
 		{
-			// Trace out the accelerometer data so we can see it when debugging
-//			trace("Accelerometer X = " + e.accelerationX 
-//				+ "\n" 
-//				+ "Accelerometer Y = " + e.accelerationY
-//				+ "\n");
-			
 			// Set our Accelerometer movement numbers
 			_accelX = e.accelerationX * 100;
 			_accelY = e.accelerationY * 100;

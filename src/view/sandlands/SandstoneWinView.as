@@ -158,7 +158,7 @@ package view.sandlands
 						_mc.weapon_mc.y = _tf.y;
 					}
 				} else if (part.type == "image") {
-					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5});
+					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:DataModel.scaleMultiplier, scaleY:DataModel.scaleMultiplier});
 					//begin loading
 					loader.load();
 					loader.autoDispose = true;

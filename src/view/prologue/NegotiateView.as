@@ -167,7 +167,7 @@ package view.prologue
 						_mc.instrument_mc.y = Math.round(_nextY+part.top)-130;
 					}
 					
-					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:.5, scaleY:.5, onComplete:onImageLoad});
+					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:DataModel.scaleMultiplier, scaleY:DataModel.scaleMultiplier, onComplete:onImageLoad});
 					//begin loading
 					loader.load();
 					loader.autoDispose = true;

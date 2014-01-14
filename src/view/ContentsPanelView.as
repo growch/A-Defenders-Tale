@@ -189,7 +189,11 @@ package view
 			var nextPageNew:Boolean = false;
 			var currentPageIndex:int;
 			var nextVisited:String;
-//			trace("CHANGING PATH????");
+			
+			if (_pageInfoArray.length <= 1) {
+				nextPageNew = false;
+				return nextPageNew;
+			}
 			
 			for (var i:int = 0; i < _pageInfoArray.length; i++) 
 			{

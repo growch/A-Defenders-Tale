@@ -4291,6 +4291,15 @@ The commodore nodded in agreement. “Beautiful from a distance,” he said. “
 	</starfish2>
 <!-- ***			STARFISH2 			-->
 
+<!-- 			SANDSTONE GAME 			-->
+	<jellyfishGame id="shipwreck.JellyfishGameView">
+		<contents id="shipwreck.JellyfishGameView" image="assets/images/shipwreck/contents/JellyfishGame_thumbnail.jpg">
+			<title><![CDATA[The Missing Starfish]]></title>
+			<body><![CDATA[Find your way to the bottom but watch out for the Jellyfish!]]></body>
+		</contents>
+	</jellyfishGame>
+<!-- ***		SANDSTONE GAME 			-->		
+
 <!-- 			STARFISH3			-->
 	<starfish3 id="Starfish3View">
 		<contents id="shipwreck.Starfish3View" image="assets/images/shipwreck/contents/Starfish3View_thumbnail.jpg">

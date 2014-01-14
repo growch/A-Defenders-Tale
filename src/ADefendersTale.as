@@ -53,6 +53,12 @@ package
 			stage.setAspectRatio(StageAspectRatio.PORTRAIT); 
 			stage.autoOrients = false;
 			
+			//SET HIGH OR LOW RESOLUTION property
+			if (Capabilities.screenResolutionY > DataModel.APP_HEIGHT) {
+				DataModel.highRes = true;
+				DataModel.scaleMultiplier = .5;
+			}
+			
 			// This will keep the device from "sleeping"
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE; 
 			
@@ -70,11 +76,6 @@ package
 			
 //			NativeApplication.nativeApplication.addEventListener(Event.EXITING, onCloseCall);
 			
-			//SET HIGH OR LOW RESOLUTION property
-			if (Capabilities.screenResolutionY > DataModel.APP_HEIGHT) {
-				DataModel.highRes = true;
-				
-			}
 			//set security
 //			Security.allowDomain("*"); 
 			

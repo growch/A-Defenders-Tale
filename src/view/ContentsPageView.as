@@ -12,6 +12,7 @@ package view
 	
 	import events.ViewEvent;
 	
+	import model.DataModel;
 	import model.PageInfo;
 	
 	import util.fpmobile.controls.DraggableVerticalContainer;
@@ -57,7 +58,7 @@ package view
 
 			_mc.body_txt.text = bodyText;
 			
-			_loader = new ImageLoader(pgInfo.contentPanelInfo.image, {container:_mc.imageHolder_mc, x:0, y:0, scaleX:.5, scaleY:.5});
+			_loader = new ImageLoader(pgInfo.contentPanelInfo.image, {container:_mc.imageHolder_mc, x:0, y:0, scaleX:DataModel.scaleMultiplier, scaleY:DataModel.scaleMultiplier});
 //			_loader.load();
 			_cPanel.addImageLoader(_loader);
 			_loader.autoDispose = true;
