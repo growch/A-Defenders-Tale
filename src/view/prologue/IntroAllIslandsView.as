@@ -339,7 +339,7 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (!DataModel.unlocked && event.data.id != "TitleScreenView") {
+			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
 				return;
 			}
