@@ -288,10 +288,6 @@
 	<extensionID>com.milkmangames.extensions.GoViral</extensionID>
     <extensionID>com.palDeveloppers.ane.NativeTwitter</extensionID>
     <extensionID>com.milkmangames.extensions.StoreKit</extensionID>
-    
-    
-    
-    
     <extensionID>eu.alebianco.air.extensions.analytics.NativeGATracker</extensionID>
     </extensions>
     

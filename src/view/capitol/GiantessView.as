@@ -165,8 +165,6 @@ package view.capitol
 			_dragVCont.addChild(_mc);
 			_dragVCont.refreshView(true);
 			addChild(_dragVCont);
-			trace("_dragVCont: "+_dragVCont.name);
-			
 			
 			_bgSound = new Track("assets/audio/capitol/capitol_OutdoorSounds.mp3");
 			_bgSound.start(true);
@@ -224,6 +222,7 @@ package view.capitol
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
+			trace("Giantess decisionMade");
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}

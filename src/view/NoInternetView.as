@@ -8,6 +8,8 @@ package view
 	import control.EventController;
 	
 	import events.ViewEvent;
+	
+	import model.DataModel;
 
 	public class NoInternetView extends MovieClip
 	{
@@ -17,6 +19,9 @@ package view
 		{
 			_mc = new NoInternetMC();
 			_mc.x_btn.addEventListener(MouseEvent.CLICK, closeClick);
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc);
 			
 			addChild(_mc);
 		}

@@ -75,6 +75,7 @@ package view
 		protected function closeNav(event:ViewEvent):void
 		{
 			closeNavigation(event.data);
+//			trace("closeNav");
 		}
 		
 		private function init(event:Event) : void {
@@ -86,7 +87,7 @@ package view
 			addChild(_blocker);
 			
 			_mc = new NavigationMC();
-			_mc.cacheAsBitmap = true;
+//			_mc.cacheAsBitmap = true;
 			
 			_mc.x = 30;
 			_mc.y = CLOSED_Y;
@@ -143,6 +144,10 @@ package view
 			_panelHolder.addChild(_contentsMC);
 			_panelHolder.addChild(_aboutMC);
 			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
+			DataModel.getInstance().setGraphicResolution(_gear);
+			
 			//put screen back on top
 			_mc.addChild(_contentScreen);
 			
@@ -180,34 +185,36 @@ package view
 			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut, onComplete:panelsOff, onCompleteParams:[thisPageObj]});
 			_navOpen = false;
 			TweenMax.to(_blocker, 0, {autoAlpha:0});
+//			trace("closeNavigation");
 		}
 		
 		private function panelsOff(thisPageObj:Object=null):void {
-//			TweenMax.to(_helpPanel, 0, {autoAlpha:0});
-//			TweenMax.to(_contentsMC, 0, {autoAlpha:0});
-//			TweenMax.to(_aboutMC, 0, {autoAlpha:0});
-//			TweenMax.to(_restartPanel, 0, {autoAlpha:0});
+			trace("panelsOff");
 			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
 			
+			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.GLOBAL_NAV_CLOSED));
+			trace("GLOBAL_NAV_CLOSED");
 			
 			if (thisPageObj) {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
 			}
+			trace("DECISION_CLICK");
 		}
 		
 		protected function restartClick(event:MouseEvent):void
 		{
+			if (MovieClip(event.currentTarget).currentFrameLabel == "_on") return;
+			
 			DataModel.getInstance().buttonTap();
+			buttonOnOffOthers(_restart);
 			
-			showRestart();
+			if (_blocker.alpha != .5) {
+				TweenMax.to(_blocker, .5, {autoAlpha:.5, onComplete:showRestart});
+			} else {
+				showRestart();
+			}
 			
-//			closeNavigation();
-			
-//			var tempObj:Object = new Object();
-//			tempObj.id = "TitleScreenView";
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
-//			EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.RESTART_BOOK));
 		}
 		
 		protected function restartPanelClick(event:MouseEvent):void
@@ -229,40 +236,62 @@ package view
 		}
 		
 		private function showRestart():void {
-			buttonOnOffOthers(_restart);
-			
-			TweenMax.to(_blocker, .5, {autoAlpha:.5});
 			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
-			TweenMax.to(_mc, .6, {y:RESTART_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_restartPanel]});
+			if (_mc.y == RESTART_Y) {
+				fadeInMC(_restartPanel);
+			} else {
+				TweenMax.to(_mc, .6, {y:RESTART_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_restartPanel]});
+			}
+			
 		}
 		
 		protected function aboutClick(event:MouseEvent):void
 		{
-			DataModel.getInstance().buttonTap();
+			if (MovieClip(event.currentTarget).currentFrameLabel == "_on") return;
 			
-			showAbout();
+			DataModel.getInstance().buttonTap();
+			buttonOnOffOthers(_about);
+			
+			if (_blocker.alpha != .5) {
+				TweenMax.to(_blocker, .5, {autoAlpha:.5, onComplete:showAbout});
+			} else {
+				showAbout();
+			}
 		}
 		
 		private function showAbout():void {
-			buttonOnOffOthers(_about);
-			
-			TweenMax.to(_blocker, .5, {autoAlpha:.5});  
 			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
-			TweenMax.to(_mc, .6, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_aboutMC]});
+			if (_mc.y == CONTENTS_Y) {
+				fadeInMC(_aboutMC);
+			} else {
+				TweenMax.to(_mc, .6, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_aboutMC]});
+			}
+			
 		}
 		
 		protected function helpClick(event:MouseEvent):void
 		{
+			if (MovieClip(event.currentTarget).currentFrameLabel == "_on") return;
+			
 			DataModel.getInstance().buttonTap();
-			showHelp();
+			buttonOnOffOthers(_help);
+			
+			if (_blocker.alpha != .5) {
+				TweenMax.to(_blocker, .5, {autoAlpha:.5, onComplete:showHelp});
+			} else {
+				showHelp();
+			}
 		}
 		
 		private function showHelp():void {
-			buttonOnOffOthers(_help);
-			
-			TweenMax.to(_blocker, .5, {autoAlpha:.5});
 			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
-			TweenMax.to(_mc, .6, {y:HELP_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_helpPanel]});
+			
+			if (_mc.y == HELP_Y) {
+				fadeInMC(_helpPanel);
+			} else {
+				TweenMax.to(_mc, .6, {y:HELP_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_helpPanel]});
+			}
+			
 		}
 		
 		protected function soundClick(event:MouseEvent):void
@@ -281,6 +310,8 @@ package view
 		
 		protected function contentsClick(event:MouseEvent):void
 		{
+			if (MovieClip(event.currentTarget).currentFrameLabel == "_on") return;
+			
 			DataModel.getInstance().buttonTap();
 			buttonOnOffOthers(_contents);
 			
@@ -294,7 +325,12 @@ package view
 		
 		private function showContents():void {
 			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
-			TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_contentsMC]});
+			
+			if (_mc.y == CONTENTS_Y) {
+				fadeInMC(_contentsMC);
+			} else {
+				TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_contentsMC]});
+			}
 		}
 		
 		private function fadeInMC(thisMC:MovieClip):void {
@@ -307,8 +343,6 @@ package view
 			
 			_navOpen = true;
 			
-//			TweenMax.to(thisMC, 1, {autoAlpha:1});
-//			TweenMax.to(_panelHolder, .5, {autoAlpha:1});
 			TweenMax.to(_contentScreen, .5, {autoAlpha:0});
 		}
 		

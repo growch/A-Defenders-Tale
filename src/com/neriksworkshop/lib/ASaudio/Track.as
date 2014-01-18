@@ -35,7 +35,6 @@
 	public class Track extends EventDispatcher implements IAudioItem
 	{
 		
-		
 		private var _ss:Array = [null, null];
 		private var _active:Boolean;
 		private var _context:SoundLoaderContext;
@@ -65,7 +64,6 @@
 		//private var _realVolume:Number = 1;
 		private var _facadeVolume:Number = 1;
 		private var _volumeMultiplier:Number = 1;			//A number between 0 and 1 usually set by the parent AudioGroup			
-//		private var _muted:Boolean = false;		
 //		TESTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		private var _muted:Boolean = true;			
 //		private var _muted:Boolean = false;			
@@ -99,8 +97,8 @@
 			
 			//		CUSTOM !!!!
 			EventController.getInstance().addEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
-			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, nextPage);
-			EventController.getInstance().addEventListener(ViewEvent.SHOW_PAGE, nextPage);
+			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, fadeDownDestroy);
+			EventController.getInstance().addEventListener(ViewEvent.SHOW_PAGE, stopDestroy);
 		}
 		
 //		CUSTOM !!!!
@@ -109,15 +107,26 @@
 			toggleMute(true);
 		}
 		
-		protected function nextPage(event:Event):void
+		protected function fadeDownDestroy(event:ViewEvent):void
 		{
 			stop(true);
 			destroy();
 		}
+		
+		protected function stopDestroy(event:ViewEvent):void
+		{
+			stop();
+			destroy();
+		}
+		
 		public function destroy():void {
-			EventController.getInstance().removeEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
-			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, nextPage);
-			EventController.getInstance().removeEventListener(ViewEvent.SHOW_PAGE, nextPage);
+			if (EventController.getInstance().hasEventListener(ApplicationEvent.TOGGLE_MUTE)) {
+				EventController.getInstance().removeEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
+				EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, fadeDownDestroy);
+				EventController.getInstance().removeEventListener(ViewEvent.SHOW_PAGE, stopDestroy);
+				trace("destroy Track: "+this._fileUrl);
+			}
+			stop();
 		}
 		
 		
@@ -653,7 +662,6 @@
 			
 			System.gc();
 			
-	
 		}		
 
 		/**
