@@ -124,7 +124,7 @@
 				EventController.getInstance().removeEventListener(ApplicationEvent.TOGGLE_MUTE, togMute);
 				EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, fadeDownDestroy);
 				EventController.getInstance().removeEventListener(ViewEvent.SHOW_PAGE, stopDestroy);
-				trace("destroy Track: "+this._fileUrl);
+//				trace("destroy Track: "+this._fileUrl);
 			}
 			stop();
 		}

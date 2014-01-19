@@ -330,6 +330,7 @@ package view
 			
 			//IMPORTANT FOR RESTORE
 			DataModel.PAGE_ARRAY = _pageInfoArray;
+			
 		}
 		
 		private function resetVariable(thisID:String):void {
