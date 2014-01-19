@@ -87,6 +87,11 @@ package view
 				_capitolBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			}
 			
+			_catteryBtn.locked = null;
+			_sandlandsBtn.locked = null;
+			_joylessBtn.locked = null;
+			_shipwreckBtn.locked = null;
+			
 			_catteryBtn = null;
 			_sandlandsBtn = null;
 			_joylessBtn = null;
