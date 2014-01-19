@@ -91,9 +91,6 @@ package view.capitol
 			
 			_nextY = 140;
 			
-			//used later in Escalator1View
-			DataModel.climbDone = true;
-			
 			_pageInfo = DataModel.appData.getPageInfo("delay");
 			_bodyParts = _pageInfo.body;
 			

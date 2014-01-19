@@ -59,9 +59,6 @@ package view.prologue
 			_SAL = new SWFAssetLoader("prologue.FightMC", this);
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
-//			*** USED LATER
-			DataModel.captainBattled = true;
-			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
 		}
 		

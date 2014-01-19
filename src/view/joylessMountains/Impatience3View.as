@@ -99,7 +99,7 @@ package view.joylessMountains
 			_mc.tears_mc.visible = false;
 			
 			//IMPORTANT used in PlayRiddles
-			DataModel.impatience3 = true; 
+//			DataModel.impatience3 = true; 
 			
 			var islandInt:int = DataModel.getInstance().STONE_COUNT;
 			

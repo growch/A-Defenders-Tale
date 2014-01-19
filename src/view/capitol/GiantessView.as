@@ -47,9 +47,6 @@ package view.capitol
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
-			
-//			TESTING!!!
-			trace("STONE_COUNT: "+DataModel.getInstance().STONE_COUNT);
 		}
 		
 		public function destroy() : void {
@@ -100,9 +97,6 @@ package view.capitol
 			EventController.getInstance().addEventListener(ViewEvent.DECISION_CLICK, decisionMade);
 			
 			_nextY = 140;
-			
-			//used later in Escalator1View
-			DataModel.climbDone = true;
 			
 			_pageInfo = DataModel.appData.getPageInfo("giantess");
 			_bodyParts = _pageInfo.body;

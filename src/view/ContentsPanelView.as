@@ -317,6 +317,9 @@ package view
 			for (var i:int = startIndex; i < _pageArray.length; i++) 
 			{
 				_cpv = _pageArray[i] as ContentsPageView;
+				
+				resetVariable(_cpv.pgInfo.contentPanelInfo.pageID);
+				
 				_nextY -= _cpv.pageHeight;
 				_cpv.destroy();
 				dragVCont.removeChild(_cpv);
@@ -327,6 +330,26 @@ package view
 			
 			//IMPORTANT FOR RESTORE
 			DataModel.PAGE_ARRAY = _pageInfoArray;
+		}
+		
+		private function resetVariable(thisID:String):void {
+			if (thisID == "theCattery.GameWonView") DataModel.STONE_CAT = false;
+			if (thisID == "shipwreck.CompanionView") DataModel.STONE_PEARL = false;
+			if (thisID == "sandlands.SandstoneWinView") DataModel.STONE_SAND = false;
+			if (thisID == "joylessMountains.StoneView") DataModel.STONE_SERPENT = false;
+			
+			if (thisID == "theCattery.FourthDoorView") DataModel.bleujeanna = false;
+			if (thisID == "theCattery.ThirdDoorView") DataModel.thirdDoor = false;
+			if (thisID == "prologue.StealView") DataModel.captainBattled = false;
+			if (thisID == "joylessMountains.Climb1View") DataModel.climbDone = false;
+			if (thisID == "joylessMountains.Escalator1View") DataModel.escalator1 = false;
+			if (thisID == "joylessMountains.RallyView") DataModel.rally = false;
+			if (thisID == "prologue.SuppliesView") DataModel.supplies = false;
+			if (thisID == "shipwreck.SmegView") DataModel.smegTalk = false;
+			if (thisID == "sandlands.SandView") DataModel.sandpit = false;
+			if (thisID == "sandlands.WellView") DataModel.well = false;
+			if (thisID == "sandlands.Sand2View") DataModel.sand5Ft = false;
+			if (thisID == "sandlands.Well4View") DataModel.dropsCorrect = false;
 		}
 		
 		protected function resetSelectedIsland(event:ViewEvent):void

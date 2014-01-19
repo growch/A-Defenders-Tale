@@ -102,9 +102,6 @@ package view.capitol
 			
 			_mc.end_mc.visible = false;
 			
-			//used later in Escalator1View
-			DataModel.climbDone = true;
-			
 			_pageInfo = DataModel.appData.getPageInfo("castle");
 			_bodyParts = _pageInfo.body;
 			

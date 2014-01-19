@@ -99,11 +99,6 @@ package view.sandlands
 			_pageInfo = DataModel.appData.getPageInfo("apprentice");
 			_bodyParts = _pageInfo.body;
 			
-//			IMPORTANT CLEAR OUT if already done and going back
-			DataModel.sand5Ft = false;
-			DataModel.dropsCorrect = false;
-			DataModel.sandpit = false;
-			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
 			DataModel.getInstance().setGraphicResolution(_mc.list_mc);
