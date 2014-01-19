@@ -121,7 +121,7 @@ package view.sandlands
 			_pageInfo = DataModel.appData.getPageInfo("ship");
 			_bodyParts = _pageInfo.body;
 			
-			var islandInt:int = DataModel.STONE_COUNT >= DataModel.ISLANDS.length ? 1 : 0;
+			var islandInt:int = DataModel.getInstance().STONE_COUNT >= DataModel.ISLANDS.length ? 1 : 0;
 			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);

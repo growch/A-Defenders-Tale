@@ -47,6 +47,9 @@ package view.capitol
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
+			
+//			TESTING!!!
+			trace("STONE_COUNT: "+DataModel.getInstance().STONE_COUNT);
 		}
 		
 		public function destroy() : void {

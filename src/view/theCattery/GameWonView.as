@@ -109,15 +109,14 @@ package view.theCattery
 			_mc.weapon_mc.shine_mc.visible = false;
 			
 			var stoneIndex: int;
-			if (DataModel.STONE_COUNT >=1 && DataModel.STONE_COUNT <= 2) {
+			if (DataModel.getInstance().STONE_COUNT >=1 && DataModel.getInstance().STONE_COUNT <= 2) {
 				stoneIndex = 1;
-			} else if (DataModel.STONE_COUNT == 3) {
+			} else if (DataModel.getInstance().STONE_COUNT == 3) {
 				stoneIndex = 2;
 			}
 			
 			//!IMPORTANT
 			DataModel.STONE_CAT = true;
-			DataModel.STONE_COUNT++;
 			
 			_mc.weapon_mc.stonePearl_mc.visible = false;
 			if (DataModel.STONE_PEARL) _mc.weapon_mc.stonePearl_mc.visible = true;

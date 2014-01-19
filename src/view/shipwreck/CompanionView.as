@@ -135,7 +135,6 @@ package view.shipwreck
 			
 			//!IMPORTANT
 			DataModel.STONE_PEARL= true;
-			DataModel.STONE_COUNT++;
 			
 			_mc.weapon_mc.stoneSerpent_mc.visible = false;
 			if (DataModel.STONE_SERPENT) _mc.weapon_mc.stoneSerpent_mc.visible = true;
@@ -153,7 +152,7 @@ package view.shipwreck
 			
 			var compInt:int = DataModel.defenderInfo.companion;
 			
-			var island1Int: int = DataModel.STONE_COUNT >= 4 ? 1:0;
+			var island1Int: int = DataModel.getInstance().STONE_COUNT >= 4 ? 1:0;
 			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);

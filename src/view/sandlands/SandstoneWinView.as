@@ -98,7 +98,6 @@ package view.sandlands
 			
 			//!IMPORTANT
 			DataModel.STONE_SAND = true; 
-			DataModel.STONE_COUNT++;
 			
 			_mc.weapon_mc.stoneSand_mc.visible = false;
 			if (DataModel.STONE_SAND) _mc.weapon_mc.stoneSand_mc.visible = true;

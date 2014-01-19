@@ -92,7 +92,7 @@ package view.joylessMountains
 			
 			_nextY = 110;
 			
-			var islandInt:int = DataModel.STONE_COUNT;
+			var islandInt:int = DataModel.getInstance().STONE_COUNT;
 			
 			if (DataModel.ISLAND_SELECTED[0]) var island1:String = DataModel.ISLAND_SELECTED[0];
 			if (DataModel.ISLAND_SELECTED[1]) var island2:String = DataModel.ISLAND_SELECTED[1];

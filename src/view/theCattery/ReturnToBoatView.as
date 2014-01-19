@@ -139,7 +139,7 @@ package view.theCattery
 			
 			_boat = _mc.boat_mc;
 			
-			var stoneIndex: int = DataModel.STONE_COUNT;
+			var stoneIndex: int = DataModel.getInstance().STONE_COUNT;
 			
 			var pearlObtInt:int = DataModel.STONE_PEARL ? 0 : 1;
 			
@@ -259,9 +259,6 @@ package view.theCattery
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			// INCREMENT STONE COUNT!
-			if (event.data.decisionNumber == 1) DataModel.STONE_COUNT++;
-			
 			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);

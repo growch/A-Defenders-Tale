@@ -158,7 +158,7 @@ package view
 			if (DataModel.STONE_PEARL) _shipwreck.showStone();
 			
 			
-			if (DataModel.STONE_COUNT >= 4) {
+			if (DataModel.getInstance().STONE_COUNT >= 4) {
 				_capitol.showCapitol();
 				_capitolBtn = _mc.capitol_btn;
 				_capitolBtn.mouseChildren = false;

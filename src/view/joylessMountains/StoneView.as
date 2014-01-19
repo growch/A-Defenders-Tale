@@ -121,7 +121,6 @@ package view.joylessMountains
 			
 			//!IMPORTANT
 			DataModel.STONE_SERPENT = true;
-			DataModel.STONE_COUNT++;
 			
 			_mc.weapon_mc.stonePearl_mc.visible = false;
 			if (DataModel.STONE_PEARL) _mc.weapon_mc.stonePearl_mc.visible = true;
@@ -167,15 +166,15 @@ package view.joylessMountains
 			_boat.boatMask_mc.alpha = 1;
 			
 			var island1Int: int;
-			if (DataModel.STONE_COUNT == 4) {
+			if (DataModel.getInstance().STONE_COUNT == 4) {
 				island1Int = 2;
-			} else if (DataModel.STONE_COUNT == 3) {
+			} else if (DataModel.getInstance().STONE_COUNT == 3) {
 				island1Int = 1;
 			} else {
 				island1Int = 0;
 			}
 			
-			var island2Int: int = DataModel.STONE_COUNT == 4 ? 1:0;
+			var island2Int: int = DataModel.getInstance().STONE_COUNT == 4 ? 1:0;
 			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
@@ -234,7 +233,7 @@ package view.joylessMountains
 			_nextY += _pageInfo.decisionsMarginTop;
 			
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			if (DataModel.STONE_COUNT == 4) {
+			if (DataModel.getInstance().STONE_COUNT == 4) {
 				dv.push(_pageInfo.decisions[0]);
 			} else {
 				dv.push(_pageInfo.decisions[1]);

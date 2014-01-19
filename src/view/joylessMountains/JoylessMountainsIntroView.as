@@ -166,7 +166,7 @@ package view.joylessMountains
 			var introInt:int;
 			if (DataModel.STONE_CAT) {
 				introInt = 0;
-			} else if (DataModel.STONE_COUNT > 0) {
+			} else if (DataModel.getInstance().STONE_COUNT > 0) {
 				introInt = 1;
 			} else {
 				introInt = 2;

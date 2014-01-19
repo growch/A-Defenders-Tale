@@ -166,11 +166,11 @@ package view.sandlands
 			if (lastIsland == "Joyless Mountains") {
 				introInt = 1;
 			}
-			if (lastIsland != "Joyless Mountains" && lastIsland != "The Cattery" && DataModel.STONE_COUNT >= 1) {
+			if (lastIsland != "Joyless Mountains" && lastIsland != "The Cattery" && DataModel.getInstance().STONE_COUNT >= 1) {
 				introInt = 2;
 			}
 			
-			var stoneInt:int = DataModel.STONE_COUNT > 1 ? 1:0;
+			var stoneInt:int = DataModel.getInstance().STONE_COUNT > 1 ? 1:0;
 			var stoneNumberArray:Array = ['one', 'two', 'three', 'four'];
 			
 			//LOW RES GRAPHICS
@@ -191,7 +191,7 @@ package view.sandlands
 					
 					copy = StringUtil.replace(copy, "[intro1]", _pageInfo.intro1[introInt]);
 					copy = StringUtil.replace(copy, "[stone1]", _pageInfo.stones1[stoneInt]);
-					copy = StringUtil.replace(copy, "[stoneCount]", stoneNumberArray[DataModel.STONE_COUNT-1]);
+					copy = StringUtil.replace(copy, "[stoneCount]", stoneNumberArray[DataModel.getInstance().STONE_COUNT-1]);
 
 					
 					// set this last cuz some of these may be in the options above

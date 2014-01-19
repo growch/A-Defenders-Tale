@@ -148,7 +148,7 @@ package view.capitol
 			if (DataModel.STONE_PEARL && DataModel.STONE_CAT) {
 				introInt = 1;
 			}
-			var stoneCount:int = DataModel.STONE_COUNT == 4 ? 0 : 1;
+			var stoneCount:int = DataModel.getInstance().STONE_COUNT == 4 ? 0 : 1;
 			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
@@ -205,7 +205,7 @@ package view.capitol
 			// decision
 			_nextY += _pageInfo.decisionsMarginTop
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
-			if (DataModel.STONE_COUNT == 4) {
+			if (DataModel.getInstance().STONE_COUNT == 4) {
 				dv.push(_pageInfo.decisions[2]);
 			} else {
 				dv.push(_pageInfo.decisions[0]);

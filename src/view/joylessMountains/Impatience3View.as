@@ -101,7 +101,7 @@ package view.joylessMountains
 			//IMPORTANT used in PlayRiddles
 			DataModel.impatience3 = true; 
 			
-			var islandInt:int = DataModel.STONE_COUNT;
+			var islandInt:int = DataModel.getInstance().STONE_COUNT;
 			
 			_pageInfo = DataModel.appData.getPageInfo("impatience3");
 			_bodyParts = _pageInfo.body;
