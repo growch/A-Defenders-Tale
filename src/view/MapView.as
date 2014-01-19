@@ -152,10 +152,22 @@ package view
 			_sandlands = new MapSandlandsView(_mc.sandlands_mc);
 			_shipwreck = new MapShipwreckView(_mc.shipwreck_mc);
 			
-			if (DataModel.STONE_CAT) _cattery.showStone();
-			if (DataModel.STONE_SERPENT) _joyless.showStone();
-			if (DataModel.STONE_SAND) _sandlands.showStone();
-			if (DataModel.STONE_PEARL) _shipwreck.showStone();
+			if (DataModel.STONE_CAT) {
+				_cattery.showStone();
+				_catteryBtn.locked = true;
+			}
+			if (DataModel.STONE_SERPENT) {
+				_joyless.showStone();
+				_joylessBtn.locked = true;
+			}
+			if (DataModel.STONE_SAND) {
+				_sandlands.showStone();
+				_sandlandsBtn.locked = true;
+			}
+			if (DataModel.STONE_PEARL) {
+				_shipwreck.showStone();
+				_shipwreckBtn.locked = true;
+			}
 			
 			
 			if (DataModel.getInstance().STONE_COUNT >= 4) {
@@ -220,6 +232,8 @@ package view
 		protected function islandClick(event:MouseEvent):void
 		{
 			if (_islandClicked) return;
+			
+			if (MovieClip(event.currentTarget).locked) return;
 			
 			DataModel.getInstance().buttonTap();
 			
