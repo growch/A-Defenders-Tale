@@ -53,6 +53,7 @@ package view.prologue
 		private var balladPlayed:Boolean;
 		private var _applauseSound:Track;
 		private var applausePlayed:Boolean;
+		private var _genderInt:int;
 		
 		public function FightView()
 		{
@@ -124,6 +125,11 @@ package view.prologue
 			
 			_weaponInt = int(DataModel.defenderInfo.weapon);
 			_instrumentInt = int(DataModel.defenderInfo.instrument);
+			_genderInt = int(DataModel.defenderInfo.gender);
+			
+			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.text_mc);
+			//set he/she
+			_mc.instruments_mc.text_mc.heShe_mc.gotoAndStop(_genderInt+1);
 			
 			if (DataModel.supplies) {
 				_supplyInt = 0; // 0 = true
@@ -152,7 +158,6 @@ package view.prologue
 			_bodyParts = _pageInfo.body;
 			
 			//GRAPHICS
-			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.text_mc);
 			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.instrument_mc.noteSingle_mc);
 			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.instrument_mc.noteDouble_mc);
 			DataModel.getInstance().setGraphicResolution(_mc.instruments_mc.instrument_mc.instrument_mc);
