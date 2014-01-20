@@ -132,6 +132,7 @@ package view.theCattery
 			_scissors.shine_mc.visible = false;
 			_comb.shine_mc.visible = false;
 			
+			//0 = TRUE!
 			if (DataModel.COMPANION_TAKEN) {
 				_compAlongIndex = 0;
 			} else {
@@ -139,13 +140,6 @@ package view.theCattery
 			}
 			
 			_thirdDoor = DataModel.thirdDoor;
-			
-//			var supplyIndex:int;
-//			if (DataModel.supplies) {
-//				supplyIndex = 0;
-//			} else {
-//				supplyIndex = 1;
-//			}
 			
 			_pageInfo = DataModel.appData.getPageInfo("fourthDoor");
 			_bodyParts = _pageInfo.body;
@@ -174,7 +168,7 @@ package view.theCattery
 						copy = StringUtil.replace(copy, "[companionComing5]", _pageInfo.companionComing5[_compAlongIndex]);
 					}
 					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
-					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[companion3]", _pageInfo.companion3[DataModel.defenderInfo.companion]);
 					
 					// set this last cuz some of these may be in the options above
