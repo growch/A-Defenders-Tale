@@ -10,6 +10,7 @@ package view
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.system.System;
 	
 	import control.EventController;
 	
@@ -35,6 +36,7 @@ package view
 		private var _screenshotBMD:BitmapData;
 		private var _screenshotBMP:Bitmap;
 		private var _VOSound:Track;
+		private var _dm:DataModel;
 		
 		public function TitleScreenView()
 		{
@@ -55,6 +57,8 @@ package view
 			_mc = _SAL.assetMC;
 			
 			_mc.addEventListener(Event.ADDED_TO_STAGE, mcAdded);
+			
+			_dm = DataModel.getInstance();
 			
 			_fog = _mc.fog1_mc;
 			_fog.visible = false;
@@ -116,8 +120,12 @@ package view
 				_screenshotBMP = null;
 			}
 			
-			TweenMax.killAll();
-			_mc.stopAllMovieClips();
+//			trace("TITLE DESTROY!!!");
+			
+			_dm = null;
+			
+//			TweenMax.killAll();
+//			_mc.stopAllMovieClips();
 			
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn);
 			
@@ -137,9 +145,12 @@ package view
 			
 			_fog = null;
 			_sun = null;
-			_bgSound = null;
+			
+			_VOSound.destroy();
+			_bgSound.destroy();
 			
 			_VOSound = null;
+			_bgSound = null;
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -168,38 +179,21 @@ package view
 			
 			TweenMax.to(thisBtn, .5, {scaleX:1.1, scaleY:1.1, ease:Quad.easeOut});
 			
-			
-			
 			TweenMax.killTweensOf(_sun);
 			_fog.visible = true;
-//			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:fadeDownParts});
-//			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:takeScreenshot});
-//			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
-//			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
-//			TweenMax.to(_mc, .2, {alpha:0, delay:2.4});
 			
-//			TweenMax.delayedCall(2.0, showHelp);
 			if (thisBtn == _continuePreviousBtn) {
-				DataModel.getInstance().rebuildPrevious = true;
+				_dm.rebuildPrevious = true;
 //				TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:fadeDownMC});
 				//SOMETHING ABOUT ONCOMPLETE CAUSING SWF TO NOT UNLOAD
-				TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:null});
-				TweenMax.delayedCall(2.7, fadeDownMC);
+				TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
+				TweenMax.delayedCall(2.7, nextScreen);
 			} else {
 				TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4, onComplete:takeScreenshot});
 			}
+			
+			thisBtn = null;
 		}		
-		
-//		WTF!!!!! for some reason this function was causing swf to not UNLOAD!!!
-//		LESSON??? IT'S THE onComplete (i think?)
-		private function showFog() : void {
-//			TweenMax.killTweensOf(_sun);
-//			_fog.visible = true;
-//			TweenMax.from(_fog, 2.8, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
-//			TweenMax.to(_mc.bg_mc, .2, {alpha:0, delay:2.4}); 
-//			TweenMax.to(_sun, .2, {alpha:0, delay:2.4}); 
-//			TweenMax.to(_mc, .3, {alpha:0, delay:2.4, onComplete:nextScreen});
-		}
 		
 		
 		private function takeScreenshot():void {
@@ -222,7 +216,7 @@ package view
 		
 		private function showHelp():void {
 			TweenMax.to(_helpWanted, .6, {autoAlpha:1, onComplete:animateLines});
-			_bgSound.volumeTo(1000, .5);
+			_bgSound.volumeTo(1000, .35);
 		}
 		
 		private function animateLines():void {
@@ -245,27 +239,24 @@ package view
 		}
 		
 		private function continueClick(e:MouseEvent):void {
+//			fadeDownMC();
+			nextScreen();
+		}
+		
+//		private function fadeDownMC():void {
 //			TweenMax.killAll();
-//			TweenMax.to(_mc.bg_mc, .6, {alpha:0}); 
-//			TweenMax.to(_sun, .6, {alpha:0}); 
-//			TweenMax.to(_mc, .6, {autoAlpha:0, onComplete:nextScreen}); THIS WOULD CAUSE THE SWF TO NOT UNLOAD
-			
 //			TweenMax.to(_mc, .6, {autoAlpha:0});
 //			TweenMax.delayedCall(.5, nextScreen);
-			fadeDownMC();
-		}
-		
-		private function fadeDownMC():void {
-			TweenMax.killAll();
-			TweenMax.to(_mc, .6, {autoAlpha:0});
-			TweenMax.delayedCall(.5, nextScreen);
-		}
+//		}
 		
 		private function nextScreen() : void {
+			_bgSound.stop(true);
+			_VOSound.stop(true);
+			
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
 			
-			if (DataModel.getInstance().rebuildPrevious) {
+			if (_dm.rebuildPrevious) {
 //				trace("RESTORING FROM TITLE");
 				EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.RESTORE_PREVIOUS));
 			} else {
@@ -274,6 +265,10 @@ package view
 				tempObj.id = "ApplicationView";
 				tempObj.overwriteHistory = true;
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
+				
+				tempObj.id = null;
+				tempObj.overwriteHistory = null;
+				tempObj = null;
 			}
 			
 		}
