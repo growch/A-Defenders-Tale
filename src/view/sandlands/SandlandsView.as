@@ -163,8 +163,11 @@ package view.sandlands
 			
 			var introInt:int = 0;
 			var lastIsland:String = DataModel.ISLAND_SELECTED[DataModel.ISLAND_SELECTED.length-1];
-			if (lastIsland == "Joyless Mountains") {
+			if (lastIsland == "The Joyless Mountains") {
 				introInt = 1;
+			}
+			if (lastIsland == "The Cattery") {
+				introInt = 3;
 			}
 			if (lastIsland != "Joyless Mountains" && lastIsland != "The Cattery" && DataModel.getInstance().STONE_COUNT >= 1) {
 				introInt = 2;

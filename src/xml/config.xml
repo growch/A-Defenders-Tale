@@ -4453,14 +4453,17 @@ After wheedling, cajoling, and even some half-hearted begging, Morrissey finally
 		</contents>
 		<intro1>
 			<intro><![CDATA[]]></intro>
-			<intro id="joyless"><![CDATA[
+			<intro id="joyless"><![CDATA[As the captain set sail for the Sandlands, [defender] and [companionName] regaled the crew with the details of their trip with Snowmonch. “She’s really a very nice serpent,” [defender] concluded [pronoun3] story. “Just misunderstood, like a lot of people.” 
 
-As the captain set sail for the Sandlands, [defender] and [companionName] regaled the crew with the details of their trip with Snowmonch. ”She’s really a very nice serpent,” [defender] concluded [pronoun3] story. “Just misunderstood, like a lot of people.” 
+[Pronoun3] audience was quietly thoughtful as [defender] and [companionName] stood. “And now,” [pronoun1] said, “we must rest. Tomorrow we will find the wizard, and we’ll need our wits about us.” 
 
-[Pronoun3] audience was quietly thoughtful as [defender] and [companionName] stood. “And now,” [pronoun1] said, “we must rest. Tomorrow we will find the wizard, and we’ll need our wits about us.”]]></intro> 
-			<intro id="notCatorJoyMoreThan2Stones"><![CDATA[
+]]></intro> 
+			<intro id="notCatorJoyMoreThan2Stones"><![CDATA[Defender looked at [pronoun3] [weapon] wearily. The [stone1] [pronoun1] had collected so far gleamed. [Pronoun1] tucked [pronoun3] [weapon] back into [pronoun3] [wardrobeShort] and lay back into [pronoun3] hammock. The next stop would be the Sandlands. [Pronoun1] needed to be well rested for [pronoun3] confrontation with the wizard. 
 
-Defender looked at [pronoun3] [weapon] wearily. The [stone1] [pronoun1] had collected so far gleamed. [Pronoun1] tucked [pronoun3] [weapon] back into [pronoun3] [wardrobeShort] and lay back into [pronoun3] hammock. The next stop would be the Sandlands. [Pronoun1] needed to be well rested for [pronoun3] confrontation with the wizard.]]></intro> 
+]]></intro> 
+			<intro id="cattery"><![CDATA[There could be no rest until all of the realm was safe. It was with a heavy heart that [defender] thanked the crew for their offer of a celebration, and instead selected the next island. Despite some good-natured rumbling, the crew raised anchor to set sail for the Sandlands. Exhausted after [pronoun3] time with the cats, [defender] promptly fell into a deep sleep. 
+
+]]></intro> 
 		</intro1>
 		<stones1>
 			<stones><![CDATA[[stoneCount] stone]]></stones>
@@ -4468,9 +4471,7 @@ Defender looked at [pronoun3] [weapon] wearily. The [stone1] [pronoun1] had coll
 		</stones1>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[There could be no rest until all of the realm was safe. It was with a heavy heart that [defender] thanked the crew for their offer of a celebration, and instead selected the next island. Despite some good-natured rumbling, the crew raised anchor to set sail for the Sandlands. Exhausted after [pronoun3] time with the cats, [defender] promptly fell into a deep sleep. [intro1]
-
-[defender] woke with the rising sun to see an island far out on the port side of the Stormin’ Norman. The island looked brown, dead, and rocky, even from a distance. [Pronoun1] felt [pronoun3] stomach sinking. These were the desolate Sandlands, home to the famous recluse, the Wizard Maysel. Few had made the hermit’s acquaintance, and of those, fewer had returned in their original form. The wizard would do almost anything to maintain his separation from those who sought his counsel, and [defender] only hoped [pronoun1] could find him. If [pronoun1] found him, [pronoun1] only hoped he would listen.
+			<![CDATA[[intro1][defender] woke with the rising sun to see an island far out on the port side of the Stormin’ Norman. The island looked brown, dead, and rocky, even from a distance. [Pronoun1] felt [pronoun3] stomach sinking. These were the desolate Sandlands, home to the famous recluse, the Wizard Maysel. Few had made the hermit’s acquaintance, and of those, fewer had returned in their original form. The wizard would do almost anything to maintain his separation from those who sought his counsel, and [defender] only hoped [pronoun1] could find him. If [pronoun1] found him, [pronoun1] only hoped he would listen.
 
 [Pronoun1] pushed [pronoun3] fears down and turned to [companionName]. “Well,” [pronoun1] said, trying [pronoun3] best to sound cheerful, “it looks like we’re almost there. Let’s go find the captain and be on our way.”]]> 				
 			</item>
