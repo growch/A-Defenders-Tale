@@ -283,7 +283,7 @@ package view.prologue
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (event.data.id == "FacebookNotifyView") {
+			if (event.data.id == "SocialNotifyView") {
 				var pronoun3:String = DataModel.getInstance().replaceVariableText('[pronoun3]');
 				
 				if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_FACEBOOK) {
