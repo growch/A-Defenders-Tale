@@ -35,6 +35,8 @@ public class StoreKitService extends Sprite
 		
 	/** Product IDs, must match iTunes Connect Items */
 	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockBook";
+	
+	public var supported:Boolean;
 
 	//
 	// Instance Variables
@@ -66,6 +68,8 @@ public class StoreKitService extends Sprite
 		{
 			log("Store Kit iOS purchases is not supported on this platform.");
 			return;
+		} else {
+			supported = true;
 		}
 
 		log("initializing StoreKit..");	

@@ -62,6 +62,11 @@ package view
 		
 		protected function unlockClick(event:MouseEvent):void
 		{
+			if (!DataModel.storeKitService.supported) {
+//				lil' hacky so as to not get stuck behind paywall on desktop
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
+				return;
+			}
 			DataModel.storeKitService.purchaseUnlock();
 		}
 		
