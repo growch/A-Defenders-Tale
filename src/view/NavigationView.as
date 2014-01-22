@@ -54,7 +54,7 @@ package view
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			
-			EventController.getInstance().addEventListener(ViewEvent.CLOSE_NAV_DECISION_CLICK, closeNav);
+			EventController.getInstance().addEventListener(ViewEvent.CLOSE_NAV_DECISION_CLICK, closeNavDecisionClick);
 			EventController.getInstance().addEventListener(ViewEvent.PEEK_NAVIGATION, peekNavigation);
 			EventController.getInstance().addEventListener(ViewEvent.OPEN_GLOBAL_NAV, openNavShowContents);
 		}
@@ -72,10 +72,9 @@ package view
 			buttonOnOffOthers(_contents);
 		}
 		
-		protected function closeNav(event:ViewEvent):void
+		protected function closeNavDecisionClick(event:ViewEvent):void
 		{
 			closeNavigation(event.data);
-//			trace("closeNav");
 		}
 		
 		private function init(event:Event) : void {
@@ -182,24 +181,28 @@ package view
 		}
 		
 		private function closeNavigation(thisPageObj:Object=null):void {
-			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut, onComplete:panelsOff, onCompleteParams:[thisPageObj]});
+			//this was causing crashes
+//			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut, onComplete:panelsOff, onCompleteParams:[thisPageObj]});
 			_navOpen = false;
 			TweenMax.to(_blocker, 0, {autoAlpha:0});
-//			trace("closeNavigation");
+			
+			if (thisPageObj) {
+				panelsOff(thisPageObj);
+			} else {
+				TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut});
+			}
 		}
 		
 		private function panelsOff(thisPageObj:Object=null):void {
-			trace("panelsOff");
 			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
 			
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.GLOBAL_NAV_CLOSED));
-			trace("GLOBAL_NAV_CLOSED");
 			
 			if (thisPageObj) {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, thisPageObj));
 			}
-			trace("DECISION_CLICK");
+			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut});
 		}
 		
 		protected function restartClick(event:MouseEvent):void

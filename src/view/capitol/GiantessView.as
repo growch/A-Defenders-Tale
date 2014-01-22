@@ -219,7 +219,7 @@ package view.capitol
 			//for delayed calls
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
-			trace("Giantess decisionMade");
+
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 	}
