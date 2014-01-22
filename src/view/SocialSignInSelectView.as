@@ -20,6 +20,7 @@ package view
 		private var _twitterBtn:MovieClip;
 		private var _submitBtn:MovieClip;
 		private var _nameTF:TextField; 
+		private var _nameHit:MovieClip;
 		
 		public function SocialSignInSelectView(mc:MovieClip)
 		{
@@ -44,7 +45,26 @@ package view
 			
 			_submitBtn = _mc.getChildByName("submit_btn") as MovieClip;
 			_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
+			
+			_nameHit = _mc.nameHit_mc;
+			setHitForText(_nameTF, _nameHit);
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc);
 		}
+		
+		private function setHitForText(thisTF:TextField, thisMC:MovieClip) : void {
+			thisMC.thisTF = thisTF;
+			thisMC.addEventListener(MouseEvent.CLICK, focusText);
+		}
+		
+		protected function focusText(e:MouseEvent):void
+		{
+			var thisMC:MovieClip = e.target as MovieClip;
+			var theTF:TextField = thisMC.thisTF;
+			_mc.stage.focus = theTF;
+			theTF.requestSoftKeyboard();
+		}	
 		
 		protected function submitClick(event:MouseEvent):void
 		{
@@ -97,6 +117,14 @@ package view
 			_twitterBtn.removeEventListener(MouseEvent.CLICK, twitterClick);
 			_nameTF.removeEventListener(FocusEvent.FOCUS_OUT, capFirst); 
 			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
+			
+			_closeBtn = null;
+			_facebookBtn = null;
+			_twitterBtn = null;
+			_submitBtn = null;
+			
+			_nameHit.removeEventListener(MouseEvent.CLICK, setHitForText);
+			_nameHit = null;
 		}
 	}
 }

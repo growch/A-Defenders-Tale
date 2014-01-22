@@ -31,9 +31,6 @@ package view
 			_showBG = showBG;
 			_tintColor = tintColor;
 			
-//			super();
-			
-//			addEventListener(Event.ADDED_TO_STAGE, init);
 			EventController.getInstance().addEventListener(ViewEvent.TAKE_SCREENSHOT, navOpen);
 			EventController.getInstance().addEventListener(ViewEvent.REMOVE_SCREENSHOT, navClosed);
 			
@@ -42,7 +39,6 @@ package view
 		
 //		private function init(e:Event) : void {
 		private function init() : void {
-//			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			_mc = new DecisionsMC();
 //			text would dissappear when taking screenshots
@@ -50,6 +46,9 @@ package view
 			_mc.stop();
 			
 			_divider = _mc.divider_mc;
+			
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_divider);
 			
 			if (_tintColor != 666) {
 				var c:ColorTransform = new ColorTransform(); 

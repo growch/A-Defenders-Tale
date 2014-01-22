@@ -30,6 +30,9 @@ package view
 		}
 		
 		private function init() : void {
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc);
+			
 			_closeBtn = _mc.getChildByName("x_btn") as MovieClip;
 			_closeBtn.addEventListener(MouseEvent.CLICK, closeClick);
 			

@@ -25,9 +25,7 @@ package view
 		private var _closeBtn:MovieClip;
 		private var _facebookBtn:MovieClip;
 		private var _submitBtn:MovieClip;
-//		private var _confirm:MovieClip;
 		private var _socialName:TextField;
-//		private var _contactTxt:TextField;
 		private var _questionMarkTxt:TextField;
 		private var _dragVCont:DraggableVerticalContainer;
 		private var _friendsVector:Vector.<GVFacebookFriend>
@@ -44,11 +42,14 @@ package view
 		public function SocialContactSelectView(mc:MovieClip)
 		{
 			_mc = mc;
-			super();
+//			super();
 			init();
 		}
 		
 		private function init() : void {
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_mc);
+			
 			_closeBtn = _mc.getChildByName("x_btn") as MovieClip;
 			_closeBtn.addEventListener(MouseEvent.CLICK, closeClick);
 			
@@ -68,8 +69,6 @@ package view
 			_dragVCont.SCROLL_INDICATOR_RIGHT_PADDING = 0;
 			_dragVCont.x = 98;
 			_dragVCont.y = 163;
-//			_dragVCont.addChild(_mc);
-//			_dragVCont.refreshView(true);
 			
 			_holder = new Sprite();
 			_dragVCont.addChild(_holder);
@@ -107,9 +106,7 @@ package view
 		public function populateFacebookFriends(friendsVector:Vector.<GVFacebookFriend>):void 
 		{
 			_friendsVector = friendsVector;
-//			_friendsMCArray = new Array();
-//			var nextY:int = 0;
-//			var nextX:int = 0;
+
 			for (var i:int = 0; i < friendsVector.length; i++) 
 			{
 				if (i != 0 && (i % COLUMN_COUNT) == 0) {
@@ -132,14 +129,12 @@ package view
 				
 				_nextX++;
 			}
-//			_dragVCont.addChild(_holder);
 			_dragVCont.refreshView(true);
 		}
 		
 		public function populateTwitterFollowers(followersVector:Vector.<TwitterFollowerInfo>):void 
 		{
 			_followersVector = followersVector;
-//			_friendsMCArray = new Array();
 			
 			for (var i:int = 0; i < followersVector.length; i++) 
 			{
@@ -164,7 +159,6 @@ package view
 				
 				_nextX++;
 			}
-//			_dragVCont.addChild(_holder);
 			_dragVCont.refreshView(true);
 		}
 		
@@ -184,10 +178,9 @@ package view
 					thisFriendMC.alpha = .4;
 				}
 			}
-//			_contactTxt.text = _friendsVector[thisID].name.toUpperCase();
-//			_questionMarkTxt.x = _contactTxt.x + _contactTxt.textWidth+2;
-//			_confirm.visible = true;
+
 			_submitBtn.alpha = 1;
+			
 			if (!_submitBtn.hasEventListener(MouseEvent.CLICK)) {
 				_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
 			}

@@ -245,6 +245,8 @@ package view
 				DataModel.companionSelected = true;
 			}
 			_smokePuff = new SmokePuffMC();
+			//GRAPHICS
+			DataModel.getInstance().setGraphicResolution(_smokePuff); 
 			_smokePuff.x = event.data.x;
 			_smokePuff.y = event.data.y;
 			_mc.addChild(_smokePuff);
@@ -258,7 +260,6 @@ package view
 		protected function focusText(e:MouseEvent):void
 		{
 			var thisMC:MovieClip = e.target as MovieClip;
-//			trace(thisMC.thisTF.name);
 			var theTF:TextField = thisMC.thisTF;
 			stage.focus = theTF;
 			theTF.requestSoftKeyboard();
