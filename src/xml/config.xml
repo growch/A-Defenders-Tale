@@ -671,7 +671,7 @@ The orcs had arrived.]]>
 			</item>
 		</body>
 		<decisions top="60">
-			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
+			<decision id="SocialNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
 			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
@@ -784,7 +784,7 @@ The orcs had arrived.]]>
 			</item>
 		</body>
 		<decisions top="60">
-			<decision id="FacebookNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
+			<decision id="SocialNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
 			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
@@ -5711,7 +5711,7 @@ And so they lived happily. That is until [previousDefender] was captured by inte
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
+			<decision id="SocialNotifyView"><![CDATA[SOCIAL SHARE]]></decision>
 			<decision id="TitleScreenView"><![CDATA[RESTART BOOK]]></decision>
 		</decisions>	
 	</goWithPrevious>
@@ -5770,7 +5770,7 @@ That is until [previousDefender] was captured by intergalactic space pirates and
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
+			<decision id="SocialNotifyView"><![CDATA[SOCIAL SHARE]]></decision>
 			<decision id="TitleScreenView"><![CDATA[RESTART BOOK]]></decision>
 		</decisions>	
 	</together>
@@ -5801,7 +5801,7 @@ That is until a band of unruly intergalactic space pirates created a very big co
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="FacebookNotifyView"><![CDATA[SHARE ON FACEBOOK]]></decision>
+			<decision id="SocialNotifyView"><![CDATA[SOCIAL SHARE]]></decision>
 			<decision id="TitleScreenView"><![CDATA[RESTART BOOK]]></decision>
 		</decisions>	
 	</alone>

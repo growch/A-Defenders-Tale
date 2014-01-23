@@ -1,17 +1,17 @@
 package view
 {
+	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.geom.ColorTransform;
+	import flash.text.TextFieldAutoSize;
+	
 	import assets.DecisionButtonMC;
 	import assets.DecisionsMC;
 	
 	import control.EventController;
 	
 	import events.ViewEvent;
-	
-	import flash.display.MovieClip;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.geom.ColorTransform;
-	import flash.text.TextFieldAutoSize;
 	
 	import model.DataModel;
 	import model.DecisionInfo;
@@ -60,6 +60,15 @@ package view
 				var decButt:DecisionButtonMC = new DecisionButtonMC();
 				decButt.decision_txt.autoSize = TextFieldAutoSize.CENTER;
 				decButt.decision_txt.htmlText = DataModel.getInstance().replaceVariableText(_decisions[i].description);
+				
+				if (_decisions[i].description == "SOCIAL SHARE") {
+					if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_FACEBOOK) {
+						decButt.decision_txt.htmlText = "SHARE ON FACEBOOK";
+					} else if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_TWITTER) {
+						decButt.decision_txt.htmlText = "TWEET YOUR SUCCESS";
+					}
+					
+				}
 				
 				//show BG?
 				decButt.bg_mc.visible = false;
