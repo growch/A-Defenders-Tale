@@ -150,7 +150,7 @@ package view
 			
 			if (checkForPage(pgInf)) return;
 			
-//			trace("CP!!!! addContentsPage");
+			trace("CP!!!! addContentsPage: "+pgInf.contentPanelInfo.pageID);
 			
 			addPage(pgInf);
 		}
@@ -162,7 +162,12 @@ package view
 			{
 				_cpv = _pageArray[i] as ContentsPageView;
 				if (pgInf.contentPanelInfo.pageID == _cpv.pgInfo.contentPanelInfo.pageID) {
-					pageFound = true;
+					
+					if (pgInf.contentPanelInfo.pageID == "MapView" && i < _pageArray.length - 1 ) {
+						
+					} else {
+						pageFound = true;
+					}
 				}
 			}
 			

@@ -1402,7 +1402,7 @@ The [companion2]
 			<decision id="joylessMountains.JoylessMountainsIntroView"><![CDATA[FIND CAPTAIN]]></decision>
 			<decision id="shipwreck.ShipwreckCoveView"><![CDATA[FIND CAPTAIN]]></decision>
 			<decision id="sandlands.SandlandsView"><![CDATA[FIND CAPTAIN]]></decision>
-			<decision id="capitol.CapitolView"><![CDATA[FIND CAPTAIN]]></decision>
+			<decision id="sandlands.ShoreView"><![CDATA[FIND CAPTAIN]]></decision>
 		</decisions>	
 	</introAllIslands>
 <!-- ***			INTRO ALL ISLANDS 			-->
@@ -5538,7 +5538,7 @@ But it wasn’t enough. More and more light creatures swarmed toward [pronoun2].
 	<sunlightGame id="capitol.SunlightGameView">
 		<contents id="capitol.SunlightGameView" image="assets/images/capitol/contents/SunlightGameView_thumbnail.jpg">
 			<title><![CDATA[A Sunny Battle]]></title>
-			<body><![CDATA[The final, blistering confrontation against the treacherous prince nero]]></body>
+			<body><![CDATA[The final, blistering confrontation against the treacherous Prince Nero]]></body>
 		</contents>
 	</sunlightGame>
 <!-- ***		SUNLIGHT GAME 			-->		

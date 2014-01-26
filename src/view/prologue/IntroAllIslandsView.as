@@ -333,7 +333,12 @@ package view.prologue
 			DataModel.getInstance().unlockBook();
 			
 			var tempObj:Object = new Object();
-			tempObj.id = _pageInfo.decisions[0].id;
+			tempObj.id = _pageInfo.decisions[DataModel.CURRENT_ISLAND_INT].id;
+			
+			//exception if first island is SandLands
+			if (DataModel.ISLAND_SELECTED.length <= 1 && DataModel.CURRENT_ISLAND_INT == 3) {
+				tempObj.id = _pageInfo.decisions[4].id;
+			}
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 		}
 		
@@ -343,6 +348,12 @@ package view.prologue
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
 				return;
 			}
+			
+			//exception if first island is SandLands
+			if (DataModel.ISLAND_SELECTED.length <= 1 && DataModel.CURRENT_ISLAND_INT == 3) {
+				event.data.id = _pageInfo.decisions[4].id;
+			}
+			
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}

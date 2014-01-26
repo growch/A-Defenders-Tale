@@ -68,7 +68,6 @@ package view
 			}
 			
 			if (_screenshotBMP) {
-				_screenshotBMD.dispose();
 				removeChild(_screenshotBMP);
 				_screenshotBMP = null;
 			}
@@ -279,7 +278,7 @@ package view
 					if (DataModel.STONE_SAND) return;
 					DataModel.CURRENT_ISLAND_INT = 3;
 					_tempObj.id = "sandlands.SandlandsView";
-					if (DataModel.ISLAND_SELECTED.length < 1) _tempObj.id = "sandlands.ShoreView";
+//					if (DataModel.ISLAND_SELECTED.length < 1) _tempObj.id = "sandlands.ShoreView";
 					break;
 				}		
 				
