@@ -20,7 +20,6 @@ package games.bopMice.objects
 		
 		protected function startClick(event:MouseEvent):void
 		{
-			trace("startClick");
 			MovieClip(_mc.cta_btn).removeEventListener(MouseEvent.CLICK, startClick);
 			_game.startGame();
 		}

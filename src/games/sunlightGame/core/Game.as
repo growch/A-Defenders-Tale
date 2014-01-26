@@ -11,6 +11,7 @@ package games.sunlightGame.core
 	import flash.events.StageOrientationEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import flash.utils.setTimeout;
 	
 	import control.EventController;
 	
@@ -76,7 +77,8 @@ package games.sunlightGame.core
 				removeEventListener(Event.ENTER_FRAME, update);
 			}
 			
-			_mc.stopAllMovieClips();
+//			WTF???? crashey
+//			_mc.stopAllMovieClips();
 			TweenMax.killAll();
 			
 			stage.removeEventListener( StageOrientationEvent.ORIENTATION_CHANGE, onOrientationChange ); 
@@ -116,7 +118,7 @@ package games.sunlightGame.core
 			dropHolder = null;
 			lightSource = null;
 			
-			_bgMusic.stop(true);
+			_bgMusic.stop();
 			_bgMusic = null;
 			
 			_cannonSound = null;
@@ -237,6 +239,9 @@ package games.sunlightGame.core
 			
 			TweenMax.allTo([_glowingLight, _underGlow], 1.5, {alpha:1, yoyo:true, repeat:-1, delay:1}); 
 			
+			
+//			TESTING!!!!
+//			setTimeout(gameOver, 3000, ["winner"]);
 		}
 		
 		private function heroOn():void  {
@@ -267,11 +272,16 @@ package games.sunlightGame.core
 		}
 		
 		public function gameOver(winOrLose:String):void  {
+//			trace("gameOver: "+winOrLose);
+			
 			_gameTimer.stop();
 			removeEventListener(Event.ENTER_FRAME, update);
+			
 			stage.removeEventListener(MouseEvent.MOUSE_DOWN, onDown);
 			stage.removeEventListener(MouseEvent.MOUSE_UP, onUp);
+			
 			enemyManager.gameOver();
+			hero.gameOver();
 			
 			_bgMusic.stop(true);
 			
@@ -282,7 +292,9 @@ package games.sunlightGame.core
 				DataModel.getInstance().endSound();
 			}
 			
-			_mc.stopAllMovieClips();
+//			WTF???? this was causing crashes
+//			_mc.stopAllMovieClips();
+			
 			TweenMax.killAll();
 		}
 		
@@ -307,6 +319,7 @@ package games.sunlightGame.core
 			_energy.heroHit();
 			
 			if (_hitCount > _allowedHits-1) {
+//				
 				gameOver("LOSER");
 			}
 		}

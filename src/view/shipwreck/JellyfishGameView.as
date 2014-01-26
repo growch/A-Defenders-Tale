@@ -2,6 +2,7 @@ package view.shipwreck
 {
 	import com.coreyoneil.collision.CollisionList;
 	import com.greensock.TweenMax;
+	import com.greensock.easing.Quad;
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
@@ -11,7 +12,6 @@ package view.shipwreck
 	import flash.events.TimerEvent;
 	import flash.sensors.Accelerometer;
 	import flash.utils.Timer;
-	import flash.utils.setTimeout;
 	
 	import assets.JellyfishGameGlowMC;
 	
@@ -20,12 +20,12 @@ package view.shipwreck
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	import model.PageInfo;
 	
 	import util.SWFAssetLoader;
 	
 	import view.FrameView;
 	import view.IPageView;
-	import model.PageInfo;
 	
 	public class JellyfishGameView extends MovieClip implements IPageView
 	{
@@ -67,6 +67,7 @@ package view.shipwreck
 		private var _hitSound:Track;
 		private var _jellyF:Jellyfish;
 		private var _pageInfo:PageInfo;
+		private var _instructions:MovieClip;
 		
 		public function JellyfishGameView()
 		{
@@ -96,6 +97,8 @@ package view.shipwreck
 			_glowHit = null;
 			_bg = null;
 			_glow = null;
+			
+			_instructions = null;
 			
 			_frame.destroy();
 			_frame = null;
@@ -155,7 +158,8 @@ package view.shipwreck
 //			_glow = _mc.glow_mc;
 			_glow = new JellyfishGameGlowMC();
 			_glow.x = _mc.glow_mc.x;
-			_glow.y = 20;
+			_glow.y = _mc.glow_mc.y;
+//			_glow.y = 20;
 			_mc.addChild(_glow);
 			_mc.removeChild(_mc.glow_mc);
 			_glowHit = _glow.hit_mc;
@@ -164,6 +168,9 @@ package view.shipwreck
 			
 			_starfish = _mc.starfishHit_mc;
 			_starfish.alpha = 0;
+			
+			_instructions = _mc.instructions_mc;
+			_instructions.visible = false;
 			
 			_collisionList = new CollisionList(_glowHit);
 //			_collisionList.alphaThreshold = 0;
@@ -242,7 +249,8 @@ package view.shipwreck
 		
 		private function startClick(e:MouseEvent):void {
 			_startMC.cta_btn.removeEventListener(MouseEvent.CLICK, startClick);
-			startGame();
+//			startGame();
+			showInstructions();
 		}
 		
 		private function continueClick(e:MouseEvent):void {
@@ -250,7 +258,7 @@ package view.shipwreck
 		}
 		
 		private function startGame():void {
-			_startMC.visible = false;
+			_instructions.visible = false;
 			
 			stage.addEventListener(Event.ENTER_FRAME, accelLoop);
 			
@@ -259,8 +267,15 @@ package view.shipwreck
 			if (DataModel.ipad1) return;
 			_jellyTimer.start();
 			
-//			TESTING!!!!
-			setTimeout(gameWon, 1000);
+		}
+		
+		private function showInstructions():void {
+			_startMC.visible = false;
+			_instructions.visible = true;
+			TweenMax.to(_instructions.ipad_mc, 1.2, {rotation:45, ease:Quad.easeOut});
+			TweenMax.to(_instructions.ipad_mc, 1.6, {rotation:-45, ease:Quad.easeOut, delay:1.2});
+			TweenMax.to(_instructions.ipad_mc, 1.2, {rotation:0, ease:Quad.easeOut, delay:2.8});
+			TweenMax.delayedCall(4, startGame);
 		}
 		
 		private function stopGame():void {

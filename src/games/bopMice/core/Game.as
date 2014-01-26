@@ -36,8 +36,8 @@ package games.bopMice.core
 	{
 		
 		public static const FPS:int = DataModel.BOP_MICE_FPS; 
-		public var DURATION:int = 1; // in seconds
-		public static const MINIMUM_SCORE:int = 0;	
+		public var DURATION:int = 45; // in seconds
+		public static const MINIMUM_SCORE:int = 30;	
 		
 		public var userScore:int;
 		private var _mc:MovieClip;

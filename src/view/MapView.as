@@ -65,11 +65,14 @@ package view
 			if (_screenshotBMD) {
 				_screenshotBMD.dispose();
 				_screenshotBMD = null;
-				
+			}
+			
+			if (_screenshotBMP) {
+				_screenshotBMD.dispose();
 				removeChild(_screenshotBMP);
-				
 				_screenshotBMP = null;
 			}
+			
 			
 			_tempObj = null;
 			

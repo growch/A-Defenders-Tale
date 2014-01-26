@@ -1418,7 +1418,7 @@ The [companion2]
 
 <!-- 			ISLAND 1 			-->
 	<island1 id="Island1View">
-		<contents id="theCattery.Island1View" image="assets/images/prologue/contents/Island1View_thumbnail.jpg">
+		<contents id="theCattery.Island1View" image="assets/images/prologue/contents/IntroAllIslandsView_thumbnail.jpg">
 			<title><![CDATA[An Introduction to The Cattery]]></title>
 		</contents>
 		<companion1>

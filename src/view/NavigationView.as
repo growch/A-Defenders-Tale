@@ -36,7 +36,7 @@ package view
 		private static const CLOSED_Y:int = -910;
 		private static const OPEN_Y:int = -735;
 		private static const HELP_Y:int = -140;
-		private static const RESTART_Y:int = -70;
+		private static const RESTART_Y:int = -130;
 		private static const CONTENTS_Y:int = 0;
 		
 		private var _gear:MovieClip;
@@ -123,7 +123,6 @@ package view
 			
 			_restartPanel = _mc.restart_mc;
 			_restartPanel.restart_btn.addEventListener(MouseEvent.CLICK, restartPanelClick);
-			_restartPanel.map_btn.addEventListener(MouseEvent.CLICK, restartPanelClick);
 
 			_contentsMC = _mc.contents_mc;
 			contentsPanel = new ContentsPanelView();
@@ -185,6 +184,7 @@ package view
 //			TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut, onComplete:panelsOff, onCompleteParams:[thisPageObj]});
 			_navOpen = false;
 			TweenMax.to(_blocker, 0, {autoAlpha:0});
+			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
 			
 			if (thisPageObj) {
 				panelsOff(thisPageObj);
@@ -194,7 +194,7 @@ package view
 		}
 		
 		private function panelsOff(thisPageObj:Object=null):void {
-			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
+//			TweenMax.to(_contentScreen, 0, {autoAlpha:1});
 			
 			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.GLOBAL_NAV_CLOSED));

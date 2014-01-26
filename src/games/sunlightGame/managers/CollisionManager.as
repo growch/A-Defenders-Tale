@@ -86,6 +86,7 @@ package games.sunlightGame.managers
 					{
 						_enem.heroCollision = true;
 						_game.heroHit();
+						_game.hero.showDamage();
 						_heroHitSound.start();
 						return;
 					}

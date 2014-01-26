@@ -20,15 +20,16 @@ package games.sunlightGame.objects
 		private var _smoke:MovieClip;
 		private var _accel:Accelerometer;
 		private var _accelX:Number;
-		private var _accelY:Number;
-		private var _accelZ:Number;
+//		private var _accelY:Number;
+//		private var _accelZ:Number;
 		private var _leftEdge:Number;
 		private var _rightEdge:Number;
 		private var orientationConst:Number = Math.sin(Math.PI/4);
 		private var _mag:Number;
 		private var _angle:Number;
-		
-
+		private var _damageCounter:int = 0;
+		private var _damageMC:MovieClip;
+		private var _showingDamage:Boolean;
 		
 		public function Hero(game:Game, mc:MovieClip)
 		{
@@ -43,6 +44,10 @@ package games.sunlightGame.objects
 			_leftEdge = player.width;
 			_rightEdge = DataModel.APP_WIDTH - player.width;
 			
+			_damageMC = mc.damage_mc;
+			_damageMC.visible = false;
+			_damageMC.stop();
+			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(mc.cannon_mc);
 			DataModel.getInstance().setGraphicResolution(mc.smoke_mc);
@@ -53,7 +58,7 @@ package games.sunlightGame.objects
 				// Create a new Accelerometer instance.
 				_accel = new Accelerometer();
 				// Have the Accelerometer listen. This happens on every "tick".
-//				_accel.addEventListener(AccelerometerEvent.UPDATE, accelUpdate);
+				_accel.addEventListener(AccelerometerEvent.UPDATE, accelUpdate);
 			} else
 			{
 				// If there is no access to the Accelerometer
@@ -64,13 +69,17 @@ package games.sunlightGame.objects
 		
 		public function destroy():void
 		{
+			if (player.contains(_damageMC)) {
+				player.removeChild(_damageMC);
+			}
 			_game = null;
 			player = null;
 			hit1MC = null;
 			hit2MC = null;
 			_smoke = null;
+			_damageMC = null;
 			if (_accel) {
-//				_accel.removeEventListener(AccelerometerEvent.UPDATE, accelUpdate);
+				_accel.removeEventListener(AccelerometerEvent.UPDATE, accelUpdate);
 				_accel = null;
 			}
 			
@@ -88,25 +97,25 @@ package games.sunlightGame.objects
 //			_accelX = e.accelerationX * 100;
 //			_accelY = e.accelerationY * 100;
 			_accelX = e.accelerationX;
-			_accelY = e.accelerationY;
-			_accelZ = e.accelerationZ;
+//			_accelY = e.accelerationY;
+//			_accelZ = e.accelerationZ;
 			
 			/* These numbers can creep outside of the interval -1 to 1 if the phone is even moving very slightly, 
 			so we use the following lines to keep the values between -1 and 1.*/
 			if (_accelX < -1) _accelX = -1;
 			if (_accelX > 1) _accelX = 1;
-			if (_accelY < -1) _accelY = -1;
-			if (_accelY > 1) _accelY = 1;
-			if (_accelZ < -1) _accelZ = -1;
-			if (_accelZ > 1) _accelZ = 1;
+//			if (_accelY < -1) _accelY = -1;
+//			if (_accelY > 1) _accelY = 1;
+//			if (_accelZ < -1) _accelZ = -1;
+//			if (_accelZ > 1) _accelZ = 1;
 			
 			/* 
 			We calculate the angle by using the vectory identity u.v = |u| |v| cos(angle), 
 			where u is the vector (aX,aY,aZ) and v is the vector (0,aY,0) which points vertically. 
 			We have to subract 90 because arccos essentially returns values between 0 and 180, and we would like to interpret these between -90 and 90.
 			*/
-			_mag = Math.sqrt(_accelX*_accelX+_accelY*_accelY+_accelZ*_accelZ);
-			_angle = Math.round((180/Math.PI)*Math.acos(_accelY/_mag)) - 90;
+//			_mag = Math.sqrt(_accelX*_accelX+_accelY*_accelY+_accelZ*_accelZ);
+//			_angle = Math.round((180/Math.PI)*Math.acos(_accelY/_mag)) - 90;
 			
 //			trace("_angle: "+_angle);
 		}
@@ -121,9 +130,6 @@ package games.sunlightGame.objects
 			} else {
 				player.x -= _accelX * .2;
 				player.x -= _accelX * 20;
-				
-//				player.rotation = _angle;
-				
 			}
 			
 			// Constrain to the X width boundries of the stage 
@@ -134,6 +140,20 @@ package games.sunlightGame.objects
 				_smoke.visible = true;
 			} else {
 				_smoke.visible = false;
+			}
+			
+			if (_showingDamage) {
+				_damageCounter++;
+			}
+			
+			if(_damageCounter>30) {
+				hideDamage();
+			}
+		}
+		
+		public function gameOver():void {
+			if (player.contains(_damageMC)) {
+				player.removeChild(_damageMC);
 			}
 		}
 		
@@ -147,5 +167,21 @@ package games.sunlightGame.objects
 			TweenMax.to(player, .7, {rotation:0, ease:Quad.easeOut});
 		}
 		
+		private function hideDamage():void {
+			_damageMC.visible = false;
+			_damageMC.stop();
+			_showingDamage = false;
+			_damageCounter = 0;
+		}
+		
+		public function showDamage():void
+		{
+			if (_showingDamage) return;
+			_showingDamage = true;
+			_damageCounter = 0;
+			
+			_damageMC.visible = true;
+			_damageMC.play();
+		}
 	}
 }

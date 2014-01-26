@@ -10,8 +10,8 @@ package games.sunlightGame.objects
 	
 	public class Enemy extends flash.display.MovieClip 
 	{
-		private var _enemMC:MovieClip;
-		private var _mcMC:MovieClip;
+		private var _enemMC:EnemyMC;
+//		private var _mcMC:MovieClip;
 		private var _hitMC:MovieClip;
 		private var _hitBigMC:MovieClip;
 		private var _angleX:Number = 0;
@@ -19,13 +19,14 @@ package games.sunlightGame.objects
 //		private var _stepX:Number = Math.PI*0.04;
 		private var _stepX:Number;
 //		private var _shiftX:int = 0;
-		private var _startX:Number;
+//		private var _startX:Number;
 		public var ySpeed:Number;
 		public var moveLateral:Boolean;
 		private var _direction:Number;
 		private var count:int;
 		private var lateralDistance:Number = 3;
 		public var heroCollision:Boolean;
+		private var _mcMC:MovieClip;
 		
 		public function Enemy()
 		{
@@ -49,13 +50,13 @@ package games.sunlightGame.objects
 			DataModel.getInstance().setGraphicResolution(_enemMC);
 			_mcMC = _enemMC.enemy_mc;
 			
-			_hitMC = _enemMC.enemy_mc.getChildByName("hitSmall_mc") as MovieClip;
-			_hitBigMC = _enemMC.enemy_mc.getChildByName("hitBig_mc") as MovieClip;
+			_hitMC = _mcMC.getChildByName("hitSmall_mc") as MovieClip;
+			_hitBigMC = _mcMC.getChildByName("hitBig_mc") as MovieClip;
 			
 			addChild(_enemMC);
 			
-			_startX = x;
 		}
+		
 		
 		public function get hitMC():MovieClip {
 			return _hitMC;
@@ -66,7 +67,14 @@ package games.sunlightGame.objects
 		}
 		
 		public function destroy():void {
+			_mcMC.stop();
+			
 			removeChild(_enemMC);
+			
+			_enemMC = null;
+			_hitMC = null;
+			_hitBigMC = null;
+			_mcMC = null;
 //			trace("destroy enemy");
 		}
 		
@@ -106,6 +114,11 @@ package games.sunlightGame.objects
 		public function reset():void
 		{
 			_mcMC.gotoAndPlay(1);
+		}
+		
+		public function gameOver():void
+		{
+			_mcMC.stop();
 		}
 	}
 }

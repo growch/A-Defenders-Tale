@@ -52,6 +52,16 @@ package games.sunlightGame.managers
 			
 			pool.destroy();
 			pool = null;
+			
+			var e:Enemy;
+			var len:int = enemies.length;
+			
+			for(var i:int=len-1; i>=0; i--)
+			{
+				e = enemies[i];
+				e.destroy();
+			}
+			
 			enemies = null;
 			sunpool.destroy();
 			sunpool = null;
@@ -153,6 +163,7 @@ package games.sunlightGame.managers
 			{
 				if(e == enemies[i])
 				{
+					e.heroCollision = false;
 //					e.destroy();
 					enemies.splice(i, 1);
 					game.enemyHolder.removeChild(e);
@@ -164,6 +175,15 @@ package games.sunlightGame.managers
 		
 		public function gameOver():void {
 			_dropTimer.stop();
+			
+			var e:Enemy;
+			var len:int = enemies.length;
+			
+			for(var i:int=len-1; i>=0; i--)
+			{
+				e = enemies[i];
+				e.gameOver();
+			}
 		}
 		
 	}
