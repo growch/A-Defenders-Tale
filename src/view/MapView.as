@@ -75,7 +75,12 @@ package view
 			
 			_tempObj = null;
 			
-			removeChild(_fog);
+			if (_mc.contains(_fog)) {
+				_mc.removeChild(_fog);
+			} else {
+				removeChild(_fog);
+			}
+			
 			_fog = null;
 			
 			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, decisionMade);
@@ -300,8 +305,9 @@ package view
 			
 			takeScreenshot();
 			
+//			TESTING!!!!!
 			if (DataModel.ISLAND_SELECTED.length <= 1) {
-				_tempObj.id = "prologue.CrossSeaView";
+//				_tempObj.id = "prologue.CrossSeaView";
 			} 
 			
 			_VOSound = new Track(_voArray[DataModel.CURRENT_ISLAND_INT]);

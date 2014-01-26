@@ -191,6 +191,7 @@ package view
 		}
 
 		public function changingPath(nextSelectedID:String):Boolean {
+			trace("changingPath nextSelectedID: "+nextSelectedID);
 			var nextPageNew:Boolean = false;
 			var currentPageIndex:int;
 			var nextVisited:String;
@@ -214,9 +215,10 @@ package view
 				}
 			}
 //			trace("currentPageIndex: "+currentPageIndex);
-//			trace("next visited page: " + _pageInfoArray[currentPageIndex+1].contentPanelInfo.pageID);
+//			trace("next visited page: " + nextVisited);
 //			trace("next CLICKED page: "+nextSelectedID);
-			if (nextSelectedID != nextVisited) {
+			//without null check returned true on TitleScreen "CONTINUE STORY"
+			if (nextSelectedID != nextVisited && nextVisited != null) {
 				nextPageNew = true;
 			}
 //			trace("nextPageNew: "+nextPageNew);
