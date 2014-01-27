@@ -150,7 +150,7 @@ package view
 			
 			if (checkForPage(pgInf)) return;
 			
-			trace("CP!!!! addContentsPage: "+pgInf.contentPanelInfo.pageID);
+//			trace("CP!!!! addContentsPage: "+pgInf.contentPanelInfo.pageID);
 			
 			addPage(pgInf);
 		}
@@ -163,11 +163,12 @@ package view
 				_cpv = _pageArray[i] as ContentsPageView;
 				if (pgInf.contentPanelInfo.pageID == _cpv.pgInfo.contentPanelInfo.pageID) {
 					
-					if (pgInf.contentPanelInfo.pageID == "MapView" && i < _pageArray.length - 1 ) {
-						
-					} else {
-						pageFound = true;
-					}
+//					if (pgInf.contentPanelInfo.pageID == "MapView" && i < _pageArray.length - 1 ) {
+//						
+//					} else {
+//						pageFound = true;
+//					}
+					pageFound = true;
 				}
 			}
 			
@@ -191,7 +192,7 @@ package view
 		}
 
 		public function changingPath(nextSelectedID:String):Boolean {
-			trace("changingPath nextSelectedID: "+nextSelectedID);
+//			trace("changingPath nextSelectedID: "+nextSelectedID);
 			var nextPageNew:Boolean = false;
 			var currentPageIndex:int;
 			var nextVisited:String;

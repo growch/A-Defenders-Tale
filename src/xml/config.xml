@@ -1414,7 +1414,16 @@ The [companion2]
 			<body><![CDATA[The Barrier Islands Explained]]></body>
 		</contents>
 	</map>
-<!-- ***		MAP 			-->		
+<!-- ***		MAP 			-->
+
+<!-- 			MAP PROLOGUE			-->
+	<mapPrologue id="MapViewPrologue">
+		<contents id="MapViewPrologue" image="assets/images/common/contents/MapView_thumbnail.jpg">
+			<title><![CDATA[The Map]]></title>
+			<body><![CDATA[The Barrier Islands Explained]]></body>
+		</contents>
+	</mapPrologue>
+<!-- ***		MAP PROLOGUE			-->		
 
 <!-- 			ISLAND 1 			-->
 	<island1 id="Island1View">

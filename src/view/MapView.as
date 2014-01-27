@@ -220,8 +220,8 @@ package view
 			DataModel.getInstance().setGraphicResolution(_mc.shipwreck_mc.shark2_mc);
 			addChild(_mc);
 			
-			_pageInfo = DataModel.appData.getPageInfo("map");
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
+//			_pageInfo = DataModel.appData.getPageInfo("map");
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
 			
 			_bgSound = new Track("assets/audio/global/Ocean.mp3");
 			_bgSound.start(true);
