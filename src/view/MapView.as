@@ -298,16 +298,13 @@ package view
 //					break;
 //				}
 			}
-			DataModel.ISLAND_SELECTED.push(DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 			
 			_islandClicked = true;
 			
-			
 			takeScreenshot();
 			
-//			TESTING!!!!!
-			if (DataModel.ISLAND_SELECTED.length <= 1) {
-//				_tempObj.id = "prologue.CrossSeaView";
+			if (DataModel.ISLAND_SELECTED.length < 1) {
+				_tempObj.id = "prologue.CrossSeaView";
 			} 
 			
 			_VOSound = new Track(_voArray[DataModel.CURRENT_ISLAND_INT]);
@@ -317,7 +314,9 @@ package view
 			_VOSound.start();
 			
 			TweenMax.delayedCall(1, showFog);
-			TweenMax.to(_screenshotBMP, 3, {alpha:.6});
+			TweenMax.to(_screenshotBMP, 3, {alpha:.5});
+			
+			DataModel.ISLAND_SELECTED.push(DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 //			showFog();
 		}
 		

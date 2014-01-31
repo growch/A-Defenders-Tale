@@ -127,6 +127,8 @@ package view
 			_contentsMC = _mc.contents_mc;
 			contentsPanel = new ContentsPanelView();
 			_contentsMC.holder_mc.addChild(contentsPanel);
+//			IMPORTANT!!! for performance?
+			_contentsMC.visible = false;
 			
 			_aboutMC = _mc.about_mc;
 			_aboutPanel = new AboutPanelView(_aboutMC);
@@ -190,6 +192,7 @@ package view
 				panelsOff(thisPageObj);
 			} else {
 				TweenMax.to(_mc, .6, {y:CLOSED_Y, ease:Quad.easeInOut});
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.GLOBAL_NAV_CLOSED));
 			}
 		}
 		
@@ -315,6 +318,8 @@ package view
 		{
 			if (MovieClip(event.currentTarget).currentFrameLabel == "_on") return;
 			
+			_contentsMC.visible = false;
+			
 			DataModel.getInstance().buttonTap();
 			buttonOnOffOthers(_contents);
 			
@@ -332,7 +337,9 @@ package view
 			if (_mc.y == CONTENTS_Y) {
 				fadeInMC(_contentsMC);
 			} else {
-				TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_contentsMC]});
+//				TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut, onComplete:fadeInMC, onCompleteParams:[_contentsMC]});
+				TweenMax.to(_mc, .8, {y:CONTENTS_Y, ease:Quad.easeInOut});
+				TweenMax.delayedCall(.8, fadeInMC, [_contentsMC]);
 			}
 		}
 		
@@ -344,7 +351,12 @@ package view
 			
 			thisMC.visible = true;
 			
-			_navOpen = true;
+//			_navOpen = true;
+//			IMPORTANT!!!!
+			/*
+			app was crashing in God Mode when HISTORY was open
+			turning off cacheAsBitmap on ContentsPage items and swapping X1 for imageBG_mc gfx fixed it!!!!
+			*/
 			
 			TweenMax.to(_contentScreen, .5, {autoAlpha:0});
 		}

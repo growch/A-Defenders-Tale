@@ -12,6 +12,7 @@ package view.shipwreck
 	import flash.events.TimerEvent;
 	import flash.sensors.Accelerometer;
 	import flash.utils.Timer;
+	import flash.utils.setTimeout;
 	
 	import assets.JellyfishGameGlowMC;
 	
@@ -55,7 +56,6 @@ package view.shipwreck
 		private var _glowHit:MovieClip;
 		private var _collisionList:CollisionList;
 		private var _collisions:Array;
-//		private var _hitTimeout:uint;
 		private var _startMC:MovieClip;
 		private var _winMC:MovieClip;
 		private var _loseMC:MovieClip;
@@ -76,8 +76,6 @@ package view.shipwreck
 		}
 		
 		public function destroy() : void {
-//			clearTimeout(_hitTimeout);
-//			_hitTimeout = null;
 			_pageInfo = null;
 			
 			_jellyTimer.removeEventListener(TimerEvent.TIMER, animateJelly); 

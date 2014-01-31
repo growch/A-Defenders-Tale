@@ -200,7 +200,7 @@ package com.coreyoneil.collision
 			
 			transMatrix1 = item1.transform.matrix;
 			
-			var currentObj = item1;
+			var currentObj:* = item1;
 			while(currentObj.parent != null)
 			{
 				transMatrix1.concat(currentObj.parent.transform.matrix);

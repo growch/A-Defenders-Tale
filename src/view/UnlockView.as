@@ -44,6 +44,8 @@ package view
 		
 		protected function returnClick(event:MouseEvent):void
 		{
+			DataModel.getInstance().buttonTap();
+			
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.CLOSE_OVERLAY));
 			
 			var tempObj:Object = new Object();
@@ -67,13 +69,17 @@ package view
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
 				return;
 			}
+//			_mc.unlock_btn.removeEventListener(MouseEvent.CLICK, unlockClick);
+			DataModel.getInstance().buttonTap();
 			DataModel.storeKitService.purchaseUnlock();
 		}
 		
 		public function destroy():void {
 			_mc.x_btn.removeEventListener(MouseEvent.CLICK, closeClick);
 			_mc.return_btn.addEventListener(MouseEvent.CLICK, returnClick);
-			_mc.unlock_btn.removeEventListener(MouseEvent.CLICK, unlockClick);
+			if (_mc.unlock_btn.hasEventListener(MouseEvent.CLICK)) {
+				_mc.unlock_btn.removeEventListener(MouseEvent.CLICK, unlockClick);
+			}
 			removeChild(_mc);
 			_mc = null;
 		}

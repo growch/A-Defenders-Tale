@@ -62,20 +62,10 @@ package view
 			
 			
 			_dm = DataModel.getInstance();
-//			if (DataModel.getInstance().alreadyRead) {
-//				trace("BOOK ALREADY READ -> ContentsPanelView");
-//			}
-			
-//			if (_dm.rebuildPrevious) {
-////				trace("REBUILDING *** -> ContentsPanelView");
-//				_pageArray = new Vector.<ContentsPageView>();
-//				_pageInfoArray = DataModel.PAGE_ARRAY;
-//				_restoring = true;
-//				addPreviousPages();
-//			} else {
-				_pageArray = new Vector.<ContentsPageView>();
-				_pageInfoArray = new Vector.<PageInfo>();
-//			}
+
+			_pageArray = new Vector.<ContentsPageView>();
+			_pageInfoArray = new Vector.<PageInfo>();
+
 		}
 		
 		public function restorePrevious():void {

@@ -46,7 +46,7 @@ package com.coreyoneil.collision
 			clearArrays();
 			
 			var NUM_OBJS:uint = objectArray.length;
-			var item1 = DisplayObject(objectArray[0]), item2:DisplayObject;
+			var item1:* = DisplayObject(objectArray[0]), item2:DisplayObject;
 			for(var i:uint = 1; i < NUM_OBJS; i++)
 			{
 				item2 = DisplayObject(objectArray[i]);

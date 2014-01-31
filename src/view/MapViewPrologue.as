@@ -13,11 +13,8 @@ package view
 		
 		public function MapViewPrologue()
 		{
-//			
 			_pageInfo = DataModel.appData.getPageInfo("mapPrologue");
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
-			
-//			super();
 		}
 	}
 }

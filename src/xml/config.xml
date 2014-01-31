@@ -1017,7 +1017,7 @@ Smeg picked up a mug and filled it with the frothy beverage.]]>
 			</item>	
 		</body>
 		<decisions top="60">
-			<decision id="MapView"><![CDATA[CONSULT MAP]]></decision>
+			<decision id="MapViewPrologue"><![CDATA[CONSULT MAP]]></decision>
 		</decisions>	
 	</belowDeck>	
 	
@@ -1423,7 +1423,43 @@ The [companion2]
 			<body><![CDATA[The Barrier Islands Explained]]></body>
 		</contents>
 	</mapPrologue>
-<!-- ***		MAP PROLOGUE			-->		
+<!-- ***		MAP PROLOGUE			-->	
+
+<!-- 			MAP JOYLESS			-->
+	<mapJoyless id="MapViewJoyless">
+		<contents id="MapViewJoyless" image="assets/images/common/contents/MapView_thumbnail.jpg">
+			<title><![CDATA[The Map]]></title>
+			<body><![CDATA[The Barrier Islands Explained]]></body>
+		</contents>
+	</mapJoyless>
+<!-- ***		MAP JOYLESS			-->	
+
+<!-- 			MAP CATTERY			-->
+	<mapCattery id="MapViewCattery">
+		<contents id="MapViewCattery" image="assets/images/common/contents/MapView_thumbnail.jpg">
+			<title><![CDATA[The Map]]></title>
+			<body><![CDATA[The Barrier Islands Explained]]></body>
+		</contents>
+	</mapCattery>
+<!-- ***		MAP CATTERY			-->	
+
+<!-- 			MAP SANDLANDS			-->
+	<mapSandlands id="MapViewSandlands">
+		<contents id="MapViewSandlands" image="assets/images/common/contents/MapView_thumbnail.jpg">
+			<title><![CDATA[The Map]]></title>
+			<body><![CDATA[The Barrier Islands Explained]]></body>
+		</contents>
+	</mapSandlands>
+<!-- ***		MAP SANDLANDS			-->	
+
+<!-- 			MAP SHIPWRECK			-->
+	<mapShipwreck id="MapViewShipwreck">
+		<contents id="MapViewShipwreck" image="assets/images/common/contents/MapView_thumbnail.jpg">
+			<title><![CDATA[The Map]]></title>
+			<body><![CDATA[The Barrier Islands Explained]]></body>
+		</contents>
+	</mapShipwreck>
+<!-- ***		MAP SHIPWRECK			-->		
 
 <!-- 			ISLAND 1 			-->
 	<island1 id="Island1View">
@@ -2394,7 +2430,7 @@ The captain arched her eyebrows into twin peaks. “What will it be, Defender? W
 		</body>
 		<decisions top="100">
 			<decision id="theCattery.LingerView"><![CDATA[LINGER]]></decision>
-			<decision id="MapView"><![CDATA[CONTINUE QUEST]]></decision>
+			<decision id="MapViewCattery"><![CDATA[CONTINUE QUEST]]></decision>
 		</decisions>	
 	</returnToBoat>
 <!-- ***			RETURN TO BOAT			-->
@@ -3791,8 +3827,8 @@ The crew cheered even louder.
 			</item>
 		</body>
 		<decisions top="100">
-			<decision id="capitol.StoneView"><![CDATA[CONTINUE]]></decision>
-			<decision id="MapView"><![CDATA[CONSULT MAP]]></decision>
+			<decision id="capitol.CapitolView"><![CDATA[CONTINUE]]></decision>
+			<decision id="MapViewJoyless"><![CDATA[CONSULT MAP]]></decision>
 		</decisions>
 	</stone>
 <!-- ***			STONE			-->
@@ -4450,7 +4486,7 @@ After wheedling, cajoling, and even some half-hearted begging, Morrissey finally
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[CONTINUE]]></decision>
+			<decision id="MapViewShipwreck"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</companion>
 <!-- ***			COMPANION 			-->
@@ -5210,7 +5246,7 @@ When they reached the boat, the crew helped them back aboard with a roar of exci
 			</item>
 		</body>
 		<decisions top="110">
-			<decision id="MapView"><![CDATA[CONSULT MAP]]></decision>
+			<decision id="MapViewSandlands"><![CDATA[CONSULT MAP]]></decision>
 			<decision id="capitol.CapitolView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</ship>
@@ -5795,7 +5831,7 @@ That is until [previousDefender] was captured by intergalactic space pirates and
 			<gender><![CDATA[The monkeys scoffed when she suggested the title of Princess, informing her that a title had nothing to do with gender. After she thought about it, she realized the METS were absolutely right, and ran as Prince with head held high.]]></gender>
 		</gender1>
 		<body>
-			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
+			<item type="text" id="bottomText" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[Although [previousDefender] seemed great, [defender] wasn’t ready for a committed relationship—[pronoun1] just wanted to focus on [pronoun3] career. [Pronoun1] explained the situation as well as [pronoun1] was able… after all, sometimes ‘it’s not you, it’s me’ really was the truth. [previousDefender] was disappointed, but respected [defender]’s wishes, and the two remained distant friends, sending occasional postcards from their respective interrealm Defense missions.
 
 After pouring through a flood of opportunities, [defender] found [pronoun2]self gravitating toward one in particular. The political party known as the METS (Monkeys for the Ethical Treatment of Sunlight) nominated [pronoun2] to become the next Prince of the Realm.
