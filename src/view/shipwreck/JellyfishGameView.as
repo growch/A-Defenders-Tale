@@ -83,8 +83,8 @@ package view.shipwreck
 			
 			_winMC.cta_btn.removeEventListener(MouseEvent.CLICK, continueClick);
 			
-			_loseMC.map_btn.removeEventListener(MouseEvent.CLICK, gameLostDecision);
-			_loseMC.restart_btn.removeEventListener(MouseEvent.CLICK, gameLostDecision);
+			_loseMC.history_btn.removeEventListener(MouseEvent.CLICK, gameLostDecision);
+			_loseMC.back_btn.removeEventListener(MouseEvent.CLICK, gameLostDecision);
 			
 			_startMC = null;
 			_winMC = null;
@@ -221,8 +221,8 @@ package view.shipwreck
 			
 			_loseMC = _mc.lose_mc;
 			_loseMC.visible = false; 
-			_loseMC.map_btn.addEventListener(MouseEvent.CLICK, gameLostDecision);
-			_loseMC.restart_btn.addEventListener(MouseEvent.CLICK, gameLostDecision);
+			_loseMC.history_btn.addEventListener(MouseEvent.CLICK, gameLostDecision);
+			_loseMC.back_btn.addEventListener(MouseEvent.CLICK, gameLostDecision);
 			
 			//put things back on top since glow was added above
 			_mc.addChild(_startMC);
@@ -247,8 +247,11 @@ package view.shipwreck
 		
 		private function startClick(e:MouseEvent):void {
 			_startMC.cta_btn.removeEventListener(MouseEvent.CLICK, startClick);
-//			startGame();
-			showInstructions();
+			startGame();
+//			showInstructions();
+			
+//			TESTING!!!!
+			setTimeout(gameLose, 1000);
 		}
 		
 		private function continueClick(e:MouseEvent):void {
@@ -308,13 +311,15 @@ package view.shipwreck
 		private function gameLostDecision(e:MouseEvent):void
 		{
 			var tempObj:Object = new Object();
-			if (e.target.name == "map_btn") {
-				tempObj.id = "MapView";
+			if (e.target.name == "history_btn") {
+//				tempObj.id = "MapView";
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.OPEN_GLOBAL_NAV, tempObj));
 			} else {
-				tempObj.id = "ApplicationView";
+//				tempObj.id = "ApplicationView";
+				tempObj.id = "BackOneStep";
+				tempObj.backOneStep = true;
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 			}
-			_mc.stopAllMovieClips();
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 		}
 		
 		private function animateJelly(e:TimerEvent):void {

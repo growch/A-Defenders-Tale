@@ -63,6 +63,8 @@ package view
 		{
 			buttonOnOffOthers(_contents);
 			
+			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.GLOBAL_NAV_OPEN));
+			
 			if (_blocker.alpha != .5) {
 				TweenMax.to(_blocker, .5, {autoAlpha:.5, onComplete:showContents});
 			} else {

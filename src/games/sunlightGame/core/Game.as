@@ -62,7 +62,7 @@ package games.sunlightGame.core
 		private var _health:Health;
 		
 		private var _hitCount:int = 0;
-		public var allowedHits:int = 1;
+		public var allowedHits:int = 7;
 		private var _cannonSound:Track;
 		
 		public function Game()
