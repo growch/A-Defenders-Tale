@@ -351,7 +351,6 @@ package view
 			
 			thisMC.visible = true;
 			
-//			_navOpen = true;
 //			IMPORTANT!!!!
 			/*
 			app was crashing in God Mode when HISTORY was open

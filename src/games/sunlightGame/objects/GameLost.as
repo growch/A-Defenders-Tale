@@ -3,6 +3,10 @@ package games.sunlightGame.objects
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	
+	import control.EventController;
+	
+	import events.ViewEvent;
+	
 	import games.sunlightGame.core.Game;
 	
 	public class GameLost extends MovieClip
@@ -15,24 +19,28 @@ package games.sunlightGame.objects
 			_game = game;
 			_mc = mc;
 			
-			MovieClip(_mc.map_btn).addEventListener(MouseEvent.CLICK, ctaClick);
-			MovieClip(_mc.restart_btn).addEventListener(MouseEvent.CLICK, ctaClick);
+			MovieClip(_mc.history_btn).addEventListener(MouseEvent.CLICK, ctaClick);
+			MovieClip(_mc.back_btn).addEventListener(MouseEvent.CLICK, ctaClick);
 		}
 		
 		protected function ctaClick(event:MouseEvent):void
 		{
 			var tempObj:Object = new Object();
-			if (event.currentTarget.name == "map_btn"){
-				tempObj.id = "MapView";
+			if (event.currentTarget.name == "history_btn"){
+//				tempObj.id = "ShowHistoryPanel";
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.OPEN_GLOBAL_NAV, tempObj));
 			} else {
-				tempObj.id = "ApplicationView";
+				tempObj.id = "BackOneStep";
+				tempObj.backOneStep = true;
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
+				_game.gameCompleted(tempObj);
 			}
-			_game.gameCompleted(tempObj);
+			
 		}
 		
 		public function destroy():void {
-			MovieClip(_mc.map_btn).removeEventListener(MouseEvent.CLICK, ctaClick);
-			MovieClip(_mc.restart_btn).removeEventListener(MouseEvent.CLICK, ctaClick);
+			MovieClip(_mc.history_btn).removeEventListener(MouseEvent.CLICK, ctaClick);
+			MovieClip(_mc.back_btn).removeEventListener(MouseEvent.CLICK, ctaClick);
 			_game = null;
 			_mc = null;
 		}

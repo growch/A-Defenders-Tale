@@ -18,6 +18,8 @@ import flash.text.TextField;
 
 import events.ViewEvent;
 
+import model.DataModel;
+
 /** StoreKit Example App 
  * 
  * 
@@ -268,6 +270,8 @@ public class StoreKitService extends Sprite
 		
 		// update the message on screen
 		updateInventoryMessage();		
+		
+		DataModel.getInstance().trackEvent("application", "unlocked");
 		
 		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
 	}

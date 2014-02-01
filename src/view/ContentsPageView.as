@@ -5,6 +5,7 @@ package view
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
 	
 	import assets.ContentsPageMC;
 	
@@ -58,6 +59,7 @@ package view
 			bodyText = bodyText.slice(0, 115).concat(bodyText.length > 115 ? "..." : "");
 
 			_mc.body_txt.text = bodyText;
+//			TextField(_mc.body_txt).cacheAsBitmap = true;
 			
 			_loader = new ImageLoader(pgInfo.contentPanelInfo.image, {container:_mc.imageHolder_mc, x:0, y:0, scaleX:DataModel.scaleMultiplier, scaleY:DataModel.scaleMultiplier});
 			_cPanel.addImageLoader(_loader);

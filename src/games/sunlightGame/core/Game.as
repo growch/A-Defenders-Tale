@@ -4,7 +4,6 @@ package games.sunlightGame.core
 	import com.neriksworkshop.lib.ASaudio.Track;
 	
 	import flash.display.MovieClip;
-	import flash.display.StageAspectRatio;
 	import flash.display.StageOrientation;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -21,9 +20,9 @@ package games.sunlightGame.core
 	import games.sunlightGame.managers.CollisionManager;
 	import games.sunlightGame.managers.EnemyManager;
 	import games.sunlightGame.managers.ExplosionManager;
-	import games.sunlightGame.objects.Energy;
 	import games.sunlightGame.objects.GameLost;
 	import games.sunlightGame.objects.GameWon;
+	import games.sunlightGame.objects.Health;
 	import games.sunlightGame.objects.Hero;
 	import games.sunlightGame.objects.Nero;
 	import games.sunlightGame.objects.StartGame;
@@ -60,10 +59,10 @@ package games.sunlightGame.core
 		private var _speedTimer:int = 20000;
 		private var _glowingLight:MovieClip;
 		private var _underGlow:MovieClip;
-		private var _energy:Energy;
+		private var _health:Health;
 		
 		private var _hitCount:int = 0;
-		private var _allowedHits:int = 5;
+		public var allowedHits:int = 1;
 		private var _cannonSound:Track;
 		
 		public function Game()
@@ -92,7 +91,7 @@ package games.sunlightGame.core
 			
 			_glowingLight = null;
 			_underGlow = null;
-			_energy = null;
+			_health = null;
 			
 			_startGame.destroy();
 			_gameWon.destroy();
@@ -173,7 +172,7 @@ package games.sunlightGame.core
 				blockArray.push(thisBlock);
 			}
 			
-			_energy = new Energy(this, _mc.energy_mc);
+			_health = new Health(this, _mc.health_mc);
 			
 			_glowingLight = _mc.machine_mc.glow_mc;
 			_glowingLight.alpha = 0;
@@ -241,7 +240,7 @@ package games.sunlightGame.core
 			
 			
 //			TESTING!!!!
-//			setTimeout(gameOver, 3000, ["winner"]);
+//			setTimeout(gameOver, 1000, ["LOSER"]);
 		}
 		
 		private function heroOn():void  {
@@ -315,10 +314,10 @@ package games.sunlightGame.core
 		public function heroHit():void
 		{
 			_hitCount++;
-			// update energy bar
-			_energy.heroHit();
+			// update health bar
+			_health.heroHit();
 			
-			if (_hitCount > _allowedHits-1) {
+			if (_hitCount > allowedHits-1) {
 //				
 				gameOver("LOSER");
 			}
