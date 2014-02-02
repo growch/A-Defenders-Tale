@@ -69,8 +69,8 @@ package view.joylessMountains
 //			
 			_hintBtn.removeEventListener(MouseEvent.CLICK, hintClick);
 			_retry.cta_btn.removeEventListener(MouseEvent.CLICK, retryClick);
-			_gameLost.map_btn.removeEventListener(MouseEvent.CLICK, lostClick);
-			_gameLost.restart_btn.removeEventListener(MouseEvent.CLICK, lostClick);
+			_gameLost.history_btn.removeEventListener(MouseEvent.CLICK, lostClick);
+			_gameLost.back_btn.removeEventListener(MouseEvent.CLICK, lostClick);
 			_gameWon.cta_btn.removeEventListener(MouseEvent.CLICK, wonClick);
 			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
 			
@@ -170,8 +170,8 @@ package view.joylessMountains
 			
 			_gameLost = _mc.gameLost_mc;
 			_gameLost.visible = false;
-			_gameLost.map_btn.addEventListener(MouseEvent.CLICK, lostClick);
-			_gameLost.restart_btn.addEventListener(MouseEvent.CLICK, lostClick);
+			_gameLost.history_btn.addEventListener(MouseEvent.CLICK, lostClick);
+			_gameLost.back_btn.addEventListener(MouseEvent.CLICK, lostClick);
 			
 			_gameWon = _mc.gameWon_mc;
 			_gameWon.visible = false;
@@ -357,13 +357,16 @@ package view.joylessMountains
 		
 		private function lostClick(e:MouseEvent):void {
 			var tempObj:Object = new Object();
-			if (e.target.name == "map_btn") {
-				tempObj.id = "MapView";
+			if (e.target.name == "history_btn") {
+//				tempObj.id = "MapView";
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.OPEN_GLOBAL_NAV, tempObj));
 			} else {
-				tempObj.id = "ApplicationView";
+//				tempObj.id = "ApplicationView";
+				tempObj.id = "BackOneStep";
+				tempObj.backOneStep = true;
+				decisionClicked(tempObj);
 			}
 			
-			decisionClicked(tempObj);
 		}
 		
 		private function decisionClicked(thisPageObj:Object):void {

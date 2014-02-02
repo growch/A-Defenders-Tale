@@ -237,10 +237,11 @@ package view
 				tempObj.id = "TitleScreenView";
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 				EventController.getInstance().dispatchEvent(new ApplicationEvent(ApplicationEvent.RESTART_BOOK));
-			} else {
-				tempObj.id = "MapView";
-				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
 			}
+//			} else {
+//				tempObj.id = "MapView";
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, tempObj));
+//			}
 		}
 		
 		private function showRestart():void {
