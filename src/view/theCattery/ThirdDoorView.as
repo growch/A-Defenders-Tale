@@ -267,6 +267,8 @@ package view.theCattery
 		protected function decisionMade(event:ViewEvent):void
 		{
 			if (event.data.id == "theCattery.KittenContactView" && !_messageDone) {
+				if (!DataModel.getInstance().networkConnection()) return;
+				
 				if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_FACEBOOK) {
 					if (!DataModel.getGoViral().isSupported) return;
 					

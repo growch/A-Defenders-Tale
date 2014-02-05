@@ -304,6 +304,8 @@ package view.capitol
 		protected function decisionMade(event:ViewEvent):void
 		{
 			if (event.data.id == "SocialNotifyView") {
+				if (!DataModel.getInstance().networkConnection()) return;
+				
 				if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_FACEBOOK) {
 					if (!DataModel.getGoViral().isSupported) return;
 					var msg:String = "Today I saved a distant realm from Certain Doom and Destruction with a little help from my dear friends,  " 
