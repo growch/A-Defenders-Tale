@@ -121,7 +121,7 @@ package view
 				thisContact.x = _nextX*HORIZ_SPACER;
 				thisContact.y = _nextY;
 				thisContact.addEventListener(MouseEvent.CLICK, friendClick);
-				thisContact.cacheAsBitmap = true;
+//				thisContact.cacheAsBitmap = true;
 				
 				_holder.addChild(thisContact);
 				
@@ -151,7 +151,7 @@ package view
 				thisContact.x = _nextX*HORIZ_SPACER;
 				thisContact.y = _nextY;
 				thisContact.addEventListener(MouseEvent.CLICK, friendClick);
-				thisContact.cacheAsBitmap = true;
+//				thisContact.cacheAsBitmap = true;
 				
 				_holder.addChild(thisContact);
 				
