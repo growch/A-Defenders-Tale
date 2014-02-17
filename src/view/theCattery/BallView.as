@@ -105,6 +105,10 @@ package view.theCattery
 				compAlongIndex = 1;
 			}
 			
+			//!!!! IMPORTANT needs to be reset in case going back via History
+			DataModel.thirdDoor = false;
+			DataModel.bleujeanna = false;
+			
 //			TESTING!!!
 			compAlongIndex = 0;
 			

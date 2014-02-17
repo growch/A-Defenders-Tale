@@ -133,6 +133,10 @@ package view
 //			trace("decisionClick description: "+_decisions[thisID].description);
 			if (_decisions[thisID].id == "ShowHistoryPanel") {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.OPEN_GLOBAL_NAV, tempObj));
+			} else if (_decisions[thisID].id == "BackTwoSteps") {
+//				tempObj.backOneStep = true;
+				tempObj.id = "prologue.SuppliesView";
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
 			} else if (_decisions[thisID].id == "BackOneStep") {
 				tempObj.backOneStep = true;
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));

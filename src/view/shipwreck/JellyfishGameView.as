@@ -247,11 +247,9 @@ package view.shipwreck
 		
 		private function startClick(e:MouseEvent):void {
 			_startMC.cta_btn.removeEventListener(MouseEvent.CLICK, startClick);
-			startGame();
-//			showInstructions();
+//			startGame();
+			showInstructions();
 			
-//			TESTING!!!!
-			setTimeout(gameLose, 1000);
 		}
 		
 		private function continueClick(e:MouseEvent):void {

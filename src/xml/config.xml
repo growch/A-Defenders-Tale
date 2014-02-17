@@ -460,7 +460,7 @@ The captain, whose tongue was no doubt silenced by [defender]’s formidable wor
 			<item type="text" id="companionImage" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[companion1]
 
-But [defender] didn’t let the captain finish. If there was one thing [pronoun1] hated more than darkness—more than monsters even—it was being called a [genderspoken]. After all, [pronoun1] was [age] years old, and what’s more, a Defender of the Realm. [Pronoun1] bellowed, “En garde!” and [weapon2]
+But [defender] didn’t let the captain finish. If there was one thing [pronoun1] hated more than darkness—more than monsters even—it was being called a [genderSpoken]. After all, [pronoun1] was [age] years old, and what’s more, a Defender of the Realm. [Pronoun1] bellowed, “En garde!” and [weapon2]
 
 “Now really,” Captain Cleapeezious chastised, “is that any way to treat an ally?”
 
@@ -542,7 +542,7 @@ Without further ado, Captain Cleapeezious Sandowskly climbed the ladder along th
 		</body>
 		<decisions top="60">
 			<decision id="prologue.SuppliesView"><![CDATA[GO TO TOWN]]></decision>
-			<decision id="prologue.BoatIntroView"><![CDATA[GO ABOARD]]></decision>
+			<decision id="prologue.BoatView"><![CDATA[GO ABOARD]]></decision>
 		</decisions>
 	</negotiate>
 <!-- 			***NEGOTIATE			-->	
@@ -652,9 +652,7 @@ From behind the door a man’s voice yelled back. “And ye will at that, strang
 				<![CDATA[[companion2]]]>
 			</item>	
 			<item type="text" id="" width="575" height="" top="80" left="100" size="20" align="left" leading="10" file="">
-				<![CDATA[Fear unlike anything [defender] had known crawled into the pit of [pronoun3] stomach. Orcs, as everyone knew, preferred to eat their victims while still alive.
-
-[defender] frantically searched the room for a way out, but the only thing [pronoun1] could find was a basket of rotting potatoes. After repeated attempts to break down the door, [pronoun1] pulled out [pronoun3] [weapon1] [defender] sunk to [pronoun3] knees in defeat.
+				<![CDATA[[defender] frantically searched the room for a way out, but the only thing [pronoun1] could find was a basket of rotting potatoes. After repeated attempts to break down the door, [pronoun1] pulled out [pronoun3] [weapon1] [defender] sunk to [pronoun3] knees in defeat.
 
 “Oh [companionName],” [pronoun1] said, “whatever shall we do?”
 
@@ -673,7 +671,7 @@ The orcs had arrived.]]>
 		<decisions top="60">
 			<decision id="SocialNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
-			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
+			<decision id="BackTwoSteps"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</cellar1>
@@ -764,9 +762,7 @@ The goldfish paused. “Say, don’t you know someone—.” He swam a few laps,
 		</weapon1>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[Fear unlike anything [defender] had known crawled into the pit of [pronoun3] stomach. Orcs, as everyone knew, preferred to eat their victims while still alive.
-
-[defender] frantically searched the room for a way out, but the only thing [pronoun1] could find was a basket of rotting potatoes. After repeated attempts to break down the door, [pronoun1] pulled out [pronoun3] [weapon1]
+			<![CDATA[[defender] was trapped. [Pronoun1] frantically searched the room for a way out, but the only thing [pronoun1] could find was a basket of rotting potatoes. After repeated attempts to break down the door, [pronoun1] pulled out [pronoun3] [weapon1]
 
 [defender] sunk to [pronoun3] knees in defeat.
 
@@ -786,7 +782,7 @@ The orcs had arrived.]]>
 		<decisions top="60">
 			<decision id="SocialNotifyView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
-			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
+			<decision id="BackTwoSteps"><![CDATA[BACK ONE STEP]]></decision>
 			<decision id="prologue.BoatIntroView"><![CDATA[CONTINUE]]></decision>
 		</decisions>	
 	</cellar2>	
@@ -960,7 +956,7 @@ After the townspeople had let [pronoun2] go, [defender] and [companionName] had 
 			<item type="text" id="" width="575" height="" top="150" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] [wardrobe1] [pronoun1] climbed the Stormin’ Norman’s ladder and stepped onto the deck. Even in the moonlight, [pronoun1] could see that the deck’s wooden surface gleamed. Above [pronoun3] head, ropes crisscrossed the sky. Several wooden barrels were scattered across the surface, with someone sitting on top of one. Whistling, if [pronoun1] wasn’t mistaken. The figure was too big to be the captain, but there was no one else in sight, so [pronoun1] and [companionName] walked toward the barrels. It was a man, [defender] realized as they approached. A large man, who stood as they drew near.
 
-				The man towered above [defender] and [companionName]. His height was amplified by his orange kilt and matching life vest. It strained across his broad chest. He took a moment to loosen one of its straps before giving [defender] a curt nod. “You must be the Defender, then. I’m the Cap’n’s first mate, Smeg.” He held out a second life vest.]]> 			
+The man towered above [defender] and [companionName]. His height was amplified by his orange kilt and matching life vest. It strained across his broad chest. He took a moment to loosen one of its straps before giving [defender] a curt nod. “You must be the Defender, then. I’m the Cap’n’s first mate, Smeg.” He held out a second life vest.]]> 			
 			</item>
 			<item type="image" id="" width="" height="119" top="40" left="" size="" align="" leading="" file="assets/images/prologue/boat_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
@@ -3952,7 +3948,7 @@ Cleapeezious inspected [defender]’s suit with a satisfied nod.
 
 [companion1]
 
-“Once you get down the reef,” the captain said, “your guess is as good as mine as to where Morrissey will be holding court. I’d ask the first creature you find for directions, though they it may take some persistence. Lots of hustle and bustle out in the deeps, no time to help a stranger. You know how it goes. Just keep asking, eventually you’ll get there.”
+“Once you get down the reef,” the captain said, “your guess is as good as mine as to where Morrissey will be holding court. I’d ask the first creature you find for directions, though it may take some persistence. Lots of hustle and bustle out in the deeps, no time to help a stranger. You know how it goes. Just keep asking, eventually you’ll get there.”
 
 “Thanks, captain,” [defender] replied. [Pronoun1] flapped over to the boat’s edge in [pronoun3] flippers, put [pronoun3] diving helmet on, and gave [companionName] a thumb’s up sign. “Ready?” [pronoun1] asked. [Pronoun3] voice sounded strange from within the helmet.
 
@@ -3997,7 +3993,7 @@ A clown fish paused to gape at them. “Hello,” it said. “What kind of fish 
 			<item type="text" id="dungeonFish" width="380" height="" top="520" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[The brightness blossomed, pushing through the water in a flood of white light. [defender] could just make out the silhouette of a fish, bigger than a whale. It opened its mouth to reveal long, spear-like teeth. A moment later, mighty jaws clamped down around [companionName]. The light flicked out, leaving only the swish of the fish’s tail visible as it retreated through the waves. 
 
-[defender] stared, immobilized by horror. The retreating shape could be nothing other than a prisonfish, and everyone agreed that there was no fate worse than being captured by the giant fish. Dungeonfish kept their captives alive for the first hour of imprisonment, behind the bars of their teeth, in order to suck their adrenalin. Once every drop of adrenalin had been consumed, the fish proceeded to suck the meat from their prisoner’s bones. [defender] shuddered. [Pronoun1] had to rescue [companionName], but if [pronoun1] chased after [companionName], would [pronoun1] still have time to find the sea god?]]> 				
+[defender] stared, immobilized by horror. The retreating shape could be nothing other than a prisonfish, and everyone agreed that there was no fate worse than being captured by the giant fish. Prisonfish kept their captives alive for the first hour of imprisonment, behind the bars of their teeth, in order to suck their adrenalin. Once every drop of adrenalin had been consumed, the fish proceeded to suck the meat from their prisoner’s bones. [defender] shuddered. [Pronoun1] had to rescue [companionName], but if [pronoun1] chased after [companionName], would [pronoun1] still have time to find the sea god?]]> 				
 			</item>
 		</body>
 		<decisions top="100">

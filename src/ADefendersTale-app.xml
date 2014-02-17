@@ -137,7 +137,16 @@
 		<image128x128></image128x128>
 	</icon> -->
 	<icon>
-		<image72x72>assets/icons/72x72.png</image72x72>
+		<image29x29>assets/icons/icons_29_book.png</image29x29>
+		<image40x40>assets/icons/icons_40_book.png</image40x40>
+		<image50x50>assets/icons/icons_50_book.png</image50x50>
+		<image58x58>assets/icons/icons_58_book.png</image58x58>
+		<image72x72>assets/icons/icons_72_book.png</image72x72>
+		<image76x76>assets/icons/icons_76_book.png</image76x76>
+		<image80x80>assets/icons/icons_80_book.png</image80x80>
+		<image152x152>assets/icons/icons_152_book.png</image152x152>
+		<image512x512>assets/icons/icons_512_book.png</image512x512>
+		<image1024x1024>assets/icons/icons_1024_book.png</image1024x1024>
 	</icon>
 
 	<!-- Whether the application handles the update when a user double-clicks an update version

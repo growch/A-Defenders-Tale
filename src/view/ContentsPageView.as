@@ -65,7 +65,10 @@ package view
 			_cPanel.addImageLoader(_loader);
 			_loader.autoDispose = true;
 			
-			activate();
+//			if (DataModel.GOD_MODE) {
+				activate();
+//			}
+			
 			
 			addChild(_mc);
 			
@@ -92,7 +95,11 @@ package view
 		
 		protected function pageClick(event:MouseEvent):void
 		{
-			if (_active) return;
+			trace("pageClick DataModel.GOD_MODE: "+DataModel.GOD_MODE);
+			if (_active && !DataModel.GOD_MODE) {
+				
+				return;
+			}
 			
 			if (_dv.isDragging || _dv.isTweening) return;
 			

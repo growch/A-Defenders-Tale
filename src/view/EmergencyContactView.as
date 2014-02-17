@@ -104,11 +104,11 @@ package view
 			if (_goViral.isSupported) {
 				if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_FACEBOOK) {
 					var msg:String = "I’m leaving town for an epic adventure to help defend a realm in peril. Should I be " + 
-						_suddenDeath + ", I hereby bequeath my " + _companion + " to " + DataModel.defenderInfo.contactFullName;
+						_suddenDeath + ", I hereby bequeath my " + _companion + " to " + DataModel.defenderInfo.contactFullName + ".";
 					_goViral.postFacebookWall("A message from A Defender's Tale", "I'm off to defend the realm!", msg);
 				} else if (DataModel.SOCIAL_PLATFORM == DataModel.SOCIAL_TWITTER) {
 					DataModel.getTwitter().postTweet("Leaving town to help defend a realm in peril. Should I fail, I bequeath my " + _companion + " to @" + DataModel.defenderInfo.twitterHandle + 
-						" http://bit.ly/1aEYCZJ");
+						". http://bit.ly/1aEYCZJ");
 				}
 			} else {
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SOCIAL_MESSAGE));

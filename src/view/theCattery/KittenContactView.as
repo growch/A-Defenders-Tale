@@ -159,9 +159,9 @@ package view.theCattery
 			var dv:Vector.<DecisionInfo> = new Vector.<DecisionInfo>(); 
 			
 			if (DataModel.bleujeanna) {
-				dv.push(_pageInfo.decisions[0]);
-			} else {
 				dv.push(_pageInfo.decisions[1]);
+			} else {
+				dv.push(_pageInfo.decisions[0]);
 			}
 			_decisions = new DecisionsView(dv,0x000000,true);
 			_decisions.y = _nextY;
