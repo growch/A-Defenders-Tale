@@ -217,7 +217,7 @@ package view
 			return nextPageNew;
 		}
 		
-		public function backOneStep():String {
+		public function backSteps(numSteps:int=1):String {
 			var currentPageIndex:int;
 			var previousVisited:String;
 			
@@ -226,15 +226,15 @@ package view
 				_pi = _pageInfoArray[i];
 				if (DataModel.CURRENT_PAGE_ID == _pi.contentPanelInfo.pageID) {
 					currentPageIndex = i;
-					//if the next one is beyond _pageInfoArray
-//					if ((currentPageIndex+1) >= _pageInfoArray.length) {
-//						return false;
-//					}
-					previousVisited = _pageInfoArray[currentPageIndex-1].contentPanelInfo.pageID;
+					//if the next one is less than
+					if ((currentPageIndex-numSteps) < 0) {
+						trace("YOU'VE GONE BACK TOO FAR IN TIME!!!!");
+						return DataModel.CURRENT_PAGE_ID;
+					}
+					previousVisited = _pageInfoArray[currentPageIndex-numSteps].contentPanelInfo.pageID;
 					break;
 				}
 			}
-//			trace("previousVisited: "+previousVisited);
 			return previousVisited;
 		}
 		

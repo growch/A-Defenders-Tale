@@ -2158,7 +2158,7 @@ And as the realm plunged into eternal darkness, Prince Nero enslaved the populat
 			<decision id="theCattery.KittenContactView"><![CDATA[NOTIFY CONTACT]]></decision>
 			<decision id="theCattery.PlayWithKittensView"><![CDATA[PLAY WITH KITTENS]]></decision>
 			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
-			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
+			<decision id="BackTwoSteps"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</thirdDoor>
 <!-- ***			THIRD DOOR 			-->
@@ -2228,7 +2228,7 @@ As the realm plunged into eternal darkness, Prince Nero enslaved the population.
 		</body>
 		<decisions top="100">
 			<decision id="ShowHistoryPanel"><![CDATA[SEE HISTORY]]></decision>
-			<decision id="BackOneStep"><![CDATA[BACK ONE STEP]]></decision>
+			<decision id="BackTwoSteps"><![CDATA[BACK ONE STEP]]></decision>
 		</decisions>	
 	</playWithKittens>
 <!-- ***			PLAY WITH KITTENS 			-->

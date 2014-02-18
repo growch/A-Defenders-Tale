@@ -40,6 +40,9 @@ package control
 				NativeTwitter.instance.nonexistentAccount = nonexistentAccount;
 				NativeTwitter.instance.tweetComposed = tweetComposed;
 				
+//				TESTING!!!!
+				NativeTwitter.instance.homeTimelineRequested = homeTimelineGot;
+				
 				if (NativeTwitter.instance.isTwitterSetup()) {
 //					getUserName();
 //					getFollowers();
@@ -57,6 +60,13 @@ package control
 			}
 		}
 		
+		private function homeTimelineGot(resultCode:String, data:Object):void {
+			var dataS:String = "";
+			if (data != null)
+				dataS = JSON.stringify(data);
+			trace("Home Timeline: " + resultCode + " - " + dataS);
+		}
+		
 		public function destroy():void {
 			_tempObj = null;
 			_followers = null;
@@ -65,7 +75,7 @@ package control
 		
 		public function twitterAvailable():Boolean {
 			if (NativeTwitter.isSupported()) {
-				trace("TWITTER AVAILABLE NativeTwitter.instance.accessDenied: "+NativeTwitter.instance.accessDenied);
+				trace("TWITTER IS AVAILABLE !!!");
 				return NativeTwitter.instance.isTwitterSetup();
 			} else {
 //				trace("NativeTwitter NOT supported");
@@ -120,6 +130,7 @@ package control
 			
 			if (resultCode == "-1") trace("\tEnsure custom params are correctly formatted");
 			trace("TWRequest: " + resultCode + " - " + dataS);
+//			trace("data: "+data);
 			
 			var uLength:int = data.users.length;
 			_followerCount += uLength;
@@ -154,6 +165,11 @@ package control
 			if (!accessAllowed) return;
 			
 			NativeTwitter.instance.getTwitterUsernames();
+		}
+		
+//		TESTING!!!
+		public function getHomeTimeline():void {
+			NativeTwitter.instance.getHomeTimeLine();
 		}
 		
 		

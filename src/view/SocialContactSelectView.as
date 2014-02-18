@@ -38,6 +38,7 @@ package view
 		private var _friendsMCArray:Array;
 		private var _nextY:int;
 		private var _nextX:int;
+		private var _thisContact:SocialContactMC;
 		
 		public function SocialContactSelectView(mc:MovieClip)
 		{
@@ -79,6 +80,8 @@ package view
 		{
 			_closeBtn.removeEventListener(MouseEvent.CLICK, closeClick);
 			
+			_thisContact = null;
+			
 			if (_submitBtn.hasEventListener(MouseEvent.CLICK)) {
 				_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
 			}
@@ -113,19 +116,19 @@ package view
 					_nextY += VERT_SPACER;
 					_nextX = 0;
 				}
-				var thisContact:SocialContactMC = new SocialContactMC();
-				thisContact.mouseChildren = false;
-				thisContact.ID = i;
-				thisContact.FBID = friendsVector[i].id;
-				thisContact.name_txt.text = friendsVector[i].name;
-				thisContact.x = _nextX*HORIZ_SPACER;
-				thisContact.y = _nextY;
-				thisContact.addEventListener(MouseEvent.CLICK, friendClick);
-//				thisContact.cacheAsBitmap = true;
+				_thisContact = new SocialContactMC();
+				_thisContact.mouseChildren = false;
+				_thisContact.ID = i;
+				_thisContact.FBID = friendsVector[i].id;
+				_thisContact.name_txt.text = friendsVector[i].name;
+				_thisContact.x = _nextX*HORIZ_SPACER;
+				_thisContact.y = _nextY;
+				_thisContact.addEventListener(MouseEvent.CLICK, friendClick);
+//				_thisContact.cacheAsBitmap = true;
 				
-				_holder.addChild(thisContact);
+				_holder.addChild(_thisContact);
 				
-				_friendsMCArray.push(thisContact);
+				_friendsMCArray.push(_thisContact);
 				
 				_nextX++;
 			}
@@ -142,20 +145,20 @@ package view
 					_nextY += VERT_SPACER;
 					_nextX = 0;
 				}
-				var thisContact:SocialContactMC = new SocialContactMC();
-				thisContact.mouseChildren = false;
-				thisContact.ID = i;
-				thisContact.screenName = _followersVector[i].screenName;
-				thisContact.name_txt.text = _followersVector[i].name;
-				thisContact.fullName = _followersVector[i].name;
-				thisContact.x = _nextX*HORIZ_SPACER;
-				thisContact.y = _nextY;
-				thisContact.addEventListener(MouseEvent.CLICK, friendClick);
-//				thisContact.cacheAsBitmap = true;
+				_thisContact = new SocialContactMC();
+				_thisContact.mouseChildren = false;
+				_thisContact.ID = i;
+				_thisContact.screenName = _followersVector[i].screenName;
+				_thisContact.name_txt.text = _followersVector[i].name;
+				_thisContact.fullName = _followersVector[i].name;
+				_thisContact.x = _nextX*HORIZ_SPACER;
+				_thisContact.y = _nextY;
+				_thisContact.addEventListener(MouseEvent.CLICK, friendClick);
+//				_thisContact.cacheAsBitmap = true;
 				
-				_holder.addChild(thisContact);
+				_holder.addChild(_thisContact);
 				
-				_friendsMCArray.push(thisContact);
+				_friendsMCArray.push(_thisContact);
 				
 				_nextX++;
 			}
