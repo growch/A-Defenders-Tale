@@ -335,7 +335,6 @@ package view
 		
 		private function showFog():void {
 			var duration:int = _voDurations[DataModel.CURRENT_ISLAND_INT]-1;
-//			TweenMax.from(_fog, 4, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 			TweenMax.from(_fog, duration, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 			_fog.visible = true;
 		}

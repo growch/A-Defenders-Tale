@@ -271,7 +271,7 @@ public class StoreKitService extends Sprite
 		// update the message on screen
 		updateInventoryMessage();		
 		
-		DataModel.getInstance().trackEvent("application", "unlocked");
+		DataModel.getInstance().trackEvent("application", "unlocked at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 		
 		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
 	}

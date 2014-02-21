@@ -41,7 +41,7 @@ package games.sunlightGame.objects
 			_direction = _direction * 2 - 1;
 //			trace("_direction: "+ _direction);
 			
-			ySpeed = DataModel.getInstance().randomRange(2,3);
+			ySpeed = DataModel.getInstance().randomRange(3,5);
 			
 			_stepX = Math.PI*(DataModel.getInstance().randomRange(.01, .02));
 			

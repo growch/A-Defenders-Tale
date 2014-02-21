@@ -56,13 +56,13 @@ package games.sunlightGame.core
 		public var gameFlipped:Boolean;
 		public var lightSource:MovieClip;
 		public var explosionHolder:MovieClip;
-		private var _speedTimer:int = 20000;
+		private var _speedTimer:int = 12000;
 		private var _glowingLight:MovieClip;
 		private var _underGlow:MovieClip;
 		private var _health:Health;
 		
 		private var _hitCount:int = 0;
-		public var allowedHits:int = 7;
+		public var allowedHits:int = 5;
 		private var _cannonSound:Track;
 		
 		public function Game()
