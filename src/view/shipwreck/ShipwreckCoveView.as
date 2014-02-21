@@ -302,7 +302,6 @@ package view.shipwreck
 			TweenMax.delayedCall(.8, birdOn, [_bird4]);
 			TweenMax.delayedCall(1.0, birdOn, [_bird5]);
 			TweenMax.delayedCall(1.2, birdOn, [_bird6]);
-				
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
@@ -373,6 +372,11 @@ package view.shipwreck
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
+				return;
+			}
+			
 			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);

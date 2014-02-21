@@ -105,7 +105,16 @@ package view
 			_error5 = null;
 			
 			_nameTF.removeEventListener(FocusEvent.FOCUS_OUT, nameFocusOut);
-//			_contactTF.removeEventListener(FocusEvent.FOCUS_IN, showEmergencyContactOverlay);
+			_nameTF.removeEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			
+			_ageTF.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_ageTF.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
+			
+			_hairTF.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_hairTF.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
+			
+			_beverageTF.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_beverageTF.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			
 			_nameTF = null;
 			_ageTF = null;
@@ -177,6 +186,7 @@ package view
 			
 			_nameTF = makeTextRemoveText(_mc.name_txt);
 			_nameTF.maxChars = 23;
+			_nameTF.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
 			_nameTF.addEventListener(FocusEvent.FOCUS_OUT, nameFocusOut);
 			
 			_nameHit = _mc.nameHit_mc;
@@ -184,6 +194,8 @@ package view
 //			
 			_hairTF = makeTextRemoveText(_mc.hairColor_txt);
 			_hairTF.maxChars = 20;
+			_hairTF.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_hairTF.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			
 			_hairHit = _mc.hairHit_mc;
 			setHitForText(_hairTF, _hairHit);
@@ -191,12 +203,16 @@ package view
 			_ageTF = makeTextRemoveText(_mc.age_txt);
 			_ageTF.restrict = "0123456789";
 			_ageTF.maxChars = 4;
+			_ageTF.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_ageTF.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			
 			_ageHit = _mc.ageHit_mc;
 			setHitForText(_ageTF, _ageHit);
 //			
 			_beverageTF = makeTextRemoveText(_mc.beverage_txt);
 			_beverageTF.maxChars = 25;
+			_beverageTF.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_beverageTF.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			
 			_beverageHit = _mc.beverageHit_mc;
 			setHitForText(_beverageTF, _beverageHit);
@@ -265,7 +281,6 @@ package view
 			theTF.requestSoftKeyboard();
 		}		
 		
-		
 		private function makeTextRemoveText(thisTF:TextField, thisType:String = TextFieldType.INPUT) : TextField {
 			var tf:TextField = new TextField();
 			tf.type = thisType; 
@@ -314,8 +329,22 @@ package view
 			thisTF.text = thisTF.text.toUpperCase();
 		}
 		
+		private function textFocusIn(event:FocusEvent) : void {
+			//cuz of AIR bug with input text shifting down on input
+			var thisTF:TextField = event.target as TextField;
+			thisTF.defaultTextFormat = _tfm;
+			thisTF.y -= 10;
+		}
+		
+		private function textFocusOut(event:FocusEvent) : void {
+			//cuz of AIR bug with input text
+			var thisTF:TextField = event.target as TextField;
+			thisTF.y += 10;
+		}
+		
 		private function nameFocusOut(event:FocusEvent) : void {
 			_nameTF.text = StringUtil.ucFirst(_nameTF.text);
+			_nameTF.y += 10;
 		}
 		
 		protected function submitClick(event:MouseEvent):void

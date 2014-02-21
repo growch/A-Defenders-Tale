@@ -53,6 +53,8 @@ package view.theCattery
 			EventController.getInstance().addEventListener(ViewEvent.ASSET_LOADED, init);
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn);
+			
+//			EventController.getInstance().addEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 		}
 		
 		public function destroy() : void {
@@ -65,6 +67,8 @@ package view.theCattery
 			_wave2 = null;
 			_wave3 = null;
 			_wave4 = null;
+			
+//			EventController.getInstance().removeEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 //			
 			
 			_pageInfo = null;
@@ -242,6 +246,11 @@ package view.theCattery
 			TweenMax.delayedCall(2.5, waveUp, [_wave4]);
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+//			if (!DataModel.unlocked) {
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
+//				return;
+//			}
 		}
 		
 		protected function enterFrameLoop(event:Event):void
@@ -264,8 +273,18 @@ package view.theCattery
 			}
 		}
 		
+//		protected function unlockPurchased(event:ViewEvent):void
+//		{
+//			DataModel.getInstance().unlockBook();
+//		}
+		
 		protected function decisionMade(event:ViewEvent):void
 		{
+			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
+				return;
+			}
+			
 			// companion take or not
 			if (event.data.decisionNumber == 0){
 				DataModel.COMPANION_TAKEN = true;

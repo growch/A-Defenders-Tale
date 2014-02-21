@@ -329,8 +329,6 @@ package view
 			
 			addChild(_screenshotBMP);
 			
-//			_sectionHolder.visible = false;
-			
 			addChild(_fog);
 		}
 		

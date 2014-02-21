@@ -64,9 +64,9 @@
 		//private var _realVolume:Number = 1;
 		private var _facadeVolume:Number = 1;
 		private var _volumeMultiplier:Number = 1;			//A number between 0 and 1 usually set by the parent AudioGroup			
+//		private var _muted:Boolean = false;	
 //		TESTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		private var _muted:Boolean = true;			
-		private var _muted:Boolean = false;			
+		private var _muted:Boolean = true;			
 		private var _realPan:Number = 0;
 		private var _facadePan:Number = 0;				
 		private var _panMultiplier:Number = 0;				//A number between -1 and 1 usually set by the parent AudioGroup			

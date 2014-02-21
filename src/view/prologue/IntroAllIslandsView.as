@@ -55,7 +55,6 @@ package view.prologue
 			
 			EventController.getInstance().addEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
-			EventController.getInstance().addEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 		}
 		
 		public function destroy() : void {
@@ -82,7 +81,6 @@ package view.prologue
 			
 			EventController.getInstance().removeEventListener(ViewEvent.PAGE_ON, pageOn); 
 			
-			EventController.getInstance().removeEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 			
 			//!IMPORTANT
 			DataModel.getInstance().removeAllChildren(_mc);
@@ -328,27 +326,8 @@ package view.prologue
 			}
 		}
 		
-		protected function unlockPurchased(event:ViewEvent):void
-		{
-			DataModel.getInstance().unlockBook();
-			
-			var tempObj:Object = new Object();
-			tempObj.id = _pageInfo.decisions[DataModel.CURRENT_ISLAND_INT].id;
-			
-			//exception if first island is SandLands
-			if (DataModel.ISLAND_SELECTED.length <= 1 && DataModel.CURRENT_ISLAND_INT == 3) {
-				tempObj.id = _pageInfo.decisions[4].id;
-			}
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, tempObj));
-		}
-		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
-				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
-				return;
-			}
-			
 			//exception if first island is SandLands
 			if (DataModel.ISLAND_SELECTED.length <= 1 && DataModel.CURRENT_ISLAND_INT == 3) {
 				event.data.id = _pageInfo.decisions[4].id;
