@@ -23,7 +23,6 @@ package view
 	{
 		private var _mc:MovieClip;
 		private var _closeBtn:MovieClip;
-		private var _facebookBtn:MovieClip;
 		private var _submitBtn:MovieClip;
 		private var _socialName:TextField;
 		private var _questionMarkTxt:TextField;

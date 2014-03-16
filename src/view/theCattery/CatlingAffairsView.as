@@ -111,9 +111,6 @@ package view.theCattery
 				compAlongIndex = 1;
 			}
 			
-//			TESTING!!!!
-//			compAlongIndex = 0;
-			
 			_pageInfo = DataModel.appData.getPageInfo("catlingAffairs");
 			_bodyParts = _pageInfo.body;
 			

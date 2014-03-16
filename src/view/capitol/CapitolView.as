@@ -148,8 +148,9 @@ package view.capitol
 			if (DataModel.STONE_PEARL && DataModel.STONE_CAT) {
 				introInt = 1;
 			}
-			var stoneCount:int = DataModel.getInstance().STONE_COUNT == 4 ? 0 : 1;
 			
+			var stoneCount:int = DataModel.getInstance().STONE_COUNT == 4 ? 0 : 1;
+						
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
 			DataModel.getInstance().setGraphicResolution(_mc.island_mc);

@@ -136,6 +136,8 @@ package view.sandlands
 				_bubblingCauldron =	_mc.cauldron_mc.incorrect_mc;
 			}
 			
+
+			
 			_bubblingCauldron.visible = true;
 			
 			// set the text
@@ -165,7 +167,7 @@ package view.sandlands
 					_nextY += _tf.height + part.top;
 					
 					if (part.id == "cauldron") {
-						_mc.cauldron_mc.y = Math.round(_tf.y + (_tf.height - _mc.cauldron_mc.height)/2);
+						_mc.cauldron_mc.y = Math.round(_tf.y + (_tf.height - _mc.cauldron_mc.height)/2) - 30;
 					}
 					
 				} else if (part.type == "image") {

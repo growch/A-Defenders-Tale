@@ -154,7 +154,7 @@ package view.sandlands
 					_nextY += _tf.height + part.top;
 					
 					if (part.id == "weapon") {
-						_mc.weapon_mc.y = _tf.y;
+						_mc.weapon_mc.y = _tf.y - 15;
 					}
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:DataModel.scaleMultiplier, scaleY:DataModel.scaleMultiplier});

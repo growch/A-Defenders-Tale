@@ -117,8 +117,6 @@ package view.capitol
 			_mc.weapon_mc.visible = false;
 			
 			var hasSandstone:int = DataModel.STONE_SAND ? 0 : 1;
-//			TESTING!!!!
-			hasSandstone = 0;
 			// 1 = false !!!
 			_deadEnd = !DataModel.STONE_SAND;
 			

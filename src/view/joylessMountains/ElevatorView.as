@@ -123,6 +123,10 @@ package view.joylessMountains
 					_tf.x = part.left; 
 					_tf.y = _nextY + part.top;
 					
+					if (part.id == "buttons") {
+						_mc.buttons_mc.y = _nextY - 30;
+					}
+					
 					_mc.addChild(_tf);
 					
 					_nextY += _tf.height + part.top;

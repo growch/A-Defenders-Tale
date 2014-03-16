@@ -1,5 +1,7 @@
 package
 {
+	import com.devilishgames.nativeextensions.Mute.Mute;
+	
 	import flash.desktop.NativeApplication;
 	import flash.desktop.SystemIdleMode;
 	import flash.display.MovieClip;
@@ -78,7 +80,8 @@ package
 			
 			//set security
 //			Security.allowDomain("*"); 
-			
+			//For AIR bug where mute button on iPad wouldn't work
+			Mute.Enable(Mute.AMBIENT_SOUND);
 		}
 		
 //		protected function onCloseCall(event:Event):void

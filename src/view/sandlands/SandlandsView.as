@@ -294,6 +294,9 @@ package view.sandlands
 			TweenMax.delayedCall(1.2, birdOn, [_bird6]);
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
+			
+			//			IMPORTANT!!!
+			DataModel.getStoreKit();
 		}
 		
 		private function birdOn(thisBird:MovieClip):void {

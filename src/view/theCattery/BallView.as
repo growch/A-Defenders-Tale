@@ -109,9 +109,6 @@ package view.theCattery
 			DataModel.thirdDoor = false;
 			DataModel.bleujeanna = false;
 			
-//			TESTING!!!
-			compAlongIndex = 0;
-			
 			_pageInfo = DataModel.appData.getPageInfo("ball");
 			_bodyParts = _pageInfo.body;
 			

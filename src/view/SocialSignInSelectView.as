@@ -42,6 +42,8 @@ package view
 			_nameTF = _mc.getChildByName("name_txt") as TextField;
 			_nameTF.maxChars = 100;
 			_nameTF.addEventListener(FocusEvent.FOCUS_OUT, capFirst); 
+			_nameTF.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+//			_nameTF.addEventListener(FocusEvent.FOCUS_OUT, nameFocusOut);
 			
 			_submitBtn = _mc.getChildByName("submit_btn") as MovieClip;
 			_submitBtn.addEventListener(MouseEvent.CLICK, submitClick);
@@ -49,8 +51,16 @@ package view
 			_nameHit = _mc.nameHit_mc;
 			setHitForText(_nameTF, _nameHit);
 			
+			//EXCEPTION CUZ ADOBE CHANGED SOMETHING AND BROKE GOVIRAL FB ON IPAD1
+			if (DataModel.ipad1) {
+				_facebookBtn.visible = false;
+				_twitterBtn.x = 160;
+			}
+			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc);
+			DataModel.getInstance().setGraphicResolution(_facebookBtn);
+			DataModel.getInstance().setGraphicResolution(_twitterBtn);
 		}
 		
 		private function setHitForText(thisTF:TextField, thisMC:MovieClip) : void {
@@ -65,6 +75,18 @@ package view
 			_mc.stage.focus = theTF;
 			theTF.requestSoftKeyboard();
 		}	
+		
+		private function textFocusIn(event:FocusEvent) : void {
+			//cuz of AIR bug with input text shifting down on input
+			var thisTF:TextField = event.target as TextField;
+			thisTF.y -= 15;
+		}
+		
+//		private function textFocusOut(event:FocusEvent) : void {
+//			//cuz of AIR bug with input text
+//			var thisTF:TextField = event.target as TextField;
+//			thisTF.y += 10;
+//		}
 		
 		protected function submitClick(event:MouseEvent):void
 		{
@@ -86,6 +108,9 @@ package view
 			var firstChar:String = str.substr(0, 1);
 			var restOfString:String = str.substr(1, str.length);
 			thisTF.text = firstChar.toUpperCase()+restOfString.toLowerCase();
+			
+			//cuz of AIR bug with input text
+			thisTF.y += 17;
 		}
 		
 		protected function facebookClick(event:MouseEvent):void
@@ -115,6 +140,7 @@ package view
 			_closeBtn.removeEventListener(MouseEvent.CLICK, closeClick);
 			_facebookBtn.removeEventListener(MouseEvent.CLICK, facebookClick);
 			_twitterBtn.removeEventListener(MouseEvent.CLICK, twitterClick);
+			_nameTF.removeEventListener(FocusEvent.FOCUS_IN, textFocusIn);
 			_nameTF.removeEventListener(FocusEvent.FOCUS_OUT, capFirst); 
 			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
 			

@@ -132,7 +132,7 @@ package view.sandlands
 					_nextY += _tf.height + part.top;
 					
 					if (part.id == "beaker") {
-						_mc.beaker_mc.y = _tf.y + 20;
+						_mc.beaker_mc.y = _tf.y;
 					}
 					
 				} else if (part.type == "image") {

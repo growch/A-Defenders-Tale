@@ -1563,7 +1563,7 @@ A white Persian cat waited on shore. She smoothed her pink taffeta pantsuit over
 			</item>
 			<item type="image" id="" width="" height="128" top="40" left="" size="" align="" leading="" file="assets/images/cattery/catRanchShore_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[the Persian said. She licked one paw and smoothed the whiskers back from her flat, round face.
+			<![CDATA[the Persian said haughtily. 
 
 “Good day, miss,” [defender] began. “I am [defender], Defender of the Realm. And I have urgent business with Sir Alfonse, Grand Catling Vizier.” [companionComing2]
 
@@ -1700,7 +1700,11 @@ The Siamese put down the file she’d been sharpening her claws with to press a 
 
 [companionComing4]
 
-As [defender] walked down the hallway, [pronoun1] passed several closed doors. A cacophony of sounds came from behind them: yowls, purrs, the hum of what [defender] assumed were electric hair trimmers, running water, even some hisses. But when [pronoun1] reached the third door, [pronoun1] stopped. Monsieur Bleujeanna would be waiting for [pronoun2] at the next door, but from behind this one [pronoun1] heard what sounded like crying. What if someone had been hurt? [defender] had sworn an oath to protect the realm. Whatever lay beyond this door was, after all, a part of the realm too. Still, just because someone was crying didn’t mean they needed or wanted [pronoun3] help. The last thing [defender] wanted to do was pry.]]></item>
+As [defender] walked down the hallway, [pronoun1] passed several closed doors. A cacophony of sounds came from behind them: yowls, purrs, the hum of what [defender] assumed were electric hair trimmers, running water, even some hisses. But when [pronoun1] reached the third door, [pronoun1] stopped. 
+
+Monsieur Bleujeanna would be waiting for [pronoun2] at the next door, but from behind this one [pronoun1] heard what sounded like crying. What if someone had been hurt? [defender] had sworn an oath to protect the realm. Whatever lay beyond this door was, after all, a part of the realm too. 
+
+Still, just because someone was crying didn’t mean they needed or wanted [pronoun3] help. The last thing [defender] wanted to do was pry.]]></item>
 		</body>
 		<decisions top="100">
 			<decision id="theCattery.FourthDoorView"><![CDATA[FIND BLEUJEANNA]]></decision>
@@ -1821,7 +1825,7 @@ The cats were mesmerized by [pronoun3] companion, and several gathered to [compa
 “You’ll do,” she decreed. “But only just. Come along.”]]> 			
 			</item>
 			<item type="text" id="leaves" width="360" height="" top="40" left="200" size="20" align="left" leading="10" file="">
-			<![CDATA[They climbed into a black limousine. [defender] admired the leafy countryside as they traveled, though as she inspected the land, she noticed something strange.]]> 	
+			<![CDATA[They climbed into a black limousine. [defender] admired the leafy countryside as they traveled, though as [pronoun1] inspected the land, [pronoun1] noticed something strange.]]> 	
 			</item>		
 			<item type="image" id="" width="" height="180" top="30" left="" size="" align="" leading="" file="assets/images/cattery/rendezvous_imageText1.png"/>
 			<item type="text" id="" width="360" height="" top="40" left="200" size="20" align="left" leading="10" file="">
@@ -2403,7 +2407,7 @@ The vizier rang his tinkling bell again. “Soon you’ll be my lunch.” He swe
 
 [companion1]
 
-“Next time I vow to take you with me,” [defender] promised. “But this island was no place for a/an [companion].” [Pronoun1] held up the cat’s eye as [companionName] gasped. “The important thing is that I have the stone, is it not?”
+“Next time I vow to take you with me,” [defender] promised. “But this island was no place for [companionArticle] [companion].” [Pronoun1] held up the cat’s eye as [companionName] gasped. “The important thing is that I have the stone, is it not?”
 
 [companion2]
 
@@ -2480,7 +2484,7 @@ The vizier pocketed the stone with an apologetic smile. “Cat’s have no honor
 			<title><![CDATA[An Introduction to The Joyless Mountains]]></title>
 		</contents>
 		<intro1>
-			<intro id="catteryVisited"><![CDATA[There could be no rest until all of the stones were collected, so it was with a heavy heart that [defender] thanked the crew for their offer of a celebration. Instead, [pronoun1] instead selected the next island. Despite some good-natured rumbling, the crew raised anchor to set sail toward the Joyless Mountains. Exhausted after [pronoun3] time with the cats, [defender] fell into a deep sleep. [Pronoun1] was awakened the next morning with a shout.
+			<intro id="catteryVisited"><![CDATA[There could be no rest until all of the stones were collected, so it was with a heavy heart that [defender] thanked the crew for their offer of a celebration. Instead, [pronoun1] selected the next island. Despite some good-natured rumbling, the crew raised anchor to set sail toward the Joyless Mountains. Exhausted after [pronoun3] time with the cats, [defender] fell into a deep sleep. [Pronoun1] was awakened the next morning with a shout.
 			
 “Land, ho!” Smeg bellowed. His shout rang out over the clear morning, skipping over the waves.]]></intro> 
 			<intro id="noCatteryNotFirst"><![CDATA[There could be no rest until all of the stones were collected, so the crew raised anchor and set sail toward the Joyless Mountains. Exhausted after so much activity, [defender] fell into a deep sleep. [Pronoun1] was awoken the next morning with a shout.
@@ -2770,7 +2774,7 @@ reveal an empty elevator bay.
 One read “Penthouse”. The 
 other read, “Lobby”.]]> 				
 			</item>
-			<item type="text" id="" width="285" height="" top="32" left="100" size="20" align="left" leading="8" file="">
+			<item type="text" id="buttons" width="285" height="" top="32" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[[defender] scratched [pronoun3] head as [pronoun1] considered [pronoun3] options. “Lobbies are usually on the first floor of a building. And penthouses are usually at the top. Since we want to get to the top of this mountain, I guess we should go to the Penthouse,” [pronoun1] concluded.
 
 [companionName] nodded [companionPronoun3] head in encouragement. [companion1]]]>
@@ -5108,11 +5112,11 @@ But [defender], rather than keeping anything up, paused to sit down on the edge 
 
 “You know, no one ever takes me seriously because I look so young. Frankly, it’s a real handicap in the wizarding business. Everyone expects you to have a long gray beard. It’s why I started telling people I was my own apprentice. It’s just easier that way.” He pulled a wand from his belt. “Somehow I thought you’d be different. I was obviously wrong.”]]></intro>
 			<intro id="waterWrong"><![CDATA[The bubbles rising from the cauldron turned a magnificent shade of pink when the sand had all been added, and the apprentice turned to [defender] with a toothy grin. “Perfect,” 
-he announced. 
+he announced. “That's exactly what I needed.” 
 
 The boy then sprinkled the water into the cauldron.]]></intro>
 			<intro><![CDATA[The bubbles rising from the cauldron turned a magnificent shade of pink when the sand had all been added, and the apprentice turned to [defender] with a toothy grin. “Perfect,” 
-he announced. 
+he announced. “That's exactly what I needed.” 
 
 The boy then sprinkled the water into the cauldron.]]></intro>
 		</intro1>
@@ -5191,7 +5195,7 @@ Maysel adjusted his wizard’s hat in concentration. “If you can find it, it�
 Maysel nodded. “Now as for the properties of the stone. It will give you the power of sand. Add it to your [weapon], and you’ll have the strength to topple buildings, walls, you name it.”]]> 				
 			</item>
 			<item type="text" id="weapon" width="300" height="" top="32" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[“A very handy stone,” [defender] said. [Pronoun1] eyed its sand-colored exterior with thought before pressing it into [pronoun3] [weapon].
+			<![CDATA[“A very handy stone,” [defender] said. [Pronoun1] eyed its sand-colored exterior with thought before pressing it into [pronoun3] [weapon]. It snapped into place with a pop.
 
 “Indeed it is,” Maysel replied. “Handy enough that you might want to put it away until you leave my island, hmm?”
 
@@ -5255,9 +5259,13 @@ When they reached the boat, the crew helped them back aboard with a roar of exci
 			<title><![CDATA[An Introduction to The Capitol]]></title>
 		</contents>	
 		<intro1>
-			<intro id="onlyCatsEye"><![CDATA[Cleapeezious set sail for the Capitol. Soon the stars and moon were blotted from the sky, and the Stormin’ Norman shrouded in darkness. Smeg lit several lamps across the deck of the ship, but they did little to repel the night. 
-
-Despite the knowledge the pearl had given [defender], and [pronoun3] newfound ability to track the Capitol, it was impossible to see anything in the darkness. The ship was soon lost. They drifted for weeks until one night (or perhaps it was day, it being difficult to judge such things when overwhelmed by endless darkness), [defender] heard an unmistakable crunch as the ship scraped something in the water. Moments later [pronoun1] felt a sickening lurch as the Stormin’ Norman tipped sideways. The crews’ panicked screams surrounded [pronoun2]. As the black seawater pulled the ship under, [pronoun1] couldn’t help but blame [pronoun2]self. Had [pronoun1] just been patient enough to collect all of the stones, this might not have happened. 
+			<intro id="onlyCatsEye"><![CDATA[Cleapeezious set sail for the Capitol. Soon the stars and moon were blotted from the sky, and the Stormin’ Norman shrouded in darkness. Smeg lit several lamps across the deck of the ship, but they did little to repel the night.
+ 
+Despite the knowledge the pearl had given [defender], and [pronoun3] newfound ability to track the Capitol, it was impossible to see anything. A growing uneasiness among the crew seemed to intensify the longer they remained in the darkness. Squabbles broke out. Smeg and the captain argued constantly about how they might find their way back to the light. [defender] did what [pronoun1] could to intervene, but [pronoun1] could do little to help the plummeting morale.
+ 
+They drifted for weeks until one night (or perhaps it was day, it being difficult to judge such things when overwhelmed by endless darkness), [defender] heard an unmistakable crunch as the ship scraped something in the water. Moments later there was a sickening lurch as the Stormin’ Norman tipped sideways. The crews’ panicked screams rose up in a single, terrified chorus.
+ 
+As the black seawater pulled the ship under, [pronoun1] couldn’t help but blame [pronoun2]self. Had [pronoun1] just been patient enough to collect all of the stones, this might never have happened. 
 ]]>
 			</intro>
 			<intro><![CDATA[Cleapeezious was true to her word. With the aid of the pearl and cat’s eye, the Stormin’ Norman charted a course to the Capitol. Despite the island’s constant movement, the captain kept the ship a steady 100 yards from its shore. 
@@ -5281,7 +5289,7 @@ But [pronoun1] couldn’t fool [pronoun3] companion. [companion1]
 			<companion>
 				<stones id="allStones"><![CDATA[“Piece a cake,” Linus said. “We’ve made it thissss far. Nero won’t stand a chance now that you have the ssssstones.” He swished his tail bravely. “Esssspecially with me along.”
 
-“Absolutely,” [defender] replied with a decisive shake of [pronoun3] head. “Nothing to worry about.” [Pronoun1] hoped that saying the words would somehow make them true. [Pronoun1] pulled out [pronoun3] [weapon], and [weapon1]]></stones>
+“Absolutely,” [defender] replied with a decisive shake of [pronoun3] head. “Nothing to worry about.” [Pronoun1] hoped that saying the words would somehow make them true. [Pronoun1] pulled out [pronoun3] [weapon], and [weapon1]]]></stones>
 				<stones id="notAllStones"><![CDATA[“You sssssure about this?” Linus asked. “I think you’ll have a better chance of defeating the prince with all of the sssssstones in your posssssession.”]]></stones>
 			</companion>
 			<companion>

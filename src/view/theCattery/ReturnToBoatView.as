@@ -152,12 +152,22 @@ package view.theCattery
 			DataModel.getInstance().setGraphicResolution(_cloud4);
 			DataModel.getInstance().setGraphicResolution(_cloud5);
 			
+			var compInt:int = DataModel.defenderInfo.companion;
+			var compArticle:String;
+			
+			if (compInt == 0) {
+				compArticle = "an";
+			} else {
+				compArticle = "a";
+			}
+			
 			// set the text
 			for each (var part:StoryPart in _bodyParts) 
 			{
 				if (part.type == "text") {
 					var copy:String = part.copyText;
 					
+					copy = StringUtil.replace(copy, "[companionArticle]", compArticle);
 					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[pearlObtained]", _pageInfo.pearlObtained[pearlObtInt]);

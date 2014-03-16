@@ -153,6 +153,7 @@ package view.theCattery
 					var copy:String = part.copyText;
 					
 					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
+					copy = StringUtil.replace(copy, "[island1]", DataModel.ISLAND_SELECTED[0]);
 					
 					// set this last cuz some of these may be in the options above
 					copy = DataModel.getInstance().replaceVariableText(copy);
@@ -251,6 +252,8 @@ package view.theCattery
 //				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
 //				return;
 //			}
+//			IMPORTANT!!!
+			DataModel.getStoreKit();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

@@ -186,6 +186,9 @@ package view.sandlands
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			_mc.ravens_mc.addEventListener(MouseEvent.CLICK, graphicClick);
+			
+			//			IMPORTANT!!!
+			DataModel.getStoreKit();
 		}
 		
 		private function graphicClick(e:MouseEvent):void {

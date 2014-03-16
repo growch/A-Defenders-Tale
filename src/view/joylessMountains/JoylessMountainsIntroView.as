@@ -320,6 +320,9 @@ package view.joylessMountains
 			
 			_emitter.start();
 			_emitter.runAhead( 10 );
+			
+			//			IMPORTANT!!!
+			DataModel.getStoreKit();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

@@ -25,7 +25,6 @@ package control
 		}
 		
 		private function init():void {
-			trace("TWITTER NIINI INIT !!!!!!");
 			if (NativeTwitter.isSupported()) {
 				_tempObj = new Object();
 				
@@ -52,7 +51,7 @@ package control
 				} else {
 					EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.TWITTER_NOT_SETUP));
 				}
-				trace("isSetup: " + NativeTwitter.instance.isTwitterSetup());
+//				trace("isSetup: " + NativeTwitter.instance.isTwitterSetup());
 //				trace("accessAllowed: "+accessAllowed);
 				
 			} else {
@@ -75,7 +74,7 @@ package control
 		
 		public function twitterAvailable():Boolean {
 			if (NativeTwitter.isSupported()) {
-				trace("TWITTER IS AVAILABLE !!!");
+//				trace("TWITTER IS AVAILABLE !!!");
 				return NativeTwitter.instance.isTwitterSetup();
 			} else {
 //				trace("NativeTwitter NOT supported");
@@ -129,16 +128,16 @@ package control
 				dataS = JSON.stringify(data);
 			
 			if (resultCode == "-1") trace("\tEnsure custom params are correctly formatted");
-			trace("TWRequest: " + resultCode + " - " + dataS);
+//			trace("TWRequest: " + resultCode + " - " + dataS);
 //			trace("data: "+data);
 			
 			var uLength:int = data.users.length;
 			_followerCount += uLength;
-			trace("USER count: "+_followerCount);
+//			trace("USER count: "+_followerCount);
 			
 			for (var i:int = 0; i < uLength; i++) 
 			{
-				trace(data.users[i].name);
+//				trace(data.users[i].name);
 				_follower = new TwitterFollowerInfo();
 				_follower.name = data.users[i].name;
 				_follower.screenName = data.users[i].screen_name;
@@ -155,7 +154,7 @@ package control
 		}
 		
 		private function userNamesGot(names:Vector.<String>):void {
-			trace("Registered Twitter names: " + names[0]);
+//			trace("Registered Twitter names: " + names[0]);
 			_tempObj.userName = names[0];
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.TWITTER_USER_LOAD, _tempObj));
 		}
@@ -176,7 +175,7 @@ package control
 		public function getFollowers():void {
 			if (!accessAllowed) return;
 			
-			trace("Twitter getFollowers");
+//			trace("Twitter getFollowers");
 			NativeTwitter.instance.getTWRequest("followers/list.json?count=200&cursor="+_nextCursor);
 //			NativeTwitter.instance.getTWRequest("followers/list.json?count=200&screen_name=jimmykimmel&cursor="+_nextCursor);
 		}
