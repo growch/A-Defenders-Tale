@@ -6,6 +6,7 @@ package view.joylessMountains
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
 	import flash.text.AntiAliasType;
 	import flash.text.TextField;
@@ -74,6 +75,11 @@ package view.joylessMountains
 			_gameWon.cta_btn.removeEventListener(MouseEvent.CLICK, wonClick);
 			_submitBtn.removeEventListener(MouseEvent.CLICK, submitClick);
 			
+			_couldText.removeEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_couldText.removeEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
+			_couldntText.removeEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_couldntText.removeEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
+			
 			_couldntText = null;
 			_couldText = null;
 			_submitBtn = null;
@@ -131,7 +137,7 @@ package view.joylessMountains
 			var tf:TextFormat = new TextFormat();
 			tf.size = 38;
 			tf.color = 0x000000;
-//			tf.align = "center";
+			tf.align = "left";
 			tf.font = new Caslon224().fontName;
 			
 //			_couldText = _mc.could_txt;
@@ -139,23 +145,27 @@ package view.joylessMountains
 			_couldText.type = TextFieldType.INPUT;
 			_couldText.antiAliasType = AntiAliasType.ADVANCED;
 			_couldText.embedFonts = true;
-			_couldText.width = 363;
+			_couldText.width = 225;
 			_couldText.x = 291;
 			_couldText.y = 171;
 			_couldText.defaultTextFormat = tf;
 			_mc.addChild(_couldText);
-			
 			
 //			_couldntText = _mc.couldnt_txt;
 			_couldntText = new TextField();
 			_couldntText.type = TextFieldType.INPUT;
 			_couldntText.antiAliasType = AntiAliasType.ADVANCED;
 			_couldntText.embedFonts = true;
-			_couldntText.width = 363;
+			_couldntText.width = 225;
 			_couldntText.x = 444;
 			_couldntText.y = 259;
 			_couldntText.defaultTextFormat = tf;
 			_mc.addChild(_couldntText);
+			
+			_couldText.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_couldText.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
+			_couldntText.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_couldntText.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			
 			_submitBtn = _mc.submit_btn;
 			
@@ -282,6 +292,18 @@ package view.joylessMountains
 			
 			_bgSound.volumeTo(1000, .5);
 			_gameSound.start(true);
+		}
+		
+		private function textFocusIn(event:FocusEvent) : void {
+			//cuz of AIR bug with input text shifting down on input
+			var thisTF:TextField = event.target as TextField;
+			thisTF.y -= 30;
+		}
+		
+		private function textFocusOut(event:FocusEvent) : void {
+			//cuz of AIR bug with input text
+			var thisTF:TextField = event.target as TextField;
+			thisTF.y += 30;
 		}
 		
 		private function startClick(e:MouseEvent):void {

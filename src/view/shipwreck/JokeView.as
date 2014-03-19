@@ -69,7 +69,9 @@ package view.shipwreck
 		public function destroy() : void {
 //			
 			_sub1Text.removeEventListener(FocusEvent.FOCUS_IN, clearText);
+			_sub1Text.removeEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			_sub2Text.removeEventListener(FocusEvent.FOCUS_IN, clearText);
+			_sub2Text.removeEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			
 			_sub1Text = null;
 			_sub2Text = null;
@@ -168,7 +170,9 @@ package view.shipwreck
 			_submit2.addChild(_sub2Text);
 			
 			_sub1Text.addEventListener(FocusEvent.FOCUS_IN, clearText);
+			_sub1Text.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			_sub2Text.addEventListener(FocusEvent.FOCUS_IN, clearText);
+			_sub2Text.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
@@ -267,7 +271,23 @@ package view.shipwreck
 		}
 		
 		private function clearText(e:FocusEvent):void {
-			e.target.text = "";
+			var thisTF:TextField = e.target as TextField;
+			thisTF.text = "";
+			//cuz of AIR bug with input text shifting down on input
+			thisTF.y -= 5;
+		}
+		
+		private function textFocusIn(event:FocusEvent) : void {
+			//cuz of AIR bug with input text shifting down on input
+			var thisTF:TextField = event.target as TextField;
+			//			thisTF.defaultTextFormat = _tfm;
+			thisTF.y -= 5;
+		}
+		
+		private function textFocusOut(event:FocusEvent) : void {
+			//cuz of AIR bug with input text
+			var thisTF:TextField = event.target as TextField;
+			thisTF.y += 5;
 		}
 		
 		private function pageOn(e:ViewEvent):void {

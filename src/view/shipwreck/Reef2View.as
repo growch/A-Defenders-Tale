@@ -6,8 +6,14 @@ package view.shipwreck
 	
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
+	import flash.text.AntiAliasType;
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
+	import flash.text.TextFormat;
+	
+	import assets.fonts.Caslon224;
 	
 	import control.EventController;
 	
@@ -61,6 +67,7 @@ package view.shipwreck
 		private var _clawAnimating:Boolean;
 		private var _bgSound:Track;
 		private var _clawDone:Boolean;
+		private var _passwordText:TextField;
 		
 		public function Reef2View()
 		{
@@ -91,6 +98,11 @@ package view.shipwreck
 			_bubbles2 = null;
 			_bubbles3 = null;
 			_bubbles4 = null;
+			
+			_passwordText.removeEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_passwordText.removeEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
+			
+			_passwordText = null;
 			
 			_lobster = null;
 			_fish2 = null;
@@ -170,6 +182,27 @@ package view.shipwreck
 			_mc.addChild(_fish2);
 			_mc.addChild(_fish3);
 			_mc.addChild(_fish4);
+			
+			var tf:TextFormat = new TextFormat();
+			tf.size = 60;
+			tf.color = 0xFFFFFFF;
+			tf.align = "center";
+			tf.font = new Caslon224().fontName;
+			
+			_passwordText = new TextField();
+			_passwordText.type = TextFieldType.INPUT;
+			_passwordText.antiAliasType = AntiAliasType.ADVANCED;
+//			_passwordText.background = true;
+			_passwordText.embedFonts = true;
+			_passwordText.width = 285;
+			_passwordText.x = 80;
+			_passwordText.y = 72;
+			_passwordText.defaultTextFormat = tf;
+			_mc.password_mc.addChild(_passwordText);
+			_mc.password_mc.removeChild(_mc.password_mc.password_txt);
+			
+			_passwordText.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			_passwordText.addEventListener(FocusEvent.FOCUS_OUT, textFocusOut);
 			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
@@ -276,6 +309,18 @@ package view.shipwreck
 			_bgSound.fadeAtEnd = true;
 		}
 		
+		private function textFocusIn(event:FocusEvent) : void {
+			//cuz of AIR bug with input text shifting down on input
+			var thisTF:TextField = event.target as TextField;
+			thisTF.y -= 30;
+		}
+		
+		private function textFocusOut(event:FocusEvent) : void {
+			//cuz of AIR bug with input text
+			var thisTF:TextField = event.target as TextField;
+			thisTF.y += 30;
+		}
+		
 		private function submitClick(e:MouseEvent):void  {
 			_dv = new Vector.<DecisionInfo>();
 			_mc.password_mc.submit_btn.removeEventListener(MouseEvent.CLICK, submitClick);
@@ -284,7 +329,7 @@ package view.shipwreck
 			var passwordCorrect:Boolean = false;
 			for (var i:int = 0; i < _passwordArray.length; i++) 
 			{
-				if (_mc.password_mc.password_txt.text == _passwordArray[i]) {
+				if (_passwordText.text == _passwordArray[i]) {
 					passwordCorrect = true;
 				}
 			}
