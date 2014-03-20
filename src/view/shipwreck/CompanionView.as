@@ -132,6 +132,13 @@ package view.shipwreck
 			_rendererDung = new DisplayObjectRenderer();
 			_dungeonFish.addChild(_rendererDung);
 			
+			var weaponIndex:int = DataModel.defenderInfo.weapon;
+			
+			_mc.weapon_mc.gotoAndStop(weaponIndex+1); // zero based
+			_mc.weapon_mc.glows_mc.gotoAndStop(weaponIndex+1); // zero based
+			_mc.weapon_mc.glows_mc.visible = false;
+			_mc.weapon_mc.shine_mc.visible = false;
+			
 			
 			//!IMPORTANT
 			DataModel.STONE_PEARL= true;
@@ -142,13 +149,6 @@ package view.shipwreck
 			if (DataModel.STONE_SAND) _mc.weapon_mc.stoneSand_mc.visible = true;
 			_mc.weapon_mc.stoneCat_mc.visible = false;
 			if (DataModel.STONE_CAT) _mc.weapon_mc.stoneCat_mc.visible = true;
-			
-			var weaponIndex:int = DataModel.defenderInfo.weapon;
-			
-			_mc.weapon_mc.gotoAndStop(weaponIndex+1); // zero based
-			_mc.weapon_mc.glows_mc.gotoAndStop(weaponIndex+1); // zero based
-			_mc.weapon_mc.glows_mc.visible = false;
-			_mc.weapon_mc.shine_mc.visible = false;
 			
 			var compInt:int = DataModel.defenderInfo.companion;
 			

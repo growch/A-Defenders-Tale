@@ -119,6 +119,15 @@ package view.joylessMountains
 			
 			_nextY = 110;
 			
+			var weaponIndex:int = DataModel.defenderInfo.weapon;
+			
+			_mc.weapon_mc.shine_mc.cacheAsBitmap = true;
+			_mc.weapon_mc.glows_mc.cacheAsBitmap = true;
+			_mc.weapon_mc.glows_mc.mask = _mc.weapon_mc.shine_mc;
+			
+			_mc.weapon_mc.gotoAndStop(weaponIndex+1); // zero based
+			_mc.weapon_mc.glows_mc.gotoAndStop(weaponIndex+1); // zero based
+			
 			//!IMPORTANT
 			DataModel.STONE_SERPENT = true;
 			
@@ -128,15 +137,6 @@ package view.joylessMountains
 			if (DataModel.STONE_SAND) _mc.weapon_mc.stoneSand_mc.visible = true;
 			_mc.weapon_mc.stoneCat_mc.visible = false;
 			if (DataModel.STONE_CAT) _mc.weapon_mc.stoneCat_mc.visible = true;
-			
-			var weaponIndex:int = DataModel.defenderInfo.weapon;
-			
-			_mc.weapon_mc.shine_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.glows_mc.cacheAsBitmap = true;
-			_mc.weapon_mc.glows_mc.mask = _mc.weapon_mc.shine_mc;
-			
-			_mc.weapon_mc.gotoAndStop(weaponIndex+1); // zero based
-			_mc.weapon_mc.glows_mc.gotoAndStop(weaponIndex+1); // zero based
 			
 			_cloud1 = _mc.clouds_mc.cloud1_mc;
 			_cloud2 = _mc.clouds_mc.cloud2_mc;
