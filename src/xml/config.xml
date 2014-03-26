@@ -50,7 +50,7 @@ But that had been months ago, before [pronoun1]’d heard of this cursed realm. 
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[One thing at a time, [pronoun1] reminded [pronoun2]self. First [pronoun1] had to find the captain of the ship. And so [pronoun1] made [pronoun3] way toward the docks, the [wardrobe2] the wind that slid down the dusty road. [Pronoun1] avoided the town’s center and hum of humanity, such that it was, intent on [pronoun3] destination. [Pronoun1]’d had few moments of peace since [pronoun1]’d begun [pronoun3] quest, and [pronoun1] couldn’t help but think back, still harboring some sense of disbelief, despite the circumstances.
 
-[Pronoun3] friend, [contact], had dared [pronoun2] to submit an application. [defender] had never been one to back down from a challenge, and [pronoun1]’d never expected to be selected—it was unheard of when you considered the number of candidates. [Pronoun1] wondered what [contact] had thought when [contactPronoun1] heard [defender] had been given the title. [defender] hadn’t been given a chance to tell [contactPronoun2], or anyone for that matter, goodbye.]]> 		
+[Pronoun3] friend, [contact], had dared [pronoun2] to submit an application. [defender] had never been one to back down from a challenge, and [pronoun1]’d never expected to be selected—it was unheard of when you considered the number of candidates. [Pronoun1] wondered what [contact] had thought when [contactPronoun1] heard [defender] had been given the title. There hadn’t been given time to tell [contactPronoun2], or anyone for that matter, goodbye.]]> 		
 			</item>
 			<item type="image" id="fireflyText" width="" height="145" top="40" left="" size="" align="" leading="" file="assets/images/prologue/prologue_imageText2.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
@@ -61,9 +61,9 @@ As [pronoun1] ghosted through the streets, [pronoun1] took in the small details 
 			<item type="text" id="lantern" width="390" height="" top="30" left="285" size="20" align="left" leading="10" file="">
 			<![CDATA[Not for the first time, [defender] wondered if [pronoun3] predecessor had simply abandoned [previousDefenderPronoun3] quest, finally giving up against Nero’s growing power. [Pronoun1] shook [pronoun3] head, dispelling the terrible thought. The previous Defender had pledged the same oath as [pronoun1]: to defend the realm at all costs. Where [pronoun3] predecessor had failed, [pronoun1] would succeed. For [defender] possessed two things that set [pronoun2] apart: [instrument1] [companion1]
 
-But in the meantime, [defender] had somewhere to be, and time was running out. [Pronoun1] quickened [pronoun3] pace, almost tripping over a man sitting on the road, just outside the range of a nearby lantern’s glow.
+But in the meantime, [pronoun1] had somewhere to be, and time was running out. [Pronoun1] quickened [pronoun3] pace, almost tripping over a man sitting on the road, just outside the range of a nearby lantern’s glow.
 			
-“Alms for the poor,” he murmured, peering up at [defender] from under a dirty cap. 
+“Alms for the poor,” he murmured, peering up from under a dirty cap.
 
 [defender] paused. [Pronoun1] had little money, and less time. The docks would be around the next bend; [pronoun1] could already hear the sound of the ocean. But [pronoun1] hated to see anyone in trouble, and the man looked frail. And hungry.]]> 		
 			</item>
@@ -86,7 +86,7 @@ But in the meantime, [defender] had somewhere to be, and time was running out. [
 		</companion1>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[[defender] flipped a coin through the air, which the old man snatched greedily. “Thank you, stranger,” he said. “I have little I can give in return other than a lifetime of knowledge. You are a not from these parts, I think?” His gaze traveled over [defender]’s [wardrobe] with interest.
+			<![CDATA[[defender] flipped a coin through the air, which the old man snatched greedily. “Thank you, stranger,” he said. “I have little I can give in return other than a lifetime of knowledge. You are a not from these parts, I think?”
 
 [defender] neither agreed, nor disagreed. [Pronoun1] simply waited, while the man cleared his throat to speak.]]> 		
 			</item>
@@ -96,7 +96,7 @@ But in the meantime, [defender] had somewhere to be, and time was running out. [
 			
 The man nodded. “The very same. There was a time when the prince was our champion, keeping us safe from harm. But Nero had an insatiable curiosity, and the more he learned, the more he wanted to know. Many of the royals dabbled in wizardry, but the prince…” The man rubbed his hands together, warming to his story. “Ahhh, the prince was a special case. Always wanting to know more. People tell many tales of why he began to eat the sunlight, but I know the truth.” The old man patted the ground beside him. “For another coin, I’ll tell you what I know.”
 
-[defender] had a destination to reach, it was true. But this was the first [pronoun1]’d heard of a kind Prince Nero. [Pronoun1]’d been given scant]]> 		
+Time was running out, it was true. But this was the first [pronoun1]’d heard of a kind Prince Nero. [Pronoun1]’d been given scant]]> 		
 			</item>
 			<item type="text" id="coinImage" width="260" height="" top="5" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[information about [pronoun3] foe, and this could be useful. If the man could be trusted. And [pronoun1] trusted no one.
@@ -154,7 +154,7 @@ The man took a long pull from the bottle. “Thank you, stranger,” he said. �
 			</item>
 			<item type="image" id="" width="" height="241" top="30" left="" size="" align="" leading="" file="assets/images/prologue/coin3_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="30" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[[defender] nodded. Everything [pronoun1]’d learned on [pronoun3] travels pointed to finding the prince near the Isles, and [pronoun1] was pleased to hear another report of it. “How did [previousDefender] track the prince?” [pronoun1] asked.
+			<![CDATA[Everything [defender] had learned on [pronoun3] travels pointed to finding the prince near the Isles, and [pronoun1] was pleased to hear another report of it. “How did [previousDefender] track the prince?” [pronoun1] asked.
 
 “[PreviousDefenderPronoun1] was the Defender,” the man replied, as if this was answer enough.
 
@@ -222,7 +222,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 
 “Aaron,” the man replied.
 
-“Aaron who?” [defender] asked.]]> 			
+“Aaron who?”]]> 			
 			</item>
 			<item type="image" id="" width="" height="114" top="40" left="" size="" align="" leading="" file="assets/images/prologue/coin5_imageText1.png"/>
 			<item type="text" id="coinImage" width="260" height="" top="40" left="100" size="20" align="left" leading="10" file="">
@@ -268,7 +268,7 @@ The man shrugged. “The Defender held [previousDefenderPronoun3] summit. The le
 		</contents>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="20" file="">
-			<![CDATA[The man’s voice grew grave as he turned to [defender] and said,]]> 			
+			<![CDATA[The man’s voice grew grave as he turned and said,]]> 			
 			</item>
 			<item type="image" id="" width="" height="63" top="35" left="" size="" align="" leading="" file="assets/images/prologue/coin7_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="35" left="100" size="20" align="left" leading="10" file="">
@@ -334,7 +334,7 @@ As the figure rose, [pronoun1] realized it was a tiny woman. She barely reached 
 		<weapon1>
 			<weapon><![CDATA[slashed [pronoun3] Marrotti Blade through the air just in case there was any confusion. ]]></weapon>
 			<weapon><![CDATA[waved [pronoun3] quill through the air just in case there was any confusion. ]]></weapon>
-			<weapon><![CDATA[opened [pronoun3] spell book, flipping to the section on Enemy Incapacitation.“Step away from the vessel or suffer my wrath,” [pronoun1] commanded.]]></weapon>
+			<weapon><![CDATA[opened [pronoun3] spell book, flipping to the section on Enemy Incapacitation. ]]></weapon>
 		</weapon1>
 		<weapon2>
 			<weapon><![CDATA[sprung toward the woman, [pronoun3] dagger glinting in the moonlight.
@@ -354,7 +354,7 @@ The captain looked just as dumbfounded as [defender] when a loud belch ripped fr
 			<weapon><![CDATA[recalled [pronoun3] swirling tornado, sketching out even more squiggling circles, until it had grown to be twice [pronoun3] size. The captain’s eyes widened as it swirled toward her.]]></weapon>
 			<weapon><![CDATA[tried another enchantment at random, this time yelling out an even more dangerous spell. “Louizien Friezien Pow! 
 
-The captain’s hair grew down to her shoulders. She shook it around her head in delight. “I’ve been trying to grow this out for the last year.” she said. “Now tell me,” she continued. “Are you quite finished?”]]></weapon>
+The captain’s hair grew down to her shoulders. She shook it around her head in delight. “Thank you. I’ve been trying to grow this out for the last year.” she said. “Would you say you’re finished now?”]]></weapon>
 		</weapon3>
 		<weapon4>
 			<weapon><![CDATA[“Not even close,” [defender] growled, intent on victory. 
@@ -453,9 +453,9 @@ Captain Cleapeezious crossed one arm in front of the other. “Perhaps you shoul
 
 [defender] rose to [pronoun3] full height, giving Captain Cleapeezious Sandowskly a menacing look. “As Defender of the Realm,” [pronoun1] announced, “I shall be commandeering your boat.” 
 
-The captain, whose tongue was no doubt silenced by [defender]’s formidable words, said nothing. 
+The captain, whose tongue was no doubt silenced by these formidable words, said nothing. 
 
-[defender] [weapon1] “Step away from the vessel or suffer my wrath,” [pronoun1] commanded.]]>
+“Step away from the vessel or suffer my wrath,” [pronoun1] commanded. [Pronoun1] [weapon1]]]>
 			</item>
 			<item type="text" id="companionImage" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[companion1]
@@ -507,11 +507,11 @@ But [defender] was not to be deterred. [Pronoun1] [weapon3]]]>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] had long ago learned that if all else failed, a well-placed (yet truthful) compliment could work wonders when beginning a negotiation. [Pronoun1] motioned toward the captain’s boat. “A fine sailing vessel,” [pronoun1] began. “The Stormin’ Norman is a lovely name. It reminds me of springtime. Showers on a sunny day. Walks in the park.”
 
-A smile stretched over the captain’s face. “Springtime and walks in the park, is it?” she repeated, laughter rippling over her thin frame. The captain looked [defender] over and seemed to reach a verdict. “I see the realm’s got itself a silver-tongued Defender.” 
+A smile stretched over the captain’s face. “Springtime and walks in the park, is it?” she repeated, laughter rippling over her thin frame. “I see the realm’s got itself a silver-tongued Defender.” 
 
-[defender] gave a rusty smile in response. As the captain’s laughter died down again, [defender] held out [pronoun3] hand. “Please call me [defender],” [pronoun1] said. “I’d like to book passage to the Barrier Isles.”
-
-The captain reached out and, pumping [defender]’s hand up and down. “[defender],” she said, drawing the word out like a song. “A nice name. Strong. A Defender’s name.” She took a step back, her eyes sweeping over [defender]’s faded [wardrobeShort] and unwashed, [hair] hair. Her gaze paused at [defender]’s battered travel pack. “But the crossing to the Barrier Isles is not one I make lightly. What leads you there?”
+[defender] gave a rusty smile in response. The first smile, [pronoun1] realized, in months. “I’m [defender],” [pronoun1] said, holding out [pronoun3] hand. “I’d like to book passage to the Barrier Isles.”
+  
+The captain reached out and pumped [pronoun3] hand up and down. “[defender],” she said, drawing the word out like a song. “A nice name. Strong. A Defender’s name.” She took a step back, her eyes sweeping over [defender]’s faded [wardrobeShort] and unwashed, [hair] hair. “The crossing to the Barrier Isles is not one I make lightly. What leads you there?”
 
 [defender] hoped [pronoun1] had made the right decision by trusting the captain. “I must speak to the leaders of the Barrier Isles,” [pronoun1] explained. “With their aid, I hope to stop Prince Nero.”
 
@@ -558,9 +558,10 @@ Without further ado, Captain Cleapeezious Sandowskly climbed the ladder along th
 		</companion1>
 		<body>
 			<item type="text" id="topSection" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[[defender] had eaten nothing but stale cheese, hard bread, pickles, and tofu since the beginning of [pronoun3] trip, and [pronoun1] couldn’t fathom another week of this as [pronoun1] crossed the sea. [Pronoun1] consulted [pronoun3] map to search for the nearest eatery.
+			<![CDATA[Since the beginning of [pronoun3] trip, [defender] had eaten nothing but stale cheese, hard bread, pickles, and tofu. [Pronoun1] couldn’t fathom another week of this while crossing the sea. [Pronoun1] consulted [pronoun3] map in search of the nearest eatery.
 
-[defender] followed the village’s cobbled streets until [pronoun1] reached Famous Rey’s Bar & Grill. [Pronoun1] paused to savor the aroma wafting from within before shoving the wooden door open to enter.]]> 			
+After navigating the village’s winding cobbled streets, [pronoun1] eventually reached Famous Rey’s Bar & Grill. [Pronoun1] paused to savor the aroma wafting from within before shoving the wooden door open to enter.
+]]> 			
 			</item>
 			<item type="text" id="" width="575" height="" top="380" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[A dozen round tables were scattered around the room, with a fire roaring in the hearth. It wasn’t busy—perhaps a dozen townspeople sat around the tables, laughing and eating. All conversation stopped as [pronoun1] entered. A red-faced man with a bulbous nose and white apron approached. 
@@ -591,7 +592,7 @@ The man scratched his thinning hair as he looked back at the other townspeople g
 
 “Last time a stranger came through here, he robbed me lanterns right off the porch,” a woman yelled. 
 
-“Tha’s right!” another woman replied. “A thief for the Light Slayer, no doubt.” The woman held her knife toward [defender]. “This one looks the same sort!” 
+“Tha’s right!” another woman replied. “A thief for the Light Slayer, no doubt.” The woman brandished her knife. “This one looks the same sort!” 
 
 [defender] raised [pronoun3] hands in a gesture of good will. “Good citizens, let me assure you that I’m no thief. I only seek to buy provisions so I may continue my travels.”]]> 			
 			</item>
