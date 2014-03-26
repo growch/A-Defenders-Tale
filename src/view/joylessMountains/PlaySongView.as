@@ -220,7 +220,8 @@ package view.joylessMountains
 			
 			_mc.instrument_mc.addEventListener(MouseEvent.CLICK, clickToShine);
 			
-			showNotes();
+//			showNotes();
+			TweenMax.delayedCall(3, showNotes);
 		}
 		
 		private function clickToShine(e:MouseEvent):void {
