@@ -127,7 +127,7 @@ package view.sandlands
 					_nextY += Math.round(_tf.height + part.top);
 					
 					if (part.id == "list") {
-//						_mc.list_mc.y = _tf.y + (_tf.height-_mc.list_mc.height)/2;
+						_mc.list_mc.y = _tf.y + (_tf.height-_mc.list_mc.height)/2;
 					}
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:DataModel.scaleMultiplier, scaleY:DataModel.scaleMultiplier});

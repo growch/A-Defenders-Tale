@@ -811,7 +811,9 @@ The orcs had arrived.]]>
 				
 				
 				
+
 				
+
 				
 				
 	
@@ -4016,16 +4018,14 @@ It veered off to one side, leaving a trail of blood as it twisted through the mu
 
 This time [pronoun1] slashed [pronoun3] dagger deeper into the shark’s snout. Blood poured forth from the wound, blooming red in the water.
 
-[defender] waited for another attack. [Pronoun3] heartbeat pounded through [pronoun3] body, pulsing through the tips of [pronoun3] fingers as [pronoun1] clutched the hilt of [pronoun3] blade. [Pronoun1] used [pronoun3] flippers to turn in slow circles, waiting. Minutes passed until [pronoun1] was sure that the shark had gone in search for easier prey.
-]]></weapon>
+[defender] waited for another attack. [Pronoun3] heartbeat pounded through [pronoun3] body, pulsing through the tips of [pronoun3] fingers as [pronoun1] clutched the hilt of [pronoun3] blade. [Pronoun1] used [pronoun3] flippers to turn in slow circles, waiting. Minutes passed until [pronoun1] was sure that the shark had gone in search for easier prey.]]></weapon>
 			<weapon><![CDATA[[Pronoun3] quill would do [pronoun2] no good underwater—there would be no drawing [pronoun3] way out of this situation. Instead, [pronoun1] balled [pronoun3] fingers into a tight fist and waited. [Pronoun1] felt a shadow block out the sun from overhead before [pronoun1] saw the shark. [Pronoun1] twisted [pronoun3] body just as the beast attacked. As the shark lunged toward [pronoun2], [pronoun1] rammed [pronoun3] fist into its snout. 
 
 It veered off to one side, and twisted back through the murky waves, once again coming for [pronoun2].
 
 This time [pronoun1] gave the shark’s snout a double punch. First a right hook, then a left.
 
-[defender]’s heart beat in [pronoun3] throat as [pronoun1] waited for another attack. [Pronoun1] looked around, using [pronoun3] flippers to turn in a circle, then another, spinning like a top for another minute before [pronoun1] stopped. The shark was gone. No doubt it had gone in search of easier prey.
-]]></weapon>
+[defender]’s heart beat in [pronoun3] throat as [pronoun1] waited for another attack. [Pronoun1] looked around, using [pronoun3] flippers to turn in a circle, then another, spinning like a top for another minute before [pronoun1] stopped. The shark was gone. No doubt it had gone in search of easier prey.]]></weapon>
 			<weapon><![CDATA[Luckily [pronoun1] had been saving a very special spell for just this sort of situation. It was a single use incantation of ancient power that created an opposite emotion. As the shark lunged toward [pronoun2], [pronoun1] yelled as loudly as [pronoun1] could, Lindania Olsenius Flim Flamingo!
 
 The shark stopped itself with a flip of its fin. Its eyes, which had been menacing and cold and hungry a moment before somehow shifted, now shining with excitement. 
@@ -4713,12 +4713,12 @@ After a week passed, [defender] and [companionName] admitted defeat. The wizard 
 			<![CDATA[The boy seemed a decent sort, and helping with the potion would keep [defender]’s mind off the coming confrontation with the wizard. Everyone knew that wizards were persnickety and prone to snap spells. Perhaps with a kind word from the apprentice, [defender] would avoid being transmuted, teleported, or worse.]]> 				
 			</item>
 			<item type="text" id="list" width="250" height="" top="32" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[The apprentice pulled out a list with a flourish. “It’s just these two,” he said, pointing to the only two ingredients that had not been crossed out. “Gannon Sand,” he said, pointing to the first, “is special wizarding sand that can be found in the sand pit behind the hut, just up the path. What’s important to remember is that the topsand isn’t good for potions. You have to dig down to no more, and no less than five feet.”]]> 				
+			<![CDATA[The apprentice pulled out a list with a flourish. “It’s just these two,” he said, pointing to the only two ingredients that had not been crossed out. “Gannon Sand,” he said, pointing to the first, “is special wizarding sand that can be found in the sand pit behind the hut, just up the path. What’s important to remember is that the topsand isn’t good for potions. You have to dig down to no more, and no less than five feet.”
+
+The apprentice handed [defender] a shovel, a tape measure, and a bucket.]]> 				
 			</item>
 			<item type="text" id="" width="575" height="" top="32" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[The apprentice handed [defender] a shovel, a tape measure, and a bucket.
-
-“Just fill the bucket to the brim,” he instructed. 
+			<![CDATA[“Just fill the bucket to the brim,” he instructed. 
 
 “Very well,” [defender] replied. “And what is Wilder Water?” 
 
@@ -4949,7 +4949,7 @@ Noah grinned, and used his tail to splash water into [defender]’s face. “Foo
 		</contents>			
 		<body>
 			<item type="text" id="statue" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[[Knowing that the wizard was just down the path changed everything. [defender] returned the beaker and eyedropper to [pronoun3] pocket. “Let’s go, [companionName],” [pronoun1] said, brushing [pronoun3] [wardrobeShort] off. “We’ve got a wizard to find.”
+			<![CDATA[Knowing that the wizard was just down the path changed everything. [defender] returned the beaker and eyedropper to [pronoun3] pocket. “Let’s go, [companionName],” [pronoun1] said, brushing [pronoun3] [wardrobeShort] off. “We’ve got a wizard to find.”
 
 [companionName] gave [pronoun2] a disapproving look, but remained silent.
 

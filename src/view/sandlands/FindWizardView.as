@@ -126,7 +126,7 @@ package view.sandlands
 					_nextY += _tf.height + part.top;
 					
 					if (part.id == "statue") {
-						_mc.statue_mc.y = _nextY;
+						_mc.statue_mc.y = _nextY + 20;
 						_mc.end_mc.y = _mc.statue_mc.y + _mc.statue_mc.height + 60;
 					}
 					

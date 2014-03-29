@@ -195,6 +195,8 @@ package view.prologue
 			// load sound
 			_belowDecksSound = new Track("assets/audio/prologue/prologue_below_deck.mp3");
 			_belowDecksSound.start(true);
+			_belowDecksSound.loop = true;
+			_belowDecksSound.fadeAtEnd = true;
 			
 			_bgSound = new Track("assets/audio/prologue/prologue_docks.mp3");
 			_bgSound.loop = true;

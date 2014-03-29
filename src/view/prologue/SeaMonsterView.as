@@ -132,7 +132,7 @@ package view.prologue
 					_nextY += _tf.height + part.top;
 					
 					if (part.id == "rightArm") {
-						_mc.armRight_mc.y = _nextY - 60;
+						_mc.armRight_mc.y = _nextY - 40;
 					}
 				} else if (part.type == "image") {
 					var loader:ImageLoader = new ImageLoader(part.file, {container:_mc, x:0, y:_nextY+part.top, scaleX:DataModel.scaleMultiplier, scaleY:DataModel.scaleMultiplier});

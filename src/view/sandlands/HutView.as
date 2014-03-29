@@ -224,6 +224,7 @@ package view.sandlands
 			_bgSound.fadeAtEnd = true;
 			
 			_secondSound = new Track("assets/audio/sandlands/sandlands_SL_15.mp3");
+			_secondSound.loop = true;
 			_secondSound.fadeAtEnd = true;
 		}
 		
