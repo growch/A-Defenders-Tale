@@ -29,6 +29,8 @@ package view
 		private var _loader:ImageLoader;
 		private var _dv:DraggableVerticalContainer;
 		private var _cPanel:ContentsPanelView
+		private var _scrollY:Number;
+		private var _buffer:Number = 25;
 		
 		public function ContentsPageView(info:PageInfo, cpv:ContentsPanelView) 
 		{
@@ -74,7 +76,9 @@ package view
 			
 			_mc.mouseChildren = false;
 //			_mc.cacheAsBitmap = true;
-			_mc.addEventListener(MouseEvent.CLICK, pageClick);
+//			_mc.addEventListener(MouseEvent.CLICK, pageClick);
+			_mc.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+			_mc.addEventListener(MouseEvent.MOUSE_UP, mouseUp);
 		}
 		
 		public function destroy():void
@@ -88,14 +92,30 @@ package view
 //			EventController.getInstance().removeEventListener(ViewEvent.DEACTIVATE_OTHER_PAGES, deactivateNonSelected);
 //			EventController.getInstance().removeEventListener(ViewEvent.DECISION_CLICK, deactivateNonSelected);
 			EventController.getInstance().removeEventListener(ViewEvent.CLOSE_NAV_DECISION_CLICK, deactivateNonSelected);
-			_mc.removeEventListener(MouseEvent.CLICK, pageClick);
+//			_mc.removeEventListener(MouseEvent.CLICK, pageClick);
+			_mc.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
+			_mc.removeEventListener(MouseEvent.MOUSE_UP, mouseUp);
+			
 			removeChild(_mc);
 			_mc = null;
 		}
 		
-		protected function pageClick(event:MouseEvent):void
+		protected function mouseDown(event:MouseEvent):void
 		{
-			trace("pageClick DataModel.GOD_MODE: "+DataModel.GOD_MODE);
+			_scrollY = _dv.scrollY;	
+		}
+		
+		protected function mouseUp(event:MouseEvent):void
+		{
+			if(Math.abs(_dv.scrollY - _scrollY) < _buffer) {
+				pageClick();	
+			}
+			
+		}
+		
+		protected function pageClick():void
+		{
+//			trace("pageClick DataModel.GOD_MODE: "+DataModel.GOD_MODE);
 			if (_active && !DataModel.GOD_MODE) {
 				
 				return;

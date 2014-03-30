@@ -253,7 +253,10 @@ package view.theCattery
 //				return;
 //			}
 //			IMPORTANT!!!
-			DataModel.getStoreKit();
+			if (!DataModel.unlocked) {
+				DataModel.getStoreKit();	
+			}
+			
 		}
 		
 		protected function enterFrameLoop(event:Event):void

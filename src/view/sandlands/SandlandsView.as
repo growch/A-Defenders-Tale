@@ -296,7 +296,9 @@ package view.sandlands
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			//			IMPORTANT!!!
-			DataModel.getStoreKit();
+			if (!DataModel.unlocked) {
+				DataModel.getStoreKit();	
+			}
 		}
 		
 		private function birdOn(thisBird:MovieClip):void {

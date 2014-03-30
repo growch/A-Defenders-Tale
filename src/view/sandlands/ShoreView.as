@@ -188,7 +188,9 @@ package view.sandlands
 			_mc.ravens_mc.addEventListener(MouseEvent.CLICK, graphicClick);
 			
 			//			IMPORTANT!!!
-			DataModel.getStoreKit();
+			if (!DataModel.unlocked) {
+				DataModel.getStoreKit();	
+			}
 		}
 		
 		private function graphicClick(e:MouseEvent):void {

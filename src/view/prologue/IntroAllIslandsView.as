@@ -293,7 +293,6 @@ package view.prologue
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
-//			DataModel.getStoreKit();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

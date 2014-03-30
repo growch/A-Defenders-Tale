@@ -306,7 +306,9 @@ package view.shipwreck
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 //			IMPORTANT!!!
-			DataModel.getStoreKit();
+			if (!DataModel.unlocked) {
+				DataModel.getStoreKit();	
+			}
 			
 			_wreckMast.angle = 0;
 			_wreckShip.angle = 0;

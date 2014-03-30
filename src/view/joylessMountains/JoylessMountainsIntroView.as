@@ -288,6 +288,11 @@ package view.joylessMountains
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
+			//			IMPORTANT!!!
+			if (!DataModel.unlocked) {
+				DataModel.getStoreKit();	
+			}
+			
 			//!IMPORTANT otherwise chugs on iPad1
 			if (DataModel.ipad1) { 
 				_mc.snow_mc.visible = true;
@@ -321,8 +326,6 @@ package view.joylessMountains
 			_emitter.start();
 			_emitter.runAhead( 10 );
 			
-			//			IMPORTANT!!!
-			DataModel.getStoreKit();
 		}
 		
 		protected function enterFrameLoop(event:Event):void

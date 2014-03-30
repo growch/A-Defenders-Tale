@@ -36,7 +36,7 @@ public class StoreKitService extends Sprite
 	//
 		
 	/** Product IDs, must match iTunes Connect Items */
-	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockBook";
+	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockCompleteBook";
 	
 	public var supported:Boolean = false;
 
@@ -66,6 +66,8 @@ public class StoreKitService extends Sprite
 //		createUI();
 //		hideUI();
 		
+		log("initializing StoreKit..");	
+		
 		if (!StoreKit.isSupported())
 		{
 			log("Store Kit iOS purchases is not supported on this platform.");
@@ -73,8 +75,6 @@ public class StoreKitService extends Sprite
 		} else {
 			supported = true;
 		}
-
-		log("initializing StoreKit..");	
 
 		StoreKit.create();
 

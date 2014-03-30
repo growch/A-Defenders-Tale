@@ -69,14 +69,14 @@ package view
 		{
 			if (!DataModel.getInstance().networkConnection()) return;
 			
-			if (!DataModel.storeKitService.supported) {
+			if (!DataModel.getStoreKit().supported) {
 //				lil' hacky so as to not get stuck behind paywall on desktop
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
 				return;
 			}
 //			_mc.unlock_btn.removeEventListener(MouseEvent.CLICK, unlockClick);
 			DataModel.getInstance().buttonTap();
-			DataModel.storeKitService.purchaseUnlock();
+			DataModel.getStoreKit().purchaseUnlock();
 		}
 		
 		public function destroy():void {
