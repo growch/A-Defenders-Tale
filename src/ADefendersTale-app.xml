@@ -291,6 +291,7 @@
             	<false/>	
 			]]>
 		</InfoAdditions>
+		<requestedDisplayResolution>high</requestedDisplayResolution>
     </iPhone>
     
     <extensions>
