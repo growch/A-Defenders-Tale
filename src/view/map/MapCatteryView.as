@@ -47,6 +47,7 @@ package view.map
 		}
 		
 		public function destroy():void {
+			_ripples.stop();
 			_stone = null;
 			_ripples = null;
 			_mc = null;

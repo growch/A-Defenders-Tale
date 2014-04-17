@@ -69,6 +69,10 @@ package view
 		{
 			if (!DataModel.getInstance().networkConnection()) return;
 			
+//			TESTING!!!! so JOY can test without paying
+//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
+//			return;
+			
 			if (!DataModel.getStoreKit().supported) {
 //				lil' hacky so as to not get stuck behind paywall on desktop
 				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));

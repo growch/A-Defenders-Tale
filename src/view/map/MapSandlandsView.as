@@ -97,6 +97,10 @@ package view.map
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
 			
+			_bird1.on = _bird2.on = _bird3.on = _bird4.on = null;
+			_bird1.angle = _bird2.angle = _bird3.angle = _bird4.angle = null;
+			_bird1.initY = _bird2.initY = _bird3.initY = _bird4.initY = null;
+			
 			_bird1 = null;
 			_bird2 = null;
 			_bird3 = null;

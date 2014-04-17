@@ -57,6 +57,13 @@ package view
 		}
 		
 		public function destroy() : void {
+			_pageInfo = null;
+			
+			_bgSound = null;
+			
+			_voArray = null;
+			_voDurations = null;
+			
 			if (_VOSound) {
 				_VOSound.removeEventListener(Event.COMPLETE, voSoundComplete);
 				_VOSound = null;
@@ -72,7 +79,7 @@ package view
 				_screenshotBMP = null;
 			}
 			
-			
+			_tempObj.id = null;
 			_tempObj = null;
 			
 			if (_mc.contains(_fog)) {
@@ -90,6 +97,7 @@ package view
 			_sandlandsBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_joylessBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			_shipwreckBtn.removeEventListener(MouseEvent.CLICK, islandClick);
+			
 			if (_capitolBtn) {
 				_capitolBtn.removeEventListener(MouseEvent.CLICK, islandClick);
 			}
@@ -122,6 +130,8 @@ package view
 			_SAL = null;
 			removeChild(_mc);
 			_mc = null;
+			
+//			trace("MAP destroy");
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -143,19 +153,15 @@ package view
 			_fog.visible = false;
 			
 			_catteryBtn = _mc.cattery_btn;
-			_catteryBtn.mouseChildren = false;
 			_catteryBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			
 			_sandlandsBtn = _mc.sandlands_btn;
-			_sandlandsBtn.mouseChildren = false;
 			_sandlandsBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			
 			_joylessBtn = _mc.joyless_btn;
-			_joylessBtn.mouseChildren = false;
 			_joylessBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			
 			_shipwreckBtn = _mc.shipwreck_btn;
-			_shipwreckBtn.mouseChildren = false;
 			_shipwreckBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			
 			_capitol = new MapCapitolView(_mc.capitol_mc);
@@ -181,14 +187,11 @@ package view
 				_shipwreckBtn.locked = true;
 			}
 			
-			
 			if (DataModel.getInstance().STONE_COUNT >= 4) {
 				_capitol.showCapitol();
 				_capitolBtn = _mc.capitol_btn;
-				_capitolBtn.mouseChildren = false;
 				_capitolBtn.addEventListener(MouseEvent.CLICK, islandClick);
 			} 
-			
 			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_mc.bg_mc);
@@ -307,6 +310,7 @@ package view
 				_tempObj.id = "prologue.CrossSeaView";
 			} 
 			
+//			TESTING!!!
 			_VOSound = new Track(_voArray[DataModel.CURRENT_ISLAND_INT]);
 			_VOSound.addEventListener(Event.SOUND_COMPLETE, voSoundComplete);
 			
@@ -317,7 +321,8 @@ package view
 			TweenMax.to(_screenshotBMP, 3, {alpha:.5});
 			
 			DataModel.ISLAND_SELECTED.push(DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
-//			showFog();
+//			TESTING!!!
+//			nextPage();
 		}
 		
 		private function takeScreenshot():void {
@@ -329,6 +334,7 @@ package view
 			
 			addChild(_screenshotBMP);
 			
+			//put fog back on top
 			addChild(_fog);
 		}
 		
@@ -345,7 +351,6 @@ package view
 		}
 		
 		private function nextPage():void {
-			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.MAP_SELECT_ISLAND));
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, _tempObj));
 		}
 		

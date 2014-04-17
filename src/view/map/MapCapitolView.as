@@ -20,9 +20,6 @@ package view.map
 		public function MapCapitolView(mc:MovieClip)
 		{
 			_mc = mc;
-			_darkness = _mc.darkness_mc;
-			_darkness.stop();
-//			_darkness.visible = false;
 			
 			init();
 			
@@ -36,14 +33,13 @@ package view.map
 			if (!DataModel.ipad1) {
 				_darkness.play();
 			}
-//			_darkness.visible = true;
 		}
 		
 		private function init():void
 		{
-			
+			_darkness = _mc.darkness_mc;
+			_darkness.stop();
 		}
-		
 		
 		public function destroy():void {
 			

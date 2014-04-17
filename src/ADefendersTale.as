@@ -60,7 +60,7 @@ package
 				DataModel.highRes = true;
 				DataModel.scaleMultiplier = .5;
 			}
-			
+
 			// This will keep the device from "sleeping"
 			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE; 
 			

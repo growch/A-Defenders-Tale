@@ -94,24 +94,16 @@ package view
 			if (h < DataModel.APP_HEIGHT) h = DataModel.APP_HEIGHT;
 //			trace("sizeFrame h:"+h);
 			
-			//cuz had to clip certain bg height
-//			if (!this.parent.getChildByName("bg_mc").scrollRect) {
-//				if (h < this.parent.getChildByName("bg_mc").height) h = this.parent.getChildByName("bg_mc").height;
-////				trace("frame not tall enough");
-//			} else {
-////				trace("frame not tall enough SCROLLRECT");
-//				if (h < this.parent.getChildByName("bg_mc").scrollRect.height) h = this.parent.getChildByName("bg_mc").scrollRect.height;
-//			}
-//			trace("sizeFrame h:"+h);
-			
 			_middleTargetH = h - (_top.height + _bottom.height) - _mid.height;
 			_nextY = _mid.y + _mid.height;
 			
-			if(_middleTargetH<2) {
-				makeBitmap(_mc.height);
-//				trace("not big enough middle frame");
-				return;
-			}
+			/*
+				DON'T RECALL WHY BUT FOR SOME REASON HAD TO MAKE: 
+				_mid MC GRAPHIC HEIGHT 538 
+				_short MC GRAPHIC HEIGHT 103
+				MANUALLY OTHERWISE EXTRA PIXEL OF SPACE WAS SHOWING UP BETWEEN FRAME SECTIONS
+				!!! ADJUSTEDS BOTH GRAPHICS !!! - OTHERWISE CAUSED BUG
+			*/
 			
 			//random order
 			var remainder:Number = _middleTargetH;
@@ -143,7 +135,7 @@ package view
 				remainder -= _mini.height;
 			}
 			
-			DataModel.getInstance().ShuffleArray(_spacerArray);
+//			DataModel.getInstance().ShuffleArray(_spacerArray);
 			
 			var duplicate:*;
 			
@@ -165,9 +157,6 @@ package view
 			}
 			
 			_bottom.y = _nextY;
-			
-//			trace("_mc.height: "+_mc.height);
-//			makeBitmap(_mc.height);
 			
 //			this was causing some frame pieces to not render on device?
 			

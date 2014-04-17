@@ -88,8 +88,15 @@ package view.map
 				removeEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			}
 			
-			_stone = null;
+			_shark1.initX = _shark2.initX = null;
 			
+			_shark1.range = _shark2.range = null;
+			
+			_shark1.goLeft = null;
+			_shark1.orientRight = null; 
+			_shark2.goLeft = null;
+			
+			_stone = null;
 			_shark1 = null;
 			_shark2 = null;
 			_mc = null;
