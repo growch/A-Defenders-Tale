@@ -39,9 +39,6 @@ package control
 				NativeTwitter.instance.nonexistentAccount = nonexistentAccount;
 				NativeTwitter.instance.tweetComposed = tweetComposed;
 				
-//				TESTING!!!!
-				NativeTwitter.instance.homeTimelineRequested = homeTimelineGot;
-				
 				if (NativeTwitter.instance.isTwitterSetup()) {
 //					getUserName();
 //					getFollowers();

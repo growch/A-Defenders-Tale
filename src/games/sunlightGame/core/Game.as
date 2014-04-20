@@ -238,9 +238,6 @@ package games.sunlightGame.core
 			
 			TweenMax.allTo([_glowingLight, _underGlow], 1.5, {alpha:1, yoyo:true, repeat:-1, delay:1}); 
 			
-			
-//			TESTING!!!!
-//			setTimeout(gameOver, 1000, ["LOSER"]);
 		}
 		
 		private function heroOn():void  {

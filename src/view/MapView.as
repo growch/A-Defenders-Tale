@@ -310,7 +310,6 @@ package view
 				_tempObj.id = "prologue.CrossSeaView";
 			} 
 			
-//			TESTING!!!
 			_VOSound = new Track(_voArray[DataModel.CURRENT_ISLAND_INT]);
 			_VOSound.addEventListener(Event.SOUND_COMPLETE, voSoundComplete);
 			
@@ -321,8 +320,6 @@ package view
 			TweenMax.to(_screenshotBMP, 3, {alpha:.5});
 			
 			DataModel.ISLAND_SELECTED.push(DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
-//			TESTING!!!
-//			nextPage();
 		}
 		
 		private function takeScreenshot():void {
