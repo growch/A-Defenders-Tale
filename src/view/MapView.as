@@ -40,10 +40,6 @@ package view
 		private var _cattery:MapCatteryView;
 		private var _pageInfo:PageInfo;
 		private var _bgSound:Track;
-		private var _VOSound:Track;
-		private var _voArray:Array = ["assets/audio/cattery/cattery_VO.mp3", "assets/audio/joyless/joyless_VO.mp3", 
-			"assets/audio/shipwreck/shipwreck_VO.mp3", "assets/audio/sandlands/sandlands_VO.mp3", "assets/audio/capitol/capitol_VO.mp3"];
-		private var _voDurations:Array = [10, 8, 8, 8, 7];
 		private var _tempObj:Object;
 		private var _islandClicked:Boolean;
 		private var _fog:MovieClip;
@@ -60,14 +56,6 @@ package view
 			_pageInfo = null;
 			
 			_bgSound = null;
-			
-			_voArray = null;
-			_voDurations = null;
-			
-			if (_VOSound) {
-				_VOSound.removeEventListener(Event.COMPLETE, voSoundComplete);
-				_VOSound = null;
-			}
 			
 			if (_screenshotBMD) {
 				_screenshotBMD.dispose();
@@ -131,7 +119,7 @@ package view
 			removeChild(_mc);
 			_mc = null;
 			
-//			trace("MAP destroy");
+			trace("MAP destroy");
 		}
 		
 		protected function mcAdded(event:Event):void
@@ -223,9 +211,6 @@ package view
 			DataModel.getInstance().setGraphicResolution(_mc.shipwreck_mc.shark2_mc);
 			addChild(_mc);
 			
-//			_pageInfo = DataModel.appData.getPageInfo("map");
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.ADD_CONTENTS_PAGE, _pageInfo));
-			
 			_bgSound = new Track("assets/audio/global/Ocean.mp3");
 			_bgSound.start(true);
 			_bgSound.loop = true;
@@ -296,6 +281,7 @@ package view
 					_tempObj.id = "capitol.CapitolView";
 					break;
 				}
+					
 //				default:
 //				{
 //					break;
@@ -310,14 +296,7 @@ package view
 				_tempObj.id = "prologue.CrossSeaView";
 			} 
 			
-			_VOSound = new Track(_voArray[DataModel.CURRENT_ISLAND_INT]);
-			_VOSound.addEventListener(Event.SOUND_COMPLETE, voSoundComplete);
-			
-			_bgSound.volumeTo(1000, .5);
-			_VOSound.start();
-			
-			TweenMax.delayedCall(1, showFog);
-			TweenMax.to(_screenshotBMP, 3, {alpha:.5});
+			showFog();
 			
 			DataModel.ISLAND_SELECTED.push(DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 		}
@@ -337,17 +316,14 @@ package view
 		
 		
 		private function showFog():void {
-			var duration:int = _voDurations[DataModel.CURRENT_ISLAND_INT]-1;
-			TweenMax.from(_fog, duration, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
+			TweenMax.from(_fog, 3, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
 			_fog.visible = true;
+			TweenMax.delayedCall(2.7, nextPage);
 		}
 		
-		protected function voSoundComplete(event:Event):void
-		{
-			nextPage();
-		}
 		
 		private function nextPage():void {
+			trace("nextPage");
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.DECISION_CLICK, _tempObj));
 		}
 		
@@ -355,6 +331,7 @@ package view
 		{
 			TweenMax.killAll();
 			_mc.stopAllMovieClips();
+			trace("decisionMade");
 			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_PAGE, event.data));
 		}
 		
