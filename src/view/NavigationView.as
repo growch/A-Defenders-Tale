@@ -72,6 +72,9 @@ package view
 			}
 			
 			buttonOnOffOthers(_contents);
+			
+//			IMPORTANT OTHERWISE BUG WITH SCREENSHOT
+			_navOpen = true;
 		}
 		
 		protected function closeNavDecisionClick(event:ViewEvent):void

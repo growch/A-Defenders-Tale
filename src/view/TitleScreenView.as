@@ -97,10 +97,11 @@ package view
 			_continueBtn = _helpWanted.cta_btn;
 			_continueBtn.addEventListener(MouseEvent.CLICK, continueClick);
 			
-			_helpWanted.mask_mc.cacheAsBitmap = true;
-			_helpWanted.description_mc.cacheAsBitmap = true;
-			_helpWanted.description_mc.mask = _helpWanted.mask_mc;
-			_helpWanted.mask_mc.alpha = 1;
+//			_helpWanted.mask_mc.cacheAsBitmap = true;
+//			_helpWanted.description_mc.cacheAsBitmap = true;
+//			_helpWanted.description_mc.mask = _helpWanted.mask_mc;
+//			_helpWanted.mask_mc.alpha = 1;
+			_helpWanted.mask_mc.visible = false;
 			_helpWanted.description_mc.visible = false;
 			
 			//GRAPHICS
@@ -220,13 +221,15 @@ package view
 		}
 		
 		private function animateLines():void {
-			var offX:int = _helpWanted.mask_mc.line1_mc.x - _helpWanted.mask_mc.line1_mc.width;
+//			var offX:int = _helpWanted.mask_mc.line1_mc.x - _helpWanted.mask_mc.line1_mc.width;
+//			
+//			TweenMax.from(_helpWanted.mask_mc.line1_mc, 2.2, {x:offX, delay:1});
+//			TweenMax.from(_helpWanted.mask_mc.line2_mc, 2.5, {x:offX, delay:4.0});
+//			TweenMax.from(_helpWanted.mask_mc.line3_mc, 3.6, {x:offX, delay:6.4});
+//			TweenMax.from(_helpWanted.mask_mc.line4_mc, 3.5, {x:offX, delay:8.5});
+//			TweenMax.from(_helpWanted.mask_mc.line5_mc, 3.6, {x:offX, delay:11.2});
 			
-			TweenMax.from(_helpWanted.mask_mc.line1_mc, 2.2, {x:offX, delay:1});
-			TweenMax.from(_helpWanted.mask_mc.line2_mc, 2.5, {x:offX, delay:4.0});
-			TweenMax.from(_helpWanted.mask_mc.line3_mc, 3.6, {x:offX, delay:6.4});
-			TweenMax.from(_helpWanted.mask_mc.line4_mc, 3.5, {x:offX, delay:8.5});
-			TweenMax.from(_helpWanted.mask_mc.line5_mc, 3.6, {x:offX, delay:11.2});
+			TweenMax.from(_helpWanted.description_mc, 3.2, {alpha:0, delay:1});
 			
 			_helpWanted.description_mc.visible = true;
 			

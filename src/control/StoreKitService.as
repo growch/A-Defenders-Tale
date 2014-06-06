@@ -115,8 +115,6 @@ public class StoreKitService extends Sprite
 		
 		// the list of ids is passed in as an as3 vector (typed Array.)
 		var productIdList:Vector.<String>=new Vector.<String>();
-//		productIdList.push(LEVELPACK_PRODUCT_ID);
-//		productIdList.push(SPELL_PRODUCT_ID);
 		productIdList.push(UNLOCK_ID);
 
 		
@@ -144,32 +142,6 @@ public class StoreKitService extends Sprite
 		updateInventoryMessage();
 		
 	}
-	
-//	/** Example of how to purchase a product */
-//	public function purchaseSpell():void
-//	{
-//		// for this to work, you must have added the value of SPELL_PRODUCT_ID in the iTunes Connect website
-//		log("start purchase of consumable  '"+SPELL_PRODUCT_ID+"'...");
-//		// the second parameter is quantity.  its possible to purchase more than 1 if you want.
-//		StoreKit.storeKit.purchaseProduct(SPELL_PRODUCT_ID,1);
-//	}
-//	
-//	/** Example of how to purchase a product */
-//	public function purchaseLevelPack():void
-//	{
-//		// for this to work, you must have added the value of LEVELPACK_PRODUCT_ID in the iTunes Connect website
-//		log("start purchase of non-consumable '"+LEVELPACK_PRODUCT_ID+"'...");
-//		
-//		// we won't let you purchase it if its already in your inventory!
-//		var inventory:Object=sharedObject.data["inventory"];
-//		if (inventory[LEVELPACK_PRODUCT_ID]!=null)
-//		{
-//			log("You already have a level pack!");
-//			return;
-//		}
-//		
-//		StoreKit.storeKit.purchaseProduct(LEVELPACK_PRODUCT_ID);
-//	}
 	
 	public function purchaseUnlock():void
 	{
@@ -271,21 +243,29 @@ public class StoreKitService extends Sprite
 		// update the message on screen
 		updateInventoryMessage();		
 		
-		DataModel.getInstance().trackEvent("application", "unlocked at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
-		
 		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
+		
+		DataModel.getInstance().trackEvent("application", "unlocked at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 	}
 	
 	/** A purchase has failed */
 	private function onPurchaseFailed(e:StoreKitErrorEvent):void
 	{
 		log("FAILED purchase="+e.productId+",t="+e.transactionId+",o="+e.originalTransactionId);
+		
+		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_NOT));
+		
+		DataModel.getInstance().trackEvent("application", "unlock FAILED! at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 	}
 		
 	/** A purchase was cancelled */
 	private function onPurchaseUserCancelled(e:StoreKitEvent):void
 	{
 		log("CANCELLED purchase="+e.productId+","+e.transactionId);
+		
+		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_NOT));
+		
+		DataModel.getInstance().trackEvent("application", "unlock CANCELLED! at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 	}
 	
 	/** All transactions have been restored */
@@ -293,12 +273,20 @@ public class StoreKitService extends Sprite
 	{
 		log("All previous transactions restored!");
 		updateInventoryMessage();
+		
+		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
+		
+		DataModel.getInstance().trackEvent("application", "restored at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 	}
 	
 	/** Transaction restore has failed */
 	private function onTransactionRestoreFailed(e:StoreKitErrorEvent):void
 	{
 		log("an error occurred in restore purchases:"+e.text);		
+		
+		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_NOT));
+		
+		DataModel.getInstance().trackEvent("application", "restore FAILED! at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
 	}
 	
 	// Product view events
