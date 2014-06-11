@@ -215,6 +215,11 @@ package view
 			_bgSound.start(true);
 			_bgSound.loop = true;
 			_bgSound.fadeAtEnd = true;
+			
+//			IMPORTANT!!!
+			if (!DataModel.unlocked) {
+				DataModel.getStoreKit();	
+			}
 		}
 		
 		protected function closeNewPathOverlay(event:ViewEvent):void
@@ -290,15 +295,23 @@ package view
 			
 			_islandClicked = true;
 			
+			//PAYGATE!
+			if (!DataModel.unlocked) {
+				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
+				return;
+			}
+			
 			takeScreenshot();
 			
 			if (DataModel.ISLAND_SELECTED.length < 1) {
 				_tempObj.id = "prologue.CrossSeaView";
 			} 
 			
-			showFog();
+//			showFog();
 			
 			DataModel.ISLAND_SELECTED.push(DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
+			
+			nextPage();
 		}
 		
 		private function takeScreenshot():void {
@@ -315,11 +328,11 @@ package view
 		}
 		
 		
-		private function showFog():void {
-			TweenMax.from(_fog, 3, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
-			_fog.visible = true;
-			TweenMax.delayedCall(2.7, nextPage);
-		}
+//		private function showFog():void {
+//			TweenMax.from(_fog, 3, {alpha:0, y:"+1200", scaleX:4, scaleY:4});
+//			_fog.visible = true;
+//			TweenMax.delayedCall(2.7, nextPage);
+//		}
 		
 		
 		private function nextPage():void {

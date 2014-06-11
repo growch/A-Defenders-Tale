@@ -296,9 +296,9 @@ package view.sandlands
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			//			IMPORTANT!!!
-			if (!DataModel.unlocked) {
-				DataModel.getStoreKit();	
-			}
+//			if (!DataModel.unlocked) {
+//				DataModel.getStoreKit();	
+//			}
 		}
 		
 		private function birdOn(thisBird:MovieClip):void {
@@ -346,10 +346,10 @@ package view.sandlands
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
-				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
-				return;
-			}
+//			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
+//				return;
+//			}
 			
 			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {

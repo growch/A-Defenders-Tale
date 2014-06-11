@@ -306,9 +306,9 @@ package view.shipwreck
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 //			IMPORTANT!!!
-			if (!DataModel.unlocked) {
-				DataModel.getStoreKit();	
-			}
+//			if (!DataModel.unlocked) {
+//				DataModel.getStoreKit();	
+//			}
 			
 			_wreckMast.angle = 0;
 			_wreckShip.angle = 0;
@@ -377,10 +377,10 @@ package view.shipwreck
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
-				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
-				return;
-			}
+//			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
+//				return;
+//			}
 			
 			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {

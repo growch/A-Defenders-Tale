@@ -289,9 +289,9 @@ package view.joylessMountains
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
 			//			IMPORTANT!!!
-			if (!DataModel.unlocked) {
-				DataModel.getStoreKit();	
-			}
+//			if (!DataModel.unlocked) {
+//				DataModel.getStoreKit();	
+//			}
 			
 			//!IMPORTANT otherwise chugs on iPad1
 			if (DataModel.ipad1) { 
@@ -362,10 +362,10 @@ package view.joylessMountains
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
-				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
-				return;
-			}
+//			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
+//				return;
+//			}
 			
 			_dragVCont.stopTween();
 			if (hasEventListener(Event.ENTER_FRAME)) {

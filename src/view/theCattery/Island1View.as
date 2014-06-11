@@ -248,14 +248,10 @@ package view.theCattery
 			
 			addEventListener(Event.ENTER_FRAME, enterFrameLoop);
 			
-//			if (!DataModel.unlocked) {
-//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
-//				return;
-//			}
 //			IMPORTANT!!!
-			if (!DataModel.unlocked) {
-				DataModel.getStoreKit();	
-			}
+//			if (!DataModel.unlocked) {
+//				DataModel.getStoreKit();	
+//			}
 			
 		}
 		
@@ -286,10 +282,10 @@ package view.theCattery
 		
 		protected function decisionMade(event:ViewEvent):void
 		{
-			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
-				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
-				return;
-			}
+//			if (!DataModel.unlocked && event.data.id != "TitleScreenView" && !event.data.contentsPanelClick) {
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.SHOW_UNLOCK));
+//				return;
+//			}
 			
 			// companion take or not
 			if (event.data.decisionNumber == 0){
