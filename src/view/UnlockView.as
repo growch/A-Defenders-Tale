@@ -38,8 +38,8 @@ package view
 			_unlockNotMC.retry_btn.addEventListener(MouseEvent.CLICK, retryClick);
 			_unlockNotMC.cover_btn.addEventListener(MouseEvent.CLICK, coverClick);
 			
-			_unlockMC.text_txt.text = "You’ve survived the Stormy Sea and reached "+ DataModel.ISLAND_SELECTED[0] + 
-				". " + DataModel.defenderInfo.defender +	", will you continue your quest and save the realm from the evil Prince Nero?\n\n" +
+			_unlockMC.text_txt.text = "Will you continue your quest and defeat the evil Pince Nero? " + 
+				DataModel.defenderInfo.defender +	", you're this realm's only hope.\n\n" +
 				"Unlock the full book. For a limited time, only $1.99 USD."
 			
 			//GRAPHICS
@@ -50,6 +50,9 @@ package view
 			
 			EventController.getInstance().addEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 			EventController.getInstance().addEventListener(ViewEvent.UNLOCK_NOT, unlockNot);
+			
+			DataModel.getInstance().trackEvent("application", "show UNLOCK at: "+ DataModel.CURRENT_PAGE_ID);
+//			trace( "show UNLOCK at: "+ DataModel.CURRENT_PAGE_ID);
 		}
 		
 		protected function unlockNot(event:ViewEvent):void

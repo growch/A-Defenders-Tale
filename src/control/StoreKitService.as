@@ -36,7 +36,9 @@ public class StoreKitService extends Sprite
 	//
 		
 	/** Product IDs, must match iTunes Connect Items */
-	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockCompleteBook";
+//	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockCompleteBook";
+//	DISCOUNTED PRICE $1.99
+	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockCompleteBookLimitedTimeOffer";
 	
 	public var supported:Boolean = false;
 
@@ -245,7 +247,7 @@ public class StoreKitService extends Sprite
 		
 		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
 		
-		DataModel.getInstance().trackEvent("application", "unlocked at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
+		DataModel.getInstance().trackEvent("application", "unlocked at: "+ DataModel.CURRENT_PAGE_ID);
 	}
 	
 	/** A purchase has failed */
@@ -255,7 +257,7 @@ public class StoreKitService extends Sprite
 		
 		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_NOT));
 		
-		DataModel.getInstance().trackEvent("application", "unlock FAILED! at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
+		DataModel.getInstance().trackEvent("application", "unlock FAILED! at: "+ DataModel.CURRENT_PAGE_ID);
 	}
 		
 	/** A purchase was cancelled */
@@ -263,9 +265,9 @@ public class StoreKitService extends Sprite
 	{
 		log("CANCELLED purchase="+e.productId+","+e.transactionId);
 		
-		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_NOT));
+//		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_NOT));
 		
-		DataModel.getInstance().trackEvent("application", "unlock CANCELLED! at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
+		DataModel.getInstance().trackEvent("application", "unlock CANCELLED! at: "+ DataModel.CURRENT_PAGE_ID);
 	}
 	
 	/** All transactions have been restored */
@@ -276,7 +278,7 @@ public class StoreKitService extends Sprite
 		
 		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
 		
-		DataModel.getInstance().trackEvent("application", "restored at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
+		DataModel.getInstance().trackEvent("application", "restored at: "+ DataModel.CURRENT_PAGE_ID);
 	}
 	
 	/** Transaction restore has failed */
@@ -286,7 +288,7 @@ public class StoreKitService extends Sprite
 		
 		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_NOT));
 		
-		DataModel.getInstance().trackEvent("application", "restore FAILED! at: "+ DataModel.ISLANDS[DataModel.CURRENT_ISLAND_INT]);
+		DataModel.getInstance().trackEvent("application", "restore FAILED! at: "+ DataModel.CURRENT_PAGE_ID);
 	}
 	
 	// Product view events
