@@ -229,7 +229,7 @@ package view
 //			TweenMax.from(_helpWanted.mask_mc.line4_mc, 3.5, {x:offX, delay:8.5});
 //			TweenMax.from(_helpWanted.mask_mc.line5_mc, 3.6, {x:offX, delay:11.2});
 			
-			TweenMax.from(_helpWanted.description_mc, 3.2, {alpha:0, delay:1});
+			TweenMax.from(_helpWanted.description_mc, 2.2, {alpha:0, delay:1});
 			
 			_helpWanted.description_mc.visible = true;
 			
