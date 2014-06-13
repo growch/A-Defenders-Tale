@@ -22,7 +22,7 @@ package
 	
 	import model.DataModel;
 	
-	import net.hires.debug.Stats;
+//	import net.hires.debug.Stats;
 	
 	import util.Formats;
 	import util.Logger;

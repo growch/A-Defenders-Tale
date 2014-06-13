@@ -82,7 +82,9 @@ package view
 		{
 			_mc.removeEventListener(Event.ADDED_TO_STAGE, mcOnStage); 
 			
-			TweenMax.from(_mc, .5, {alpha:0, onComplete:initGV}); 
+//			trace("EC ON STAGE");
+//			TweenMax.from(_mc, .5, {alpha:0, onComplete:initGV});
+			initGV();
 		}
 		
 		private function initGV():void {
