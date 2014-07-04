@@ -90,9 +90,9 @@ package view
 		private function initGV():void {
 			_goViral = DataModel.getGoViral(); 
 			trace("initGV _goViral: "+_goViral);
-			if (_goViral.isSupported) {
-				trace("IS TWITTER AVAILABLE? : "+_goViral.twitterAvailable());
-			}
+//			if (_goViral.isSupported) {
+//				trace("IS TWITTER AVAILABLE? : "+_goViral.twitterAvailable());
+//			}
 			
 		}
 		
@@ -155,7 +155,8 @@ package view
 			_signInMC.visible = false;
 				
 			_goViral.getMeFacebook();
-			_goViral.getFriendsFacebook();
+//			_goViral.getFriendsFacebook();
+			_goViral.getFriendsDEPRECATED();
 			
 			_contactMC.visible = true;
 		}

@@ -1,6 +1,6 @@
 package
 {
-	import com.devilishgames.nativeextensions.Mute.Mute;
+	import com.sticksports.nativeExtensions.SilentSwitch;
 	
 	import flash.desktop.NativeApplication;
 	import flash.desktop.SystemIdleMode;
@@ -21,8 +21,6 @@ package
 	import events.ApplicationEvent;
 	
 	import model.DataModel;
-	
-//	import net.hires.debug.Stats;
 	
 	import util.Formats;
 	import util.Logger;
@@ -77,7 +75,13 @@ package
 			//set security
 //			Security.allowDomain("*"); 
 			//For AIR bug where mute button on iPad wouldn't work
-			Mute.Enable(Mute.AMBIENT_SOUND);
+			SilentSwitch.apply();
+			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, activateMute);
+		}
+		
+		protected function activateMute(event:Event):void
+		{
+			SilentSwitch.apply();
 		}
 		
 //		protected function onCloseCall(event:Event):void
