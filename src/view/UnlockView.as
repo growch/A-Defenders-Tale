@@ -1,7 +1,11 @@
 package view
 {
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	import flash.utils.clearInterval;
 	
 	import assets.OverlayUnlockMC;
 	
@@ -19,6 +23,8 @@ package view
 		private var _unlockNotMC:MovieClip;
 		private var _unlocking:Boolean = false;
 		private var _restoring:Boolean = false;
+		private var _kickTimer:Timer;
+		private var _kickTimerID:uint;
 		
 		public function UnlockView() 
 		{
@@ -34,6 +40,8 @@ package view
 			
 			_unlockMC.restore_btn.addEventListener(MouseEvent.CLICK, restoreClick);
 			_unlockMC.unlock_btn.addEventListener(MouseEvent.CLICK, unlockClick);
+			_unlockMC.your_btn.addEventListener(MouseEvent.MOUSE_DOWN, unlockKickActivate);
+			_unlockMC.your_btn.addEventListener(MouseEvent.MOUSE_UP, unlockKickDeActivate);
 			
 			_unlockNotMC.retry_btn.addEventListener(MouseEvent.CLICK, retryClick);
 			_unlockNotMC.cover_btn.addEventListener(MouseEvent.CLICK, coverClick);
@@ -53,6 +61,7 @@ package view
 			
 			DataModel.getInstance().trackEvent("application", "show UNLOCK at: "+ DataModel.CURRENT_PAGE_ID);
 //			trace( "show UNLOCK at: "+ DataModel.CURRENT_PAGE_ID);
+			
 		}
 		
 		protected function unlockNot(event:ViewEvent):void
@@ -150,6 +159,28 @@ package view
 			DataModel.getStoreKit().purchaseUnlock();
 		}
 		
+		private function unlockKickActivate(e:MouseEvent):void {
+			trace("unlockKickActivate");
+			if (_kickTimer) {
+				_kickTimer.stop();
+			} else {
+				_kickTimer = new Timer(5000, 1);
+				_kickTimer.addEventListener(TimerEvent.TIMER_COMPLETE, unlockKickstarter);
+				trace("_kickTimer: "+_kickTimer);
+			}
+			_kickTimer.start();
+		}
+		
+		private function unlockKickDeActivate(e:MouseEvent):void {
+			_kickTimer.stop();
+		}
+		
+		protected function unlockKickstarter(event:TimerEvent):void
+		{
+			_kickTimer.stop();
+			trace("UNLOCK KICK!!!!");
+		}
+		
 		public function destroy():void {
 			EventController.getInstance().removeEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 			EventController.getInstance().removeEventListener(ViewEvent.UNLOCK_NOT, unlockNot);
@@ -162,8 +193,16 @@ package view
 			_unlockNotMC.retry_btn.removeEventListener(MouseEvent.CLICK, retryClick);
 			_unlockNotMC.cover_btn.removeEventListener(MouseEvent.CLICK, coverClick);
 			
+			_unlockMC.your_btn.removeEventListener(MouseEvent.MOUSE_DOWN, unlockKickActivate);
+			_unlockMC.your_btn.removeEventListener(MouseEvent.MOUSE_UP, unlockKickDeActivate);
+			
 			_unlockMC = null;
 			_unlockNotMC = null;
+			
+			if (_kickTimer) {
+				_kickTimer.stop();
+				_kickTimer = null;	
+			}
 			
 			removeChild(_mc);
 			_mc = null;
