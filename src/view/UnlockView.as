@@ -2,10 +2,16 @@ package view
 {
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.FocusEvent;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
+	import flash.net.URLRequest;
+	import flash.net.URLRequestMethod;
+	import flash.net.URLVariables;
+	import flash.text.TextField;
 	import flash.utils.Timer;
-	import flash.utils.clearInterval;
 	
 	import assets.OverlayUnlockMC;
 	
@@ -21,6 +27,7 @@ package view
 		private var _mc:OverlayUnlockMC;
 		private var _unlockMC:MovieClip;
 		private var _unlockNotMC:MovieClip;
+		private var _unlockKickMC:MovieClip;
 		private var _unlocking:Boolean = false;
 		private var _restoring:Boolean = false;
 		private var _kickTimer:Timer;
@@ -37,6 +44,12 @@ package view
 			_unlockNotMC = _mc.unlockNot_mc;
 			_unlockNotMC["blocker_mc"].visible = false;
 			_unlockNotMC.visible = false;
+			
+			_unlockKickMC = _mc.kickstarter_mc;
+			_unlockKickMC["blocker_mc"].visible = false;
+//			_unlockKickMC.visible = false;
+			_unlockKickMC.unlock_btn.addEventListener(MouseEvent.CLICK, submitClick);
+			_unlockKickMC.code_txt.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
 			
 			_unlockMC.restore_btn.addEventListener(MouseEvent.CLICK, restoreClick);
 			_unlockMC.unlock_btn.addEventListener(MouseEvent.CLICK, unlockClick);
@@ -160,13 +173,11 @@ package view
 		}
 		
 		private function unlockKickActivate(e:MouseEvent):void {
-			trace("unlockKickActivate");
 			if (_kickTimer) {
 				_kickTimer.stop();
 			} else {
 				_kickTimer = new Timer(5000, 1);
 				_kickTimer.addEventListener(TimerEvent.TIMER_COMPLETE, unlockKickstarter);
-				trace("_kickTimer: "+_kickTimer);
 			}
 			_kickTimer.start();
 		}
@@ -178,7 +189,60 @@ package view
 		protected function unlockKickstarter(event:TimerEvent):void
 		{
 			_kickTimer.stop();
-			trace("UNLOCK KICK!!!!");
+			_unlockKickMC.visible = true;
+		}
+		
+		private function submitClick(e:MouseEvent):void {
+			if (!DataModel.getInstance().networkConnection()) return;
+			
+			if (_unlockKickMC.code_txt.text == "") {
+				_unlockKickMC.code_txt.text = "ENTER UNLOCK CODE";
+			} else {
+				processUnlock();
+			}
+		}
+		
+		private function processUnlock():void {
+			_unlockKickMC["blocker_mc"].visible = true;
+			
+			var phpVars:URLVariables = new URLVariables(); 
+
+			var phpFileRequest:URLRequest = new URLRequest("http://www.2ndstringproductions.com/dev/adt/scripts/unlock_user.php");
+			phpFileRequest.method = URLRequestMethod.POST;
+			phpFileRequest.data = phpVars;
+			
+			var phpLoader:URLLoader = new URLLoader();
+			phpLoader.dataFormat = URLLoaderDataFormat.TEXT;   
+			phpLoader.addEventListener(Event.COMPLETE, showUnlockResult);
+			
+			phpVars.password = _unlockKickMC.code_txt.text;
+			
+			phpLoader.load(phpFileRequest);
+		}
+		
+		protected function showUnlockResult(event:Event):void
+		{
+//			trace("showUnlockResult: " + event.target.data.systemResult);
+			_unlockKickMC["blocker_mc"].visible = false;
+			
+			var variables:URLVariables = new URLVariables(event.target.data);
+//			trace("showUnlockResult: " + variables.systemResult);
+			if (variables.systemResult == "unlocked") {
+				DataModel.getInstance().unlockBook();
+				closeOverlay();
+			} else if (variables.systemResult == "unlockedAlready") {
+				_unlockKickMC.code_txt.text = "UNLOCK CODE USED";
+			} else {
+				_unlockKickMC.code_txt.text = "ERROR UNLOCKING";
+			}
+		}
+		
+		private function textFocusIn(event:FocusEvent) : void {
+			//cuz of AIR bug with input text shifting down on input
+			var thisTF:TextField = event.target as TextField;
+//			thisTF.defaultTextFormat = _tfm;
+//			thisTF.y -= 10;
+			thisTF.text = "";
 		}
 		
 		public function destroy():void {
@@ -196,8 +260,12 @@ package view
 			_unlockMC.your_btn.removeEventListener(MouseEvent.MOUSE_DOWN, unlockKickActivate);
 			_unlockMC.your_btn.removeEventListener(MouseEvent.MOUSE_UP, unlockKickDeActivate);
 			
+			_unlockKickMC.unlock_btn.removeEventListener(MouseEvent.CLICK, submitClick);
+			_unlockKickMC.code_txt.removeEventListener(FocusEvent.FOCUS_IN, textFocusIn);
+			
 			_unlockMC = null;
 			_unlockNotMC = null;
+			_unlockKickMC = null;
 			
 			if (_kickTimer) {
 				_kickTimer.stop();

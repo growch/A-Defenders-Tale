@@ -47,7 +47,6 @@ package view.theCattery
 		private var _SAL:SWFAssetLoader;
 		private var _ballAnimating:Boolean;
 		private var _bgSound:Track;
-		private var _finalSound:Boolean;
 		private var _compTakenIndex:int;
 		private var _secondSoundPlayed:Boolean;
 		private var _secondSound:Track;
@@ -149,6 +148,7 @@ package view.theCattery
 					var copy:String = part.copyText;
 					
 					copy = StringUtil.replace(copy, "[companionComing1]", _pageInfo.companionComing1[_compTakenIndex]);
+					copy = StringUtil.replace(copy, "[companion2]", _pageInfo.companion2[DataModel.defenderInfo.companion]);
 					copy = StringUtil.replace(copy, "[companion1]", _pageInfo.companion1[DataModel.defenderInfo.companion]);
 
 					// set this last cuz some of these may be in the options above
@@ -176,7 +176,7 @@ package view.theCattery
 							_nextY += Math.round(_mc.companions_mc.height);
 							_mc.companions_mc.visible = true;
 						} else {
-							var index0:int = copy.indexOf("grow hungry", 0);
+							var index0:int = copy.indexOf("main course", 0);
 							var rect0:Rectangle = _tf.getCharBoundaries(index0);
 							_mc.entree_mc.y = _tf.y + rect0.y + 45;
 							_mc.entree_mc.visible = true;
@@ -274,11 +274,6 @@ package view.theCattery
 				_ball.visible = true;
 				_ballAnimating = true;
 				
-			}
-			
-			if (_dragVCont.scrollY >= _dragVCont.maxScroll && !_finalSound) {
-				DataModel.getInstance().endSound();
-				_finalSound = true;
 			}
 			
 			if (_dragVCont.scrollY >= _dragVCont.maxScroll - 500 && !_secondSoundPlayed) {

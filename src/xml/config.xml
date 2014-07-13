@@ -961,7 +961,7 @@ After the townspeople had let [pronoun2] go, [defender] and [companionName] had 
 			<item type="text" id="" width="575" height="" top="150" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] [wardrobe1] [pronoun1] climbed the Stormin’ Norman’s ladder and stepped onto the deck. Even in the moonlight, [pronoun1] could see that the deck’s wooden surface gleamed. Above [pronoun3] head, ropes crisscrossed the sky. Several wooden barrels were scattered across the surface, with someone sitting on top of one. Whistling, if [pronoun1] wasn’t mistaken. The figure was too big to be the captain, but there was no one else in sight, so [pronoun1] and [companionName] walked toward the barrels. It was a man, [defender] realized as they approached. A large man, who stood as they drew near.
 
-The man was exceptionally tall, his height amplified further by his orange kilt and matching life vest. It strained across his broad chest. He took a moment to loosen one of its straps before giving [defender] a curt nod. “You must be the Defender, then. I’m the Cap’n’s first mate, Smeg.” He held out a second life vest.]]> 			
+The man towered above [defender] and [companionName]. His height was amplified by his orange kilt and matching life vest. It strained across his broad chest. He took a moment to loosen one of its straps before giving [defender] a curt nod. “You must be the Defender, then. I’m the Cap’n’s first mate, Smeg.” He held out a second life vest. ]]> 			
 			</item>
 			<item type="image" id="" width="" height="119" top="40" left="" size="" align="" leading="" file="assets/images/prologue/boat_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
@@ -1898,7 +1898,7 @@ Vizier Alphonse smiled while he sniffed the air. “You smell nice,” he said, 
 
 “Um, thank you,” [defender] replied. [Pronoun1] took a step away from Alphonse with a sinking feeling in [pronoun3] stomach. “But vizier, perhaps we could stay focused on the conversation at hand. The realm is—”
 
-The vizier nipped [defender]’s arm. “The realm can wait,” Alphonse announced. “We’ve already had appetizers. And I grow hungry. 
+The vizier nipped [defender]’s arm. “The realm can wait,” Alphonse announced. “We’ve already had appetizers. And I grow hungry. I believe you’ll make a perfect main course.”
 
 
 
@@ -1907,16 +1907,21 @@ The vizier nipped [defender]’s arm. “The realm can wait,” Alphonse announc
 
 
 
-[defender] stepped back in horror. The cats had formed a circle around [pronoun2]; [pronoun1] took another step back. There had to be a way out of this situation. Two possibilities popped into [pronoun3] mind. [Pronoun1] remembered the captain’s advice. ‘If all else fails, give them a scratch behind the ears,’ Cleapeezious had suggested. In addition, an idea had just occurred to [pronoun2]. If the cats needed help with their mouse infestation problem, [pronoun1] might just have a solution. [Pronoun1] always did think better under pressure.]]></false>
+[defender] stepped back in horror. The cats had formed a circle around [pronoun2]; [pronoun1] took another step back. There had to be a way out of this situation. Two possibilities popped into [pronoun3] mind. She remembered the captain’s advice. ‘If all else fails, give them a scratch behind the ears,’ Cleapeezious had suggested. In addition, an idea had just occurred to [pronoun3] of how to end the island’s mouse infestation problem once and for all. [defender] always did think better under pressure.]]></false>
 		</companionComing1>
 		<companion1>
-			<companion><![CDATA[“Why I’m flattered,” Oonie declared. She took a step back from the vizier and swiveled her neck toward [defender]’s ear. “That cat looks hungry,” she whispered. “Please don’t leave me here.”]]></companion>
-			<companion><![CDATA[Linus perched on [defender]’s shoulder. “Sssssuch a nice invitation,” he said to the vizier. The lizard hopped closer to [defender]’s ear. “The cat looks hungry,” he hissed softly. “Pleasssse don’t leave me here.”]]></companion>
-			<companion><![CDATA[“Oh I doubt you’d want a little old goldfish,” Noah blabbered. “I’m on the small size as goldfish go, and I have a terrible memory—just ask anyone. Oh look at the time! It’s past my bedtime.” ]]></companion>
+			<companion><![CDATA[“Why I’m positively flattered,” Oonie declared. She took a step back from the vizier. “Please don’t leave me here,” she whispered. “He looks hungry.”]]></companion>
+			<companion><![CDATA[“What a kind offer,” Linus said. The lizard dropped his voice and whispered. “Pleasssse don’t leave me. He lookssss hungry.”]]></companion>
+			<companion><![CDATA[“Oh I doubt you’d want a little old goldfish,” Noah blabbered. “I’m on the small size as goldfish go, plus I have a terrible memory—just ask anyone. Oh look at the time! It’s past my bedtime.”]]></companion>
 		</companion1>
+		<companion2>
+			<companion><![CDATA[an]]></companion>
+			<companion><![CDATA[a]]></companion>
+			<companion><![CDATA[a]]></companion>
+		</companion2>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[They walked up a pathway that appeared to be made from braided twine, passing a fountain along the way. A golden [companion] statue stood in the middle. Jets of water streamed in a high arc over the structure, shimmering in the twilight. [defender] smiled, delighted to realize the [companion] was so well appreciated on the Cattery Island.
+			<![CDATA[They walked up a pathway that appeared to be made from braided twine, passing a fountain along the way. A statue of [companion2] [companion] stood in the middle. Jets of water streamed in a high arc over the structure, shimmering in the twilight. [defender] smiled, delighted to realize the [companion] was so well appreciated here on the Cattery Island.
 
 Inside the mansion, a ball was underway. The fading light streamed in through the windows on each side of the ballroom. Dozens of well-clad cats waltzed in the center of the room. One of them—the Director of Catling Affairs, Bruno Schulz—waved as [defender] walked in. Beyond the dance floor rose a tall dais. A gray cat with a large belly lounged atop it. He wore a silk tuxedo and watched the dancers through a golden monocle. 
 
@@ -1927,12 +1932,12 @@ Olivia swept a paw toward the dais.]]>
 			<![CDATA[The vizier’s ears swiveled 
 toward the newcomers and 
 he held up a giant paw. 
-The dancers quickly cleared 
-the floor. The vizier stretched 
-lazily, then leapt down from his 
-pedestal. He padded toward them 
-with tail held high, stopping in 
-front of [defender].
+As the music stopped, the dancers 
+cleared the floor. The vizier 
+stretched lazily, then leapt down 
+from his pedestal. He padded toward 
+them with tail held high, stopping 
+in front of [defender].
 
 “Honored guest,” the vizier purred. His words sounded silky, and his yellow eyes glowed in the fading light.
 
@@ -1949,7 +1954,7 @@ The vizier’s eyes didn’t blink as [defender] rushed on.]]>
 
 The vizier cocked his gray head in thought. 
 
-“I must have the cat’s eye,” [pronoun1] pressed. “With it, I will have the power to see in the dark to find Nero’s floating island.” [companionComing1]]]> 			
+“I must have the cat’s eye,” [defender] pressed. “With it, I will have the power to see in the dark to find Nero’s floating island.” [companionComing1]]]> 			
 			</item>
 		</body>
 		<decisions top="100">
@@ -2309,7 +2314,7 @@ The two were promptly escorted back to the Stormin’ Norman, but without the ca
 			<false><![CDATA[guest]]></false>
 		</companionComing1>
 		<companionComing2>
-			<true><![CDATA[and [companionName].]]></true>
+			<true><![CDATA[ and [companionName]]]></true>
 			<false></false>
 		</companionComing2>
 		<companionComing3>
@@ -2323,7 +2328,7 @@ The two were promptly escorted back to the Stormin’ Norman, but without the ca
 
 Bruno took a puff from his cigar and blew it out in a series of smoke circles. “But of course. We aim to be as accommodating as possible.” He penciled something into the leather bound book open on his desk, then yelled, “Olivia, get back in here please.”
 
-The Persian swept back in. Her emerald eyes bored into the tabby’s as he cleared his throat. “Could you escort our guest [companionComing1] to the vizier’s mansion.]]>
+The Persian swept back in. Her emerald eyes bored into the tabby’s as he cleared his throat. “Could you escort our [companionComing1] to the vizier’s mansion.]]>
 			</item>
 			<item type="image" id="" width="" height="241" top="30" left="" size="" align="" leading="" file="assets/images/cattery/privateAudience_imageText1.png"/>
 			<item type="text" id="vizier" width="575" height="" top="40" left="100" size="20" align="left" leading="10" file="">
@@ -2335,13 +2340,13 @@ The Persian smiled. “Whatever you want, boss.” She looked at his cigar, crin
 
 She stood there until Bruno sighed, then tapped the cigar out in an ashtray. “That will be all, Olivia,” the tabby said.
 
-The Persian turned to [defender] [companionComing2] “Follow me,” she said.
+The Persian turned to [defender][companionComing2]. “Follow me,” she said.
 
 Olivia led the way to a limo waiting outside, and soon they were hurtling across the countryside. [defender] admired the leafy countryside as they traveled, though as [pronoun1] inspected the land [pronoun1] realized that many of the leaves and grass looked as if they had been nibbled. [Pronoun1] was about to ask Olivia about the strange vegetation when they pulled up outside of a beautiful, marble mansion. The chauffeur opened the limo door and the Persian stepped out daintily. “Follow me,” she said. 
 
 A pathway made from braided twine lead around the mansion, to a doorway concealed by greenery. They entered, walking down the hallway into a formal dining room. 
 
-Olivia pointed a paw toward a plump, gray cat lounging on a red cushion at the head of the table. “The vizier,” she said.]]>
+Olivia pointed a paw toward a plump, gray cat lounging on a red cushion at the head of the table. “The vizier,” she announced.]]>
 			</item>
 			<item type="text" id="final" width="575" height="" top="450" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[The vizier squinted out of a golden monocle, eyeing the newcomers with interest. “Is this my lunch…” the vizier paused and sniffed the air before continuing, “appointment?” 
@@ -2358,11 +2363,11 @@ The vizier simply stared as [defender] rushed on.
 
 The vizier smiled, revealing a row of sharp, white teeth. “Speaking of hunger, it is lunch time.” He picked up a silver bell sitting next to him and rang it. Two shorthaired cats in chef hats padded into the room. 
 
-“You rang, vizier?” the larger said.
+“You rang, vizier,” the larger said.
 
 [companionComing3]
 
-Before [defender] could react, [pronoun3] hands had been pinned behind [pronoun3] back and [pronoun3] [weapon] plucked from [pronoun3] [wardrobeShort]. “This is outrageous!” [pronoun1] shouted. “Release me! I’m the Defender of the Realm!”
+Before [defender] could react, [pronoun3] hands had been pinned behind [pronoun3] back and [pronoun3] [weapon] plucked from [pronoun3] [wardrobeShort]. “This is outrageous!” [defender] shouted. “Release me! I’m the Defender of the Realm!”
 
 The vizier rang his tinkling bell again. “Soon you’ll be my lunch.” He swept a dismissive paw in the air as the cats pulled [defender][companionComing2] away, toward the kitchen, and toward…
 ]]>
@@ -3606,7 +3611,7 @@ The serpent bustled around the cave, opening cupboards and bringing plates and s
 
 Snowmonch’s bottom lip trembled. “You mean…” she began, her words tremulous, “that you don’t want to stay and talk?”
 
-“I’m afraid we’re not at liberty to stay for a proper visit,” [defender] replied. [Pronoun1] sniffed at the air. It smelled of burnt rubber, and [pronoun1] did [pronoun3] best not to cringe. “Though your meatloaf smells delicious.”
+“I’m afraid we’re not at liberty to stay for a proper visit,” [defender] replied. [Pronoun1] sniffed at the air,and did [pronoun3] best not to cringe. “Though your meatloaf smells delicious.”
 
 “But… but…” Snowmonch sniffed as her eyes welled with steaming tears. 
 
@@ -3616,7 +3621,7 @@ Snowmonch’s bottom lip trembled. “You mean…” she began, her words tremul
 			<![CDATA[A large tear dropped from the serpent’s eye, hitting the carpet. Flames burst up from where it landed. “No one ever wants to be real friends,” she wailed. “You’re just like the other heroes, who pretend to be nice because they want this silly stone.”]]> 				
 			</item>
 			<item type="text" id="last" width="575" height="" top="32" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[Inconsolable, acidic tears rained down around the cave, burning the walls and furniture until the room was ablaze. [defender] did [pronoun3] best to escape, but as [pronoun1] scrambled toward the slide, a fat drop splat into [pronoun2]. [Pronoun3] last thought before being vaporized was one of regret. Had [pronoun1] just been patient with the serpent, [pronoun1] might have saved the realm.
+			<![CDATA[Inconsolable, acidic tears rained down around the cave, burning the walls and furniture until the room was ablaze. [defender] did [pronoun3] best to escape, but as [pronoun1] was trying to scramble back up the slide, a fat drop splat into [pronoun2]. [Pronoun3] last thought before being vaporized was one of regret. Had [pronoun1] just been patient with the serpent, [pronoun1] might have saved the realm. `
 			]]> 				
 			</item>
 		</body>
@@ -3717,7 +3722,7 @@ This was the last island [pronoun1] and [companionName] had to visit before thei
 		<instrument1>
 			<instrument><![CDATA[brought [pronoun3] kazoo to [pronoun3] mouth and played the opening stanza to a jig that had topped the charts before [pronoun1]’d left home.]]></instrument>
 			<instrument><![CDATA[brought [pronoun3] piccolo to [pronoun3] lips and played the opening stanza to a jig that had topped the charts before [pronoun1]’d left home.]]></instrument>
-			<instrument><![CDATA[strummed  [pronoun3] fingers over the strings and plucked out the opening stanza to a jig that had topped the charts before [pronoun1]’d left home.]]></instrument>
+			<instrument><![CDATA[strummed [pronoun3] fingers over the strings and plucked out the opening stanza to a jig that had topped the charts before [pronoun1]’d left home.]]></instrument>
 		</instrument1>
 		<body>
 			<item type="text" id="" width="280" height="" top="0" left="100" size="20" align="left" leading="8" file="">
@@ -3728,7 +3733,7 @@ As the song crescendoed into its final reprise, Snowmonch’s eyes welled with g
 			<item type="text" id="" width="575" height="" top="32" left="100" size="20" align="left" leading="8" file="">
 			<![CDATA[“Oh bother,” she said. “Live music always makes me cry. But then, everything makes me cry, really. That’s the third table I’ve burned up this month.” After the flames were doused the serpent wiped her eyes and turned her attention back to [defender]. “Thank you for the music. And for the conversation. It’s been some time since I had a guest who was willing to have a nice conversation. But I suppose we should get to the real reason for your visit. You need my serpentine stone to aid your quest, is that right?”
 
-[defender] looked surprised but the serpent just smiled. “Of course you want the stone. You’ll need to be on your way to battling the prince soon. I wasn’t born yesterday, you know.” Snowmonch held the mottled green stone up in one claw. “I like you, [defender], so I’ll make you a deal. Answer my word game correctly and you can take the stone and be on your way.”]]> 				
+[defender] looked surprised but the serpent just smiled. “Of course you want the stone. You’ll need to be on your way to battling the prince soon. I wasn’t born yesterday, you know.” Snowmonch held the mottled green stone up in one claw. “I like you, [defender], so I’ll make you a deal. Answer my riddle correctly and you can take the stone and be on your way.”]]> 				
 			</item>
 		</body>
 		<decisions top="60">
@@ -3980,7 +3985,7 @@ A clown fish paused to gape at them. “Hello,” it said. “What kind of fish 
 
 “I’m not a fish,” [defender] corrected. “I’m the Defender of the Realm.”
 
-“Never heard of you,” the fish replied, and zipped away.
+“Never heard of you,” the fish replied, and swam away.
 
 “Well that was rude,” [companionName] said.
 
@@ -3988,13 +3993,12 @@ A clown fish paused to gape at them. “Hello,” it said. “What kind of fish 
 
 “What is that?” [pronoun1] asked. [Pronoun3] companion remained silent on the subject, and [pronoun1] turned to see why [companionName] had gone quiet. The [companion] was gone. [Pronoun1] flipped back around and realized [pronoun3] companion had drifted toward the light, out of hearing range.
 
-[defender] swam after the [companion] as the light grew brighter, and larger. Too late, [pronoun1] realized the kind of creature that was swimming toward them. “[companionName],” [pronoun1] screamed to [pronoun3] companion. 
-“Stop!”]]> 				
+[defender] swam after the [companion] as the light grew brighter, and larger. Too late, [pronoun1] realized the kind of creature that was swimming toward them. “[companionName],” [pronoun1] screamed to [pronoun3] companion. “Stop!”]]> 				
 			</item>
 			<item type="text" id="dungeonFish" width="380" height="" top="520" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[The brightness blossomed, pushing through the water in a flood of white light. [defender] could just make out the silhouette of a fish, bigger than a whale. It opened its mouth to reveal long, spear-like teeth. A moment later, mighty jaws clamped down around [companionName]. The light flicked out, leaving only the swish of the fish’s tail visible as it retreated through the waves. 
 
-[defender] stared, immobilized by horror. This new foe could be nothing other than a prisonfish. It was universally agreed that there was no fate worse than being captured by the giant fish. Prisonfish kept their captives alive for the first hour of imprisonment, behind the bars of their teeth, in order to drain their adrenalin. Once every drop of adrenalin had been consumed, the fish proceeded to suck the meat from their prisoner’s bones. [Pronoun1] had to rescue [companionName], but if [pronoun1] chased after [pronoun3] companion, would there still be time to find the sea god?]]> 				
+[defender] stared, immobilized by horror. The retreating shape could be nothing other than a dungeonfish, and everyone agreed that there was no fate worse than being captured by the giant fish. Dungeonfish kept their captives alive for the first hour of imprisonment, behind the bars of their teeth, in order to suck their adrenalin. Once every drop of adrenalin had been consumed, the fish proceeded to suck the meat from their prisoner’s bones. [defender] shuddered. [Pronoun1] had to rescue [companionName], but if [pronoun1] chased after [companionName], would [pronoun1] still have time to find the sea god?]]> 				
 			</item>
 		</body>
 		<decisions top="100">
@@ -4010,13 +4014,13 @@ A clown fish paused to gape at them. “Hello,” it said. “What kind of fish 
 			<title><![CDATA[The Chase]]></title>
 		</contents>
 		<weapon1>
-			<weapon><![CDATA[[Pronoun1] pulled [pronoun3] Marrotti Blade from [pronoun3] weight belt and let [pronoun3] body relax, waiting. [Pronoun1] didn’t have long before [pronoun1] felt a shadow block out the sunlight overhead. [Pronoun1] twisted [pronoun3] body just as the beast attacked, slicing its snout.
+			<weapon><![CDATA[[defender] pulled [pronoun3] Marrotti Blade from [pronoun3] weight belt and let [pronoun3] body relax, waiting. [Pronoun1] didn’t have long before [pronoun1] felt a shadow block out the sunlight overhead. [Pronoun1] twisted [pronoun3] body just as the beast attacked, slicing its snout.
 
 It veered off to one side, leaving a trail of blood as it twisted through the murky waves. A moment later it came for [pronoun2] again.
 
 This time [pronoun1] slashed [pronoun3] dagger deeper into the shark’s snout. Blood poured forth from the wound, blooming red in the water.
 
-[defender] waited for another attack. [Pronoun3] heartbeat pounded through [pronoun3] body, pulsing through the tips of [pronoun3] fingers as [pronoun1] clutched the hilt of [pronoun3] blade. [Pronoun1] used [pronoun3] flippers to turn in slow circles, waiting. Minutes passed until [pronoun1] was sure that the shark had gone in search for easier prey.]]></weapon>
+[defender] waited for another attack. [Pronoun3] heartbeat pounded through [pronoun3] body, pulsing through the tips of [pronoun3] fingers as [pronoun1] clutched the hilt of [prounoun3] blade. [Pronoun1] used [pronoun3] flippers to turn in slow circles, waiting. Minutes passed until [pronoun1] was sure that the shark had gone in search for easier prey.]]></weapon>
 			<weapon><![CDATA[[Pronoun3] quill would do [pronoun2] no good underwater—there would be no drawing [pronoun3] way out of this situation. Instead, [pronoun1] balled [pronoun3] fingers into a tight fist and waited. [Pronoun1] felt a shadow block out the sun from overhead before [pronoun1] saw the shark. [Pronoun1] twisted [pronoun3] body just as the beast attacked. As the shark lunged toward [pronoun2], [pronoun1] rammed [pronoun3] fist into its snout. 
 
 It veered off to one side, and twisted back through the murky waves, once again coming for [pronoun2].
@@ -4034,9 +4038,9 @@ The shark stopped itself with a flip of its fin. Its eyes, which had been menaci
 
 “Now throw it! And then I’ll bring it back!” the shark encouraged.
 
-“I’m sorry, I don’t have time to play,” [defender] said. “I have to find that prisonfish.” 
+“I’m sorry, I don’t have time to play,” [defender] said. “I have to find that dungeonfish.” 
 
-The shark stopped darting around in the water and sighed. “There’s no catching a prisonfish once they have a captive. Even for me.” As if to prove the point, the shark darted through the water with breathtaking speed—up, down, around, and in a loop around [defender]. “I’m fast, but a prisonfish is faster. So let’s play. Okay?” The shark gave [pronoun2] a hopeful look.]]></weapon>
+The shark stopped darting around in the water and sighed. “There’s no catching a dungeonfish once they have a captive. Even for me.” As if to prove the point, the shark darted through the water with breathtaking speed—up, down, around, and in a loop around [defender]. “I’m fast, but a dungeonfish is faster. So let’s play. Okay?” The shark gave [pronoun2] a hopeful look.]]></weapon>
 		</weapon1>
 		<weapon2>
 			<weapon><![CDATA[]]></weapon>
@@ -4057,18 +4061,19 @@ The shark looked put out in the way that only an 8-foot tiger shark can. “Morr
 		</weapon2>
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="10" file="">
-			<![CDATA[There was no way [defender] was going to let anything happen to [pronoun3] companion. [Pronoun1] quickly recovered from [pronoun3] shock and swam after the prisonfish. [Pronoun1] could still make out its bulk from the distance. Before [pronoun1] could make any real progress, a shadow darted in front of [pronoun2]. 
+			<![CDATA[There was no way [defender] was going to let anything happen to [pronoun3] companion. [Pronoun1] quickly recovered from [pronoun3] shock and swam after the dungeonfish. [Pronoun1] could still make out its bulk from the distance. Before [pronoun1] could make any real progress, a shadow darted in front of [pronoun2]. 
 
 [Pronoun1] paused. The shape shot past [pronoun2] again. A fin protruded from its back.
 
-[Pronoun1] swiveled, trying to find out where the creature had gone. This time it came closer, zipping toward [pronoun2] and deflecting at the last moment. The moment lasted long enough to see the pattern on its body. Tiger stripes. First the prisonfish.]]> 				
+[Pronoun1] swiveled, trying to find out where the creature had gone. This time it came closer, zipping toward [pronoun2] and deflecting at the last moment. The moment lasted long enough to see the pattern on its body. Tiger stripes. First the dungeonfish.]]> 				
 			</item>
 			<item type="text" id="shark" width="575" height="" top="420" left="100" size="20" align="left" leading="10" file="">
 			<![CDATA[[defender] narrowed [pronoun3] eyes. Shark or no shark, [pronoun1] was going to save [pronoun3] companion. 
 
 [weapon1]			
 
-[defender] looked in the direction of the prisonfish, but the water was empty. There was no trace of the giant fish. [Pronoun3] only hope of rescuing [companionName] would be to find Morrissey. If anyone would know where [pronoun3] companion had been taken, it was the god of the sea. 
+[defender] looked in the direction of the dungeonfish, but the water was empty. There was no trace of the giant fish. [Pronoun3] only hope of rescuing [companionName] would be to find Morrissey. If anyone would know where [pronoun3] companion had been taken, it was the god of the sea. 
+
 This thought was suddenly interrupted by a beautiful, haunting aria. The sound drifted through the water, surrounding [pronoun2] like a cocoon. [Pronoun1] paused wondering what the underwater music could be.[weapon2]]]> 				
 			</item>
 		</body>
@@ -5704,15 +5709,15 @@ The [previousDefenderGender] blushed.
 		</contents>	
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[[defender], [previousDefender], and [companionName] ushered the still blubbering Nero back to the ship. Sergeant Mikey came along as well, professing a keen interest in the Defending business. Once Nero was secured, and Cleapeezious cast off for the continent, [defender] and [previousDefender] spent the night immersed in pleasant conversation. [defender] was surprised to find out how many hobbies they had in common. [previousDefender] even shared [pronoun3] love of [beverage]. Before bed that night, the new friends toasted toward a happier realm. [defender] slept peacefully for the first time since [pronoun1]’d arrived to the realm.
+			<![CDATA[[defender], [previousDefender], and [companionName] ushered the still blubbering Nero back to the ship. Sergeant Mikey came along as well, professing a keen interest in the Defending business. Once Nero was secured, and Cleapeezious cast off for the continent, [defender] and [previousDefender] spent the night immersed in pleasant conversation. [defender] was surprised to find out how many hobbies they had in common. [previousDefender] even shared [pronoun3] love of [beverage]. Before bed that night, the new friends toasted toward a happier realm now that Nero had been stopped. [defender] slept peacefully for the first time since [pronoun1]’d arrived to the realm.
 
 Once they reached the continent, [defender] and [companionName] escorted Nero to a maximum-security rehabilitation facility specializing in sunlight addiction. Once this task was completed, the high council designated [pronoun3] defense of the realm a rousing success, and [pronoun1] was given a commemorative plaque of thanks. 
 
-That night, Cleapeezious threw a celebratory party on the Stormin’ Norman unlike anything [defender] had experienced. [defender] sang and played [pronoun3] [instrument] and took a turn dancing with several of the crewmembers, eventually finding [pronoun2]self partnered with [previousDefender] more and more throughout the night. [Pronoun1] was surprised when the captain finally bade them a goodnight. As the captain turned in for the night, [defender] and [previousDefender] found themselves alone, under a star-filled sky.
+That night, Cleapeeazious threw a celebratory party on the Stormin’ Norman unlike anything [defender] had experienced. [defender] sang and played [pronoun3] [instrument] and took a turn dancing with several of the crewmembers, eventually finding [pronoun2]self partnered with [previousDefender] more and more throughout the night. [Pronoun1] was surprised when the captain finally bade them a goodnight. Soon enough, [defender] and [previousDefender] found themselves alone, under a star-filled sky.
 
-“What a fun night,” [defender] said happily. “I’m glad you were here too.” Suddenly [pronoun1] felt a twinge of sadness. [Pronoun1] wondered if [pronoun1]’d see [previousDefender] again after they anchored again tomorrow. [Pronoun1]’d grown fond of [previousDefenderPronoun2]. 
+“What a fun night,” [defender] said. “I’m glad you were here too.” Suddenly [pronoun1] felt a twinge of sadness. [Pronoun1] wondered if [pronoun1]’d see [previousDefender] again after they anchored again tomorrow. [Pronoun1]’d grown fond of [previousDefenderPronoun2]. 
 
-A moment later, [previousDefender] took [pronoun3] hands in [previousDefenderPronoun3] own. [PreviousDefenderPronoun1] looked at [defender] hopefully and cleared [previousDefenderPronoun3] throat before saying,]]> 				
+A moment later, [previousDefender] took [pronoun3] hands in [previousDefenderPronoun3] own. [PreviousDefenderPronoun1] cleared [previousDefenderPronoun3] throat before saying,]]> 				
 			</item>
 			<item type="image" id="" width="" height="148" top="40" left="" size="" align="" leading="" file="assets/images/capitol/returnToShip_imageText1.png"/>
 			<item type="text" id="" width="575" height="" top="50" left="100" size="20" align="left" leading="8" file="">
@@ -5763,12 +5768,13 @@ And so they lived happily. That is until [previousDefender] was captured by inte
 		</contents>	
 		<body>
 			<item type="text" id="" width="575" height="" top="0" left="100" size="20" align="left" leading="8" file="">
-			<![CDATA[After Prince Nero was safely locked up, and the magical stones returned to their rightful owners, [defender] could put off [pronoun3] decision no longer. Although [previousDefender] seemed like someone [pronoun1] wanted to know better, it was hard to trust someone so quickly. After all, [previousDefender] was from another realm. And [defender] really missed [pronoun3] own home. Particularly [pronoun3] dear friend, [contact]. 
+			<![CDATA[The friends agreed to delay making any decisions until their quest was complete.
+
+After Prince Nero was safely locked up, and the magical stones returned to their rightful owners, [defender] had time to fully consider [previousDefender]’s offer. Although [previousDefenderPronoun1] seemed like someone [defender] wanted to know better, it was hard to trust someone so quickly. After all, the previous Defender was from another realm. And [defender] really missed [pronoun3] own home. Particularly [pronoun3] dear friend, [contact]. 
 
 In addition, after [pronoun3] recent success as a Defender, [defender] really wanted to focus on [pronoun3] career. Now that [pronoun1]’d succeeded in saving the realm, job offers were pouring in. A new world of opportunity had just burst open, and [defender] wanted to experience it all. 
 
-Which is why [pronoun1] told [previousDefender] kindly, but firmly, that [pronoun1] needed some time to focus on [pronoun3] own affairs. [previousDefender] respected [defender]’s feelings, but asked if [previousDefenderPronoun1] might visit [pronoun2] in [pronoun3] own realm after [pronoun1]’d had a chance to see [pronoun3] friends and family.
-
+Which is why [pronoun1] told [previousDefender] kindly, but firmly, that [pronoun1] needed just a bit more time to focus on [pronoun3] own affairs. [previousDefender] respected [defender]’s feelings, but asked if [previousDefenderPronoun1] might visit [pronoun2] in [pronoun3] own realm after [pronoun1]’d had a chance to see [pronoun3] friends and family.
 ]]> 				
 			</item>
 		</body>

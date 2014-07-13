@@ -73,7 +73,6 @@ package view.joylessMountains
 			_cloud3 = null;
 			_cloud4 = null;
 			_cloud5 = null;
-			
 //			
 			_pageInfo = null;
 			

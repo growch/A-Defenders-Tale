@@ -119,7 +119,6 @@ package view
 			removeChild(_mc);
 			_mc = null;
 			
-			trace("MAP destroy");
 		}
 		
 		protected function mcAdded(event:Event):void
