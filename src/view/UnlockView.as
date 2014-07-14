@@ -47,7 +47,7 @@ package view
 			
 			_unlockKickMC = _mc.kickstarter_mc;
 			_unlockKickMC["blocker_mc"].visible = false;
-//			_unlockKickMC.visible = false;
+			_unlockKickMC.visible = false;
 			_unlockKickMC.unlock_btn.addEventListener(MouseEvent.CLICK, submitClick);
 			_unlockKickMC.code_txt.addEventListener(FocusEvent.FOCUS_IN, textFocusIn);
 			

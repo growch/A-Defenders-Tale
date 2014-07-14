@@ -48,6 +48,8 @@ package view
 		private var _contentScreen:MovieClip;
 		private var _blocker:FadeToBlackMC;
 		private var _panelHolder:Sprite;
+		private var _deltaY:Number;
+		private var _mouseDown:Boolean;
 		
 		
 		public function NavigationView()
@@ -100,7 +102,8 @@ package view
 			
 			_gear = _mc.gear_mc;
 			_gear.mouseChildren = false;
-			_gear.addEventListener(MouseEvent.CLICK, navigationToggle);
+//			_gear.addEventListener(MouseEvent.CLICK, navigationToggle);
+			_gear.addEventListener(MouseEvent.MOUSE_DOWN, gearMouseDown);
 			
 			_contents = _mc.getChildByName("contents_btn") as MovieClip;
 			_contents.addEventListener(MouseEvent.CLICK, contentsClick);
@@ -157,6 +160,63 @@ package view
 			_mc.addChild(_contentScreen);
 			
 			addChild(_mc);
+		}
+		
+		protected function gearMouseDown(event:MouseEvent):void
+		{
+			_mouseDown = true;
+			
+			TweenMax.killTweensOf(_mc);
+			
+//			trace("gearMouse DOWN");
+//			_mc.startDrag();
+			
+			_mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, navigationDrag);
+			_mc.stage.addEventListener(MouseEvent.MOUSE_UP, navigationDragStop);
+			
+			_deltaY = mouseY;
+		}
+		
+		protected function navigationDragStop(event:MouseEvent):void
+		{
+			_mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, navigationDrag);
+			_mc.stage.removeEventListener(MouseEvent.MOUSE_UP, navigationDragStop);
+		}
+		
+//		protected function gearMouseUp(event:MouseEvent):void
+//		{
+////			trace("gearMouse UP");
+//			_mouseDown = false;
+////			_mc.stopDrag();
+//			_mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, navigationDrag);
+//		}
+		
+//		protected function gearMouseOut(event:MouseEvent):void
+//		{
+//			if (!_mouseDown) return;
+////			trace("gearMouse OUT");
+//			_mouseDown = false;
+////			_mc.stopDrag();
+//			_mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, navigationDrag);
+//		}
+//		
+		protected function navigationDrag(event:MouseEvent):void
+		{
+//			trace("mouseY: "+_gear.mouseY);
+//			trace("_gear.y: "+_gear.y);
+//			if (_mc.y < CLOSED_Y) {
+//				_mc.y = CLOSED_Y;
+//				trace("too far up");
+//				return;
+//			}
+			
+//			trace((mouseY/DataModel.APP_HEIGHT));
+			
+			trace("_gear.mouseY: "+_gear.mouseY);
+			
+//			_mc.y = CLOSED_Y + 100*(mouseY/DataModel.APP_HEIGHT);
+			_mc.y = event.stageY + CLOSED_Y;
+//			trace("_mc.y: "+_mc.y);
 		}
 		
 		protected function peekNavigation(event:ViewEvent):void
