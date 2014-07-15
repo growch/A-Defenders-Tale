@@ -7,6 +7,7 @@ package view
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	
 	import assets.FadeToBlackMC;
 	import assets.NavigationMC;
@@ -17,6 +18,8 @@ package view
 	import events.ViewEvent;
 	
 	import model.DataModel;
+	
+	import util.MouseSpeed;
 	
 	public class NavigationView extends MovieClip
 	{
@@ -51,6 +54,13 @@ package view
 		private var _deltaY:Number;
 		private var _mouseDown:Boolean;
 		
+		private var destination:Point=new Point();
+		private var dragging:Boolean=false;
+		private var speed:Number=5;
+		private var offset:Point=new Point(); // our offset
+		private var offsetY:Number;
+		private var ySpeed:Object;
+		private var ms:MouseSpeed = new MouseSpeed();
 		
 		public function NavigationView()
 		{
@@ -103,7 +113,9 @@ package view
 			_gear = _mc.gear_mc;
 			_gear.mouseChildren = false;
 //			_gear.addEventListener(MouseEvent.CLICK, navigationToggle);
-			_gear.addEventListener(MouseEvent.MOUSE_DOWN, gearMouseDown);
+//			WHAT A DRAG!
+//			_gear.addEventListener(MouseEvent.MOUSE_DOWN, gearMouseDown);
+			_gear.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
 			
 			_contents = _mc.getChildByName("contents_btn") as MovieClip;
 			_contents.addEventListener(MouseEvent.CLICK, contentsClick);
@@ -162,62 +174,55 @@ package view
 			addChild(_mc);
 		}
 		
-		protected function gearMouseDown(event:MouseEvent):void
+		private function mouseDownHandler(e:MouseEvent):void
 		{
-			_mouseDown = true;
-			
-			TweenMax.killTweensOf(_mc);
-			
-//			trace("gearMouse DOWN");
-//			_mc.startDrag();
-			
-			_mc.stage.addEventListener(MouseEvent.MOUSE_MOVE, navigationDrag);
-			_mc.stage.addEventListener(MouseEvent.MOUSE_UP, navigationDragStop);
-			
-			_deltaY = mouseY;
+			_mc.stage.addEventListener(Event.ENTER_FRAME, drag);
+			_mc.stage.addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+//			offsetX = mouseX - object.x;
+			var object:Object = e.target;
+			var objPos:Point = _mc.localToGlobal(new Point(object.x, object.y));
+			offsetY = mouseY - objPos.y - object.mouseY;
+			trace("offsetY: "+offsetY);
+			trace("mouseY: "+mouseY);
+			trace("object.mouseY: "+object.mouseY);
+//			trace("object.y: "+object.y);
+			trace(_mc.localToGlobal(new Point(object.x, object.y)));
+			//
+			dragging = true;
 		}
 		
-		protected function navigationDragStop(event:MouseEvent):void
+		private function mouseUpHandler(e:MouseEvent):void
 		{
-			_mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, navigationDrag);
-			_mc.stage.removeEventListener(MouseEvent.MOUSE_UP, navigationDragStop);
+			_mc.stage.removeEventListener(Event.ENTER_FRAME, drag);
+			_mc.stage.removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
+//			xSpeed = ms.getXSpeed();
+//			ySpeed = ms.getYSpeed();
+			
+			//
+			dragging = false;
 		}
 		
-//		protected function gearMouseUp(event:MouseEvent):void
-//		{
-////			trace("gearMouse UP");
-//			_mouseDown = false;
-////			_mc.stopDrag();
-//			_mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, navigationDrag);
-//		}
-		
-//		protected function gearMouseOut(event:MouseEvent):void
-//		{
-//			if (!_mouseDown) return;
-////			trace("gearMouse OUT");
-//			_mouseDown = false;
-////			_mc.stopDrag();
-//			_mc.stage.removeEventListener(MouseEvent.MOUSE_MOVE, navigationDrag);
-//		}
-//		
-		protected function navigationDrag(event:MouseEvent):void
+		private function drag(e:Event):void
 		{
-//			trace("mouseY: "+_gear.mouseY);
-//			trace("_gear.y: "+_gear.y);
-//			if (_mc.y < CLOSED_Y) {
-//				_mc.y = CLOSED_Y;
-//				trace("too far up");
-//				return;
-//			}
 			
-//			trace((mouseY/DataModel.APP_HEIGHT));
+//			object.x = mouseX - offsetX;
+//			_mc.y = mouseY - offsetY;
+			if(dragging){
+				destination.x=mouseX;
+				destination.y=mouseY+CLOSED_Y;
+			}
+			//object.x-=(object.x-destination.x)/speed;
+			_mc.y-=((_mc.y-destination.y)/speed);
 			
-			trace("_gear.mouseY: "+_gear.mouseY);
-			
-//			_mc.y = CLOSED_Y + 100*(mouseY/DataModel.APP_HEIGHT);
-			_mc.y = event.stageY + CLOSED_Y;
-//			trace("_mc.y: "+_mc.y);
+			if (_mc.y <= CLOSED_Y) {
+				_mc.y = CLOSED_Y;
+				//				return;
+			}
+			if (_mc.y > CONTENTS_Y) {
+				_mc.y = CONTENTS_Y;
+			}
 		}
+
 		
 		protected function peekNavigation(event:ViewEvent):void
 		{
