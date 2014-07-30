@@ -5,16 +5,8 @@ import com.milkmangames.nativeextensions.ios.StoreKitProduct;
 import com.milkmangames.nativeextensions.ios.events.StoreKitErrorEvent;
 import com.milkmangames.nativeextensions.ios.events.StoreKitEvent;
 
-import flash.display.Loader;
 import flash.display.Sprite;
-import flash.filesystem.File;
-import flash.geom.Rectangle;
 import flash.net.SharedObject;
-import flash.net.URLRequest;
-import flash.system.ApplicationDomain;
-import flash.system.LoaderContext;
-import flash.system.SecurityDomain;
-import flash.text.TextField;
 
 import events.ViewEvent;
 
@@ -37,8 +29,8 @@ public class StoreKitService extends Sprite
 		
 	/** Product IDs, must match iTunes Connect Items */
 //	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockCompleteBook";
-//	DISCOUNTED PRICE $1.99
-	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockCompleteBookLimitedTimeOffer";
+//	DISCOUNTED PRICE $2.99
+	private static const UNLOCK_ID:String="com.2ndstringproductions.ADefendersTale.UnlockCompleteBookLaunchPriceOffer";
 	
 	public var supported:Boolean = false;
 
@@ -265,7 +257,7 @@ public class StoreKitService extends Sprite
 	{
 		log("CANCELLED purchase="+e.productId+","+e.transactionId);
 		
-//		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_NOT));
+		EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_CANCELLED));
 		
 		DataModel.getInstance().trackEvent("application", "unlock CANCELLED! at: "+ DataModel.CURRENT_PAGE_ID);
 	}

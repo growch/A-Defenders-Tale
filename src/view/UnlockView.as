@@ -61,7 +61,7 @@ package view
 			
 			_unlockMC.text_txt.text = "Will you continue your quest and defeat the evil Pince Nero? " + 
 				DataModel.defenderInfo.defender +	", you're this realm's only hope.\n\n" +
-				"Unlock the full book. For a limited time, only $1.99 USD."
+				"Unlock the full book. For a limited time, only $2.99 USD."
 			
 			//GRAPHICS
 			DataModel.getInstance().setGraphicResolution(_unlockMC);
@@ -71,6 +71,7 @@ package view
 			
 			EventController.getInstance().addEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 			EventController.getInstance().addEventListener(ViewEvent.UNLOCK_NOT, unlockNot);
+			EventController.getInstance().addEventListener(ViewEvent.UNLOCK_CANCELLED, unlockCancelled);
 			
 			DataModel.getInstance().trackEvent("application", "show UNLOCK at: "+ DataModel.CURRENT_PAGE_ID);
 //			trace( "show UNLOCK at: "+ DataModel.CURRENT_PAGE_ID);
@@ -82,6 +83,12 @@ package view
 			_unlockMC.visible = false
 			_unlockNotMC["blocker_mc"].visible = false;
 			_unlockNotMC.visible = true;
+		}
+
+		protected function unlockCancelled(event:ViewEvent):void
+		{
+			_unlockNotMC["blocker_mc"].visible = false;
+			_unlockMC["blocker_mc"].visible = false;
 		}
 		
 		protected function unlockPurchased(event:ViewEvent):void
@@ -157,11 +164,8 @@ package view
 			_unlocking = true;
 			_restoring = false;
 			
-			_unlockMC["blocker_mc"].visible = false;
+			_unlockMC["blocker_mc"].visible = true;
 			
-//			TESTING!!!! so JOY can test without paying
-//			EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.UNLOCK_PURCHASED));
-//			return;
 			
 			if (!DataModel.getStoreKit().supported) {
 //				lil' hacky so as to not get stuck behind paywall on desktop
@@ -248,6 +252,7 @@ package view
 		public function destroy():void {
 			EventController.getInstance().removeEventListener(ViewEvent.UNLOCK_PURCHASED, unlockPurchased);
 			EventController.getInstance().removeEventListener(ViewEvent.UNLOCK_NOT, unlockNot);
+			EventController.getInstance().removeEventListener(ViewEvent.UNLOCK_CANCELLED, unlockCancelled);
 			
 			_mc.x_btn.removeEventListener(MouseEvent.CLICK, closeClick);
 			
