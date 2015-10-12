@@ -1,7 +1,7 @@
 package control
 {
-	import com.palDeveloppers.ane.NativeTwitter;
-	import com.palDeveloppers.ane.TweetCompositionResult;
+//	import com.palDeveloppers.ane.NativeTwitter;
+//	import com.palDeveloppers.ane.TweetCompositionResult;
 	
 	import events.ViewEvent;
 	
@@ -25,6 +25,7 @@ package control
 		}
 		
 		private function init():void {
+			/*
 			if (NativeTwitter.isSupported()) {
 				_tempObj = new Object();
 				
@@ -54,6 +55,7 @@ package control
 			} else {
 				trace("NativeTwitter NOT supported");
 			}
+			*/
 		}
 		
 		private function homeTimelineGot(resultCode:String, data:Object):void {
@@ -70,20 +72,20 @@ package control
 		}
 		
 		public function twitterAvailable():Boolean {
-			if (NativeTwitter.isSupported()) {
-//				trace("TWITTER IS AVAILABLE !!!");
-				return NativeTwitter.instance.isTwitterSetup();
-			} else {
-//				trace("NativeTwitter NOT supported");
-				return false;
-			}
-			
+//			if (NativeTwitter.isSupported()) {
+////				trace("TWITTER IS AVAILABLE !!!");
+//				return NativeTwitter.instance.isTwitterSetup();
+//			} else {
+////				trace("NativeTwitter NOT supported");
+//				return false;
+//			}
+			return false;
 		}
 		
 		public function postTweet(tweet:String):void {
 			if (!accessAllowed) return;
 			
-			NativeTwitter.instance.composeTweet(tweet);
+//			NativeTwitter.instance.composeTweet(tweet);
 		}
 		
 		private function accessDenied(requestName:String):void {
@@ -98,24 +100,24 @@ package control
 		}
 		
 		private function tweetComposed(resultCode:int):void {
-			var msg:String;
-			if ((resultCode & TweetCompositionResult.LONG_TEXT) == TweetCompositionResult.LONG_TEXT) { 
-				trace("Tweet text too long");
-			} else if ((resultCode & TweetCompositionResult.BAD_IMAGE) == TweetCompositionResult.BAD_IMAGE) {
-				trace("Problem attaching image");
-			} else if ((resultCode & TweetCompositionResult.LONG_URL) == TweetCompositionResult.LONG_URL) {
-				trace("Attached URL too long");
-			} else if ((resultCode & TweetCompositionResult.CANCELLED) == TweetCompositionResult.CANCELLED) {
-				msg = "Cancelled tweet composition";
-				trace(msg);
-				_tempObj.msg = msg;
-				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.TWITTER_DONE, _tempObj));
-			} else {
-				msg = "Tweet sent";
-				trace(msg);
-				_tempObj.msg = msg;
-				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.TWITTER_DONE, _tempObj));
-			}
+//			var msg:String;
+//			if ((resultCode & TweetCompositionResult.LONG_TEXT) == TweetCompositionResult.LONG_TEXT) { 
+//				trace("Tweet text too long");
+//			} else if ((resultCode & TweetCompositionResult.BAD_IMAGE) == TweetCompositionResult.BAD_IMAGE) {
+//				trace("Problem attaching image");
+//			} else if ((resultCode & TweetCompositionResult.LONG_URL) == TweetCompositionResult.LONG_URL) {
+//				trace("Attached URL too long");
+//			} else if ((resultCode & TweetCompositionResult.CANCELLED) == TweetCompositionResult.CANCELLED) {
+//				msg = "Cancelled tweet composition";
+//				trace(msg);
+//				_tempObj.msg = msg;
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.TWITTER_DONE, _tempObj));
+//			} else {
+//				msg = "Tweet sent";
+//				trace(msg);
+//				_tempObj.msg = msg;
+//				EventController.getInstance().dispatchEvent(new ViewEvent(ViewEvent.TWITTER_DONE, _tempObj));
+//			}
 		}
 		
 		private function twRequestResult(resultCode:String, data:Object):void {
@@ -160,12 +162,12 @@ package control
 		public function getUserName():void {
 			if (!accessAllowed) return;
 			
-			NativeTwitter.instance.getTwitterUsernames();
+//			NativeTwitter.instance.getTwitterUsernames();
 		}
 		
 //		TESTING!!!
 		public function getHomeTimeline():void {
-			NativeTwitter.instance.getHomeTimeLine();
+//			NativeTwitter.instance.getHomeTimeLine();
 		}
 		
 		
@@ -173,7 +175,7 @@ package control
 			if (!accessAllowed) return;
 			
 //			trace("Twitter getFollowers");
-			NativeTwitter.instance.getTWRequest("followers/list.json?count=200&cursor="+_nextCursor);
+//			NativeTwitter.instance.getTWRequest("followers/list.json?count=200&cursor="+_nextCursor);
 //			NativeTwitter.instance.getTWRequest("followers/list.json?count=200&screen_name=jimmykimmel&cursor="+_nextCursor);
 		}
 	}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<application xmlns="http://ns.adobe.com/air/application/13.0">
+<application xmlns="http://ns.adobe.com/air/application/19.0">
 
 <!-- Adobe AIR Application Descriptor File Template.
 
@@ -300,10 +300,10 @@
     
     <extensions>
 	<extensionID>com.milkmangames.extensions.GoViral</extensionID>
-    <extensionID>com.palDeveloppers.ane.NativeTwitter</extensionID>
+   <!--  <extensionID>com.palDeveloppers.ane.NativeTwitter</extensionID> -->
     <extensionID>com.milkmangames.extensions.StoreKit</extensionID>
-    <extensionID>eu.alebianco.air.extensions.analytics.NativeGATracker</extensionID>
-    <extensionID>com.sticksports.nativeExtensions.SilentSwitch</extensionID>
+    <!-- <extensionID>eu.alebianco.air.extensions.analytics.NativeGATracker</extensionID>
+    <extensionID>com.sticksports.nativeExtensions.SilentSwitch</extensionID> -->
     </extensions>
     
 </application>

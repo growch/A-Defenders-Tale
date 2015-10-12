@@ -1,5 +1,6 @@
 package  control
 {
+import adobe.utils.CustomActions;
 import com.milkmangames.nativeextensions.events.*;
 import com.milkmangames.nativeextensions.*;
 import flash.display.*
@@ -7,6 +8,7 @@ import flash.events.*;
 import flash.filters.*;
 import flash.geom.*
 import flash.text.*;
+import flash.utils.ByteArray;
 
 /** GoViralExample App */
 public class GoViralExample extends Sprite
@@ -17,7 +19,7 @@ public class GoViralExample extends Sprite
 	
 	/** CHANGE 'YOUR::APP_ID' TO YOUR FACEBOOK APP ID in quotes! */
 	//public static const FACEBOOK_APP_ID:String="12345678900";
-	public static const FACEBOOK_APP_ID:String="351887674885054";
+	public static const FACEBOOK_APP_ID:String=YOUR::APP_ID;
 
 	//
 	// Instance Variables
@@ -42,6 +44,7 @@ public class GoViralExample extends Sprite
 		createUI();		
 		log("Started GoViral Example.");
 		init();
+
 	}
 
 	
@@ -75,9 +78,10 @@ public class GoViralExample extends Sprite
 			{
 				log("Initializing facebook...");
 				GoViral.goViral.initFacebook(FACEBOOK_APP_ID, "");
-				log("Facebook Initialized! GoViral v"+GoViral.VERSION);
+				log("Facebook Initialized! GoViral v"+GoViral.VERSION+"/"+GoViral.goViral.isFacebookAuthenticated());
 			}
 		}
+		
 		
 		// set up all the event listeners.
 		// you only need the ones for the services you want to use.
@@ -93,6 +97,11 @@ public class GoViralExample extends Sprite
 		GoViral.goViral.addEventListener(GVFacebookEvent.FB_PUBLISH_PERMISSIONS_UPDATED, onFacebookEvent);
 		GoViral.goViral.addEventListener(GVFacebookEvent.FB_READ_PERMISSIONS_FAILED, onFacebookEvent);
 		GoViral.goViral.addEventListener(GVFacebookEvent.FB_PUBLISH_PERMISSIONS_FAILED, onFacebookEvent);
+		GoViral.goViral.addEventListener(GVFacebookEvent.FB_PERMISSIONS_REFRESHED, onFacebookEvent);
+		GoViral.goViral.addEventListener(GVFacebookEvent.FB_PERMISSIONS_REFRESH_FAILED, onFacebookEvent);
+		
+		// facebook event for incoming App Invites
+		GoViral.goViral.addEventListener(GVFacebookEvent.FB_APP_INVITE_OPENED, onFacebookEvent);
 
 		showMainUI();
 	}
@@ -105,7 +114,7 @@ public class GoViralExample extends Sprite
 		log("Login with facebook...");
 		if(!GoViral.goViral.isFacebookAuthenticated())
 		{
-			GoViral.goViral.authenticateWithFacebook();
+			GoViral.goViral.authenticateWithFacebook("public_profile,user_games_activity");
 
 			log("Waiting for login response...");
 		}
@@ -119,7 +128,7 @@ public class GoViralExample extends Sprite
 	/** Request New Read Permissions */
 	private function requestNewReadPermissions():void
 	{
-		var newPerms:String="email";
+		var newPerms:String="user_friends";
 		log("Requesting new permission '"+newPerms+"'...");
 		GoViral.goViral.requestNewFacebookReadPermissions(newPerms);
 	}
@@ -132,43 +141,34 @@ public class GoViralExample extends Sprite
 		GoViral.goViral.requestNewFacebookPublishPermissions(newPerms);
 	}
 	
+	/** Refresh Session Permissions */
+	private function refreshSessionPermissions():void
+	{
+		log("Refreshing session permissions...");
+		GoViral.goViral.refreshFacebookSessionPermissions();
+	}
+	
 	/** Logout of facebook */
 	private function logoutFacebook():void
 	{
 		log("logout facebook.");
 		GoViral.goViral.logoutFacebook();
 	}
-	
-	/** Stage a Facebook Image */
-	private function stageFacebookImage():void
-	{
 
-		log("Staging image...");
-		var bitmapData:BitmapData=getOrCreateBitmapData();
-		GoViral.goViral.stageFacebookImage(bitmapData).addRequestListener(function(e:GVFacebookEvent):void{
-			log("Image staged result:"+e.jsonData);
-		});
-
-	}
 	
 	/** Share an Open Graph Object with the native Open Graph Action Dialog */
 	private function facebookOpenGraphDialog():void
 	{
-		if (!GoViral.goViral.isFacebookGraphDialogAvailable())
-		{
-			log("Graph Action Dialog not available - update Facebook app or use classic dialog!");
-			return;
-		}
+		var bitmapData:BitmapData=getOrCreateBitmapData();		
 		
-		var bitmapData:BitmapData=getOrCreateBitmapData();
-		
-		log("Submitting graph action dialog..");
+		log("Submitting graph action dialog.....");		
+
 		GoViral.goViral.showFacebookGraphDialog(
-			"mmg_sample:testaction", 
-			"mmg_sample:testobject", 
+			"mmg_goviral:test_action", 
+			"mmg_goviral:test_object", 
 			"Graph Action Title", 
 			"Graph Action Description",
-			"http://www.milkmangames.com", 
+			"https://www.milkmanplugins.com", 
 			bitmapData).addDialogListener(function(e:GVFacebookEvent):void {
 				switch(e.type)
 				{
@@ -183,19 +183,16 @@ public class GoViralExample extends Sprite
 						break;
 				}
 			});
-
 	}
 	
 	/** Share with the Native FacebookShare Dialog */
 	private function facebookShareDialog():void
 	{
-		var canUseShareDialog:Boolean=GoViral.goViral.isFacebookShareDialogAvailable();
-		
+
 		GoViral.goViral.showFacebookShareDialog(
-		"Posting from GoViral v4", 
-		"This is the caption!", 
+		"Posting from GoViral v5", 
 		"This is the description. ", 
-		"http://www.milkmangames.com", 
+		"https://www.milkmanplugins.com",
 		"http://www.milkmangames.com/gvremoteimage.jpg").addDialogListener(function(e:GVFacebookEvent):void {
 				switch(e.type)
 				{
@@ -210,66 +207,68 @@ public class GoViralExample extends Sprite
 						break;
 				}
 			});
-			
-		// the extension will have automatically defaulted to the classic 'feed' dialog, if share dialog was not available.
-		if (!canUseShareDialog)
-		{
-			log("Native Sharing was not available.  Used Feed Dialog instead.");
-		}
+
 	}
 	
-	/** Post to the facebook wall / feed via the classic web dialog.  The native dialog is now preferred if available. */
-	private function postOldFeedDialog():void
+	/** Share with the Native Facebook Messenger App Dialog */
+	private function facebookMessengerDialog():void
 	{
-		log("posting fb feed dialog....");
-		GoViral.goViral.showFacebookFeedDialog(
-			"Posting from AIR",
-			"This is a caption",
-			"This is a message!",
-			"This is a description",
-			"http://www.milkmangames.com",
-			"http://www.milkmangames.com/gvremoteimage.jpg",
-			{actions:{name:"Google",link:"http://www.google.com"}}
-		).addDialogListener(function(e:GVFacebookEvent):void {
-			trace("oldfeed.response");
+		var canUseMessageDialog:Boolean=GoViral.goViral.isFacebookMessageDialogAvailable();
+		if (!canUseMessageDialog)
+		{
+			log("Facebook Messenger is not installed, sorry!");
+			return;
+		}
+		
+		GoViral.goViral.showFacebookMessageDialog(
+		"Message from GoViral v5", 
+		"This is the caption!", 
+		"This is the description. ", 
+		"https://www.milkmanplugins.com", 
+		"http://www.milkmangames.com/gvremoteimage.jpg").addDialogListener(function(e:GVFacebookEvent):void {
 				switch(e.type)
 				{
 					case GVFacebookEvent.FB_DIALOG_CANCELED:
-						log("The Feed Dialog was canceled.");
+						log("The Messenger Dialog was canceled.");
 						break;
 					case GVFacebookEvent.FB_DIALOG_FAILED:
-						log("The Feed Dialog has failed:"+e.errorMessage);
+						log("The Messenger Dialog has failed:"+e.errorMessage);
 						break;
 					case GVFacebookEvent.FB_DIALOG_FINISHED:
-						log("Successfully posted to Feed dialog:"+e.jsonData);
+						log("Successfully posted to messenger dialog:"+e.jsonData);
 						break;
 				}
-			});
+			});	
 
 	}
 	
-	/** Request friends using the deprecated/unsupported v1 graph api */
-	private function getFriendsDEPRECATED():void
+	/** Send a Facebook AppInvite */
+	private function facebookAppInviteDialog():void
 	{
-		log("Getting v1 friends...");
+		if (!GoViral.goViral.isFacebookAppInviteDialogAvailable())
+		{
+			log("App Invite not supported on this device (old OS.)");
+			return;
+		}
+		log("Showing App Invite Dialog...");
 		
-		GoViral.goViral.facebookGraphRequest("me/friends",GVHttpMethod.GET,null,null,true).addRequestListener(function(e:GVFacebookEvent):void {
-			if (e.type==GVFacebookEvent.FB_REQUEST_RESPONSE)
-			{
-				var allFriends:String="";
-				for each(var friend:GVFacebookFriend in e.friends)
+		GoViral.goViral.showFacebookAppInviteDialog(
+			"https://fb.me/715601218545703",
+			"http://www.milkmangames.com/gvremoteimage.jpg").addDialogListener(function(e:GVFacebookEvent):void {
+				switch(e.type)
 				{
-					allFriends+=","+friend.name;
-				}
-					
-				log("DEPRECATED"+"-= ("+e.friends.length+")="+allFriends+",json="+e.jsonData);
-			}
-			else
-			{
-				log("The v1 friends request failed:"+e.errorMessage);
-			}
-		});
-
+					case GVFacebookEvent.FB_DIALOG_CANCELED:
+						log("The AppInvite Dialog was canceled .");
+						break;
+					case GVFacebookEvent.FB_DIALOG_FAILED:
+						log("The AppInvite Dialog has failed:"+e.errorMessage);
+						break;
+					case GVFacebookEvent.FB_DIALOG_FINISHED:
+						log("Successfully posted to AppInvite dialog:"+e.jsonData);
+						break;
+				}				
+			});
+	
 	}
 	
 	/** Get a list of all your facebook friends */
@@ -308,7 +307,6 @@ public class GoViralExample extends Sprite
 				log("My Profile: "+myProfile.id+
 					", name='"+myProfile.name+
 					"',gender='"+myProfile.gender+
-					"',location='"+myProfile.locationName+
 					"',bio='"+myProfile.bio+"'");
 					
 				this.myProfile=myProfile;
@@ -334,11 +332,14 @@ public class GoViralExample extends Sprite
 		log("auth is:"+GoViral.goViral.isFacebookAuthenticated()+",expiry:"+accessExpiry+"("+expiryDate+"),token: "+accessToken);
 	}
 
+
 	/** Submit Score */
 	private function submitScoreFacebook():void
 	{
+
+		
 		log("Submitting score...");
-		GoViral.goViral.postFacebookHighScore(9452042).addRequestListener(function(e:GVFacebookEvent):void{
+		GoViral.goViral.postFacebookHighScore(9452099).addRequestListener(function(e:GVFacebookEvent):void{
 			if (e.type==GVFacebookEvent.FB_REQUEST_RESPONSE)
 			{
 				log("Score submitted!");
@@ -354,15 +355,18 @@ public class GoViralExample extends Sprite
 	private function getMyScoreFacebook():void
 	{
 		log("Getting high score...");
-		GoViral.goViral.facebookGraphRequest("me/scores").addRequestListener(function(e:GVFacebookEvent):void {
-			if (e.type==GVFacebookEvent.FB_REQUEST_RESPONSE)
-			{
-				log("Got score data! "+e.jsonData);
-			}
-			else
-			{
-				log("Error getting score: "+e.errorMessage);
-			}
+		GoViral.goViral.facebookGraphRequest("me/scores",
+			GVHttpMethod.GET,
+			{fields:"score"})
+			.addRequestListener(function(e:GVFacebookEvent):void {
+				if (e.type==GVFacebookEvent.FB_REQUEST_RESPONSE)
+				{
+					log("Got score data! "+e.jsonData);
+				}
+				else
+				{
+					log("Error getting score: "+e.errorMessage);
+				}
 		});
 	}
 	
@@ -370,17 +374,38 @@ public class GoViralExample extends Sprite
 	private function getHighScoresFacebook():void
 	{
 		log("Getting high scores...");
-		GoViral.goViral.facebookGraphRequest(FACEBOOK_APP_ID+"/scores").addRequestListener(function(e:GVFacebookEvent):void {
+		GoViral.goViral.facebookGraphRequest(FACEBOOK_APP_ID+"/scores",
+			GVHttpMethod.GET,
+			{fields:"score"})
+			.addRequestListener(function(e:GVFacebookEvent):void {
+				if (e.type==GVFacebookEvent.FB_REQUEST_RESPONSE)
+				{
+					log("Got scores data! "+e.jsonData);
+				}
+				else
+				{
+					log("Error getting scores: "+e.errorMessage);
+				}
+		});
+	}
+	
+	/** Test what happens when a graph request fails */
+	private function testFailingGraphRequest():void
+	{
+		log("Starting a bad test request...");
+		GoViral.goViral.facebookGraphRequest("me/bananas").addRequestListener(function(e:GVFacebookEvent):void {
 			if (e.type==GVFacebookEvent.FB_REQUEST_RESPONSE)
 			{
-				log("Got scores data! "+e.jsonData);
+				log("Test request success, uhoh! "+e.jsonData);
 			}
 			else
 			{
-				log("Error getting scores: "+e.errorMessage);
+				log("Bad Request error: "+e.errorMessage);
 			}
 		});
+	
 	}
+	
 	
 	/** Make a post graph request */
 	private function postGraphFacebook():void
@@ -389,9 +414,7 @@ public class GoViralExample extends Sprite
 		var params:Object={};
 		params.name="Name Test";
 		params.caption="Caption Test";
-		params.link="http://www.milkmangames.com";
-		params.actions=new Array();
-		params.actions.push({name:"Link NOW!", link:"http://www.google.com"});
+		params.link="https://www.milkmanplugins.com";
 
 		GoViral.goViral.facebookGraphRequest(
 			"me/feed",
@@ -410,12 +433,13 @@ public class GoViralExample extends Sprite
 		
 	}
 	
-	/** Show a facebook friend invite dialog */
-	private function inviteFriendsFacebook():void
+	/** Show a facebook game request dialog */
+	private function gameRequestFacebook():void
 	{
-		log("inviting friends...");
+		log("inviting friends..");
 		
-		GoViral.goViral.showFacebookRequestDialog(
+		
+		GoViral.goViral.showFacebookGameRequestDialog(
 		"Play my game",
 		"Play this game with me!").addDialogListener(function(e:GVFacebookEvent):void {
 				switch(e.type)
@@ -519,6 +543,41 @@ public class GoViralExample extends Sprite
 		log("Email Composer opened.");
 	}
 	
+	/** Send Html Email */
+	private function sendHtmlTestEmail():void
+	{
+		if (!GoViral.goViral.isEmailAvailable())
+		{
+			log("Email is not enabled on device.");
+			return;
+		}
+		log("Opening email composer...");
+		
+		var msgBody:String='<html><p>Heres a <a href="https://www.milkmanplugins.com">LINK.</a></p></html>';
+		
+		GoViral.goViral.showEmailComposer(
+		"This is a subject!",
+		"who@where.com,john@doe.com",
+		msgBody, true).addDialogListener(function(e:GVMailEvent):void {
+			switch(e.type)
+			{
+				case GVMailEvent.MAIL_SENT:
+					log("Mail sent!");
+					break;
+				case GVMailEvent.MAIL_SAVED:
+					log("Mail saved.");
+					break;
+				case GVMailEvent.MAIL_CANCELED:
+					log("Mail canceled.");
+					break;
+				case GVMailEvent.MAIL_FAILED:
+					log("Failed sending mail.");
+					break;
+			}
+		});
+		log("Email Composer opened.");
+	}
+	
 	/** Send Email with attached image */
 	public function sendImageEmail():void
 	{
@@ -557,6 +616,50 @@ public class GoViralExample extends Sprite
 		log("Email Composer Opened.");
 	}
 	
+	/** Send Email with attached Byte Array */
+	public function sendByteArrayEmail():void
+	{
+		if (!GoViral.goViral.isEmailAvailable())
+		{
+			log("Email is not enabled on device.");
+			return;
+		}
+		
+		// we just make a text file for this example.
+		var byteArray:ByteArray=new ByteArray();
+		
+		byteArray.writeUTF("This is the contents of our sample text file attachment!");
+		
+		log("Email composer w/byteArray...");
+
+		GoViral.goViral.showEmailComposerWithByteArray(
+			"This has an attachment!",
+			"john@doe.com",
+			"I think youll like my text file",
+			false,
+			byteArray,
+			"text/plain",
+			"textfile.txt").addDialogListener(function(e:GVMailEvent):void {
+			switch(e.type)
+			{
+				case GVMailEvent.MAIL_SENT:
+					log("Mail sent!");
+					break;
+				case GVMailEvent.MAIL_SAVED:
+					log("Mail saved.");
+					break;
+				case GVMailEvent.MAIL_CANCELED:
+					log("Mail canceled.");
+					break;
+				case GVMailEvent.MAIL_FAILED:
+					log("Failed sending mail.");
+					break;
+			}
+		});
+
+		log("Email Composer Opened.");
+	}
+	
 	//
 	// Social Composer
 	
@@ -568,6 +671,7 @@ public class GoViralExample extends Sprite
 		{
 			log("Facebook service not available.");
 			return;
+
 		}
 		
 		var bitmapData:BitmapData=getOrCreateBitmapData();
@@ -577,7 +681,7 @@ public class GoViralExample extends Sprite
 			GVSocialServiceType.FACEBOOK, 
 			"Hello facebook!",
 			bitmapData, 
-			"http://www.milkmangames.com").addDialogListener(function(e:GVShareEvent):void {
+			"https://www.milkmanplugins.com").addDialogListener(function(e:GVShareEvent):void {
 				switch(e.type)
 				{
 					case GVShareEvent.SOCIAL_COMPOSER_FINISHED:
@@ -608,7 +712,7 @@ public class GoViralExample extends Sprite
 			GVSocialServiceType.TWITTER, 
 			"Hello twitter with pic!", 
 			bitmapData, 
-			"http://www.milkmangames.com").addDialogListener(function(e:GVShareEvent):void {
+			"https://www.milkmanplugins.com").addDialogListener(function(e:GVShareEvent):void {
 				switch(e.type)
 				{
 					case GVShareEvent.SOCIAL_COMPOSER_FINISHED:
@@ -639,7 +743,7 @@ public class GoViralExample extends Sprite
 			"SMS", 
 			"Hello sms msg!", 
 			bitmapData,
-			"http://www.milkmangames.com")..addDialogListener(function(e:GVShareEvent):void {
+			"https://www.milkmanplugins.com")..addDialogListener(function(e:GVShareEvent):void {
 				switch(e.type)
 				{
 					case GVShareEvent.SOCIAL_COMPOSER_FINISHED:
@@ -669,7 +773,7 @@ public class GoViralExample extends Sprite
 			GVSocialServiceType.SINAWEIBO, 
 			"Hello Weibo!", 
 			null, 
-			"http://www.milkmangames.com").addDialogListener(function(e:GVShareEvent):void {
+			"https://www.milkmanplugins.com").addDialogListener(function(e:GVShareEvent):void {
 				switch(e.type)
 				{
 					case GVShareEvent.SOCIAL_COMPOSER_FINISHED:
@@ -696,11 +800,14 @@ public class GoViralExample extends Sprite
 			return;
 		}
 		
+
 		log("Sending generic share intent...");
 		GoViral.goViral.shareGenericMessage(
 			"The Subject",
 			"The message!",
-			false).addDialogListener(function(e:GVShareEvent):void {
+			false,
+			350,
+			512).addDialogListener(function(e:GVShareEvent):void {
 				log("Generic share completed.");
 		});
 			
@@ -797,6 +904,14 @@ public class GoViralExample extends Sprite
 		}		
 	}
 	
+	/** Show a Twitter Profile */
+	private function presentTwitterProfile():void
+	{
+		log("Showing 'milkmangames' twitter profile...");
+		GoViral.goViral.presentTwitterProfile("milkmangames");
+		log("Showed twitter profile.");
+	}
+	
 	//
 	// Events
 	//
@@ -806,27 +921,44 @@ public class GoViralExample extends Sprite
 	{
 		switch(e.type)
 		{
-	case GVFacebookEvent.FB_LOGGED_IN:
+			case GVFacebookEvent.FB_LOGGED_IN:
 				log("Logged in to facebook:"+GoViral.VERSION+
 					",denied: ["+GoViral.goViral.getDeclinedFacebookPermissions()+
-					"], profile permission?"+GoViral.goViral.isFacebookPermissionGranted("public_profile"));
+					"], user_friends permission?"+GoViral.goViral.isFacebookPermissionGranted("user_friends"));
 				break;
+				
 			case GVFacebookEvent.FB_LOGGED_OUT:
-				log("Logged out of facebook.");
+				logStatus("[..Logged out of facebook.]");
 				break;
+				
 			case GVFacebookEvent.FB_LOGIN_CANCELED:
 				log("Canceled facebook login.");
 				break;
+				
 			case GVFacebookEvent.FB_LOGIN_FAILED:
-				log("Login failed:"+e.errorMessage+",sn?"+e.shouldNotifyFacebookUser+",cat?"+e.facebookErrorCategoryId);
+				log("Login failed:"+e.errorMessage+",sn?"+e.shouldNotifyFacebookUser+", code?"+e.errorCode);
 				break;
+				
 			case GVFacebookEvent.FB_PUBLISH_PERMISSIONS_FAILED:
 			case GVFacebookEvent.FB_READ_PERMISSIONS_FAILED:
-				log("perms failed:"+e.errorMessage+",sn?"+e.shouldNotifyFacebookUser+",cat?"+e.facebookErrorCategoryId+","+e.permissions);
+				log("perms failed:"+e.errorMessage+",sn?"+e.shouldNotifyFacebookUser+",code?"+e.errorCode+","+e.permissions+", uf="+GoViral.goViral.isFacebookPermissionGranted("user_friends"));
 				break;
+				
 			case GVFacebookEvent.FB_READ_PERMISSIONS_UPDATED:
 			case GVFacebookEvent.FB_PUBLISH_PERMISSIONS_UPDATED:
-				log("Perms updated:"+e.permissions);
+				log("Perms updated:"+e.permissions+", uf="+GoViral.goViral.isFacebookPermissionGranted("user_friends"));
+				break;
+				
+			case GVFacebookEvent.FB_PERMISSIONS_REFRESHED:
+				log("Perms refreshed, now:"+e.permissions+",uf="+GoViral.goViral.isFacebookPermissionGranted("user_friends"));
+				break;
+				
+			case GVFacebookEvent.FB_PERMISSIONS_REFRESH_FAILED:
+				log("Refresh permission failed:"+e.errorMessage+",sn?"+e.shouldNotifyFacebookUser+",code?"+e.errorCode+","+e.permissions+", uf="+GoViral.goViral.isFacebookPermissionGranted("user_friends"));
+				break;
+			case GVFacebookEvent.FB_APP_INVITE_OPENED:
+				log("App Invite OPENED! :"+e.appInviteURL);
+				break;
 		}
 	}	
 
@@ -842,6 +974,8 @@ public class GoViralExample extends Sprite
 		txtStatus.text=msg;
 	}
 	
+
+	
 	private function logStatus(msg:String):void
 	{
 		txtStatus.appendText("-"+msg);
@@ -853,7 +987,7 @@ public class GoViralExample extends Sprite
 		txtStatus=new TextField();
 		
 		txtStatus.defaultTextFormat=new flash.text.TextFormat("Arial",19);
-		txtStatus.width=768;
+		txtStatus.width=stage.stageWidth;
 		txtStatus.multiline=true;
 		txtStatus.wordWrap=true;
 		txtStatus.text="Ready";
@@ -878,18 +1012,21 @@ public class GoViralExample extends Sprite
 		buttonContainer.y=txtStatus.height;
 		addChild(buttonContainer);
 		
-		var uiRect:Rectangle=new Rectangle(0,0,768,1024);
+		var uiRect:Rectangle=new Rectangle(0,0,stage.stageWidth,stage.stageHeight);
 		var layout:ButtonLayout=new ButtonLayout(uiRect,14);
-		layout.addButton(new Button(new Command("Send Test Email",sendTestEmail)));
-		layout.addButton(new Button(new Command("Send Pic Email",sendImageEmail)));		
-		layout.addButton(new Button(new Command("Tweet Msg",postTwitter)));
-		layout.addButton(new Button(new Command("Tweet Pic",postTwitterPic)));
-		layout.addButton(new Button(new Command("Share Generic",sendGenericMessage)));
-		layout.addButton(new Button(new Command("Share Generic Img", sendGenericMessageWithImage)));
-		layout.addButton(new Button(new Command("SocialComposer Facebook", socialComposerFacebook)));
-		layout.addButton(new Button(new Command("SocialComposer Twitter", socialComposerTwitter)));
-		layout.addButton(new Button(new Command("SocialComposer SMS", socialComposerSMS)));
-		layout.addButton(new Button(new Command("Facebook Stuff >",showFacebookUI)));
+		layout.addButton(new SimpleButton(new Command("Send Test Email",sendTestEmail)));
+		layout.addButton(new SimpleButton(new Command("Send Pic Email", sendImageEmail)));	
+		layout.addButton(new SimpleButton(new Command("Send HTML Email", sendHtmlTestEmail)));
+		layout.addButton(new SimpleButton(new Command("Send ByteArray Email", sendByteArrayEmail)));
+		layout.addButton(new SimpleButton(new Command("Tweet Msg",postTwitter)));
+		layout.addButton(new SimpleButton(new Command("Tweet Pic", postTwitterPic)));
+		layout.addButton(new SimpleButton(new Command("Show Twitter Profile", presentTwitterProfile)));
+		layout.addButton(new SimpleButton(new Command("Share Generic",sendGenericMessage)));
+		layout.addButton(new SimpleButton(new Command("Share Generic Img", sendGenericMessageWithImage)));
+		layout.addButton(new SimpleButton(new Command("SocialComposer Facebook", socialComposerFacebook)));
+		layout.addButton(new SimpleButton(new Command("SocialComposer Twitter", socialComposerTwitter)));
+		layout.addButton(new SimpleButton(new Command("SocialComposer SMS", socialComposerSMS)));
+		layout.addButton(new SimpleButton(new Command("Facebook Stuff >",showFacebookUI)));
 		layout.attach(buttonContainer);
 		layout.layout();	
 	}
@@ -914,21 +1051,21 @@ public class GoViralExample extends Sprite
 		buttonContainer.y=txtStatus.height;
 		addChild(buttonContainer);
 		
-		var uiRect:Rectangle=new Rectangle(0,0,768,1024);
+		var uiRect:Rectangle=new Rectangle(0,0,stage.stageWidth,stage.stageHeight);
 		var layout:ButtonLayout=new ButtonLayout(uiRect,14);
-		layout.addButton(new Button(new Command("Login", loginFacebook)));
-		layout.addButton(new Button(new Command("Graph Action Dialog", facebookOpenGraphDialog)));
-		layout.addButton(new Button(new Command("Native FB Share", facebookShareDialog)));
-		layout.addButton(new Button(new Command("Deprecated Feed Dialog",postOldFeedDialog)));
-		layout.addButton(new Button(new Command("List friends", getFriendsFacebook)));
-		layout.addButton(new Button(new Command("List Friends DEPRECATED", getFriendsDEPRECATED)));
-		layout.addButton(new Button(new Command("My profile", getMeFacebook)));
-		layout.addButton(new Button(new Command("Show Page", showPageOrProfile)));		
-		layout.addButton(new Button(new Command("invite friends",inviteFriendsFacebook)));
-		layout.addButton(new Button(new Command("Get Token",getFacebookToken)));
-		layout.addButton(new Button(new Command("Logout fb", logoutFacebook)));
-		layout.addButton(new Button(new Command("Even More Facebook >", showFacebookUI2)));
-		layout.addButton(new Button(new Command("< Back",showMainUI)));
+		layout.addButton(new SimpleButton(new Command("Login", loginFacebook)));
+		layout.addButton(new SimpleButton(new Command("Graph Action Dialog", facebookOpenGraphDialog)));
+		layout.addButton(new SimpleButton(new Command("Native FB Share", facebookShareDialog)));
+		layout.addButton(new SimpleButton(new Command("Messenger Dialog", facebookMessengerDialog)));
+		layout.addButton(new SimpleButton(new Command("App Invite Dialog", facebookAppInviteDialog)));
+		layout.addButton(new SimpleButton(new Command("List friends", getFriendsFacebook)));
+		layout.addButton(new SimpleButton(new Command("My profile", getMeFacebook)));
+		layout.addButton(new SimpleButton(new Command("Show Page", showPageOrProfile)));		
+		layout.addButton(new SimpleButton(new Command("GameRequest dialog",gameRequestFacebook)));
+		layout.addButton(new SimpleButton(new Command("Get Token",getFacebookToken)));
+		layout.addButton(new SimpleButton(new Command("Logout fb", logoutFacebook)));
+		layout.addButton(new SimpleButton(new Command("Even More Facebook >", showFacebookUI2)));
+		layout.addButton(new SimpleButton(new Command("< Back",showMainUI)));
 		layout.attach(buttonContainer);
 		layout.layout();	
 	}
@@ -953,18 +1090,20 @@ public class GoViralExample extends Sprite
 		buttonContainer.y=txtStatus.height;
 		addChild(buttonContainer);
 		
-		var uiRect:Rectangle=new Rectangle(0,0,768,1024);
+		var uiRect:Rectangle=new Rectangle(0,0,stage.stageWidth,stage.stageHeight);
 		var layout:ButtonLayout=new ButtonLayout(uiRect,14);
 
-		layout.addButton(new Button(new Command("post photo",postPhotoFacebook)));
-		layout.addButton(new Button(new Command("New Read Perms", requestNewReadPermissions)));
-		layout.addButton(new Button(new Command("New Publish Perms", requestNewPublishPermissions)));
-		layout.addButton(new Button(new Command("Stage Facebook Image", stageFacebookImage)));
-		layout.addButton(new Button(new Command("Send Score", submitScoreFacebook)));
-		layout.addButton(new Button(new Command("Get my Score", getMyScoreFacebook)));
-		layout.addButton(new Button(new Command("Get Leaderboard", getHighScoresFacebook)));
-		layout.addButton(new Button(new Command("Direct Feed Post",postGraphFacebook)));
-		layout.addButton(new Button(new Command("< Back",showFacebookUI)));
+		layout.addButton(new SimpleButton(new Command("post photo",postPhotoFacebook)));
+		layout.addButton(new SimpleButton(new Command("New Read Perms", requestNewReadPermissions)));
+		layout.addButton(new SimpleButton(new Command("New Publish Perms", requestNewPublishPermissions)));
+		layout.addButton(new SimpleButton(new Command("Refresh Permissions", refreshSessionPermissions)));
+		layout.addButton(new SimpleButton(new Command("Send Score", submitScoreFacebook)));
+		layout.addButton(new SimpleButton(new Command("Get my Score", getMyScoreFacebook)));
+		layout.addButton(new SimpleButton(new Command("Get Leaderboard", getHighScoresFacebook)));
+		layout.addButton(new SimpleButton(new Command("Direct Feed Post", postGraphFacebook)));
+		layout.addButton(new SimpleButton(new Command("Get FB Mobile AD ID", getFacebookMobileAdID)));
+		layout.addButton(new SimpleButton(new Command("Test Bad Request", testFailingGraphRequest)));
+		layout.addButton(new SimpleButton(new Command("< Back",showFacebookUI)));
 		layout.attach(buttonContainer);
 		layout.layout();	
 	}
@@ -997,7 +1136,7 @@ public class GoViralExample extends Sprite
 		
 		var txtLabel:TextField=new TextField();
 		txtLabel.defaultTextFormat=new TextFormat("Arial", 42, 0xffffff,true,false,false,null,null,"center");
-		txtLabel.text="This bitmap image was posted by an automated test with the GoViral Native Extension API for Adobe AIR from www.milkmangames.com";
+		txtLabel.text="This bitmap image was posted by an automated test with the GoViral Native Extension API for Adobe AIR from www.milkmanplugins.com";
 		txtLabel.filters=[new DropShadowFilter(2, 45, 0, 1, 4, 4, 1, 4, false, false)];
 
 		txtLabel.width=960;
@@ -1030,7 +1169,7 @@ import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 
 /** Simple Button */
-class Button extends Sprite
+class SimpleButton extends Sprite
 {
 	//
 	// Instance Variables
@@ -1049,8 +1188,8 @@ class Button extends Sprite
 	// Public Methods
 	//
 	
-	/** Create New Button */
-	public function Button(cmd:Command)
+	/** Create New SimpleButton */
+	public function SimpleButton(cmd:Command)
 	{
 		super();
 		this.cmd=cmd;
@@ -1130,7 +1269,7 @@ class ButtonLayout
 		this.buttons=new Array();
 	}
 	
-	public function addButton(btn:Button):uint
+	public function addButton(btn:SimpleButton):uint
 	{
 		return buttons.push(btn);
 	}
@@ -1138,7 +1277,7 @@ class ButtonLayout
 	public function attach(parent:DisplayObjectContainer):void
 	{
 		this.parent=parent;
-		for each(var btn:Button in this.buttons)
+		for each(var btn:SimpleButton in this.buttons)
 		{
 			parent.addChild(btn);
 		}
@@ -1148,7 +1287,7 @@ class ButtonLayout
 	{
 		var btnX:Number=rect.x+padding;
 		var btnY:Number=rect.y;
-		for each( var btn:Button in this.buttons)
+		for each( var btn:SimpleButton in this.buttons)
 		{
 			btn.width=rect.width-(padding*2);
 			btnY+=this.padding;

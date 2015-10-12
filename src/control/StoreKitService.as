@@ -41,14 +41,8 @@ public class StoreKitService extends Sprite
 	/** Status */
 //	private var txtStatus:TextField;
 	
-	/** Buttons */
-//	private var buttonContainer:Sprite;
-	
 	/** Shared Object.  Used in this example to remember what we've bought. */
 	private var sharedObject:SharedObject;
-	
-	/** Showing what you own */
-//	private var txtInventory:TextField;
 	
 	//
 	// Public Methods
@@ -57,9 +51,6 @@ public class StoreKitService extends Sprite
 	/** Create New StoreKitExample */
 	public function StoreKitService() 
 	{		
-//		createUI();
-//		hideUI();
-		
 		log("initializing StoreKit..");	
 		
 		if (!StoreKit.isSupported())
@@ -139,6 +130,20 @@ public class StoreKitService extends Sprite
 	
 	public function purchaseUnlock():void
 	{
+		/*
+		// for this to work, you must have added the value of LEVELPACK_PRODUCT_ID in the iTunes Connect website
+		log("start purchase of non-consumable '"+UNLOCK_ID+"'...");
+		
+		// we won't let you purchase it if its already in your inventory!
+		var inventory:Object=sharedObject.data["inventory"];
+		if (inventory[UNLOCK_ID]!=null)
+		{
+			log("You already have unlocked the app!");
+			return;
+		}
+		
+		StoreKit.storeKit.purchaseProduct(UNLOCK_ID);
+		*/
 		// for this to work, you must have added the value of LEVELPACK_PRODUCT_ID in the iTunes Connect website
 		log("start purchase of non-consumable '"+UNLOCK_ID+"'...");
 		
@@ -202,7 +207,6 @@ public class StoreKitService extends Sprite
 			return;
 		}
 
-//		showFullUI();
 		log("Ready! (hosted content supported?) "+StoreKit.storeKit.isHostedContentAvailable());
 	}
 
@@ -331,8 +335,6 @@ public class StoreKitService extends Sprite
 			hasUnlocked=false;
 		}
 		
-//		txtInventory.text="Has Levelpack? "+hasLevelpack+", Spells Owned: "+numberOfSpells;
-//		log("Has Levelpack? "+hasLevelpack+", Spells Owned: "+numberOfSpells);
 		log("Has hasUnlocked? "+hasUnlocked);
 	}
 	
@@ -340,7 +342,6 @@ public class StoreKitService extends Sprite
 	private function log(msg:String):void
 	{
 		trace("[StoreKitExample] "+msg);
-//		txtStatus.text=msg;
 	}
 	
 	

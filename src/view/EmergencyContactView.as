@@ -155,8 +155,8 @@ package view
 			_signInMC.visible = false;
 				
 			_goViral.getMeFacebook();
-//			_goViral.getFriendsFacebook();
-			_goViral.getFriendsDEPRECATED();
+			_goViral.getFriendsFacebook();
+//			_goViral.getFriendsDEPRECATED();
 			
 			_contactMC.visible = true;
 		}
